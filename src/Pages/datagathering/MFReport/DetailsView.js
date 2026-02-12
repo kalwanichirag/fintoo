@@ -222,26 +222,6 @@ const DetailsView = (props) => {
         }
     };
 
-    const handleQuickConnect = async () => {
-        try {
-            props.setIsLoading(true);
-            const sdkStarted = await props.SmallcaseSDK?.();
-            if (!sdkStarted) {
-                const otpResponse = await props.sendOTP();
-                if (otpResponse) {
-                    props.setCurrView("OTP");
-                }
-            }
-            props.setIsLoading(false);
-        } catch (error) {
-            console.error("Error in quick connect:", error);
-            const otpResponse = await props.sendOTP();
-            if (otpResponse) {
-                props.setCurrView("OTP");
-            }
-            props.setIsLoading(false);
-        }
-    };
 
     useEffect(() => {
         const validateInputs = () => {
@@ -420,15 +400,6 @@ const DetailsView = (props) => {
                             Fetch Holdings
                         </button>
                     </div>
-                    <button
-                        type="button"
-                        onClick={handleQuickConnect}
-                        disabled={props.sendDisabled}
-                        className="tw-bg-transparent tw-border-0 tw-text-xs tw-font-semibold tw-mt-2"
-                        style={{ color: "#042b62", opacity: props.sendDisabled ? 0.5 : 1 }}
-                    >
-                        Quick Connect (Smallcase)
-                    </button>
                 </div>
 
             )}
