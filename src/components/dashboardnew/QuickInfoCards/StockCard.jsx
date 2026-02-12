@@ -426,7 +426,7 @@ const isPlanActive = (expiryDate) => {
   <FiInfo className="tw-text-slate-600 tw-cursor-pointer tw-ml-0.5 tw-mb-0.5" size={12} />
                         </button>
                         <div className="tw-pointer-events-none tw-absolute tw-left-1/2 tw-top-full tw-z-20 tw-mt-2 tw-w-64 -tw-translate-x-1/2 tw-rounded-md tw-bg-slate-800 tw-text-white tw-text-[11px] tw-leading-snug tw-px-3 tw-py-2 tw-opacity-0 tw-transition-opacity tw-duration-150 group-hover:tw-opacity-100 group-focus-within:tw-opacity-100">
-                          If you purchased a new stock, please reconnect your account to see updated values.
+                          Reconnect to view the updated stock values.
                         </div>
                       </div>
                     )}
@@ -479,7 +479,7 @@ const isPlanActive = (expiryDate) => {
 
               </p>
               <div className="tw-flex tw-items-center tw-justify-between">
-                <p className="tw-text-3xl tw-font-bold tw-text-slate-900 tw-mb-0">
+                <p className="tw-text-2xl tw-font-bold tw-text-slate-900 tw-mb-0">
                   ₹{stockSummary.currentValue.toLocaleString("en-IN")}
                 </p>
               </div>

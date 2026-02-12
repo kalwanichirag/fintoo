@@ -147,7 +147,7 @@ export default function NetWorthCard({ member_selected }) {
           <p className="tw-text-xs tw-text-slate-500 tw-mb-1">
             Current Value
           </p>
-          <p className="tw-text-3xl tw-font-bold tw-text-slate-900 tw-mb-0">
+          <p className="tw-text-2xl tw-font-bold tw-text-slate-900 tw-mb-0">
             ₹{networthData?.networth_sum_formatted}
           </p>
 

@@ -135,6 +135,8 @@ export default function MutualFundCard() {
         const formattedData = {
           totalInvested: summaryData?.totalInvested || 0,
           totalCurrentValue: summaryData?.totalCurrentValue || 0,
+          totalGainLoss: summaryData?.totalGainLoss || 0,
+          totalGainLossPercentage: summaryData?.totalGainLossPercentage || 0,
           oneDayReturn: summaryData?.oneDayReturn || 0,
           oneDayReturnPercentage: summaryData?.oneDayReturnPercentage || 0,
           hasFunds: true,
@@ -199,6 +201,8 @@ export default function MutualFundCard() {
       return {
         totalInvested: toNumber(summary?.tinvested_value),
         totalCurrentValue: toNumber(summary?.tcurr_value),
+        totalGainLoss: toNumber(summary?.tgain_loss),
+        totalGainLossPercentage: toNumber(summary?.tabs_return_percentage),
         oneDayReturn: toNumber(summary?.tone_day_return),
         oneDayReturnPercentage: toNumber(summary?.tone_day_return_percentage),
         hasFunds: fundCount > 0,
@@ -430,7 +434,7 @@ const checkPaymentStatus = async () => {
   <FiInfo className="tw-text-slate-600 tw-cursor-pointer tw-ml-0.5 tw-mb-0.5" size={12} />
                       </button>
                       <div className="tw-pointer-events-none tw-absolute tw-left-1/2 tw-top-full tw-z-20 tw-mt-2 tw-w-64 -tw-translate-x-1/2 tw-rounded-md tw-bg-slate-800 tw-text-white tw-text-[11px] tw-leading-snug tw-px-3 tw-py-2 tw-opacity-0 tw-transition-opacity tw-duration-150 group-hover:tw-opacity-100 group-focus-within:tw-opacity-100">
-                        If you started a new MF SIP, please reconnect your account to see updated values.
+                       Reconnect to view the updated mutual fund values.
                       </div>
                     </div>
                   )}
@@ -483,8 +487,14 @@ const checkPaymentStatus = async () => {
           <div className="">
             <p className="tw-text-xs tw-text-slate-500 tw-mb-1">Current Value</p>
             <div className="tw-flex tw-items-baseline tw-space-x-2">
-              <p className="tw-text-3xl tw-font-bold tw-text-slate-900 tw-mb-0">
+              <p className="tw-text-2xl tw-font-bold tw-text-slate-900 tw-mb-0">
                 {indianRupeeFormat(mfPerformance?.totalCurrentValue || 0)}
+              </p>
+              <p
+                className={`tw-text-xs tw-font-semibold tw-mb-1 ${mfPerformance?.totalGainLoss < 0 ? "!tw-text-red-600" : "!tw-text-green-600"
+                  }`}
+              >
+                {`${(mfPerformance?.totalGainLoss || 0) > 0 ? "+ " : (mfPerformance?.totalGainLoss || 0) < 0 ? "- " : ""}${indianRupeeFormat(Math.abs(mfPerformance?.totalGainLoss || 0))} (${Math.abs(mfPerformance?.totalGainLossPercentage || 0).toFixed(1)}%)`}
               </p>
             </div>
           </div>
@@ -505,7 +515,7 @@ const checkPaymentStatus = async () => {
               <p
                 className={`tw-font-semibold  ${mfPerformance?.oneDayReturn < 0 ? "!tw-text-red-600" : "!tw-text-green-600"}`}
               >
-                {`${(mfPerformance?.oneDayReturn || 0) > 0 ? "+ " : (mfPerformance?.oneDayReturn || 0) < 0 ? "- " : ""}${indianRupeeFormat(Math.abs(mfPerformance?.oneDayReturn || 0))} (${(mfPerformance?.oneDayReturnPercentage || 0) < 0 ? "-" : ""}${Math.abs(mfPerformance?.oneDayReturnPercentage || 0).toFixed(1)}%)`}
+                {`${(mfPerformance?.oneDayReturn || 0) > 0 ? "+ " : (mfPerformance?.oneDayReturn || 0) < 0 ? "- " : ""}${indianRupeeFormat(Math.abs(mfPerformance?.oneDayReturn || 0))} (${Math.abs(mfPerformance?.oneDayReturnPercentage || 0).toFixed(1)}%)`}
 
               </p>
             </div>
@@ -522,7 +532,7 @@ const checkPaymentStatus = async () => {
                 <p className="tw-text-sm tw-text-slate-800 tw-mb-0">
                   {lowRatedCount > 0 ? (
                     <span>
-                      {lowRatedCount} fund{lowRatedCount > 1 ? "s are" : "is"} underperforming.
+                      {lowRatedCount} fund{lowRatedCount > 1 ? "s are" : " is"} underperforming.
                      Your portfolio needs urgent attention.
                     </span>
                   ) : (
