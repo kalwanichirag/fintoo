@@ -1028,25 +1028,34 @@ const handleSuccess = () => {
         }
     }, [location]);
 
-    const SmallcaseSDK = async () => {
-        let existingMember = allMembers.find(member => member.id === selectedMember.id);
+    const fallbackToOtpFlow = async () => {
+        setShowGateway(false);
+        const response = await sendOTP();
+        if (response) {
+            setCurrView("OTP");
+        }
+    };
 
+    const SmallcaseSDK = async () => {
+        let existingMember = allMembers.find((member) => member.id === selectedMember.id);
         let panIsSame = existingMember && existingMember.pan === selectedMember.pan;
         let mobileIsSame = existingMember && existingMember.mobile === selectedMember.mobile;
+
         if (!panIsSame || !mobileIsSame) {
             dispatch({ type: "SET_PAR_PAN_MOBILE_PREFILLED", payload: false });
         }
+
         const mobileErrors = findMobileErrors();
         const panErrors = findPANErrors();
-        if (!panEditable && selectedMember.pan != "" && selectedMember.pan != null) {
+        if (!panEditable && selectedMember.pan !== "" && selectedMember.pan !== null) {
             let checkenterPan = await checkenterpanexists();
-            if (checkenterPan != true) {
+            if (checkenterPan !== true) {
                 panErrors.userPan = checkenterPan;
             }
         }
+
         if (
-            (Object.keys(mobileErrors).length > 0 ||
-                Object.keys(panErrors).length > 0) &&
+            (Object.keys(mobileErrors).length > 0 || Object.keys(panErrors).length > 0) &&
             (mobileErrors.userMobile !== "" || panErrors.userPan !== "")
         ) {
             setErrors({ ...mobileErrors, ...panErrors });
@@ -1054,18 +1063,22 @@ const handleSuccess = () => {
         }
 
         let jwtTok = await getJwtToken();
-        if (jwtTok.status_code === 200) {
-            setSmallcaseAuthToken(jwtTok.data.token)
+        if (jwtTok?.status_code === 200) {
+            setSmallcaseAuthToken(jwtTok.data.token);
             let trxnIdData = await getTransactionId(jwtTok.data.token);
-            if (trxnIdData.status_code === 200) {
-                let trxnId = trxnIdData.data.transactionId;
+            if (trxnIdData?.status_code === 200) {
+                let trxnId = trxnIdData?.data?.transactionId || trxnIdData?.data?.data?.transactionId;
+                if (!trxnId) {
+                    return false;
+                }
                 setItemLocal("trxnId", trxnId);
                 setSmallcaseTrxnId(trxnId);
-                setShowGateway(true)
+                setShowGateway(true);
+                return true;
             }
-
         }
-    }
+        return false;
+    };
 
     return (
         <div>
@@ -1077,7 +1090,7 @@ const handleSuccess = () => {
                     modalData={{ mfAmount: mfAmount }}
                     isDashboard={true}
                     handleClose={() => {
-                        setShowSuccessPopup(false); props.setOpenModalByName(""); setCurrView('INITIAL');
+                        setShowSuccessPopup(false); props.setOpenModalByName(""); setCurrView('INITIAL'); setShowGateway(false);
                         props.fetchReportsData ? props.fetchReportsData() : null;
                     }}
                 /> :
@@ -1107,7 +1120,7 @@ const handleSuccess = () => {
                                                 onClick={() => {
                                                     setErrors({});
                                                     setSendDisabled(true);
-                                                    setShowSuccessPopup(false); props.setOpenModalByName(""); setCurrView('INITIAL');
+                                                    setShowSuccessPopup(false); props.setOpenModalByName(""); setCurrView('INITIAL'); setShowGateway(false);
                                                     props.CloseMfModal();
                                                 }}
                                                 style={{ cursor: "pointer", right: 0 }}
@@ -1201,6 +1214,9 @@ const handleSuccess = () => {
                     parSnippet={false}
                     portfolio={false}
                     dg={false}
+                    onError={async () => {
+                        await fallbackToOtpFlow();
+                    }}
                 />
             )}
         </div>

@@ -222,17 +222,26 @@ const DetailsView = (props) => {
         }
     };
 
-    const handleSmallcaseSDk = async () => {
+    const handleQuickConnect = async () => {
         try {
             props.setIsLoading(true);
-            const response = await props.SmallcaseSDK();
+            const sdkStarted = await props.SmallcaseSDK?.();
+            if (!sdkStarted) {
+                const otpResponse = await props.sendOTP();
+                if (otpResponse) {
+                    props.setCurrView("OTP");
+                }
+            }
             props.setIsLoading(false);
         } catch (error) {
-            console.error('Error sending OTP:', error);
+            console.error("Error in quick connect:", error);
+            const otpResponse = await props.sendOTP();
+            if (otpResponse) {
+                props.setCurrView("OTP");
+            }
+            props.setIsLoading(false);
         }
-    }
-
-
+    };
 
     useEffect(() => {
         const validateInputs = () => {
@@ -407,10 +416,19 @@ const DetailsView = (props) => {
                     </form>
 
                     <div className={`mt-5 ${props.sendDisabled ? Styles.continueBtnsDisable : Styles.continueBtns}`}>
-                        <button onClick={handleSmallcaseSDk} className="custom-background-color">
+                        <button onClick={handleSendOTP} className="custom-background-color">
                             Fetch Holdings
                         </button>
                     </div>
+                    <button
+                        type="button"
+                        onClick={handleQuickConnect}
+                        disabled={props.sendDisabled}
+                        className="tw-bg-transparent tw-border-0 tw-text-xs tw-font-semibold tw-mt-2"
+                        style={{ color: "#042b62", opacity: props.sendDisabled ? 0.5 : 1 }}
+                    >
+                        Quick Connect (Smallcase)
+                    </button>
                 </div>
 
             )}

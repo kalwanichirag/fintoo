@@ -130,6 +130,9 @@ const SmallcaseGateway = (
             console.log("Transaction success:", response);
         } catch (err) {
             console.error("Transaction failed:", err.message || err);
+            if (props.onError) {
+                props.onError(err);
+            }
         }
     };
 
