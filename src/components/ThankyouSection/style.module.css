@@ -1,0 +1,104 @@
+.Thankyou-Section {
+  width: 100%;
+  height: 100%;
+  background-color: #232323e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999999;
+}
+
+.ThanksBox {
+  background-color: #ffff;
+  margin: 5rem;
+  width: 40%;
+  border-radius: 12px;
+  height: max-content;
+  text-align: center;
+  padding: 3rem 1.6rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.ThankyouText {
+  color: #042b62;
+  margin: 0px 0px 0px 0px;
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+.ThankyouTextInline {
+  color: #042b62;
+  margin: 0px 0px 0px 0px;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.ThanksubText {
+  color: #000000;
+  font-size: 1.6rem;
+  margin: 05px 0px 05px 0px;
+}
+
+.ThanksubTextInkine {
+  color: #000000;
+  font-size: 1.3rem;
+  margin: 05px 0px 05px 0px;
+}
+
+.ThankMsg {
+  margin-top: 2rem;
+  color: #000000;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 768px) {
+  .ThanksBox {
+    width: 100%;
+    margin: 1rem;
+  }
+
+  .ThankyouText {
+    font-size: 2rem;
+    margin-top: 2rem;
+    font-weight: 500;
+  }
+
+  .ThanksubText {
+    font-size: 1.2rem;
+  }
+
+  .ThankMsg {
+    font-size: 1.2rem;
+  }
+
+  .ThankyouTextInline {
+    font-size: 1.6rem;
+  }
+
+  .ThanksubTextInkine {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .ThanksBox {
+    width: 100%;
+  }
+}

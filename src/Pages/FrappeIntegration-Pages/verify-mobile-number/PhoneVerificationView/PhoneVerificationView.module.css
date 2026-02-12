@@ -1,0 +1,279 @@
+/* VerifyMobile.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.heading {
+    font-size: 1.125rem;
+    /* text-lg */
+    font-weight: 500;
+    /* font-medium */
+    color: #1f2937;
+    /* Assuming text-textColor maps to gray-800 */
+    margin-top: 1rem;
+}
+
+.formWrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+@media (min-width: 1280px) {
+    .formWrapper {
+        width: 60%;
+    }
+}
+
+.label {
+    display: block;
+    font-size: 0.875rem;
+    /* text-sm */
+    color: #1f2937;
+    /* text-textColor */
+    margin-bottom: 0.5rem;
+}
+
+.errorText {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #ef4444;
+    /* text-red-500 */
+}
+
+.button {
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.75rem 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button2 {
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    /* padding: 0.75rem 0; */
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buttonEnabled {
+    background-color: #1d4ed8;
+    /* bg-primaryBG */
+    color: white;
+}
+
+.buttonDisabled {
+    background-color: #d1d5db;
+    /* bg-disabledColor */
+    color: black;
+    pointer-events: none;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    /* text-gray-500 */
+}
+
+.logout {
+    margin-left: 0.5rem;
+    background-color: #1d4ed8;
+    color: white;
+    /* text-primaryBG */
+    font-weight: 600;
+}
+
+/* VerifyOTP.module.css */
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.heading {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    /* assuming text-textColor */
+    margin-top: 1rem;
+}
+
+.instruction {
+    font-size: 1rem;
+    color: #4B5675;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.phoneText {
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: black;
+    display: inline-flex;
+}
+
+.editLink {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    /* text-primaryBG */
+    padding-left: 0.5rem;
+    cursor: pointer;
+}
+
+.formWrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+@media (min-width: 1280px) {
+    .formWrapper {
+        width: 60%;
+    }
+}
+
+.errorText {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #ef4444;
+}
+
+.resendWrapper {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+    color: #134994;
+}
+
+.resendTimer {
+    font-size: 1rem;
+    text-align: center;
+    color: #4B5675;
+    font-weight: 400;
+}
+
+.resendLink {
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.resendActive {
+    color: #134994;
+}
+
+.resendDisabled {
+    color: #9ca3af;
+    /* Tailwind gray-400 */
+}
+
+.confirmWrapper {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.button {
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.75rem 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buttonEnabled {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.buttonDisabled {
+    background-color: #d1d5db;
+    color: black;
+    pointer-events: none;
+}
+
+/* MobileRegistered.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heading {
+    font-size: 1.125rem;
+    /* text-lg */
+    font-weight: 500;
+    /* font-medium */
+    color: #1f2937;
+    /* assuming text-textColor is gray-800 */
+    margin-top: 1rem;
+}
+
+.wrapper {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.message {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    font-size: 1rem;
+    text-align: center;
+    color: #4B5675;
+}
+
+.button {
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.75rem 0;
+    margin-top: 0.75rem;
+    background-color: #134994;
+    /* bg-primaryBG */
+    color: white;
+    border-radius: 0.5rem;
+    outline: 0;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* PhoneVerification.module.css */
+
+.screenCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+
+.card {
+    width: 100%;
+    padding-top: 2.5rem;
+    /* py-10 */
+    padding-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    /* box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03); */
+    /* background-color: white; */
+    /* border-radius: 0.75rem; */
+    /* border: 1px solid #F1F1F4; */
+}
+
+/* @media (min-width: 1280px) {
+    .card {
+        width: 30%;
+    }
+} */

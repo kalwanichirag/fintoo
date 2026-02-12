@@ -1,0 +1,94 @@
+.longDropdown {
+    position: relative;
+}
+.longDropdown .fixedHeightResults {
+    max-height: 40vh;
+    overflow-x: auto;
+    padding: 0.5rem;
+   /* Handle */
+   /* Handle on hover */
+}
+.longDropdown .fixedHeightResults::-webkit-scrollbar {
+    width: 5px;
+}
+.longDropdown .fixedHeightResults::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+.longDropdown .fixedHeightResults::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+}
+.longDropdown .fixedHeightResults::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
+}
+.longDropdown .longDropdownBox {
+    border: 1px solid #d1d1d1;
+    border-radius: 15px;
+    position: absolute;
+    top: 2.2rem;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+}
+.longDropdown .longDropdownBox .dFundInput {
+    border: 1px solid #d1d1d1;
+    border-radius: 20px;
+    padding: 0.5rem;
+}
+.longDropdown .longDropdownBox .tblFnBx {
+    border-bottom: 1px solid #d1d1d1;
+}
+.longDropdown .longDropdownBox .tblFnBx:first-child {
+    padding-top: 0px !important;
+}
+.longDropdown .longDropdownBox .tblFnBx:last-child {
+    border-bottom: 0px;
+}
+.longDropdown .fnAddFundBtn {
+    /* width: 10rem; */
+}
+.longDropdown .fnAddFundBtn button {
+    margin-left: auto;
+    display: block;
+}
+
+.longDropdown .fnAmcName .fnAmcName1 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.longDropdown .fnAmcName .fnAmcName2 {
+    font-size: 0.8rem;
+    padding-top: 0.2rem;
+}
+.longDropdown .fnAmcName .fnAmcName2 div {
+    border-right: 1px solid #d1d1d1;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    line-height: 0.8rem;
+}
+.longDropdown .fnAmcName .fnAmcName2 div:first-child {
+    padding-left: 0;
+}
+.longDropdown .fnAmcName .fnAmcName-2 div:last-child {
+    padding-right: 0;
+    border-right: 0;
+}
+.longDropdown .amcLogoBx {
+    width: 50px;
+}
+.longDropdown .amcLogoBx img {
+    width: 35px;
+    border : 1px;
+    border-radius: 50%;
+}
+.longDropdownText {
+    font-size: 1.2rem;
+}
+.myDropdownArrow {
+    color: #042b62;
+    transform: rotate(-90deg);
+}

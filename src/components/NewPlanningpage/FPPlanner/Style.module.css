@@ -1,0 +1,37 @@
+.FPPlanner {
+    background-color: #F1F5F9;
+    padding: 4rem 0;
+}
+
+.FPPlanner .FPPlannertitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    width: 60%;
+    margin: auto;
+    
+}
+
+.FPPlannerinfo {
+    color: #4B5675;
+    text-align: center;
+    width: 64%;
+    margin: auto;
+    font-size: 1.4rem;
+}
+
+/* Responsive  */
+
+@media only screen and (max-width: 800px) {
+    .FPPlanner {
+        padding: 4rem 2rem;
+    }
+    .FPPlanner .FPPlannertitle {
+        font-size: 1.4rem;
+        width: 100%;
+    }
+
+    .FPPlannerinfo {
+        width: 100%;
+        font-size: 1rem;
+    }
+}

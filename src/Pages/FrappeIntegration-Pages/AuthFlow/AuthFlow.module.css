@@ -1,0 +1,162 @@
+/* AuthView.module.css */
+
+.container {
+  width: 95%;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    width: 80%;
+  }
+}
+
+.box {
+  width: 100%;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 0.375rem;
+}
+
+@media (min-width: 1024px) {
+  .box {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+.heading {
+  font-size: 1.7rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1f2937;
+}
+
+.logo {
+  margin-right: 0.25rem;
+  width: 100px;
+}
+
+.orSeparator {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.orLine {
+  flex-grow: 1;
+  border-top: 1px solid #f1f1f4;
+}
+
+.orText {
+  margin: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #78829d;
+}
+
+.inputLabel {
+  display: block;
+  font-weight: 400;
+  color: #252f4a;
+  padding-bottom: 0.25rem;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  border: 1px solid #d1d5db;
+  background-color: #fcfcfc;
+  border-radius: 0.375rem;
+  outline: none;
+}
+
+.button {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 0.375rem;
+  text-align: center;
+}
+
+.buttonActive {
+  background-color: #134994;
+  color: white;
+}
+
+.buttonDisabled {
+  background-color: #f1f1f4;
+  color: black;
+  pointer-events: none;
+}
+
+.tnc {
+  margin-top: 1rem;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.tncLink {
+  color: #134994;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+ .tncLink a {
+  color: #134994;
+  cursor: pointer;
+}
+
+.editIcon {
+  position: absolute;
+  right: 0.75rem;
+  top: 14%;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.resendBox {
+  margin-top: 0.5rem;
+  text-align: end;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.resendText {
+  color: #134994;
+  cursor: pointer;
+}
+
+.resendDisabled {
+  color: #9ca3af;
+  cursor: default;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.viewSpacing {
+  margin-top: 1.5rem;
+}
+
+.relativeWrap {
+  position: relative;
+  display: block;
+}
+
+.otpBox {
+  margin-top: 1rem;
+}
+
+.errorText {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #ef4444;
+}

@@ -1,0 +1,135 @@
+.ProfileBankBox {
+    display: flex;
+    width: 100%;
+}
+
+.ProfileBankDetails {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ProfileBankDetails .BankName {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.ProfileBankDetails .BankStatus {
+    color: rgba(0, 0, 0, 0.60);
+}
+
+.ProfileBankDetails .AddMandate a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.ProfileBankDetails .AddMandate {
+    background-color: #042b62;
+    color: rgb(255, 255, 255);
+    outline: 0px;
+    border: 0px;
+    border-radius: 20px;
+    padding: 0.3rem 1.2rem;
+    float: right;
+    font-weight: 500;
+}
+
+.ProfileBankDetails .MandateList a {
+    color: #042b62;
+    text-decoration: none;
+}
+
+.ProfileBankDetails .MandateList {
+    background-color: transparent;
+    color: #042b62 !important;
+    outline: 0px;
+    border: 1px solid #042b62;
+    border-radius: 20px;
+    padding: 0.3rem 1.2rem;
+    float: right;
+    font-weight: 500;
+}
+
+.ProfileBankDetails .text1 {
+    color: rgba(0, 0, 0, 0.60);
+    font-size: .9rem;
+}
+
+.ProfileBankDetails .text2 {
+    color: #042b62;
+    font-weight: 500;
+    font-size: 1rem;
+    padding-top: .3rem;
+}
+
+.ProfileBankBox .noteSection {
+    margin-top: 2rem;
+    margin-left: 3.5rem;
+}
+
+.ProfileBankBox .noteSection span {
+    color: rgba(0, 0, 0, 0.60);
+    font-weight: bold;
+}
+
+.ProfileBankSpace {
+    margin-left: 3.5rem;
+}
+
+/* Mandate Table */
+.MandateBox {
+    border: rgba(0, 0, 0, 0.10) solid;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.MandateBox td {
+    padding-bottom: 0rem !important;
+}
+
+.mandateList {
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+@media only screen and (max-width: 768px) {
+    .ProfileBankSpace {
+        margin-left: 0rem;
+    }
+
+    .ProfileBankBox .noteSection {
+        margin-left: 0;
+    }
+
+    .ProfileBankDetails .BankName {
+        font-size: .9rem;
+        font-weight: 500;
+    }
+
+    .ProfileBankDetails .BankStatus {
+        font-size: .8rem;
+    }
+
+    .ProfileBankSpace {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 1rem;
+    }
+
+    .ProfileBankDetails .text1 {
+        font-size: .8rem;
+    }
+
+    .ProfileBankDetails .text2 {
+        font-size: .9rem;
+    }
+}

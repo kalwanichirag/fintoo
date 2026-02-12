@@ -1,0 +1,149 @@
+.WhatExpect .title {
+  margin: 5rem 0;
+  margin-bottom: 2rem;
+  font-size: 2.375rem;
+  font-weight: bold;
+  color: #042b62;
+  text-align: center;
+}
+
+.WhatExpectbox {
+  border-radius: 15px;
+  background: #042b62;
+  filter: blur(0px);
+  width: 100%;
+  width: 100%;
+  margin: auto;
+  /* height: 100%; */
+  padding: 2.4rem;
+  display: grid;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  height: 100%;
+}
+
+.expectBoxwhite {
+  background-color: #fff;
+  border-radius: 20px;
+  width: 100%;
+}
+.expectBoxwhite:hover {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  /* cursor: pointer; */
+}
+.expectBoxwhite .expectDesc {
+  padding: 2rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  /* padding: 0 3rem; */
+  width: 500px;
+  /* padding-bottom: 2rem; */
+}
+
+.expecttitle {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.1rem;
+}
+
+.expecttitleinfo {
+  color: #5b5b5b;
+  padding-top: 0.7rem;
+}
+
+.expectBoxwhite1 {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-row-end: 3;
+  grid-column-end: 2;
+}
+
+.expectBoxwhite2 {
+  grid-row-start: 1;
+  grid-column-start: 2;
+  grid-row-end: 2;
+  grid-column-end: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expectBoxwhite3 {
+  grid-row-start: 2;
+  grid-column-start: 2;
+  grid-row-end: 3;
+  grid-column-end: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expectBoxwhite4 {
+  grid-row-start: 3;
+  grid-column-start: 1;
+  grid-row-end: 4;
+  grid-column-end: 1;
+}
+
+.expectBoxwhite5 {
+  grid-row-start: 3;
+  grid-column-start: 2;
+  grid-row-end: 4;
+  grid-column-end: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.expectBoxwhite1 img {
+  width: 100%;
+}
+@media only screen and (max-width: 600px) {
+  .WhatExpect .title {
+    font-size: 2rem;
+  }
+  .WhatExpectbox {
+    display: block;
+    padding: 1.4rem;
+  }
+  .expecttitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  .expectBoxwhite {
+    margin: 1.5rem 0;
+    background-image: none !important;
+    border-radius: 12.23px;
+  }
+  .expectBoxwhite .expectDesc {
+    width: 100% !important;
+    padding: 1rem;
+  }
+  .expectBoxwhite1 img {
+    width: 310px !important;
+  }
+  .expectBoxwhite4 .expectDesc {
+    padding-top: 2rem !important;
+  }
+  .expectBoxwhite img {
+    width: 110px;
+  }
+  .expectBoxwhite4{
+    display: flex;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 1300px) {
+  .expectBoxwhite4{
+    background-size: 140px !important;
+  }
+  .expectBoxwhite2 .expectDesc{
+    width: 250px !important;
+  }
+  .expectBoxwhite3 .expectDesc{
+    width: 250px !important;
+  }
+  .expectBoxwhite5 .expectDesc{
+    width: 250px !important;
+  }
+}

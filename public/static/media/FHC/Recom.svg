@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="259" height="265" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-2 {
+        font-family: Poppins-SemiBold, Poppins;
+        font-size: 57.46px;
+        font-weight: 600;
+      }
+
+      .cls-3, .cls-2 {
+        fill: #042b62;
+      }
+
+      .cls-4 {
+        fill: none;
+        stroke: #042b62;
+        stroke-miterlimit: 10;
+        stroke-width: 6px;
+      }
+    </style>
+  </defs>
+  <rect class="cls-3" x="356.06" y="272.04" width="601.12" height="179.68" rx="87.55" ry="87.55" transform="translate(-78.03 511.54) rotate(-40.37)"/>
+  <rect class="cls-4" x="153.18" y="138.45" width="601.12" height="179.68" rx="87.55" ry="87.55" transform="translate(125.45 -159.29) rotate(23.03)"/>
+  <rect class="cls-4" x="184.9" y="571.77" width="601.12" height="179.68" rx="87.55" ry="87.55" transform="translate(297.47 -137.18) rotate(23.03)"/>
+  <rect class="cls-3" x="275.01" y="806.34" width="601.2" height="178.05" rx="86.76" ry="86.76" transform="translate(-197.37 163.58) rotate(-13.83)"/>
+  <text class="cls-2" transform="translate(353.74 203.05) rotate(23.03)"><tspan x="0" y="0">Ideal</tspan></text>
+  <text class="cls-2" transform="translate(398.89 647.37) rotate(23.03)"><tspan x="0" y="0">asset</tspan></text>
+  <text class="cls-1" transform="translate(604.15 445.37) rotate(-40.37)"><tspan x="0" y="0">Funds</tspan></text>
+  <text class="cls-1" transform="translate(333.03 976.09) rotate(-13.83)"><tspan x="0" y="0">Recommendation</tspan></text>
+</svg>

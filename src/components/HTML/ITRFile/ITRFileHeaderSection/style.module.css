@@ -1,0 +1,483 @@
+.header-section {
+  position: relative;
+  padding: 1rem;
+  /* background-image: url(https://www.fintoo.in/wealthmanagement/wp-content/uploads/2022/09/nasa-45066-unsplash.jpg); */
+  background-size: cover;
+ 
+}
+.header-section-image-container img {
+  width: 600px;
+}
+.LogoHeader{
+  width: 200px;
+  margin-top: 3rem;
+}
+.header-section-background-overlay {
+  background-color: #ffffff;
+  opacity: 0.94;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.padding-class .section-title {
+  color: #060606;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 6.5px;
+}
+.header-section-title {
+  font-size: 4.7rem !important;
+  font-weight: 700 !important;
+}
+.DiffText {
+  color: #042b62;
+}
+.padding-class .section-sub-title {
+  font-size: 2.7rem;
+  font-weight: 500;
+  line-height: 3.6rem;
+}
+.header-section {
+  min-height: 60vh;
+  padding: 0rem;
+}
+.header-section-container {
+  background-image: url(./assets/UI_LIVE_ITR_Landing.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  min-height: 80vh;
+  width: 100vw;
+}
+.HeaderContent {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 14rem;
+}
+.HeaderContent1{
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 6rem;
+}
+.HeaderTitleSection {
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+.HeadersubTitleSection {
+  font-size: 4.2rem;
+  font-weight: 600;
+  padding-bottom: 0;
+}
+.HeadersubtextTitleSection {
+  font-weight: 700;
+  /* margin-top: 1rem; */
+  /* line-height: 2rem; */
+}
+.ITRFilingBtn {
+  margin-top: 3rem;
+}
+.ITRFilingBtn button {
+  padding: 1.3rem 4rem;
+  background-color: #042b62;
+  text-transform: uppercase;
+  border: none;
+  /* width: 100%; */
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 3px;
+  transition: all 0.3s;
+  margin-top: 2rem;
+}
+.ITRFilingBtn button:hover {
+  color: #042b62;
+  background-color: rgba(44, 147, 245, 0);
+  border: 2px solid #042b62;
+  transition: all 0.3s;
+}
+.header-section-background-overlay {
+  background-color: #ffffff;
+  opacity: 0.75;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+}
+.header-section-content {
+  width: 49%;
+}
+.header-section-content .sectionsubText {
+  color: #060606;
+  font-size: 1.1rem;
+}
+.liveItrLink {
+  background-color: #eef5ff;
+  padding: 5px;
+  border: 0.6px solid #042b62;
+  outline: none;
+  border-radius: 25px;
+  width: max-content;
+  font-weight: 600;
+  color: #093065;
+  vertical-align: middle;
+}
+.liveItrLink:hover {
+  color: #093065 !important;
+}
+.liveItrLink .liveItrLinkicon {
+  color: #fff;
+  background-color: #042b62;
+  padding: 7px;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 50%;
+  margin: 0px 3px;
+  vertical-align: middle;
+}
+.ItrFiletxt {
+  margin: 1rem 0;
+  display: grid;
+}
+.ItrFiletxt .text {
+  padding: 5px 0;
+  font-size: 1.2rem;
+  color: #b2b3be;
+  vertical-align: middle;
+  display: inline-block;
+}
+.ItrFiletxt .text svg {
+  color: #042b62;
+  margin: 0 4px;
+  font-weight: 700;
+}
+.mouseicon {
+  width: 25px;
+  height: 45px;
+  border-radius: 15px;
+  position: relative;
+  border: 2px solid #000000;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 5rem;
+}
+.mouseicon span {
+  width: 3px;
+  height: 8px;
+  margin: 2px auto 0;
+  display: block;
+  background: #000000;
+  border-radius: 5px;
+  -webkit-animation: 1.2s ease infinite wheel-up-down;
+  animation: 1.2s ease infinite wheel-up-down;
+}
+@-webkit-keyframes wheel-up-down {
+  0% {
+    margin-top: 2px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    margin-top: 20px;
+    opacity: 0;
+  }
+}
+
+@keyframes wheel-up-down {
+  0% {
+    margin-top: 2px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    margin-top: 20px;
+    opacity: 0;
+  }
+}
+/* / ---------------------------------------------------------------animations------------------------------------------------------------- / */
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 300px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 100vh, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animated {
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-fill-mode: both;
+}
+
+.animatedFadeInUp {
+  opacity: 0;
+}
+
+.fadeInUp {
+  opacity: 0;
+  animation-name: fadeInUp;
+  -webkit-animation-name: fadeInUp;
+}
+
+/* / -----------------------------------------------------------------------bounceInUp-------------------------------------------------------------- / */
+.animatedBouncInUp {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-30px);
+  }
+
+  80% {
+    -webkit-transform: translateY(10px);
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+
+@-moz-keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    -moz-transform: translateY(2000px);
+  }
+
+  60% {
+    opacity: 1;
+    -moz-transform: translateY(-30px);
+  }
+
+  80% {
+    -moz-transform: translateY(10px);
+  }
+
+  100% {
+    -moz-transform: translateY(0);
+  }
+}
+
+@-ms-keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    -ms-transform: translateY(2000px);
+  }
+
+  60% {
+    opacity: 1;
+    -ms-transform: translateY(-30px);
+  }
+
+  80% {
+    -ms-transform: translateY(10px);
+  }
+
+  100% {
+    -ms-transform: translateY(0);
+  }
+}
+
+@-o-keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    -o-transform: translateY(2000px);
+  }
+
+  60% {
+    opacity: 1;
+    -o-transform: translateY(-30px);
+  }
+
+  80% {
+    -o-transform: translateY(10px);
+  }
+
+  100% {
+    -o-transform: translateY(0);
+  }
+}
+
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(2000px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+
+  80% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.bounceInUp {
+  -webkit-animation-name: bounceInUp;
+  -moz-animation-name: bounceInUp;
+  -ms-animation-name: bounceInUp;
+  -o-animation-name: bounceInUp;
+  animation-name: bounceInUp;
+}
+@media only screen and (max-width: 768px) {
+  .header-section-title {
+    font-size: 2rem !important;
+    line-height: 3rem;
+  }
+  .liveItrLink {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .ItrFiletxt {
+    text-align: left;
+  }
+  .HeaderTop{
+    top: -35px;
+  }
+  .ItrFiletxt .text {
+    font-size: 1rem;
+  }
+  .header-section-container {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+    background: none;
+    background-image: none;
+  }
+  .header-section-image-container img {
+    width: 343px;
+  }
+  .header-section-content {
+    width: 100%;
+    margin-top: 0rem;
+    /* display: grid; */
+    /* padding: 1rem; */
+  }
+  .padding-class .section-sub-title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 2.6rem;
+  }
+  .header-section-content .sectionsubText {
+    color: #060606;
+    font-size: 1rem;
+    text-align: center;
+  }
+  .header-section-content-btn {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    fill: #ffffff;
+    color: #ffffff;
+    background-color: #042b62;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #fcfcfc;
+    border-radius: 30px;
+    transition: all 0.3s;
+    padding: 1rem 3rem;
+    text-align: center;
+  }
+  .HeaderContent {
+    top: 9rem;
+  }
+  .HeaderContent1{
+    top: 9rem;
+  }
+  .LogoHeader{
+    width: 180px;
+  }
+  .HeaderTitleSection {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .HeadersubTitleSection{
+    font-size: 2rem;
+  }
+  .ITRFilingBtnMobile{
+    position: fixed;
+    bottom: 0px;
+    width: 100vw;
+    background: #fff;
+    padding: 10px;
+    z-index: 100000;
+  }
+  .ITRFilingBtnMobile button{
+    padding: 0.8rem 3rem;
+    background-color: #042b62;
+    text-transform: uppercase;
+    border: none;
+    /* width: 100%; */
+    outline: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 3px;
+    transition: all 0.3s;
+    width: 100%;
+    /* margin: 1rem; */
+  }
+  .mouseicon{
+    margin-top: 6rem;
+  }
+}
+@media only screen and (max-width: 850px) {
+  .header-section-container {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column-reverse;
+    min-height: 40vh;
+    margin-bottom: 6rem;
+  }
+  .header-section{
+    min-height: 60vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .liveItrLink {
+    padding: 10px 15px;
+  }
+  /* .header-section {
+    padding: 4rem 4rem 0rem 4rem;
+  } */
+}

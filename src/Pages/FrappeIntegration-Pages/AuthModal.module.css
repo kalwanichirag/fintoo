@@ -1,0 +1,87 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContainer {
+    position: relative;
+    min-height: 450px;
+    display: flex;
+    width: 95%;
+    height: 70%;
+    background-color: #042b62;
+    border-radius: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .modalContainer {
+        width: 60%;
+        height: 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .modalContainer {
+        width: 30%;
+        height: 80%;
+    }
+}
+
+.rightPanel {
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 1280px) {
+    .rightPanel {
+        width: 100%;
+    }
+}
+
+.whiteCard {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.75rem;
+}
+
+.verificationWrapper {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Match backdrop color */
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.verificationContainer {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    background-color: white;
+    border-radius: 0.75rem;
+    border: 1px solid #F1F1F4;
+    width: 95%;
+}
+
+@media (min-width: 768px) {
+    .verificationContainer {
+        width: 45%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .verificationContainer {
+        width: 30%;
+    }
+}

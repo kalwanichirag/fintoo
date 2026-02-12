@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="233px" height="117px" viewBox="0 0 233 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group 21 Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="233" height="117"></rect>
+        <rect id="path-3" x="0" y="0" width="233" height="1241"></rect>
+    </defs>
+    <g id="Mobile-screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="hamburger" transform="translate(0.000000, -76.000000)">
+            <g id="Group-21-Copy" transform="translate(0.000000, 76.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Mask"></g>
+                <g mask="url(#mask-2)">
+                    <g transform="translate(-287.000000, 0.000000)">
+                        <g transform="translate(287.000000, 0.000000)">
+                            <mask id="mask-4" fill="white">
+                                <use xlink:href="#path-3"></use>
+                            </mask>
+                            <use id="Mask" fill="#65D48E" opacity="0.0955403646" xlink:href="#path-3"></use>
+                            <g opacity="0.356770833" mask="url(#mask-4)">
+                                <g transform="translate(-74.000000, 50.000000)">
+                                    <path d="M1.64382757,69.3670534 C-3.11873579,42.3293781 2.46741848,26.5758499 18.4022904,22.1064688 C42.3045982,15.4023971 51.252057,40.1661822 79.5637275,41.1456927 C107.875398,42.1252031 150.830449,37.8332673 174.451894,27.3166607 C198.07334,16.800054 252.541774,-13.4480448 296.547368,7 C325.884431,20.6320299 347.035308,41.4941181 360,69.5862645 L4.547807,71 L1.64382757,69.3670534 Z" id="Path-7" fill="#67DA91" opacity="0.374162946"></path>
+                                    <path d="M3.91875285,72 C-0.727617194,51.150206 12.2494312,35.2142612 42.849898,24.1921656 C88.7505982,7.6590221 150.130723,45.3271108 182.980957,45.8693261 C215.831192,46.4115414 261,19 274.399999,7 C287.799999,-5 330.141007,3.55861528 346,17.7599999 C356.572662,27.2275897 363.572662,44.4769966 367,69.5082206 L3.91875285,72 Z" id="Path-3" fill="#63DE90" opacity="0.376929874"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

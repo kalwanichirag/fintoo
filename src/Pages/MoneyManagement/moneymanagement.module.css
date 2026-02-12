@@ -1,0 +1,2145 @@
+.trackbankaccount {
+  margin: 3rem;
+}
+
+.LeftSection .topSection {
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #042b62;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.trackbankaccount .AccountHolderName {
+  padding-bottom: 1.4rem;
+  color: #042b62;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.LeftSection .stepperInfo {
+  background-color: #f1f1f2;
+  padding: 1rem 4rem;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.trackbankaccount .LeftSection .stepperInfo .Stepper .Stepperlist:first-child {
+  padding-top: 0rem;
+}
+
+.textactive {
+  color: #042b62;
+}
+
+.trackbankaccount .SelectBankslist {
+  height: 100%;
+}
+
+.trackbankaccount .title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.SelectBankslist .decscription {
+  color: #042b62;
+  font-size: 400;
+  padding-top: 0.3rem;
+}
+
+.BankSearchBar input {
+  margin-top: 1rem;
+  width: 100%;
+  border: 0;
+  padding: 0.6rem;
+  border-radius: 10px;
+}
+
+.BankSearchBar input::placeholder {
+  text-align: center;
+  background-image: url("./TrackBankAccount/tabler_search.svg");
+  background-size: 2%;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+
+.banklistbox {
+  background: #fff;
+  border-radius: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+}
+
+.banklistbox img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.banklistbox .BankName {
+  color: #042b62;
+  font-weight: 500;
+}
+
+.trackbankaccount .popularBanks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1.5rem;
+}
+
+.trackbankaccount .otherBanks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1.5rem;
+}
+
+.otherBanks .banklistbox {
+  justify-content: space-between;
+}
+
+.otherBanks .bankLogo img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.trackbankaccount .otherBanks .banklistbox {
+  padding: 0.8rem;
+}
+
+.trackbankaccount .otherBanks .banklistbox .BankName {
+  font-size: 1.1rem;
+}
+
+.otherBanks .NextArrow img {
+  width: 10px;
+  transform: rotate(180deg);
+  margin-right: 7px;
+}
+
+.trackbankaccount .phoneNumber {
+  color: #042b62;
+  font-weight: 500;
+}
+
+.trackbankaccount .OtpForm {
+  margin-left: 4rem;
+}
+
+.trackbankaccount .Datatitle {
+  color: #042b62;
+  font-weight: 600;
+}
+
+.trackbankaccount .notfoundnumber {
+  color: red;
+  padding-top: 1rem;
+}
+
+.trackbankaccount .notfoundnumber .mobileNUmber {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.trackbankaccount .DatainfoIcon {
+  font-size: 1.2rem;
+  color: #575757;
+  /* vertical-align: top; */
+  padding-top: 0px;
+  cursor: pointer;
+}
+
+
+.moneyManagementBankerror {
+  padding: 1rem;
+}
+
+.titleHead {
+  /* padding: 1rem; */
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.3);
+  padding-bottom: 1rem;
+}
+
+.moneyManagementBankerrorDecs {
+  /* padding-top: 1rem; */
+}
+
+.moneyManagementBankerrorDecs ul {
+  padding: 0 2rem;
+}
+
+.moneyManagementBankerrorDecs ul li {
+  list-style-type: disc;
+  padding-top: 1rem;
+  font-size: 1rem;
+}
+
+.moneyManagementBankerror .OkButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.moneyManagementBankerror .OkButton button {
+  padding: 0.6rem 2rem;
+  outline: 0;
+  border: 0;
+  font-weight: 500;
+  background-color: #042b62;
+  color: #fff;
+  border-radius: 25px;
+}
+
+.trackbankaccount .otpresendtext {
+  padding-top: 2rem;
+}
+
+.trackbankaccount .otpresendtext span:first-child {
+  color: #99a1b7;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.trackbankaccount .otpresendtext span:nth-child(2) {
+  color: #3e97ff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.changenumberText {
+  padding-top: 1rem;
+  color: #042b62;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.trackbankaccount .mobileNumberBox {
+  border: 1px solid #042b62;
+  margin-top: 1.4rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: #fff;
+  width: 100%;
+}
+
+.trackbankaccount .bottomDescription {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.modal_close {
+  float: right;
+  position: absolute;
+  right: 0;
+  top: -1rem;
+  cursor: pointer;
+}
+
+.trackbankaccount .mobileNumberLayout {
+  /* width: 50%;
+    margin: auto; */
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+
+}
+
+.trackbankaccount .mobileNumberLayout .mobileNumber {
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding-top: 2px;
+  padding-left: .5rem;
+}
+
+.trackbankaccount .mobilenumberfield {
+  border: 0;
+  border-bottom: 1px solid #b9b1b1;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 25%;
+}
+
+.trackbankaccount .mobilenumberfield::placeholder {
+  font-weight: 400;
+}
+
+.Addnumbertext {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #042b62;
+  cursor: pointer;
+}
+
+.trackbankaccount .ContinueButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.trackbankaccount .ContinueButton button {
+  float: right;
+  outline: none;
+  border: 0;
+  background-color: #042b62;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.trackbankaccount .accountfoundbox {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 1.6rem;
+}
+
+.trackbankaccount .accountfoundbox .bankimg img {
+  border-radius: 50%;
+}
+
+
+.accountfoundbox .bank_Details {
+  padding-left: 0.6rem;
+}
+
+.bank_Details .bank_name {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.accountfoundbox .account_number {
+  color: #042b62;
+  font-size: 1.1rem;
+  font-size: 500;
+}
+
+.accountfoundbox .account_number {
+  color: #042b62;
+  font-size: 1.1rem;
+  font-size: 600;
+}
+
+.accountDetailsbox .text_description {
+  color: #042b62;
+  font-size: 1rem;
+  font-size: 400;
+}
+
+/* ----------------------------------- For MyAccountBalanceView -------------------------------------------------------------------------------------- */
+.MyAccountBalanceView {
+  background-color: #F4F4F4;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  padding: 2rem;
+}
+
+.MyAccountBalanceView .AccBalancebox {
+  background-color: #ffffff;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.06);
+  border: 1px #E2E8F0 solid;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.MyAccountBalanceView .primaryTxt {
+  color: #042b62;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.MyAccountBalanceView .secondaryTxt {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding-top: .4rem;
+}
+
+.MyAccountBalanceView .downloadview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.AccBalanceboxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.downloadview .Headtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.downloadview .ButtonBox {
+  display: flex;
+}
+
+.downloadview button {
+  background-color: #042b62;
+  margin: 0 .7rem;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  border-radius: 10px;
+  padding: .7rem 2rem;
+  font-weight: 500;
+}
+
+.moneysnippet {
+  margin-top: 5rem;
+  background-color: #F4F4F4;
+  box-shadow: 0px 1px 2px #ffffff;
+  border-radius: 15px;
+  border: 1px solid #ffffff;
+  position: relative;
+}
+
+.moneysnippet .imgbgLayout {
+  background-color: #f8f8f8;
+  border-radius: 0rem 10rem 10rem 0rem;
+  height: 10%;
+  padding: 5rem;
+  position: relative;
+  /* right: 0; */
+  float: left;
+  position: absolute;
+  z-index: 0;
+}
+
+.moneysnippet .text1 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #042b62;
+}
+
+.moneysnippet .textDes {
+  color: #a3a3a3;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding-top: .5rem;
+}
+
+.moneysnippet .bgWhiteLayout {
+  background-color: #fff;
+  border-radius: 10rem 0rem 0rem 10rem;
+  /* transform: rotate(180deg); */
+  height: 100%;
+  padding: 2rem;
+  /* width: 100%; */
+  position: relative;
+  right: 0;
+  float: right;
+}
+
+.trackbankaccount .buttonsBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trackbankaccount .buttonsBox button {
+  border: 0;
+  outline: 0;
+  padding: .5rem 1.5rem;
+  margin: 0 1rem;
+  border-radius: 20px;
+  background: #042b62;
+  color: #fff;
+  font-weight: 600;
+}
+
+.AccHeadtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  /* margin-top: 3rem; */
+}
+
+.activeAccList {
+  /* width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem; */
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.ActiveAccounts {
+  box-shadow: 0px 7px 5px 0px rgba(189, 189, 189, 1);
+  border-radius: 25px;
+  background: linear-gradient(120deg, hwb(0 100% 0%) 0%, rgb(223 223 223) 97%);
+  margin-top: 2rem;
+  /* width: max-content; */
+  width: 100%;
+}
+
+.ActiveAccounts .accountsBox {
+  padding: 2rem;
+  padding-right: .4rem;
+  padding-bottom: .6rem;
+  padding-bottom: .9rem;
+  /* width: max-content; */
+  width: 100%;
+}
+
+.ActiveAccountsBox .accDeatils {
+  display: flex;
+  align-items: center;
+}
+
+.ActiveAccountsBox .totalBalance {
+  padding-top: .5rem;
+}
+
+.ActiveAccountsBox .totalBalAmt {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ActiveAccounts .bank_name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #042b62;
+}
+
+.ActiveAccountsBox .accountNumber {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.ActiveAccounts .todaytime {
+  color: #042b62;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.ActiveAccounts .UnlinkBtn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.ActiveAccounts .UnlinkBtn button {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+  outline: none;
+  border: 0;
+  background-color: #042b62;
+  color: #fff;
+  border-radius: 20px;
+  padding: .5rem 1.6rem;
+}
+
+.ActiveAccounts .UnlinkBtn button img {
+  width: 23px;
+}
+
+/*-------------------------------------------- dddd --------------------------------------------------------------------------------------------------*/
+.Stepper {
+  margin: 0;
+}
+
+.Stepperlist {
+  display: flex;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+/* .stepperInfo .Stepperlist:first-child{
+    padding:  0 0;
+} */
+.progressbox {
+  border-radius: 0.60031rem;
+  background: #042b62;
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.progressbox:before {
+  content: "";
+  border: 1px dashed #042b62;
+  position: absolute;
+  margin-top: -9rem;
+  height: 98px;
+}
+
+.Stepper:last-child .progressbox:before {
+  display: block;
+}
+
+.Stepper .rightSection {
+  margin-left: 1.3rem;
+  margin-top: 2rem;
+}
+
+.stepTitle {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.stepsubTitle {
+  color: #99a1b7;
+}
+
+.ModalBottomSection {
+  border-top: 1px solid #e6e6e6;
+  margin-top: 1rem;
+}
+
+.ModalProgressBar {
+  padding-left: 3rem;
+}
+
+.thirdPartyView {
+  /* padding: 0 1rem; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.poweredBy {
+  border-radius: 0.3125rem;
+  background: #e8f8ff;
+  padding: 10px 8px;
+  color: #042b62;
+  font-weight: bold;
+}
+
+.Demat {
+  border-radius: 0.54225rem;
+  border: 1px solid #f1f1f2;
+  background: #fff;
+  box-shadow: 0px 4.26871px 41.61996px 0px rgba(0, 0, 0, 0.05);
+  width: 50%;
+}
+
+.DematRightSection {
+  border-radius: 0.41225rem;
+  border: 1.067px solid rgba(199, 199, 199, 0.5);
+  background: #f9f9f9;
+  width: 50%;
+}
+
+.Demattrackinfo {
+  padding: 1.4rem;
+}
+
+.Demattrackinfo .Demattitle {
+  color: #071437;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.Demattrackinfo .Dematsubinfo {
+  color: #99a1b7;
+  padding: 0.7rem 0;
+  font-size: 0.8rem;
+}
+
+.Demattrackinfo .DematkeyBenefit {
+  color: #042b62;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 1rem 0;
+}
+
+.DematkeyBenefitlist {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  /* line-height: 3rem; */
+}
+
+.DematkeyBenefitlistText {
+  color: #4b5675;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.Demat .Stepperlist {
+  margin: 2.5rem 0;
+}
+
+.Demat .Stepper:first-child .Stepperlist {
+  margin: 0 0;
+}
+
+.Demat .progressbox:before {
+  margin-top: -8rem;
+  height: 84px;
+}
+
+.Demat .Stepper:last-child .progressbox:before {
+  display: block;
+}
+
+.linkNowbtn {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.linkNowbtn button {
+  background: #042b62;
+  color: #fff;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  outline: none;
+  padding: 0.7rem 1.3rem;
+  border-radius: 25px;
+}
+
+.DematmodalBody {
+  width: 100%;
+  display: flex;
+}
+
+.Stepper:first-child .Stepperlist .progressbox::before {
+  display: none;
+}
+
+.DematmodalBody .Modalbottombody {
+  margin-top: 6rem;
+}
+
+.trackbankaccount .DematmodalBody .LeftSection {
+  background: #f1f1f2;
+  border-bottom-left-radius: 10px;
+  /* padding: 1rem 2.4rem; */
+  /* box-shadow: 0px 6.5px 13px 0px rgba(0, 0, 0, 0.1); */
+  border-radius: 15px;
+  width: 25%;
+}
+
+.trackbankaccount .DematmodalBody .RightSection {
+  width: 75%;
+  margin-left: 2rem;
+  background-color: #f1f1f2;
+  border-radius: 15px;
+  overflow-y: auto;
+  padding: 2rem;
+  /* height: 552px; */
+  border: 1px solid #f1f1f2;
+}
+
+.trackbankaccount .BankScrollbox {
+  height: 488px;
+  overflow: auto;
+  padding-right: 0.5rem;
+}
+
+.trackbankaccount .BankScrollbox::-webkit-scrollbar {
+  /* display: none; */
+}
+
+.BasicDetailsSection {
+  padding: 2.6rem 3rem;
+  width: 100%;
+}
+
+.BasicDetailsSection .title {
+  color: #252f4a;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.inputField {
+  padding: 10px;
+  border: 1px solid #e3e2e2;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.trackbankaccount .OtpFields {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.trackbankaccount .OtpFields .otpnumber {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ffff;
+  box-shadow: 0px 0px 2px 0px #fff;
+  border-radius: 6px;
+  margin-left: 1.6rem;
+  text-align: center;
+  color: #042b62;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.otpverification .otpnumber {
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(0, 0, 0, 0.20);
+  box-shadow: 0px 0px 2px 0px #fff;
+  border-radius: 6px;
+  margin-left: 1.6rem;
+  text-align: center;
+  color: #042b62;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.trackbankaccount .OtpFields .otpnumber:first-child {
+  margin: 0rem;
+}
+
+.trackbankaccount .Successfulmsg {
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.otpResend {
+  text-align: right;
+  margin-right: 65px;
+  margin-top: 2rem;
+}
+
+.otpresendtxt {
+  color: #99a1b7;
+  font-size: 0.9rem;
+}
+
+.otpresendbtn {
+  color: #042b62;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.termsConditions {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.termsConditions .termsText {
+  color: #475467;
+  font-size: 1.1rem;
+}
+
+.boxinactive .progressbox {
+  background: #e8f8ff;
+  color: #042b62;
+  border: 1px solid #042b62;
+}
+
+.boxactive .progressbox::before {
+  border: 1px dashed #042b62;
+}
+
+.boxinactive .progressbox::before {
+  border: 1px dashed #dbdfe9;
+}
+
+.Otploader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+.otploadtext {
+  color: #475467;
+  font-size: 1rem;
+  margin-top: 5rem;
+}
+
+.accountDetailsbox {
+  border-radius: 6.18px;
+  border: 1px dashed #3e97ff;
+  background: #f1faff;
+  margin-top: 1.6rem;
+  padding: 0.7rem 1.5rem;
+}
+
+.accountDetailsbox .AccountList {
+  padding-right: 10px;
+  margin-top: 5px;
+}
+
+.accountDetailsbox .listHeight {
+  height: 140px;
+  overflow-y: auto;
+}
+
+.accountDetailsbox .listHeight::-webkit-scrollbar {
+  background-color: #d9d9d9;
+  margin-top: 10px;
+}
+
+.accountDetailsbox .servicesName {
+  color: #071437;
+  font-size: 1rem;
+  font-weight: bold;
+  border-bottom: 1.5px solid #dbdbdb;
+  padding-bottom: 0.7rem;
+}
+
+.accountDetailsbox .HRLine {
+  border-bottom: 1.5px solid #cbcbcb;
+  padding: 0.4rem 0;
+}
+
+.accountDetailsbox .OtpVerify {
+  padding-top: 0.8rem;
+}
+
+.OtpVerify .title {
+  color: #3a3a3a;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.OtpVerify .sentotptext {
+  color: #3a3a3a;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.OtpVerify .sentotptext span {
+  font-weight: bold;
+}
+
+.OtpBox {
+  margin-top: 1rem;
+}
+
+.OtpBox input {
+  outline: none;
+  border: 0;
+  background: none;
+  border-bottom: 2px solid #b9b9b9;
+  width: 35px;
+  margin: 0 0.3rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.accountDetailsbox .Resentotptxt {
+  color: #3a3a3a;
+  padding-top: 1rem;
+}
+
+.accountDetailsbox .Resentotptxt span {
+  color: #042b62;
+  font-weight: 600;
+}
+
+.OtpBox input:first-child {
+  margin-left: 0;
+}
+
+.OtpBox .active {
+  border-bottom: 2px solid #042b62;
+}
+
+.accountDetailsbox .OtpBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.accountSubdetails {
+  padding-top: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dmatAccno {
+  font-weight: 500;
+}
+
+.BrokerName {
+  font-weight: 600;
+}
+
+.accountnotfoundDetailsbox {
+  border-radius: 6.18px;
+  border: 1px dashed #f00;
+  background: #fef3f2;
+  margin-top: 1.6rem;
+  padding: 0.7rem 1.5rem;
+}
+
+.notfoundtext {
+  color: #101828;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.notfoundnumber {
+  color: #4b5675;
+  padding-top: 0.3rem;
+}
+
+.reasonTitle {
+  color: #071437;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 2rem 0;
+}
+
+.Reasonlist {
+  color: #4b5675;
+  font-size: 1.1rem;
+  line-height: 1.6rem;
+}
+
+.verifiedstep .progressbox {
+  background: #ff4a4a;
+  color: #fff;
+}
+
+.verifiedstep .rightSection .stepTitle {
+  color: #ff4a4a;
+}
+
+.ProgressBar .progress {
+  width: 100%;
+  height: 9px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 5rem;
+}
+
+.progressview {
+  border-radius: 5px;
+  background: #042b62;
+  width: 0;
+  /* Set the initial width to 0 */
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.Progresstext {
+  color: #042b62;
+  padding: 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.Congratulationstxt {
+  padding-top: 3rem;
+  color: #252f4a;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.Congratulationssubtxt {
+  color: #6f6c90;
+  padding-top: 1rem;
+}
+
+/* For Liquid Page */
+.DematmodalBody .LiquidLeftSection {
+  width: 50%;
+  padding: 4rem 3rem;
+}
+
+.DematmodalBody .LiquidRightSection {
+  margin: 4rem 0;
+  width: 50%;
+}
+
+.LiquidRightSection img {
+  width: 300px;
+  height: 300px;
+}
+
+.LiquidLeftSection .title {
+  color: #042b62;
+  font-weight: 600;
+}
+
+.DematmodalBody .inputCheckBox {
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  width: 15px;
+  height: 15px;
+}
+
+.DematmodalBody .inputField::placeholder {
+  color: #042b62;
+}
+
+.DematmodalBody .LinkTerms {
+  color: #042b62;
+  text-decoration: underline;
+  line-height: 0.5rem;
+}
+
+.DematmodalBody .inputCheckBox {
+  background-color: #fff;
+  /* -webkit-appearance: none; */
+}
+
+.DematmodalBody input[type="checkbox"]:checked {
+  background-color: #fff;
+}
+
+.verifiedAccount {
+  border-radius: 6.18px;
+  border: 1px dashed #3e97ff;
+  background: #f1faff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  /* width: 45%; */
+  margin: auto;
+  color: #042b62;
+  width: max-content;
+  /* display: none; */
+}
+
+.notverifiedAccount {
+  border-radius: 4px;
+  border: 1px dashed #f00;
+  background: #fef3f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  width: max-content;
+  /* margin: auto; */
+  color: #042b62;
+  /* display: none; */
+}
+
+.RetryBtn {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #042b62;
+}
+
+.BasicDetailsSection .Dots {
+  background-color: #d9d9d9;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 1rem;
+  cursor: pointer;
+}
+
+.BasicDetailsSection .Dotactive {
+  width: 2rem;
+  background-color: #042b62 !important;
+  height: 6px;
+  border-radius: 4px;
+}
+
+
+.dashboardInfoDataContainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgb(193, 193, 193);
+}
+
+.OverviewChartsContainer {
+  padding-right: 1.5rem;
+  /* border-right: 1px solid rgb(193, 193, 193); */
+}
+
+.OverviewActiveAccountsContainer {
+  position: relative;
+  padding-left: 1.5rem;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #dfdfdf;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 120% 10%;
+  background-size: 50%;
+
+  overflow: hidden;
+}
+
+.OverviewActiveAccountsContainerBg {
+  position: absolute;
+  height: 133%;
+  right: -220px;
+  top: -72px;
+}
+
+.OverviewActiveContentContainer {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.RobbonElem {
+  position: relative;
+  z-index: 2;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  /* background-color: #E1F2F9; */
+
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+
+}
+
+.OverviewActiveContentTxt {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.RobbonElemPoint {
+  /* position: absolute;
+  z-index: -1;
+  right: 115%;
+  top: 0;
+  height: 100%;
+
+  transform: translateX(100%); */
+
+
+  position: absolute;
+  z-index: -1;
+  right: 106%;
+  top: -174px;
+  height: 440px;
+  transform: translateX(100%);
+}
+
+.styled-select {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 3px;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+/* .styled-select,
+.styled-select div {
+  width: 200px;
+} */
+
+select:focus {
+  outline: none;
+}
+
+.styled-select div {
+  height: 34px;
+  padding: 5px 0 5px 5px;
+  background: transparent;
+  border: none;
+}
+
+.styled-select,
+.styled-select select {
+  width: 200px;
+}
+
+.styled-select select {
+  height: 34px;
+  padding: 5px 0 5px 5px;
+  background: transparent;
+  border: none;
+
+  /*hide default down arrow in webkit */
+  -webkit-appearance: none;
+}
+
+.MonthPickerContainer>.fintoo-datepicker {
+  width: 100% !important;
+}
+
+@-moz-document url-prefix() {
+  .styled-select select {
+    width: 110%;
+  }
+}
+
+.fa-sort-desc {
+  position: absolute;
+  top: 13px;
+  right: 12px;
+  font-size: 24px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #042b62;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+_:-o-prefocus,
+.selector {
+  .styled-select {
+    background: none;
+  }
+}
+
+.OverviewTitleContainer {
+  position: relative;
+}
+
+.OverviewTitleItemsContainer {
+  display: none;
+  position: absolute;
+  left: 0;
+  width: max-content;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  z-index: 3;
+}
+
+.OverviewTitleContainer:hover .OverviewTitleItemsContainer {
+  display: block;
+}
+
+.OverviewTitleItem {
+  width: 100%;
+  cursor: pointer;
+}
+
+.OverviewTitleItem:hover {
+  background-color: #ECF9FE;
+}
+
+.overviewChartContainer {
+  position: relative;
+  padding: 1rem 3rem;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.overviewChartTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: -1rem;
+  color: rgba(0, 0, 0, 0.80);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.overviewChartColumnContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.overviewChartColumnElem {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.overviewChartColumnOuter {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 7px;
+  background-color: #ECF9FE;
+}
+
+.overviewChartColumnValue {
+  width: 100%;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2D4F5D;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.overviewChartColumnLabel {
+  color: #7A7A7A;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 500;
+  margin-top: 0.3rem;
+}
+
+.OptionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* For Money Management UI */
+@media (max-width: 850px) {
+  .activeAccList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .PdfContainerElem {
+    width: 100% !important;
+  }
+
+  /* .DematmodalBody .LeftSection{
+      width: 34%;
+    } */
+  .BankSearchBar input::placeholder {
+    background-position: 32%;
+  }
+
+  .OptionsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .dashboardInfoDataContainer {
+    display: grid;
+    grid-template-columns: 100%;
+    padding-top: 1.5rem;
+  }
+
+  .OverviewChartsContainer {
+    padding-right: 0;
+    padding-bottom: 1rem;
+    border-right: none;
+  }
+}
+
+/* for mobile Responsive */
+@media (max-width: 768px) {
+  .RobbonElem {
+    font-size: 1rem;
+  }
+
+  .OverviewActiveContentContainer {
+    padding: 0.5rem;
+  }
+
+  .DotNavigationContainer {
+    display: none;
+  }
+
+  .OverviewChartsContainer {
+    padding-right: 0;
+    padding-bottom: 1rem;
+    border-right: none;
+  }
+
+  .OverviewActiveAccountsContainer {
+    padding-left: 0
+  }
+
+  .overviewChartContainer {
+    padding: 1rem;
+  }
+
+  .overviewChartColumnElem {
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 80px;
+  }
+
+  .overviewChartColumnOuter {
+    width: 100%;
+  }
+
+  .BankSearchBar input::placeholder {
+    background-position: 40%;
+  }
+
+  .trackbankaccount {
+    margin: 4rem 10px;
+  }
+
+  .trackbankaccount .AccountHolderName {
+    font-size: 1rem;
+  }
+
+  .trackbankaccount .DematmodalBody .LeftSection {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  .trackbankaccount .Stepperlist {
+    padding: 1rem 0;
+  }
+
+  .Demat {
+    width: 100%;
+  }
+
+  .trackbankaccount .DematmodalBody .RightSection {
+    width: 100%;
+    margin: 1rem 0;
+    padding: 10px;
+    border-radius: 7px;
+  }
+
+  .BankSearchBar input {
+    margin-top: 0;
+  }
+
+  .trackbankaccount .popularBanks {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+  }
+
+  .trackbankaccount .otherBanks {
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+  }
+
+  .banklistbox img {
+    width: 30px;
+  }
+
+  .trackbankaccount .stepsubTitle {
+    font-size: .9rem;
+  }
+
+  .trackbankaccount .otherBanks .banklistbox .BankName {
+    font-size: .9rem;
+  }
+
+  .otherBanks .bankLogo img {
+    width: 30px;
+  }
+
+  .otherBanks .NextArrow img {
+    width: 8px;
+  }
+
+  .trackbankaccount .OtpForm {
+    margin-left: 0;
+    padding: .5rem;
+  }
+
+  .trackbankaccount .otpresendtext span:first-child {
+    font-size: .9rem;
+  }
+
+  .trackbankaccount .otpresendtext span:nth-child(2) {
+    font-size: .9rem;
+  }
+
+  .trackbankaccount .changenumberText {
+    font-size: .9rem;
+  }
+
+  .trackbankaccount .Successfulmsg {
+    font-size: 1rem;
+  }
+
+  .trackbankaccount .mobileNumberLayout {
+    display: grid;
+  }
+
+  .trackbankaccount .mobileNumberLayout .mobileNumberBox {
+    padding: .6rem;
+  }
+
+  .trackbankaccount .mobileNumberLayout .mobileNumberBox:first-child {
+    margin-top: 0;
+  }
+
+  .trackbankaccount .mobileNumberLayout .mobileNumberBox:nth-child(2) {
+    margin-left: 0;
+  }
+
+  .trackbankaccount .mobileNumberLayout .mobileNumber {
+    font-size: 1rem;
+  }
+
+  .trackbankaccount .banklistbox .BankName {
+    font-size: .9rem;
+  }
+
+  .trackbankaccount .Addnumbertext {
+    font-size: 1rem;
+  }
+
+  .trackbankaccount .ContinueButton {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 1.2rem 0;
+    margin-top: 7rem;
+  }
+
+  .trackbankaccount .mobilenumberfield {
+    width: 100%;
+  }
+
+  .trackbankaccount .account_number {
+    font-size: .9rem;
+  }
+
+  .trackbankaccount .text_description {
+    font-size: .8rem;
+  }
+
+  .trackbankaccount .bottomDescription {
+    position: relative;
+    width: 100%;
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .trackbankaccount .bottomDescription div:first-child {
+    font-size: .9rem !important;
+  }
+
+  .BankSearchBar input::placeholder {
+    text-align: center;
+    background-image: url("./TrackBankAccount/tabler_search.svg");
+    background-repeat: no-repeat;
+    background-position: 10%;
+    background-size: 20px;
+  }
+
+  .trackbankaccount .thirdPartyView {
+    justify-content: center;
+  }
+
+  .modalBody {
+    margin: 1rem 1px;
+  }
+
+  .DematRightSection {
+    margin-top: 1rem;
+  }
+
+  .poweredBy {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+
+  .ConnetcBroker {
+    width: 100%;
+  }
+
+  .linkNowbtn button {
+    font-size: 1rem;
+    padding: 0.7rem 3rem;
+  }
+
+  .DematmodalBody {
+    display: grid;
+    overflow: auto;
+  }
+
+  .DematmodalBody .RightSection {
+    width: 90%;
+  }
+
+  .BasicDetailsSection {
+    width: 100%;
+    margin: 2.6rem 1rem;
+  }
+
+  .mobileStepper {
+    justify-content: space-between;
+  }
+
+  .mobileStepper .stepperMobile:last-child .progressbox::before {
+    display: none;
+  }
+
+  /* .mobileStepper .progressbox::after{
+      margin-top: 0rem;
+      height: 45px;
+    } */
+  .mobileStepper .progressbox {
+    transform: rotate(-90deg);
+    margin-top: 0rem;
+  }
+
+  .mobileStepper .progressbox span:before {
+    content: "";
+    border: 1px dashed #042b62;
+    position: absolute;
+    transform: rotate(-90deg);
+    margin-top: -2.5rem;
+    height: 106px;
+    margin-left: -4.4rem;
+  }
+
+  .mobileStepper .stepperMobile:first-child .progressbox span:before {
+    display: none;
+  }
+
+  .mobileStepper .boxinactive .progressbox span:before {
+    border: 1px dashed #dbdfe9;
+  }
+
+  .trackbankaccount .OtpFields .otpnumber {
+    width: 40px;
+    height: 40px;
+    margin-left: .6rem;
+    /* margin-right: 4px; */
+  }
+
+  .trackbankaccount .otpResend {
+    margin-right: 8px;
+  }
+
+  .trackbankaccount .notfoundnumber .mobileNUmber {
+    font-size: .8rem;
+  }
+
+  .trackbankaccount .DatainfoIcon {
+    font-size: .9rem;
+  }
+
+  .otpresendtxt {
+    font-size: 0.9rem;
+  }
+
+  .otpresendbtn {
+    font-size: 0.9rem;
+  }
+
+  .termsConditions {
+    margin-top: 2rem;
+  }
+
+  .termsConditions .termsText {
+    font-size: 0.9rem;
+  }
+
+  .DematmodalBody .LeftSection {
+    box-shadow: none;
+  }
+
+  .accountnotfoundDetailsbox {
+    margin-top: 1rem;
+  }
+
+  .notfoundtext {
+    font-size: 0.9rem;
+  }
+
+  .notfoundnumber {
+    font-size: 0.8rem;
+  }
+
+  .reasonTitle {
+    font-size: 0.9rem;
+  }
+
+  .Reasonlist {
+    font-size: 0.9rem;
+  }
+
+  .accountfoundsection .Cancelpopup {
+    padding: 0.6rem 4rem;
+  }
+
+  .accountfoundsection .UseDiffnumber {
+    margin-top: 1rem;
+    padding: 0.6rem 1.6rem;
+  }
+
+  .accountDetailsbox {
+    margin-top: 1.7rem;
+  }
+
+  .accountDetailsbox .servicesName {
+    font-weight: normal;
+    font-size: 0.9rem;
+  }
+
+  .BrokerName {
+    font-weight: 600;
+    font-size: 0.8rem;
+    /* white-space: nowrap; */
+  }
+
+  .DematmodalBody .LiquidLeftSection {
+    /* width: 50%; */
+    padding: 3rem 2rem;
+  }
+
+  .accountfoundsection .CancelBtndesktop {
+    padding: 0.6rem 2rem;
+  }
+
+  .accountDetailsbox .OtpBox {
+    display: grid;
+    justify-content: center;
+  }
+
+  .accountDetailsbox .OtpVerify {
+    text-align: center;
+  }
+
+  .OtpBox {
+    margin-top: 0;
+  }
+
+  .OtpBox input {
+    width: 27px;
+  }
+
+  .OtpVerify .sentotptext {
+    font-size: 0.7rem;
+  }
+
+  .accountDetailsbox .Resentotptxt {
+    padding-top: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .moneyManagementBankerror {
+    padding: 1rem;
+  }
+
+  .trackbankaccount .ContinueButton button {
+    padding: 0.5rem 1.5rem;
+    width: 100%;
+  }
+
+  .trackbankaccount .ContinueButton .mobileBackbtn {
+    background-color: transparent;
+    padding: 0.5rem 2.5rem;
+    width: 100%;
+    color: #042b62;
+    border: 1px solid #042b62;
+    margin-right: 1rem;
+  }
+
+  .trackbankaccount .ContinueButton .mobileBackbtn:hover {
+    background-color: #042b62;
+    color: #fff;
+  }
+
+  .trackbankaccount .mobileBankScrollbox {
+    height: auto;
+  }
+
+  .trackbankaccount .SelectBankslist {
+    height: auto;
+  }
+
+  /* For Account Banlace */
+  .trackbankaccount .title {
+    font-size: 1rem;
+  }
+
+  .MyAccountBalanceView {
+    padding: 1rem;
+  }
+
+  .MyAccountBalanceView .AccBalancebox {
+    display: grid;
+  }
+
+  .activeAccList {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 2rem;
+    grid-row-gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .MyAccountBalanceView .primaryTxt {
+    font-size: .9rem;
+  }
+
+  .MyAccountBalanceView .secondaryTxt {
+    font-size: 1rem;
+    padding-top: 1rem !important;
+  }
+
+  .MyAccountBalanceView .accountnumber {
+    font-size: .8rem;
+    color: #1D2027;
+  }
+
+  .MyAccountBalanceView .mobileprimaryTxt {
+    padding-top: .6rem;
+  }
+
+  .MyAccountBalanceView .mobilesecondaryTxt {
+    padding-top: 0 !important;
+  }
+
+  .trackbankaccount .buttonsBox {
+    margin-top: 1rem;
+    display: grid;
+    grid-row-gap: 1rem;
+  }
+
+  .ActiveAccounts {
+    width: 100%;
+  }
+
+  .ActiveAccounts .accountsBox {
+    width: 100%;
+  }
+
+  .ActiveAccountsBox .accountNumber {
+    font-size: .9rem;
+  }
+
+  .ActiveAccounts .todaytime {
+    font-size: .9rem;
+  }
+
+  .ActiveAccounts .UnlinkBtn button {
+    padding: .3rem 1rem;
+  }
+
+  .MyAccountBalanceView .downloadview {
+    display: grid;
+  }
+
+  .downloadview .ButtonBox {
+    margin-top: 1rem;
+  }
+
+  .downloadview .Headtitle {
+    font-size: .8rem;
+  }
+
+  .downloadview button {
+    font-size: 8px;
+    padding: 7px 13px;
+    margin: 0 4px;
+    border-radius: 4px;
+  }
+
+  .downloadview button img {
+    width: 10px !important;
+  }
+
+  .RobbonElemPoint {
+    position: absolute;
+    z-index: -1;
+    right: 109%;
+    top: -129px;
+    height: 309px;
+    transform: translateX(100%);
+  }
+}
+
+.disableBtn {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #ffffff;
+  background-color: #cbcbcb;
+  padding: 0.6rem 2rem;
+  border: none;
+  margin-top: 3rem !important;
+  padding: 0.6rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border-radius: 30px;
+  border: 0.744px solid #c0c0c0;
+}
+
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.new {
+  padding: 50px;
+}
+
+.form-group {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.form-group input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.form-group label {
+  position: relative;
+  cursor: pointer;
+}
+
+.form-group label:before {
+  content: '';
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #0079bf;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.form-group input:checked+label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 9px;
+  width: 6px;
+  height: 14px;
+  border: solid #0079bf;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.PdfContainerElem {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.PdfContainerElem canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.pdfView {
+  width: 100%;
+  /* Set the width to 100% */
+  max-width: 1200px;
+  /* Set a maximum width */
+  margin: 0 auto;
+  /* Center the container horizontally */
+  overflow-x: auto;
+  /* Enable horizontal scrolling if necessary */
+}
+
+
+/* Adjust styles for the PDF viewer container */
+.pdfViewer {
+  width: 100%;
+  /* Set the width to 100% */
+  height: 100%;
+  /* Set the height to 100% */
+  min-height: 500px;
+  /* Set a minimum height to prevent it from collapsing */
+}
+
+.heading {
+  color: #0079bf;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.paragraph {
+  color: #475467;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.stepItem {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 2px;
+  font-size: 1em;
+  color: #475467;
+  border-radius: 8px;
+}
+
+.stepItem::before {
+  content: '•';
+  position: absolute;
+  padding-left: 6px;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #0079bf;
+  font-size: 1.4rem;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.syncBtn {
+  pointer-events: none;
+  cursor: no-drop !important;
+}
+
+.syncBtn .rotateAnimetion {
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

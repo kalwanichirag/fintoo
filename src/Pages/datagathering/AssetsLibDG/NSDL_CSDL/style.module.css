@@ -1,0 +1,1151 @@
+.LineHR {
+  border: 1px solid #333;
+}
+
+.Assettitle {
+  color: #353535;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.Assettitle span {
+  color: rgba(0, 0, 0, 0.39);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.375rem;
+}
+
+.NsdlcsdlView {
+  width: 100%;
+  height: 100%;
+  padding: 1rem 2rem;
+  flex-shrink: 0;
+  border-radius: 1.0625rem;
+  background: #ccd5e0;
+  box-shadow: 0px 4.21679px 4.21679px 0px rgba(0, 0, 0, 0.1);
+}
+
+.NsdlcsdlViewSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.NsdlcsdlViewtext {
+  color: #071437;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.05644rem;
+}
+
+.NsdlcsdlViewdsubtext {
+  color: #959595;
+  font-size: 0.9rem;
+  padding-top: 1.6rem;
+  font-weight: 600;
+  line-height: 1rem;
+  width: 80%;
+}
+
+.NsdlcsdlViewLink {
+  color: #042b62;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 2rem;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+
+.Holdingsoptview {
+  display: inline-flex;
+  height: 4.1875rem;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.875rem;
+  padding: 2.8rem 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 0.9375rem;
+  background: #fff;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.15);
+}
+
+.Holdingsoptview .leftsection {
+  padding: 2.6rem 1.3rem;
+}
+
+.Holdingsoptviewtext {
+  color: #071437;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.375rem;
+}
+
+.PoweredBy {
+  /* padding: .8rem 0; */
+  margin-top: 0.6rem;
+}
+
+.PoweredBy span {
+  border-radius: 0.214rem;
+  color: #00a8a2;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 0.47788rem;
+  background: #e8fff3;
+  padding: 8px 7px;
+  flex-shrink: 0;
+}
+
+.Holdingsoptview .next img {
+  float: right;
+}
+
+.modalBody {
+  margin: 1rem 2rem;
+}
+
+.modalText {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.modalnoteText {
+  font-size: 0.8rem;
+  padding: 0.3rem 0;
+}
+
+.CloseBtnpopup {
+  position: absolute;
+  right: 10px;
+}
+
+.CloseBtnpopup img {
+  width: 30px;
+}
+
+.modal_Heading {
+  font-size: 1.6rem;
+}
+
+.NsdlcsdlInnersection {
+  margin: 2rem;
+}
+
+.ConnetcBroker {
+  width: 50%;
+  margin: auto;
+  border-radius: 0.54225rem;
+  border: 1px solid #f1f1f2;
+  background: #fff;
+  box-shadow: 0px 4.26871px 41.61996px 0px rgba(0, 0, 0, 0.05);
+}
+
+.stepHeading {
+  margin-top: 1.5rem;
+  color: #353535;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.Stepper {
+  margin: 0;
+}
+
+.Stepperlist {
+  display: flex;
+  align-items: center;
+}
+
+.progressbox {
+  border-radius: 0.60031rem;
+  background: #042b62;
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.progressbox:before {
+  content: "";
+  border: 1px dashed #042b62;
+  position: absolute;
+  margin-top: -4.9rem;
+  height: 39px;
+}
+
+.Stepper:last-child .progressbox:before {
+  display: block;
+}
+
+.Stepper .rightSection {
+  margin-left: 1.3rem;
+  margin-top: 2rem;
+}
+
+.stepTitle {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.stepsubTitle {
+  color: #99a1b7;
+  font-size: 1rem;
+}
+
+.ModalBottomSection {
+  border-top: 1px solid #e6e6e6;
+  margin-top: 1rem;
+}
+
+.ModalProgressBar {
+  padding-left: 3rem;
+}
+
+.thirdPartyView {
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.poweredBy {
+  border-radius: 0.3125rem;
+  background: #e8f8ff;
+  padding: 10px 8px;
+  color: #042b62;
+  font-weight: bold;
+}
+
+.Demat {
+  border-radius: 0.54225rem;
+  border: 1px solid #f1f1f2;
+  background: #fff;
+  box-shadow: 0px 4.26871px 41.61996px 0px rgba(0, 0, 0, 0.05);
+  width: 50%;
+}
+
+.DematRightSection {
+  border-radius: 0.41225rem;
+  border: 1.067px solid rgba(199, 199, 199, 0.5);
+  background: #f9f9f9;
+  width: 50%;
+}
+
+.Demattrackinfo {
+  padding: 1.4rem;
+}
+
+.Demattrackinfo .Demattitle {
+  color: #071437;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.Demattrackinfo .Dematsubinfo {
+  color: #99a1b7;
+  padding: 0.7rem 0;
+  font-size: 0.8rem;
+}
+
+.Demattrackinfo .DematkeyBenefit {
+  color: #042b62;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 1rem 0;
+}
+
+.DematkeyBenefitlist {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  /* line-height: 3rem; */
+}
+
+.DematkeyBenefitlistText {
+  color: #4b5675;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.Demat .Stepperlist {
+  margin: 2.5rem 0;
+}
+
+.Demat .Stepper:first-child .Stepperlist {
+  margin: 0 0;
+}
+
+.Demat .progressbox:before {
+  margin-top: -8rem;
+  height: 84px;
+}
+
+.Demat .Stepper:last-child .progressbox:before {
+  display: block;
+}
+
+.linkNowbtn {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.linkNowbtn button {
+  background: #042b62;
+  color: #fff;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  outline: none;
+  padding: 0.7rem 1.3rem;
+  border-radius: 25px;
+}
+
+.DematmodalBody {
+  width: 100%;
+  display: flex;
+}
+
+.Stepper:first-child .Stepperlist .progressbox::before {
+  display: none;
+}
+
+.DematmodalBody .Modalbottombody {
+  margin-top: 6rem;
+}
+
+.DematmodalBody .LeftSection {
+  background: #f9f9f9;
+  width: 40%;
+  border-bottom-left-radius: 10px;
+  padding: 1rem 2.4rem;
+  box-shadow: 0px 6.5px 13px 0px rgba(0, 0, 0, 0.1);
+}
+
+.DematmodalBody .RightSection {
+  width: 60%;
+}
+
+.BasicDetailsSection {
+  padding: 2.6rem 3rem;
+  width: 100%;
+}
+
+.BasicDetailsSection .title {
+  color: #252f4a;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.inputField {
+  padding: 10px;
+  border: 1px solid #e3e2e2;
+  width: 100%;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.inputField::placeholder {
+  text-transform: none;
+}
+
+.OtpFields {
+  margin-top: 3rem;
+  /* margin-left: 2rem; */
+  /* overflow: hidden; */
+  width: 100%;
+}
+
+.OtpFields .otpnumber {
+  width: 52px;
+  height: 52px;
+  border: 1px solid #e3e2e2;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin-left: 2rem;
+  text-align: center;
+  color: #042b62;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.OtpFields .otpnumber:first-child {
+  margin: 0 0rem;
+}
+
+.ErrorField {
+  color: red;
+  font-weight: 500;
+  padding: 1.6rem 2rem;
+}
+
+.otpResend {
+  text-align: center;
+  margin-right: 65px;
+  margin-top: 2rem;
+}
+
+.otpresendtxt {
+  color: #99a1b7;
+  font-size: 0.9rem;
+}
+
+.otpresendbtn {
+  color: #042b62;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.termsConditions {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.termsConditions .termsText {
+  color: #475467;
+  font-size: 1.1rem;
+}
+
+.boxinactive .progressbox {
+  background: #e8f8ff;
+  color: #042b62;
+  border: 1px solid #042b62;
+}
+
+.boxactive .progressbox::before {
+  border: 1px dashed #042b62;
+}
+
+.boxinactive .progressbox::before {
+  border: 1px dashed #dbdfe9;
+}
+
+.Otploader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+.otploadtext {
+  color: #475467;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-top: 5rem;
+  text-align: center;
+}
+
+.accountDetailsbox {
+  border-radius: 6.18px;
+  border: 1px dashed #3e97ff;
+  background: #f1faff;
+  margin-top: 1.6rem;
+  padding: 0.7rem 1.5rem;
+}
+
+.accountDetailsbox .AccountList {
+  padding-right: 10px;
+  margin-top: 5px;
+}
+
+.accountDetailsbox .listHeight {
+  height: 140px;
+  overflow-y: auto;
+}
+
+.accountDetailsbox .listHeight::-webkit-scrollbar {
+  background-color: #d9d9d9;
+  margin-top: 10px;
+}
+
+.accountDetailsbox .servicesName {
+  color: #071437;
+  font-size: 1rem;
+  font-weight: bold;
+  border-bottom: 1.5px solid #dbdbdb;
+  padding-bottom: 0.7rem;
+}
+
+.accountDetailsbox .HRLine {
+  border-bottom: 1.5px solid #cbcbcb;
+  padding: 0.4rem 0;
+}
+
+.accountDetailsbox .OtpVerify {
+  padding-top: 0.8rem;
+}
+
+.OtpVerify .title {
+  color: #3a3a3a;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.OtpVerify .sentotptext {
+  color: #3a3a3a;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.OtpVerify .sentotptext span {
+  font-weight: bold;
+}
+
+.OtpBox {
+  margin-top: 1rem;
+}
+
+.OtpBox input {
+  outline: none;
+  border: 0;
+  background: none;
+  border-bottom: 2px solid #b9b9b9;
+  width: 35px;
+  margin: 0 0.3rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.accountDetailsbox .Resentotptxt {
+  color: #3a3a3a;
+  padding-top: 1rem;
+}
+
+.accountDetailsbox .Resentotptxt span {
+  color: #042b62;
+  font-weight: 600;
+}
+
+.OtpBox input:first-child {
+  margin-left: 0;
+}
+
+.OtpBox .active {
+  border-bottom: 2px solid #042b62;
+}
+
+.accountDetailsbox .OtpBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.accountSubdetails {
+  padding-top: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dmatAccno {
+  font-weight: 500;
+}
+
+.BrokerName {
+  font-weight: 600;
+}
+
+.accountnotfoundDetailsbox {
+  border-radius: 6.18px;
+  border: 1px dashed #f00;
+  background: #fef3f2;
+  margin-top: 1.6rem;
+  padding: 0.7rem 1.5rem;
+}
+
+.notfoundtext {
+  color: #101828;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.notfoundnumber {
+  color: #4b5675;
+  padding-top: 0.3rem;
+}
+
+.reasonTitle {
+  color: #071437;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 2rem 0;
+}
+
+.Reasonlist {
+  color: #4b5675;
+  font-size: 1.1rem;
+  line-height: 1.6rem;
+}
+
+.verifiedstep .progressbox {
+  background: #ff4a4a;
+  color: #fff;
+}
+
+.verifiedstep .rightSection .stepTitle {
+  color: #ff4a4a;
+}
+
+.ProgressBar .progress {
+  width: 100%;
+  height: 9px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 5rem;
+}
+
+.progressview {
+  border-radius: 5px;
+  background: #042b62;
+  width: 0;
+  /* Set the initial width to 0 */
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.Progresstext {
+  color: #042b62;
+  padding: 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.Congratulationstxt {
+  padding-top: 3rem;
+  color: #252f4a;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.Congratulationssubtxt {
+  color: #6f6c90;
+  padding-top: 1rem;
+}
+
+/* For Liquid Page */
+.DematmodalBody .LiquidLeftSection {
+  width: 50%;
+  padding: 4rem 3rem;
+}
+
+.DematmodalBody .LiquidRightSection {
+  margin: 4rem 0;
+  width: 60%;
+}
+
+.LiquidRightSection img {
+  width: 300px;
+  height: 300px;
+}
+
+.LiquidLeftSection .title {
+  color: #042b62;
+  font-weight: 600;
+}
+
+.DematmodalBody .inputCheckBox {
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  width: 15px;
+  height: 15px;
+}
+
+.DematmodalBody .inputField::placeholder {
+  color: #042b62;
+}
+
+.DematmodalBody .LinkTerms {
+  color: #042b62;
+  text-decoration: underline;
+  line-height: 0.5rem;
+}
+
+.DematmodalBody .inputCheckBox {
+  background-color: #fff;
+  /* -webkit-appearance: none; */
+}
+
+.DematmodalBody input[type="checkbox"]:checked {
+  background-color: #fff;
+}
+
+.verifiedAccount {
+  border-radius: 6.18px;
+  border: 1px dashed #3e97ff;
+  background: #f1faff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .7rem 1rem;
+  /* width: 45%; */
+  margin: auto;
+  color: #042b62;
+  width: max-content;
+  /* display: none; */
+}
+
+.notverifiedAccount {
+  border-radius: 4px;
+  border: 1px dashed #F00;
+  background: #FEF3F2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .7rem 1rem;
+  width: max-content;
+  /* margin: auto; */
+  color: #042b62;
+  /* display: none; */
+}
+
+.RetryBtn {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #042b62;
+}
+
+.BasicDetailsSection .Dots {
+  background-color: #D9D9D9;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 1rem;
+  cursor: pointer;
+}
+
+.BasicDetailsSection .Dotactive {
+  width: 2rem;
+  background-color: #042b62;
+  height: 6px;
+  border-radius: 4px;
+}
+
+.parBody {
+  padding: 2rem 3rem;
+}
+
+.parBody .parTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.parBody ul {
+  padding: 1rem 0;
+  list-style: disc;
+  margin: 0 2rem;
+}
+
+.parBody ul li {
+  padding: .6rem 0;
+}
+
+.partreportselectiontype {
+  border-radius: 12px;
+  border: 1px dashed #042b62;
+  background: #EFFAFF;
+  padding: 1rem;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  position: relative;
+}
+
+.partreportselectiontype .titleName {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.partreportselectiontype .information {
+  font-size: 1rem;
+  padding: .6rem 0;
+  font-weight: 400;
+}
+
+.continueBtns,
+.disablecontinuebtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.continueBtns button {
+  background-color: #042b62;
+  outline: none;
+  border: 0;
+  padding: 0.625rem 1.5625rem;
+  color: #fff;
+  border-radius: 2rem;
+  font-weight: 600;
+}
+
+.disablecontinuebtn button {
+  background-color: #042b62;
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  outline: none;
+  border: 0;
+  padding: 0.625rem 1.5625rem;
+  color: #fff;
+  border-radius: 2rem;
+  font-weight: 600;
+}
+
+/* For Money Management UI */
+@media (max-width: 1200px) {
+  .DematmodalBody .LeftSection {
+    width: 40%;
+  }
+
+  .stepsubTitle {
+    font-size: .8rem;
+  }
+
+  .progressbox::before {
+    height: 24px;
+  }
+  .OtpFields .otpnumber{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+  }
+}
+@media (max-width: 1800px) {
+  .DematmodalBody .LeftSection {
+    width: 40%;
+  }
+
+  .stepsubTitle {
+    font-size: .8rem;
+  }
+
+  .progressbox::before {
+    height: 24px;
+  }
+  .OtpFields .otpnumber{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+  }
+}
+
+/* for mobile Responsive */
+@media (max-width: 768px) {
+  .Demat {
+    width: 100%;
+  }
+
+  .DematRightSection {
+    width: 100%;
+  }
+
+  .NsdlcsdlView {
+    padding: 1rem 1rem;
+  }
+
+  .NsdlcsdlViewSection {
+    display: grid;
+  }
+
+  .NsdlcsdlViewtext {
+    font-size: 1rem;
+  }
+
+  .NsdlcsdlViewdsubtext {
+    line-height: 1rem;
+    font-size: 0.8rem;
+    width: 100%;
+    padding-top: 1rem;
+  }
+
+  .NsdlcsdlViewLink {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
+
+  .Holdingsoptview {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .Holdingsoptviewtext {
+    font-size: 0.8rem;
+  }
+
+  .Holdingsoptview .next img {
+    width: 30px;
+  }
+
+  .modalBody {
+    margin: 1rem 1px;
+  }
+
+  .DematRightSection {
+    margin-top: 1rem;
+  }
+
+  .ModalProgressBar {
+    padding-left: 1.4rem;
+  }
+
+  .Demattrackinfo .Demattitle {
+    font-size: 0.9rem;
+  }
+
+  .Demattrackinfo .Demattrackinfo .Dematsubinfo {
+    text-align: justify;
+  }
+
+  .DematkeyBenefitlist {
+    padding: 0.8rem 0;
+  }
+
+  .DematkeyBenefitlistText {
+    font-size: 0.8rem;
+  }
+
+  .DematkeyBenefitlist img {
+    width: 15px;
+  }
+
+  .Demattrackinfo .DematkeyBenefit {
+    font-size: 1rem;
+  }
+
+  .poweredBy {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+
+  .ConnetcBroker {
+    width: 100%;
+  }
+
+  .linkNowbtn button {
+    font-size: 1rem;
+    padding: 0.7rem 3rem;
+  }
+
+  .DematmodalBody {
+    display: grid;
+    overflow: auto;
+  }
+
+  .DematmodalBody .LeftSection {
+    width: 99%;
+    padding-left: 1rem;
+  }
+
+  .DematmodalBody .RightSection {
+    width: 90%;
+  }
+
+  .BasicDetailsSection {
+    width: 100%;
+    margin: 2.6rem 1rem;
+  }
+
+  .mobileStepper {
+    justify-content: space-between;
+  }
+
+  .mobileStepper .stepperMobile:last-child .progressbox::before {
+    display: none;
+  }
+
+  /* .mobileStepper .progressbox::after{
+    margin-top: 0rem;
+    height: 45px;
+  } */
+  .mobileStepper .progressbox {
+    transform: rotate(-90deg);
+    margin-top: 0rem;
+  }
+
+  .mobileStepper .progressbox span:before {
+    content: "";
+    border: 1px dashed #042b62;
+    position: absolute;
+    transform: rotate(-90deg);
+    margin-top: -0.8rem;
+    height: 50px;
+    margin-left: -2.7rem;
+  }
+
+  .mobileStepper .stepperMobile:first-child .progressbox span:before {
+    display: none;
+  }
+
+  .mobileStepper .boxinactive .progressbox span:before {
+    border: 1px dashed #dbdfe9;
+  }
+
+  .OtpFields .otpnumber {
+    width: 40px;
+    height: 40px;
+    margin-right: 4px;
+  }
+
+  .otpResend {
+    margin-right: 8px;
+  }
+
+  .otpresendtxt {
+    font-size: 0.9rem;
+  }
+
+  .otpresendbtn {
+    font-size: 0.9rem;
+  }
+
+  .termsConditions {
+    margin-top: 2rem;
+  }
+
+  .termsConditions .termsText {
+    font-size: 0.9rem;
+  }
+
+  .DematmodalBody .LeftSection {
+    box-shadow: none;
+  }
+
+  .accountnotfoundDetailsbox {
+    margin-top: 1rem;
+  }
+
+  .notfoundtext {
+    font-size: 0.9rem;
+  }
+
+  .notfoundnumber {
+    font-size: 0.8rem;
+  }
+
+  .reasonTitle {
+    font-size: 0.9rem;
+  }
+
+  .Reasonlist {
+    font-size: 0.9rem;
+  }
+
+  .accountfoundsection .Cancelpopup {
+    padding: 0.6rem 4rem;
+  }
+
+  .accountfoundsection .UseDiffnumber {
+    margin-top: 1rem;
+    padding: 0.6rem 1.6rem;
+  }
+
+  .accountDetailsbox {
+    margin-top: 1.7rem;
+  }
+
+  .accountDetailsbox .servicesName {
+    font-weight: normal;
+    font-size: 0.9rem;
+  }
+
+  .BrokerName {
+    font-weight: 600;
+    font-size: 0.8rem;
+    /* white-space: nowrap; */
+  }
+
+  .DematmodalBody .LiquidLeftSection {
+    /* width: 50%; */
+    padding: 3rem 2rem;
+  }
+
+  .accountfoundsection .CancelBtndesktop {
+    padding: 0.6rem 2rem;
+  }
+
+  .accountDetailsbox .OtpBox {
+    display: grid;
+    justify-content: center;
+  }
+
+  .accountDetailsbox .OtpVerify {
+    text-align: center;
+  }
+
+  .OtpBox {
+    margin-top: 0;
+  }
+
+  .OtpBox input {
+    width: 27px;
+  }
+
+  .OtpVerify .sentotptext {
+    font-size: .7rem;
+  }
+
+  .accountDetailsbox .Resentotptxt {
+    padding-top: .5rem;
+    font-size: .7rem;
+
+  }
+}
+
+.ModalBackground {
+  background: url('./Warning.png') no-repeat;
+  background-position: center;
+  background-size: 300px;
+  background-blend-mode: difference;
+  /* opacity: .7; */
+}
+
+.disableBtn {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #ffffff;
+  background-color: #CBCBCB !important;
+  padding: 0.6rem 2rem;
+  border: none;
+  margin-top: 3rem !important;
+  padding: .6rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border-radius: 30px;
+  border: 0.744px solid #c0c0c0 !important;
+}
+
+.syncBtn {
+  pointer-events: none;
+  cursor: no-drop !important;
+}
+
+.syncBtn .rotateAnimetion {
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

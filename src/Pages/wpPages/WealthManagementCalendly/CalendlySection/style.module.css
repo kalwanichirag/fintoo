@@ -1,0 +1,56 @@
+.CalendlySection {
+    background-color: #042b62;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 3rem 0 2rem 0;
+}
+
+.CalendlySectionText {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.CalendlySectionText h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.CalendlySectionCalendly {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.CalendlyVerificationSection {
+    width: 70%;
+}
+
+.CalendlySectionCalendlyContainer {
+    width: 50%;
+}
+
+@media only screen and (max-width: 850px) {
+    .CalendlySection {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .CalendlySectionText h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .CalendlySectionCalendlyContainer {
+        width: 90%;
+    }
+    .CalendlyVerificationSection {
+        width: 95%;
+    }
+}

@@ -1,0 +1,333 @@
+.backOption {
+    position: absolute;
+    top: 0;
+    left: -350px;
+    background-color: rgba(180, 180, 180, 0.681);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expertAppointmentContainer {
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.expertDetailContainer {
+    padding: 1.5rem 2rem;
+    border-radius: 13px;
+    border: 2px solid #042b62;
+    background-color: #FFFFFF;
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.expertDetailContainer2 {
+    padding: 1rem;
+    width: 94%;
+    border-radius: 13px;
+    border: 2px solid #042b62;
+    background-color: #FFFFFF;
+}
+
+.expertDetailNameContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.expertDetailImgContainer {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.expertDetailImgContainer2 {
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.expertDetailImgContainer3 {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.expertDetailStarsContainer {
+    font-size: 0.8rem;
+}
+
+.expertDetailImg {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: red;
+    border-radius: 50%;
+    border: 3px solid #042b62;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.expertName {
+    color: #3B3F5C;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.expertDetails {
+    color: #8f9aad;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.expertDetailTimingContainer {
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
+    border-left: 3px solid #E6E6E6;
+}
+
+.expertDetailConfirmText {
+    position: relative;
+    text-align: center;
+    color: #3B3F5C;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.expertDetailTimingText {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #3B3F5C;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.expertCalenderContainer {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    /* border: 1px solid #c8c8c8; */
+    border-radius: 15px;
+}
+
+.expertCalenderContainer iframe {
+    width: 100% !important;
+    /* height: 85vh !important; */
+}
+
+.expertCalenderContainer .calendly-inline-widget {
+    width: 100% !important;
+}
+
+.expertCalenderContainer div:first-child {
+    width: 100% !important;
+}
+
+.expertCallDetailContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #c8c8c8;
+    border-radius: 15px;
+    width: 30%;
+    padding: 1.5rem;
+    margin: 0 auto 2rem auto;
+}
+
+.expertCallDetailName {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.confirmationImgContainer {
+    text-align: center;
+    border-bottom: 2px solid #0000001A;
+}
+
+.expertCallDetailTiming {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+
+.expertCallDetailTxt {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.expertCallDetailTxtThankYou {
+    color: #3B3F5C;
+    text-align: center;
+    font-family: 'Red Hat Text';
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 160%;
+    /* or '2rem' */
+    letter-spacing: 0.00875rem;
+    text-decoration-line: underline;
+}
+
+.expertCallDetailTxtPara {
+    opacity: 0.8;
+    color: #3B3F5C;
+    font-family: 'Red Hat Text';
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    letter-spacing: 0.00875rem;
+}
+
+.expertCallDetailBtn {
+    padding: 0.5rem 1rem;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    background-color: #042b62;
+    border: none;
+}
+
+.expertCallDetailBtn2 {
+    padding: 0.5rem 1rem;
+    color: #042b62;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    background-color: white;
+    border: 1px solid #042b62;
+    /* border: none; */
+}
+
+@media only screen and (max-width: 850px) {
+    .backOption {
+        left: -75px;
+    }
+
+    .expertAppointmentContainer {
+        width: 80%;
+    }
+
+    .expertCalenderContainer iframe {
+        /* width: 100% !important; */
+        height: 55vh !important;
+    }
+
+    .expertCallDetailContainer {
+        width: 50%;
+    }
+
+}
+
+@media only screen and (max-width: 650px) {
+    .backOption {
+        top: -83px;
+        left: -14px;
+        padding: 0.5rem;
+    }
+
+    .expertCalenderContainer iframe {
+        width: 105% !important;
+        height: 85vh !important;
+    }
+
+    .topPlaceHolder {
+        padding-top: 2rem;
+    }
+
+    .expertAppointmentContainer {
+        width: 97%;
+    }
+
+    .expertDetailContainer {
+        padding: 0.5rem;
+        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .expertDetailImgContainer {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .expertDetailImgContainer2 {
+        width: 26%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .expertDetailImgContainer3 {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .expertDetailTimingContainer {
+        padding-left: 0;
+        padding-top: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.5rem;
+        border-left: none;
+        border-top: 3px solid #E6E6E6;
+    }
+
+    .expertCalenderContainer iframe {
+        /* width: 100% !important; */
+        height: 70vh !important;
+    }
+
+    .expertCallDetailContainer {
+        width: 95%;
+    }
+
+    .expertCallDetailTxt {
+        width: 100%;
+    }
+}

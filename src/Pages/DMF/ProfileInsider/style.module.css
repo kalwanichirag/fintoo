@@ -1,0 +1,50 @@
+.Hrline {
+    border-bottom: 1px solid #e5e5e5;
+    margin-top: 0.6rem;
+}
+
+.text-label-info {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.text-label-info p {
+    line-height: .8rem;
+    margin: 0px;
+}
+
+.pro-con8 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* For Profile Add Bank and Mandate List */
+
+.banktitle1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding-bottom: .5rem;
+}
+
+.BankListData {
+    width: 50%;
+}
+
+@media (min-width: 768px) {
+    .pro-con8 {
+        justify-content: end;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .text-label-info {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .BankListData {
+        width: 100%;
+    }
+}

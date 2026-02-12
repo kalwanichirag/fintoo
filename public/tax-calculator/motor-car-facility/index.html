@@ -1,0 +1,1513 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/motor_car_facility.css">
+    <title>Motor Car Facility</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div>
+                <!--//docs-logo-wrapper-->
+
+            </div>
+            <!--//container-->
+        </div>
+        <!--//branding-->
+    </header>
+    <!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class=" tab_button fw-normal tablinks active"
+                onclick="handleTabSelection(event,'medical_facility_india');setTabNumber('1')">
+                TAXABILITY OF MOTOR CAR PERQUISITE</div>
+            <div class="tab_button fw-normal tablinks"
+                onclick="handleTabSelection(event,'medical_facility_outside_india');setTabNumber('2')">
+                TAXABILITY OF OTHER THAN CAR PERQUISITE
+            </div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <form class="incom-and-tax-calculator-form" id="depreciation_form_1">
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Select the nature of use
+                                    of car *</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="radioCarNature"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" required>
+                                        <option selected="" value="">Select</option>
+                                        <option value="Official">Official</option>
+                                        <option value="Private">Private</option>
+                                        <option value="Both">Both</option>
+                                    </select>
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+
+                            <div class="xs-p-20 text-left">
+                                <div class="radio-lavel-horizontal">
+                                    <div class="xs-mt-10" id="divOwner" style="display: none;">
+                                        <br>
+                                        <div class="row justify-content-between align-content-center assessment-year">
+                                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">Owner
+                                                *</label>
+                                            <div class="col-sm-4 col-xs-12">
+                                                <select class="form-select rounded-0" id="radioCarOwner"
+                                                    oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                                    required>
+                                                    <option selected="" value="">Select</option>
+                                                    <option value="Employer">Car owned/hired by employer</option>
+                                                    <option value="Employee">Car owned by employee</option>
+                                                </select>
+                                                <p class="required-msg">This field is
+                                                    required</p>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="hdn-switch-OtherOption" value="car">
+                                    </div>
+                                    <div class="xs-mt-10" id="divMaintenance" style="display: none;">
+                                        <br>
+                                        <div class="row justify-content-between align-content-center assessment-year">
+                                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">Running and
+                                                maintenance expense met by *</label>
+                                            <div class="col-sm-4 col-xs-12">
+                                                <select class="form-select rounded-0" id="radioCarMaintenance"
+                                                    oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                                    required>
+                                                    <option selected="" value="">Select</option>
+                                                    <option value="Employer">Employer</option>
+                                                    <option value="Employee">Employee</option>
+                                                </select>
+                                                <p class="required-msg">This field is
+                                                    required</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <br>
+                                <div class="month-table-container" id="divMonth" style="display: none;">
+                                    <div class="div-table mart10p div-table-cell-15pr">
+                                        <input type="hidden" id="hdn-switch-option" value="3">
+                                        <div class="div-row thead">
+                                            <div class="div-cell header-cell">
+                                                Month
+                                            </div>
+                                            <div class="div-cell header-cell" style="display: none;">
+                                                Cost of car (if owned)</div>
+                                            <div class="div-cell header-cell" style="display: none;">
+                                                Wear and tear generally @ 10% P.a</div>
+                                            <div class="div-cell header-cell" style="display: none;">
+                                                Hire charges (if hired)</div>
+                                            <div class="div-cell header-cell">
+                                                Salary of driver (if provided)</div>
+                                            <div class="div-cell header-cell" style="display: table-cell;">
+                                                Running and maintenance by employer</div>
+                                            <div class="div-cell header-cell" style="display: none;">
+                                                Select Cubic capacity of car does not exceed 1.6 litres
+                                            </div>
+                                            <div class="div-cell header-cell" style="display: none;">
+                                                Select Cubic capacity of car exceeds 1.6 litres
+                                            </div>
+                                            <div class="div-cell header-cell" style="display: none;">
+                                                Select if driver provided
+                                            </div>
+                                            <div class="div-cell header-cell" style="display: none;">
+                                                Total expenditure incurred by employer</div>
+                                            <div class="div-cell header-cell" style="display: none;">
+                                                Expenditure for official purpose</div>
+                                            <div class="div-cell header-cell" style="display: table-cell;">
+                                                Amount recovered from employee</div>
+                                            <div class="div-cell header-cell" style="display: table-cell;">
+                                                Value of perquisite</div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                APRIL
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_1" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_1" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_1" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_1" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_1" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_1" name="april">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_1" name="april">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="april"
+                                                    id="select_driver_1" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_1" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_1" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_1"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_1"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                MAY
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_2" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_2" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_2" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_2" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_2" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_2" name="may">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_2" name="may">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="may"
+                                                    id="select_driver_2" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_2" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_2" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_2"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_2"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                JUNE
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_3" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_3" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_3" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_3" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_3" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_3" name="june">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_3" name="june">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="june"
+                                                    id="select_driver_3" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_3" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_3" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_3"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_3"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                JULY
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_4" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_4" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_4" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_4" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_4" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_4" name="july">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_4" name="july">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="july"
+                                                    id="select_driver_4" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_4" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_4" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_4"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_4"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                AUGUST
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_5" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_5" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_5" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_5" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_5" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_5" name="aug">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_5" name="aug">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="aug"
+                                                    id="select_driver_5" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_5" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_5" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_5"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_5"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                SEPTEMBER
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_6" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_6" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_6" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_6" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_6" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_6" name="sep">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_6" name="sep">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="sep"
+                                                    id="select_driver_6" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_6" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_6" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_6"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_6"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                OCTOBER
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_7" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_7" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_7" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_7" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_7" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_7" name="oct">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_7" name="oct">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="oct"
+                                                    id="select_driver_7" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_7" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_7" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_7"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_7"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                NOVEMBER
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_8" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_8" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_8" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_8" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_8" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_8" name="nov">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_8" name="nov">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="nov"
+                                                    id="select_driver_8" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_8" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_8" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_8"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_8"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                DECEMBER
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_9" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_9" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_9" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_9" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_9" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_9" name="dec">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_9" name="dec">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="dec"
+                                                    id="select_driver_9" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_9" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_9" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_9"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_9"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                JANUARY
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_10" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_10" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_10" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_10" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_10"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_10" name="jan">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_10" name="jan">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="jan"
+                                                    id="select_driver_10" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_10" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_10" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_10"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_10"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                FEBRUARY
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_11" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_11" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_11" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_11" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_11"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_11" name="feb">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_11" name="feb">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="feb"
+                                                    id="select_driver_11" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_11" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_11" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_11"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_11"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                MARCH
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="car_cost_12" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="WT_10per_12" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input class="form-control rounded-0" id="hire_charges_12" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" id="driver_salary_12" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="rm_by_employer_12"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="0"
+                                                    id="cubic_capacity_radio_one_12" name="mar">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="radio" class="form-check-input" value="1"
+                                                    id="cubic_capacity_radio_two_12" name="mar">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input type="checkbox" class="form-check-input" name="mar"
+                                                    id="select_driver_12" disabled="disabled">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" class="form-control rounded-0"
+                                                    id="emp_expend_flag1_12" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_12" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input class="form-control rounded-0" id="amount_recovered_flag1_12"
+                                                    type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="perquisite_12"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="div-row total-row">
+                                            <div class="div-cell month-cell">
+                                                Total
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="total_car_cost"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="total_wear_tear_value"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="total_hire_charges"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input disabled="disabled" id="total_driver_salary"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="total_rm_by_employer"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;"></div>
+                                            <div class="div-cell" style="display: none;"></div>
+                                            <div class="div-cell" style="display: none;"></div>
+
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="emp_expend_flag1_total" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: none;">
+                                                <input disabled="disabled" id="exp_official_car_total" class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="total_amt_recovered"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                            <div class="div-cell" style="display: table-cell;">
+                                                <input disabled="disabled" id="total_taxable_perquisite_value"
+                                                    class="form-control rounded-0" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                <section id="medical_facility_outside_india" class="incom-and-tax-calculator-form-section tabcontent">
+                    <form class="incom-and-tax-calculator-form" id="depreciation_form_2">
+                        <div class="padding-div">
+                            <!-- <div id="divOther" hidden="" style="display: block;"> -->
+                            <div id="divOther">
+                                <div class="xs-p-20">
+
+                                    <div class="row justify-content-between align-content-center assessment-year">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">Select the nature
+                                            of use of conveyance *</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <select class="form-select rounded-0" id="radioNature"
+                                                oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                                required>
+                                                <option selected="" value="">Select</option>
+                                                <option value="Official">Official</option>
+                                                <option value="Private">Official and Private both</option>
+                                            </select>
+                                            <p class="required-msg">This field is
+                                                required</p>
+                                        </div>
+                                    </div><br>
+
+                                    <div class="clear"></div>
+                                    <div class="month-table-container" id="divMonthOther" style="display: none;">
+                                        <div class="div-table mart10p div-table-cell-15pr">
+                                            <input type="hidden" id="Hidden1">
+                                            <div class="div-row thead">
+                                                <div class="div-cell header-cell">
+                                                    Month
+                                                </div>
+                                                <div class="div-cell header-cell">
+                                                    Total expenditure incurred by employer</div>
+                                                <div class="div-cell header-cell">
+                                                    Expenditure for official purpose
+                                                </div>
+                                                <div class="div-cell header-cell">
+                                                    Amount recovered from employee</div>
+                                                <div class="div-cell header-cell">
+                                                    Value of perquisite</div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    APRIL
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_1"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_1"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_1"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_1" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    MAY
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_2"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_2"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_2"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_2" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    JUNE
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_3"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_3"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_3"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_3" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    JULY
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_4"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_4"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_4"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_4" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    AUGUST
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_5"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_5"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_5"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_5" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    SEPTEMBER
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_6"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_6"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_6"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_6" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    OCTOBER
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_7"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_7"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_7"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_7" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    NOVEMBER
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_8"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_8"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_8"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_8" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    DECEMBER
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_9"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_9"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_9"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_9" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    JANUARY
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_10"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_10"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_10"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_10" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    FEBRUARY
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_11"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_11"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_11"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_11" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row">
+                                                <div class="div-cell month-cell">
+                                                    MARCH
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="employer_exp_flag2_12"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="official_exp_12"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input class="form-control rounded-0" id="amount_recovered_flag2_12"
+                                                        type="text">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="perquisite_other_12" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="div-row total-row">
+                                                <div class="div-cell month-cell">
+                                                    Total
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="total_car_cost_f2"
+                                                        class="form-control rounded-0" type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="official_exp_total" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="amount_recovered_f2_total" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input disabled="disabled" id="total_taxable_perquisite_value_f2" class="form-control rounded-0"
+                                                        type="text">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <form>
+                </form>
+
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/motor_car_facility.js"></script>
+
+<script>
+    let tabNumber = '1'
+    const setTabNumber = (num) => {
+        return tabNumber = num
+    }
+
+    const getFormValidationState = () => {
+        if (tabNumber === '1') {
+            const formElement1 = document.getElementById('radioCarNature').checkValidity();
+            const formElement2 = document.getElementById('radioCarOwner').checkValidity();
+            const formElement3 = document.getElementById('radioCarMaintenance').checkValidity();
+            const isFormValid = formElement1 && formElement2 && formElement3;
+
+            return isFormValid
+        } else {
+            const formElement1 = document.getElementById('radioNature').checkValidity();
+            const isFormValid = formElement1;
+
+            return isFormValid
+        }
+
+    }
+
+    const getRadioCarOwnerAndRadioCarMaintenanceValue = (strValue) => {
+        switch (strValue) {
+            case 'Employer':
+                return '1'
+            case 'Employee':
+                return '2'
+            default:
+                return "";
+        }
+    }
+
+    const getRadioNatureValue = (strValue) => {
+        switch (strValue) {
+            case 'Official':
+                return '1'
+            case 'Private':
+                return '2'
+            case 'Both':
+                return '3'
+            default:
+                return "";
+        }
+    }
+
+    const getPayload = () => {
+        const apr = {};
+        const may = {};
+        const jun = {};
+        const jul = {};
+        const aug = {};
+        const sep = {};
+        const oct = {};
+        const nov = {};
+        const dec = {};
+        const jan = {};
+        const feb = {};
+        const mar = {};
+        for (let i = 1; i < 13; i++) {
+            var car_cost = +document.getElementById("car_cost_" + i).value.replace(/,/g, '') || "";
+            var hire_charges = +document.getElementById("hire_charges_" + i).value.replace(/,/g, '') || "";
+            var driver_salary = +document.getElementById("driver_salary_" + i).value.replace(/,/g, '') || "";
+            var rm_by_employer = +document.getElementById("rm_by_employer_" + i).value.replace(/,/g, '') || "";
+            var select_driver = document.getElementById("select_driver_" + i).checked ? '1' : '0';
+            var emp_expend_flag1 = +document.getElementById("emp_expend_flag1_" + i).value.replace(/,/g, '') || "";
+            var amount_recovered_flag1 = +document.getElementById("amount_recovered_flag1_" + i).value.replace(/,/g, '') || "";
+
+            var employer_exp_flag2 = +document.getElementById("employer_exp_flag2_" + i).value.replace(/,/g, '') || "";
+            var amount_recovered_flag2 = +document.getElementById("amount_recovered_flag2_" + i).value.replace(/,/g, '') || "";
+            var official_exp = +document.getElementById("official_exp_" + i).value.replace(/,/g, '') || "";
+
+            if (i == 1) {
+                typeof ($("input[name='april']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='april']:checked").val()) + 1).toString();
+                Object.assign(apr, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 2) {
+                typeof ($("input[name='may']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='may']:checked").val()) + 1).toString();
+                Object.assign(may, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 3) {
+                typeof ($("input[name='june']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='june']:checked").val()) + 1).toString();
+                Object.assign(jun, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 4) {
+                typeof ($("input[name='july']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='july']:checked").val()) + 1).toString();
+                Object.assign(jul, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 5) {
+                typeof ($("input[name='aug']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='aug']:checked").val()) + 1).toString();
+                Object.assign(aug, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 6) {
+                typeof ($("input[name='sep']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='sep']:checked").val()) + 1).toString();
+                Object.assign(sep, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 7) {
+                typeof ($("input[name='oct']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='oct']:checked").val()) + 1).toString();
+                Object.assign(oct, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 8) {
+                typeof ($("input[name='nov']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='nov']:checked").val()) + 1).toString();
+                Object.assign(nov, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 9) {
+                typeof ($("input[name='dec']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='dec']:checked").val()) + 1).toString();
+                Object.assign(dec, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 10) {
+                typeof ($("input[name='jan']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='jan']:checked").val()) + 1).toString();
+                Object.assign(jan, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 11) {
+                typeof ($("input[name='feb']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='feb']:checked").val()) + 1).toString();
+                Object.assign(feb, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+            else if (i == 12) {
+                typeof ($("input[name='mar']:checked").val()) === "undefined" ? cubic_capacity = "" : cubic_capacity = (parseInt($("input[name='mar']:checked").val()) + 1).toString();
+                Object.assign(mar, { car_cost: car_cost, hire_charges: hire_charges, driver_salary: driver_salary, rm_by_employer: rm_by_employer, amt_recovered_flag_1: amount_recovered_flag1, cubic_capacity: cubic_capacity, select_driver: select_driver, emp_expend_flag_1: emp_expend_flag1, employer_exp_flag_2: employer_exp_flag2, official_exp: official_exp, amount_recovered_flag_2: amount_recovered_flag2 });
+            }
+
+        }
+        if (tabNumber === '1') {
+            return {
+                flag: "1",
+                car_select: getRadioNatureValue(document.getElementById("radioCarNature").value),
+                owner_chk: getRadioCarOwnerAndRadioCarMaintenanceValue(document.getElementById("radioCarOwner").value),
+                expense_chk: getRadioCarOwnerAndRadioCarMaintenanceValue(document.getElementById("radioCarMaintenance").value),
+                april: apr,
+                may: may,
+                june: jun,
+                july: jul,
+                august: aug,
+                september: sep,
+                october: oct,
+                november: nov,
+                december: dec,
+                january: jan,
+                february: feb,
+                march: mar,
+            }
+        }
+        else {
+            return {
+                flag: "2",
+                chk_conveyance: getRadioNatureValue(document.getElementById("radioNature").value),
+                april: apr,
+                may: may,
+                june: jun,
+                july: jul,
+                august: aug,
+                september: sep,
+                october: oct,
+                november: nov,
+                december: dec,
+                january: jan,
+                february: feb,
+                march: mar,
+            }
+        }
+    }
+
+    function getFormatedValue(strValue){
+        if (strValue !="") {
+            if (strValue % 1 != 0) {
+                round_off_val=parseFloat(strValue).toFixed(2)
+                before_decimal=(round_off_val).toString().split(".")[0]
+                after_decimal=(round_off_val).toString().split(".")[1]
+                return (parseInt(before_decimal)).toLocaleString('en-IN')+"."+after_decimal;
+            }
+            else{
+                return (parseInt(strValue)).toLocaleString('en-IN');
+            }
+        }
+    }
+
+    const Calculate = () => {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return;
+        }
+        var param = false;
+        if (tabNumber === '1') {
+            var get_car_select = document.getElementById("radioCarNature").value;
+            var get_owner_chk = document.getElementById("radioCarOwner").value;
+            var get_expense_chk = document.getElementById("radioCarMaintenance").value;
+            if (!(get_owner_chk == "Employee" && get_expense_chk == "Employee")) {
+                param = true;
+            }
+        }
+        else {
+            var get_conveyance_select = document.getElementById("radioNature").value;
+            if (get_conveyance_select != "Official") {
+                param = true;
+            }
+        }
+        if (param == true) {
+            hideAlert();
+            $(".dashboard-loader").addClass('active');
+            $.ajax({
+                url: "https://auto-v2.fintoo.in/tax_calc_bots/motor_car_facility/",
+                type: "POST",
+                data: JSON.stringify(getPayload()),
+                dataType: "json",
+                success: function (res) {
+                    $(".dashboard-loader").removeClass('active');
+                    if (res.error_code == "100") {
+                        if (tabNumber === '1') {
+                            if (get_car_select == "Private") {
+                                if (res.data.total_value.notification_msg != "") {
+                                    showAlert();
+                                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.data.total_value.notification_msg;
+                                }
+                                if (get_owner_chk == "Employer") {
+                                    $("#WT_10per_1").val(getFormatedValue(res.data.monthly_data[0].april.wear_tear_value)||0);
+                                    $("#WT_10per_2").val(getFormatedValue(res.data.monthly_data[0].May.wear_tear_value)||0);
+                                    $("#WT_10per_3").val(getFormatedValue(res.data.monthly_data[0].June.wear_tear_value)||0);
+                                    $("#WT_10per_4").val(getFormatedValue(res.data.monthly_data[0].July.wear_tear_value)||0);
+                                    $("#WT_10per_5").val(getFormatedValue(res.data.monthly_data[0].August.wear_tear_value)||0);
+                                    $("#WT_10per_6").val(getFormatedValue(res.data.monthly_data[0].September.wear_tear_value)||0);
+                                    $("#WT_10per_7").val(getFormatedValue(res.data.monthly_data[0].October.wear_tear_value)||0);
+                                    $("#WT_10per_8").val(getFormatedValue(res.data.monthly_data[0].November.wear_tear_value)||0);
+                                    $("#WT_10per_9").val(getFormatedValue(res.data.monthly_data[0].December.wear_tear_value)||0);
+                                    $("#WT_10per_10").val(getFormatedValue(res.data.monthly_data[0].January.wear_tear_value)||0);
+                                    $("#WT_10per_11").val(getFormatedValue(res.data.monthly_data[0].February.wear_tear_value)||0);
+                                    $("#WT_10per_12").val(getFormatedValue(res.data.monthly_data[0].March.wear_tear_value)||0);
+                                    $("#total_car_cost").val(getFormatedValue(res.data.total_value.total_car_cost)||0);
+                                    $("#total_wear_tear_value").val(getFormatedValue(res.data.total_value.total_wear_tear_value)||0);
+                                    $("#total_hire_charges").val(getFormatedValue(res.data.total_value.total_hire_charges)||0);
+                                }
+                                $("#total_driver_salary").val(getFormatedValue(res.data.total_value.total_driver_salary)||0);
+                                $("#total_rm_by_employer").val(getFormatedValue(res.data.total_value.total_rm_by_employer)||0);
+                            }
+                            else {
+                                if (get_owner_chk == "Employee") {                                
+                                    $("#exp_official_car_1").val(getFormatedValue(res.data.monthly_data[0].april.official_exp)||0);
+                                    $("#exp_official_car_2").val(getFormatedValue(res.data.monthly_data[0].May.official_exp)||0);
+                                    $("#exp_official_car_3").val(getFormatedValue(res.data.monthly_data[0].June.official_exp)||0);
+                                    $("#exp_official_car_4").val(getFormatedValue(res.data.monthly_data[0].July.official_exp)||0);
+                                    $("#exp_official_car_5").val(getFormatedValue(res.data.monthly_data[0].August.official_exp)||0);
+                                    $("#exp_official_car_6").val(getFormatedValue(res.data.monthly_data[0].September.official_exp)||0);
+                                    $("#exp_official_car_7").val(getFormatedValue(res.data.monthly_data[0].October.official_exp)||0);
+                                    $("#exp_official_car_8").val(getFormatedValue(res.data.monthly_data[0].November.official_exp)||0);
+                                    $("#exp_official_car_9").val(getFormatedValue(res.data.monthly_data[0].December.official_exp)||0);
+                                    $("#exp_official_car_10").val(getFormatedValue(res.data.monthly_data[0].January.official_exp)||0);
+                                    $("#exp_official_car_11").val(getFormatedValue(res.data.monthly_data[0].February.official_exp)||0);
+                                    $("#exp_official_car_12").val(getFormatedValue(res.data.monthly_data[0].March.official_exp)||0);
+                                    
+                                    $("#emp_expend_flag1_total").val(getFormatedValue(res.data.total_value.total_emp_expend)||0);
+                                    $("#exp_official_car_total").val(getFormatedValue(res.data.total_value.total_official_exp)||0);
+                                }
+                            }
+                            $("#perquisite_1").val(getFormatedValue(res.data.monthly_data[0].april.taxable_perquisite_value)||0);
+                            $("#perquisite_2").val(getFormatedValue(res.data.monthly_data[0].May.taxable_perquisite_value)||0);
+                            $("#perquisite_3").val(getFormatedValue(res.data.monthly_data[0].June.taxable_perquisite_value)||0);
+                            $("#perquisite_4").val(getFormatedValue(res.data.monthly_data[0].July.taxable_perquisite_value)||0);
+                            $("#perquisite_5").val(getFormatedValue(res.data.monthly_data[0].August.taxable_perquisite_value)||0);
+                            $("#perquisite_6").val(getFormatedValue(res.data.monthly_data[0].September.taxable_perquisite_value)||0);
+                            $("#perquisite_7").val(getFormatedValue(res.data.monthly_data[0].October.taxable_perquisite_value)||0);
+                            $("#perquisite_8").val(getFormatedValue(res.data.monthly_data[0].November.taxable_perquisite_value)||0);
+                            $("#perquisite_9").val(getFormatedValue(res.data.monthly_data[0].December.taxable_perquisite_value)||0);
+                            $("#perquisite_10").val(getFormatedValue(res.data.monthly_data[0].January.taxable_perquisite_value)||0);
+                            $("#perquisite_11").val(getFormatedValue(res.data.monthly_data[0].February.taxable_perquisite_value)||0);
+                            $("#perquisite_12").val(getFormatedValue(res.data.monthly_data[0].March.taxable_perquisite_value)||0);
+
+                            $("#total_amt_recovered").val(getFormatedValue(res.data.total_value.total_amt_recovered)||0);
+                            $("#total_taxable_perquisite_value").val(getFormatedValue(res.data.total_value.total_taxable_perquisite_value)||0);
+                        }
+                        else{
+                            $("#perquisite_other_1").val(getFormatedValue(res.data.monthly_data[0].april.taxable_perquisite_value)||0);
+                            $("#perquisite_other_2").val(getFormatedValue(res.data.monthly_data[0].May.taxable_perquisite_value)||0);
+                            $("#perquisite_other_3").val(getFormatedValue(res.data.monthly_data[0].June.taxable_perquisite_value)||0);
+                            $("#perquisite_other_4").val(getFormatedValue(res.data.monthly_data[0].July.taxable_perquisite_value)||0);
+                            $("#perquisite_other_5").val(getFormatedValue(res.data.monthly_data[0].August.taxable_perquisite_value)||0);
+                            $("#perquisite_other_6").val(getFormatedValue(res.data.monthly_data[0].September.taxable_perquisite_value)||0);
+                            $("#perquisite_other_7").val(getFormatedValue(res.data.monthly_data[0].October.taxable_perquisite_value)||0);
+                            $("#perquisite_other_8").val(getFormatedValue(res.data.monthly_data[0].November.taxable_perquisite_value)||0);
+                            $("#perquisite_other_9").val(getFormatedValue(res.data.monthly_data[0].December.taxable_perquisite_value)||0);
+                            $("#perquisite_other_10").val(getFormatedValue(res.data.monthly_data[0].January.taxable_perquisite_value)||0);
+                            $("#perquisite_other_11").val(getFormatedValue(res.data.monthly_data[0].February.taxable_perquisite_value)||0);
+                            $("#perquisite_other_12").val(getFormatedValue(res.data.monthly_data[0].March.taxable_perquisite_value)||0);
+
+                            $("#total_car_cost_f2").val(getFormatedValue(res.data.total_value.total_employer_exp)||0);
+                            $("#official_exp_total").val(getFormatedValue(res.data.total_value.total_official_exp)||0);
+                            $("#amount_recovered_f2_total").val(getFormatedValue(res.data.total_value.total_amount_recovered)||0);
+                            $("#total_taxable_perquisite_value_f2").val(getFormatedValue(res.data.total_value.total_taxable_perquisite_value)||0);
+                        }
+
+                    }
+                    else if (res.error_code == "102") {
+                        showAlert();
+                        document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                    }
+                    else {
+                        showAlert();
+                        document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                    }
+                }
+            })
+        }
+    }
+</script>
+
+</html>

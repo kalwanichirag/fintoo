@@ -1,0 +1,806 @@
+.modalDecs {
+    font-weight: 400;
+}
+
+.thirdPartyName {
+    color: #635e5e;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.otpText {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.Otpmobilenumber {
+    color: #666666;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.EnterOtplabel {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: #cccccc;
+}
+
+.OtpNumber {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.termsConditionslabel {
+    color: #042b62;
+    font-weight: 500;
+}
+
+.termsConditionslabel:hover {
+    color: #042b62;
+}
+
+.thirdPartyLabel {
+    margin-top: 4rem;
+    text-align: right;
+    color: #666666;
+    font-size: 1rem;
+    font-weight: 500;
+    position: relative;
+    left: 14rem;
+}
+
+.Otptimer {
+    color: #042b62;
+    font-size: 1rem;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.closeButton svg {
+    color: #042b62;
+    font-size: 2rem;
+    font-weight: 500;
+    position: relative;
+    top: -1.5rem;
+    cursor: pointer;
+}
+
+.BanklistData {
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+}
+
+.banklistLayout {
+    margin-top: 6rem;
+    /* margin-left: 6rem; */
+}
+
+.banklabel {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.banklabeltext {
+    color: #616161;
+    font-size: 1.1rem;
+    padding: .2rem 0;
+    margin-bottom: 2rem;
+}
+
+.bankbox {
+    border: 1px solid #cccccc;
+    /* margin-top: 1.4rem; */
+    padding: .8rem 1rem;
+    border-radius: 10px;
+    /* width: 100%; */
+    margin: 1.4rem 1rem;
+}
+
+.bankImg {
+    border: 1px solid #c1c1c1;
+    border-radius: 50%;
+}
+
+.bankbox .bankName {
+    padding-left: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.NextbtnProcess svg {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #cccccc;
+}
+
+.thirdPartySection {
+    margin-top: 2rem;
+    text-align: right;
+    color: #666666;
+    font-weight: 600;
+}
+
+.BankaccLoader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 92vh;
+}
+
+.bankAccLoadingPage {
+    width: 120px;
+    /* Adjust the width as needed */
+    height: 120px;
+    /* Adjust the height as needed */
+    border: 7px solid #042b62;
+    /* Border style */
+    border-radius: 50%;
+    /* Make it circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bankAccLoadingPage img {
+    width: 40px;
+}
+
+.LoadContent {
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding-top: 2rem;
+}
+
+.Accountnotfound {
+    width: 60%;
+    margin: auto;
+    margin-top: 6rem;
+}
+
+.Accountnotfound svg {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.Accountnotfound .TextHeader {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.AccHeader {
+    border-bottom: 1px solid #b9b1b1;
+}
+
+.bankaccnotfounfinfo {
+    width: 100%;
+    margin: auto;
+}
+
+.bankaccnotfounfinfo .text {
+    color: #ff434e;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+    padding-top: 1.3rem;
+}
+
+.consentlabel {
+    width: 70%;
+    margin: auto;
+    padding: 2rem 0rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.bankaccnotfounfinfo .text span {
+    font-weight: bold;
+}
+
+.ReasonAccnotfind {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.ListAccnotfind {
+    margin-top: 2rem;
+}
+
+.ListAccnotfind ul {
+    list-style-type: disc !important;
+    margin-left: 2rem;
+}
+
+.ListAccnotfind ul li {
+    font-size: 1.1rem;
+    line-height: 2rem;
+}
+
+.alternateOption {
+    margin-top: 4rem;
+    color: #042b62;
+    text-align: center;
+}
+
+.alternateOption button {
+    padding: 0.5rem 1.6rem;
+    background-color: #042b62;
+    color: #fff;
+    outline: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 25px;
+}
+
+.alternateOption div {
+    text-align: center;
+    padding-top: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.mobileNumberBox {
+    border: 1px solid #cccccc;
+    margin-top: 1.4rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.mobileNumberLayout {
+    width: 50%;
+    margin: auto;
+}
+
+.mobileNumberLayout .mobileNumber {
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: max-content;
+    padding-top: 6px;
+}
+
+.mobilenumberfield {
+    border: 0;
+    border-bottom: 1px solid #b9b1b1;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+}
+
+.mobilenumberfield::placeholder {
+    font-weight: 400;
+}
+
+.Addnumbertext {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #042b62;
+    cursor: pointer;
+}
+
+.Stylishborder {
+    background-color: #e9ffef;
+    border: 1px dashed #97a099;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.Stylishborder .modalDecs {
+    font-size: .9rem;
+}
+
+.Stylishborder .modalDecs span {
+    font-weight: 500;
+}
+
+.Accountnotfound .mobileNumberBox {
+    padding: 5px 1.4rem;
+}
+
+.Accountnotfound .mobileNumberBox .radio {
+    padding-top: 0px !important;
+}
+
+.Accountnotfound .bankDetails {
+    padding-left: 5px;
+    line-height: 1.3rem;
+    padding-right: 1rem;
+}
+
+.bankDetails .bankAccType {
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.bankDetails .bankAccno {
+    color: #97a099;
+    font-weight: bold;
+}
+
+.bankDetails .bankName {
+    color: #97a099;
+    font-size: .8rem;
+    font-weight: 500;
+}
+
+.modifymob {
+    color: #042b62;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.modifymob:hover {
+    color: #042b62;
+}
+
+.noteSection {
+    margin-top: 3rem;
+    background-color: #ecfaff;
+    padding: .5rem 2rem;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.noteSection span {
+    color: #757d7f;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.bankaccnotfounfinfo .accountholder {
+    color: #858585;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.consentlabel .ListAccnotfind {
+    font-weight: 400;
+}
+
+.Accountnotfound .bankDetails .radio {
+    padding-top: 0px;
+}
+
+.LoadContentdes {
+    color: rgba(0, 0, 0, 0.50);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.BankaccLoader2 .bankAccLoadingPage {
+    border: 8px solid #042b62;
+}
+
+.BankaccLoader2 .bankAccLoadingPage img {
+    width: 30px;
+}
+
+.ApprovedConsent {
+    padding: 1.3rem 2rem;
+}
+
+.ApprovedConsent .modalHeader {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.30);
+    ;
+    padding-bottom: .8rem;
+}
+
+.ApprovedConsentData {
+    display: grid;
+    place-items: center;
+}
+
+.ApprovedConsent img {
+    margin: 2rem 0rem;
+}
+
+.ApprovedConsentcontent div:first-child {
+    color: #042b62;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.ApprovedConsentcontent div:nth-child(2) {
+    color: #042b62;
+    text-align: center;
+    font-size: 16.041px;
+    font-weight: 400;
+}
+
+.ConfirmConsentSection .mobileNumberBox {
+    width: 60%;
+}
+
+.BanklistData .stepperWrapper {
+    font-family: Arial;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.BanklistData .stepperItem {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.svgpiwrapper .loaderImg {
+    width: auto;
+    top: 3.7rem;
+    left: 4.2rem;
+}
+
+.AccountnotfoundDeatils {
+    width: 68%;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    .BanklistData .stepperItem {
+        font-size: 12px;
+    }
+}
+
+.stepperItem::before {
+    position: absolute;
+    content: '';
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 26px;
+    left: -50%;
+    z-index: 2;
+}
+
+.stepperItem::after {
+    position: absolute;
+    content: '';
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 26px;
+    left: 50%;
+    z-index: 2;
+}
+
+.BanklistData .stepCounter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    color: #fff;
+    height: 50px;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 50%;
+    background: #ccc;
+    margin-bottom: 6px;
+}
+
+.BanklistData .stepName {
+    padding-top: 1.3rem;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+
+}
+
+.BanklistData .active {
+    font-weight: bold;
+}
+
+.BanklistData .completed .stepCounter {
+    background-color: #042b62;
+}
+
+.completed::after {
+    position: absolute;
+    content: '';
+    border-bottom: 2px solid #042b62;
+    width: 100%;
+    top: 26px;
+    left: 50%;
+    z-index: 3;
+}
+
+/* 
+:first-child::before {
+    content: none;
+}
+
+:last-child::after {
+    content: none;
+} */
+
+.stepNamesubtxt {
+    padding-top: 5px;
+}
+
+.stepNamesubtxtd {
+    color: #042b62;
+    padding-top: 5px;
+}
+
+.donotrefreshtext {
+    font-size: 1.4rem;
+    color: red;
+    padding: 4rem 0;
+}
+
+.INcompleted {
+    color: rgba(0, 0, 0, 0.50);
+    ;
+}
+
+.bankListSection {
+    border: 1px solid #c1c1c1;
+    padding: 0rem 1rem;
+    border-radius: 10px;
+    padding-bottom: 1rem;
+}
+.listofBanks{
+    height: 500px;
+    overflow-y: auto;
+    margin-top: 1.4rem;
+}
+.listofBanks::-webkit-scrollbar{
+    width: 8px !important; 
+    background: rgba(204, 204, 204, 0.30) !important;
+    padding: 1rem 2rem;
+}
+.bankbox:first-child{
+    margin-top: 0rem;
+}
+.listofBanks::-webkit-scrollbar-thumb{
+    background-color: #CCC !important;
+    border-radius: 0px !important;
+}
+/* .bankListSection::-webkit-scrollbar {
+    display: none;
+} */
+
+.svgpiwrapper {
+    position: relative;
+}
+
+.svgpiwrapper img {
+    position: absolute;
+    top: 4rem;
+    left: 3.6rem;
+    width: 50px;
+    height: 50px;
+}
+
+.svgpiwrapper .loaderimg {
+    height: 50px;
+    width: 36px;
+    top: 3.2rem;
+    left: 3.6rem;
+}
+
+.alternateOption .ExitBtn a {
+    color: #042b62;
+    font-size: 1.2rem;
+}
+
+.Buttons {
+    background: transparent;
+    border: 1px solid #042b62;
+    color: #042b62;
+    padding: 6px 28px;
+    border-radius: 30px;
+    outline: none;
+    font-weight: 600;
+}
+.Buttons a{
+    color: #042b62;
+}
+.Buttons:hover {
+    color: #fff;
+    background: #042b62;
+}
+.Buttons a:hover {
+    color: #fff;
+    background: #042b62;
+}
+.modalTitletext{
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 1rem 0;
+}
+.modalDesText{
+    font-size: 1rem;
+    text-align: center;
+    opacity: .7;
+    color: #042b62;
+}
+.BackButton button{
+    background-color: #042b62;
+    color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+
+    .thirdPartyLabel,
+    .thirdPartySection {
+        left: 0rem;
+        font-size: .9rem;
+        margin-top: 1rem;
+    }
+
+    .thirdPartyLabel {
+        position: static;
+    }
+
+    .BankLeftImg {
+        display: none !important;
+    }
+
+    .banklistLayout {
+        margin: 0;
+        margin-top: 1rem;
+        margin-left: 0rem;
+    }
+
+    .banklabel {
+        font-size: 1rem;
+        padding-top: .6rem;
+    }
+
+    .banklabeltext {
+        font-size: .9rem;
+    }
+
+    .bankbox .bankName {
+        font-size: .8rem;
+    }
+
+    .bankbox {
+        padding: .5rem 1rem;
+    }
+
+    .LoadContent {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .Accountnotfound {
+        width: auto;
+        margin: 2rem 2rem;
+    }
+
+    .Accountnotfound .TextHeader {
+        font-size: 1.1rem;
+        padding-left: 1.3rem;
+        text-align: center;
+    }
+
+    .Accountnotfound svg {
+        font-size: 1.6rem;
+    }
+
+    .bankaccnotfounfinfo {
+        width: auto;
+    }
+
+    .bankaccnotfounfinfo .text {
+        font-size: 1rem;
+    }
+
+    .ReasonAccnotfind {
+        font-size: 1rem;
+    }
+
+    .ListAccnotfind {
+        margin-top: 1rem;
+    }
+
+    .ListAccnotfind ul {
+        margin-left: 1rem;
+    }
+
+    .ReasonAccnotfind {
+        margin-top: 1.5rem 0;
+    }
+
+    .ListAccnotfind ul li {
+        font-size: 1rem;
+    }
+
+    .alternateOption {
+        margin-top: 2rem;
+    }
+
+    .alternateOption button {
+        font-size: 1rem;
+        padding: .5rem 1.6rem;
+    }
+
+    .mobileNumberLayout {
+        width: 100%;
+    }
+
+    .mobileNumberLayout .mobileNumber {
+        font-size: 1rem;
+        padding-top: 6px;
+    }
+
+    .modifymob {
+        font-size: .9rem;
+    }
+
+    .noteSection {
+        margin-top: 1rem;
+        padding: 0.5 1rem;
+    }
+
+    .mobileNumberBox {
+        width: 100%;
+    }
+
+    .consentlabel {
+        width: 100%;
+        padding: 0 0;
+    }
+
+    .BankaccLoader {
+        padding: 0 1rem;
+    }
+
+    .LoadContentdes {
+        white-space: normal !important;
+        text-align: center;
+
+    }
+
+    .Addnumbertext {
+        font-size: 1rem;
+    }
+
+    .BankSelectsection .BanklistData {
+        height: 100%;
+    }
+
+    .BanklistData .stepCounter {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .BanklistData .stepName {
+        font-size: 14px;
+    }
+
+    .completed::after {
+        top: 26px;
+    }
+
+    .stepNamesubtxt {
+        text-align: center;
+    }
+
+    .ConfirmConsentSection .mobileNumberBox {
+        width: 100%;
+    }
+
+    .AccountnotfoundDeatils {
+        width: 100%;
+    }   
+    .transactionPartner img{
+        width: 40px;
+    }
+    .transactionPartner .emandate{
+        font-size: .7rem;
+    }
+}

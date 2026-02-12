@@ -1,0 +1,214 @@
+.StepsInvestmentPlanSection {
+    background-color: #E6EAEF;
+    padding: 4rem;
+  }
+  .StepsInvestmentPlanHederText {
+    /* width: 80%; */
+    margin: auto;
+  }
+  .StepsInvestmentPlanBox{
+    /* width: 80%; */
+    margin: auto;
+  }
+  .StepsInvestmentPlanCard { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .StepsInvestmentPlanCard:nth-child(even) {
+    text-align: right;
+  }
+  .StepsInvestmentPlancontent{
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+  .StepsInvestmentPlanCardImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+  }
+  .StepsInvestmentPlanCardImg img {
+    width: 100%;
+  }
+  .StepsInvestmentPlancontent{
+    width: 100%;
+  }
+  .StepsInvestmentPlancontenttitle {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1em;
+    letter-spacing: 0.5px;
+    color: #042b62;
+  }
+  .StepsInvestmentPlanContentText {
+    padding-top: 1rem;
+    color: #878989;
+    font-size: 1.1rem;
+  }
+  .subtxt{
+    padding-top: 1rem;
+    color: #878989;
+    font-size: 1.4rem;
+  }
+  .InvestCard{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    text-align: center;
+  }
+  .cards{
+    padding: 2rem;
+  }
+  .header{
+    color: #042b62;
+    font-size: 2rem;
+    height: 6rem;
+    font-weight: 500;
+  }
+  .borderBottom{
+    border-bottom: 3px solid #042b62;
+    width: 3rem;
+    margin: auto;
+  }
+  .ParaTxt{
+    padding-top: 1rem;
+    color: #878989;
+    font-size: 1.3rem;
+  }
+  @media only screen and (max-width: 768px) {
+    .StepsInvestmentPlanSection{
+      padding: 1rem;
+    }
+    .StepsInvestmentPlanHederText {
+      width: 100%;
+    }
+    .StepsInvestmentPlanBox{
+      width: 100%;
+    }
+    .StepsInvestmentPlanCard{
+      display: grid;
+      place-items: center;
+    }
+    .StepsInvestmentPlanCard:nth-child(even) {
+      text-align: center;
+    }
+    .StepsInvestmentPlanCard:nth-child(even) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .StepsInvestmentPlancontent{
+      margin-top: 2rem;
+      margin-left: 0rem;
+      margin-right: 0rem;
+      text-align: center;
+    }
+    .StepsInvestmentPlancontenttitle {
+      font-size: 1.2rem;
+    }
+    .StepsInvestmentPlanContentText {
+      font-size: .8rem;
+    }
+    .StepsInvestmentPlanCardImg{
+      width: 35%;
+    }
+    .InvestCard{
+      display: grid;
+    }
+    .cards{
+      padding: 0rem;
+      margin-bottom: 2rem;
+    }
+    .header{
+      font-size: 1.3rem;
+    }
+  }
+  @media only screen and (max-width : 850px) {
+    .StepsInvestmentPlanBox{
+      width: 100%;
+    }
+  }
+
+/* .why-invest-section {
+    padding-top: 1rem;
+    background-color: #F1F9FD;
+}
+
+.why-invest-section-header {
+    width: 100%;
+    font-size: 38px;
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+    margin: 2rem 0;
+    letter-spacing: 1px;
+}
+
+.why-invest-section-item {
+    padding: 20px 20px 20px 20px;
+    box-shadow: -30px 30px 60px 0px rgb(0 0 0 / 7%);
+    border-style: solid;
+    border-radius: 0px 0px 0px 0px;
+    background-color: white;
+    margin-bottom: 2rem;
+    transition: all 0.5s;
+}
+
+.why-invest-section-item:nth-child(odd):hover {
+    transform: rotateZ(-1deg);
+}
+
+.why-invest-section-item:nth-child(even):hover {
+    transform: rotateZ(1deg);
+}
+
+.flex-item-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: right;
+    border-width: 0px 2px 2px 0px;
+    border-color: #042b62;
+}
+
+.flex-item-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+    border-width: 0px 0px 2px 2px;
+    border-color: #042b62;
+}
+
+.why-invest-section-item-heading {
+    margin: 0px 0px 5px 0px;
+    color: #042b62;
+    font-family: "Poppins", Sans-serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: -0.2px;
+}
+
+.why-invest-section-item-content {
+    color: #666666;
+    font-family: "Archivo", Sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 24px;
+} */
+
+/* ------------------------------------------------------------------------media query----------------------------------------------------------------- */
+
+/* @media only screen and (max-width: 600px) {
+    .why-invest-section-item-heading {
+        font-size: 1.6rem;
+    }
+
+    .why-invest-section-item-content {
+        font-size: 1.1rem;
+    }
+} */

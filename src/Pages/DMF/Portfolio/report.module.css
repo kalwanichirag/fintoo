@@ -1,0 +1,792 @@
+.downloadSpinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #042b62;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.PortfolioReportSection .tabBx {
+  width: 12rem;
+  text-align: center;
+}
+
+.PortfolioReportSection .tabBx span {
+  border-bottom: 1px solid #888;
+  padding: 10px;
+}
+
+.PortfolioReportSection .insideTabBoxd {
+  border-bottom: 2px solid #eee;
+  overflow-y: auto;
+}
+
+.PortfolioReportSection .tabText {
+  padding-bottom: 10px;
+  border-bottom: 3px solid transparent;
+  display: inline-block;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: darkgray;
+  text-align: center;
+}
+
+.PortfolioReportSection .tabBx.active .tabText {
+  border-bottom: 3px solid #042b62;
+  color: #042b62;
+}
+
+.PortfolioReportSection .VRline {
+  border-right: 1px solid #eee;
+  height: 30px;
+  padding: 0 2rem;
+}
+
+.PortfolioReportSection .insidePage {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.PortfolioReportSection .tabBx.inactive .tabText {
+  color: #888;
+}
+
+/* Report Section */
+.PortfolioReportSection .DataSection {
+  margin: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 3rem;
+  grid-row-gap: 3rem;
+}
+
+.PortfolioReportSection .DataSection .ReportCard {
+  border: 1px solid #eee;
+  padding: 5rem 2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 0 rgb(199 199 199);
+  position: relative;
+  height: 220px;
+}
+
+.PortfolioReportSection .DataSection .ReportCard:hover {
+  box-shadow: 0 5px 0 0 #042b62;
+  color: #042b62;
+}
+
+.PortfolioReportSection .ReportName {
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0rem 1rem;
+}
+
+.ReportDetailSection .ReportDetailsOptions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 2rem;
+  grid-row-gap: 0px;
+}
+
+.ReportDetailSection .ReportName {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.ReportDetailSection .ReportLabel {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.ReportDetailSection .ReportButton {
+  background-color: #042b62;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  padding: 0.3rem 2.5rem;
+  border: 0;
+  border-radius: 20px;
+  max-width: 14rem;
+}
+
+.ReportDetailSection .DmfReportView {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 1rem;
+  grid-row-gap: 0px;
+  background-color: #f9f9f9;
+  padding: 3.4rem 3rem;
+  border-radius: 15px;
+}
+
+.ReportDetailSection .DmfReportViewsecond {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 1rem;
+  grid-row-gap: 0px;
+  background-color: #f9f9f9;
+  padding: 3.4rem 3rem;
+  border-radius: 15px;
+}
+
+.DmfReportView .LabelText {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.DmfReportView .Repotval {
+  padding-top: 1rem;
+  font-size: 1.2rem;
+  color: #c4c4c4;
+  font-weight: bold;
+}
+
+.DmfReportView .DmfReportSeprateline {
+  border-right: 1px solid #d0d0d0;
+  height: 7rem;
+}
+
+.ReportDetailSection .seprateLine {
+  border-right: 1px solid #d0d0d0;
+  height: 20px;
+}
+
+.ReportDetailSection .ReportOptions {
+  float: right;
+  color: #c4c4c4;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.Reportsshareoptions {
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.ReportDetailsOptionsContainer {
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  gap: 2rem;
+}
+
+.ELSSReportDetailsOptionsContainer {
+  padding-top: 0.5rem;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: 2rem;
+}
+
+.ELSSReportDetailsOptionsContainerPadding {
+  padding: '0 1.5rem 0 0.5rem'
+}
+
+.GenerateBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: fit-content;
+  height: 100%;
+}
+.submitbtn {
+  outline: none;
+  border: none;
+  padding: .5rem 2.5rem;
+  border-radius: 20px;
+  color: #ffff;
+  background: #042b62;
+  font-weight: 600;
+}
+.submitbtn:disabled {
+  background-color: #eee !important;
+  color: #666 !important;
+}
+.ELSSGenerateBtnContainer {
+  width: 200px;
+  display: flex;
+  align-items: 'center';
+  padding-top: 0.2rem
+}
+
+.ELSSGenerateBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #25A6DE;
+  color: #FFF;
+
+  font-family: Red Hat Text;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  padding: 0.4rem 0;
+  border-radius: 25px;
+  cursor: pointer;
+  /* 1.3125rem */
+}
+
+.categoriesDateAndActionsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------- */
+
+.reportTitle {
+  color: #0A5D82;
+  font-family: 'Red Hat Text Bold';
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.42px;
+}
+
+.pageHeaderContentELem {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.pageHeaderContentELemText {
+  font-size: 15px;
+  text-align: right;
+}
+
+.headerHref {
+  color: #22a7df !important;
+}
+
+.categoriesDataContainer {
+  width: 75%;
+}
+
+.allCategoriesDataContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 0.5rem;
+}
+
+.invTypeBoxContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.2rem;
+}
+
+.inlineInvTypeBox {
+  padding: 2rem;
+  background-color: #f8fcfe;
+}
+
+.inlineInvTypeBox:nth-child(1) {
+  border-top-left-radius: 10px;
+}
+
+.inlineInvTypeBox:nth-child(2) {
+  border-top-right-radius: 10px;
+}
+
+.inlineInvTypeBox:nth-child(7) {
+  border-bottom-left-radius: 10px;
+}
+
+.inlineInvTypeBox:nth-child(8) {
+  border-bottom-right-radius: 10px;
+}
+
+.inlineInvTypeIndicatorContainer {
+  height: 35px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.inlineInvTypeIndicator {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+}
+
+.textGrayLight1 {
+  color: rgba(0, 0, 0, 0.60);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.textLight1 {
+  color: #042b62;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.textMedium1 {
+  color: #042b62;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.textBlackBold1 {
+  color: #042b62;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.textGrayNormal {
+  color: rgba(0, 0, 0, 0.60);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.textBlackBold2 {
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+.textBlackBold3 {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.amountSubtext {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+}
+
+.titleContainer img {
+  width: 30px;
+}
+
+.titleText {
+  color: #0A5D82;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-left: 10px;
+  margin-top: -3px;
+  font-family: 'Red Hat Text Medium';
+}
+
+.flexInfoContainer {
+  padding: 35px 20px;
+  display: flex;
+  align-items: center;
+  background-color: #f8fcfe;
+  border-radius: 15px;
+}
+
+.flexInfoItemContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#container text {
+  text-align: center;
+}
+
+.inlineInvTypeBoxContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryReportInfoContainer {
+  padding: 2.5rem 1rem;
+  background: #F8FCFE;
+  border-radius: 15px;
+}
+
+.reportSummaryValueContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryReportInfoValuesContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.ELSSActions {
+  text-align: center;
+  width: 250px;
+  margin-left: -2.5rem
+}
+
+.ELSSReportDetailsOptionsInput {
+  width: 400px;
+}
+
+.reportActionsShare {
+  cursor: pointer;
+}
+
+.reportActionsShare:hover .reportActionsPopOver {
+  display: grid;
+}
+
+.reportActionsPopOver {
+  position: absolute;
+  top: 30px;
+  right: -127px;
+  width: 270px;
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #777777;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 1.5rem 0;
+  /* margin-top: 50px; */
+  background: white;
+}
+
+.reportActionsPopOver:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 100%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom-color: #777777;
+}
+
+.reportActionsPopOver:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 100%;
+  width: 0;
+  height: 0;
+  border: 9px solid transparent;
+  border-bottom-color: white;
+}
+
+.reportPopOverAction {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reportPopOverAction:nth-child(1) {
+  border-right: 1px solid #777777;
+}
+
+.ELSSPopupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 1.5rem
+}
+
+@media only screen and (max-width: 850px) {
+  .PortfolioReportSection .DataSection {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .ReportDetailsOptionsContainer {
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: 40% 40% 20%;
+    gap: 1rem;
+  }
+
+  .categoriesDataContainer {
+    width: 100%;
+  }
+
+  .allCategoriesDataContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .categoryReportInfoContainer {
+    padding: 1rem;
+    background: #F8FCFE;
+    border-radius: 15px;
+  }
+
+  .categoryReportInfoValuesContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .reportSummaryValueContainer {
+    border-right: none !important;
+    padding: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .ELSSGenerateBtnContainer {
+    width: 190px;
+    display: flex;
+    align-items: 'center';
+    padding-top: 0.2rem
+  }
+
+  .ELSSActions {
+    text-align: center;
+    width: 200px;
+    margin-left: -1rem
+  }
+
+  .ReportDetailSection {
+    padding: 1rem;
+  }
+
+  .ELSSPopupHeader {
+    padding: 1rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .PortfolioReportSection .VRline {
+    padding: 0 1rem;
+  }
+
+  .PortfolioReportSection .tabText {
+    font-size: 1rem;
+  }
+
+  .PortfolioReportSection .DataSection {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 2rem;
+    margin: 2rem;
+  }
+
+  .ReportDetailSection .ReportName {
+    font-size: 1.1rem
+  }
+
+  .ReportDetailSection .ReportDetailsOptions {
+    grid-template-columns: 1fr;
+    grid-row-gap: 1rem;
+  }
+
+  .ReportDetailSection .ReportLabel {
+    font-size: 1rem;
+  }
+
+  .ReportDetailSection .ReportGenOption {
+    display: grid;
+    place-items: center;
+    margin-top: 1rem;
+  }
+
+  .ReportDetailSection .DmfReportView {
+    grid-template-columns: 1fr;
+    padding: 3.4rem 2rem;
+  }
+
+  .ReportDetailSection .DmfReportView .LabelText {
+    padding-top: 2rem;
+  }
+
+  .DmfReportSepratelinevr {
+    border-bottom: 1px solid #d0d0d0;
+    width: 100%;
+    padding: 1rem 0rem;
+  }
+
+  .ReportDetailSection .rpdetailbox {
+    margin-top: 2rem;
+  }
+
+  .ReportDetailSection .ReportOptions {
+    font-size: .9rem;
+    float: left;
+  }
+
+  .ReportDetailsOptionsContainer {
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .invTypeBoxContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .inlineInvTypeBox:nth-child(1) {
+    border-top-left-radius: unset;
+  }
+
+  .inlineInvTypeBox:nth-child(2) {
+    border-top-right-radius: unset;
+  }
+
+  .inlineInvTypeBox:nth-child(7) {
+    border-bottom-left-radius: unset;
+  }
+
+  .inlineInvTypeBox:nth-child(8) {
+    border-bottom-right-radius: unset;
+  }
+
+  .categoriesDateAndActionsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: unset;
+    gap: 1rem;
+  }
+
+  .categoryReportInfoContainer {
+    padding: 1rem;
+    background: #F8FCFE;
+    border-radius: 15px;
+  }
+
+  .categoryReportInfoValuesContainer {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 !important;
+  }
+
+  .categoryReportInfoContainer {
+    padding: 0 !important;
+  }
+
+  .ReportSummaryValueMainContainer {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    /* border: 0.5px solid #eee; */
+  }
+
+  .ReportSummaryValueMainContainer:nth-child(1) {
+    border-right: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+  }
+
+  .ReportSummaryValueMainContainer:nth-child(2) {
+    border-left: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+  }
+
+  .ReportSummaryValueMainContainer:nth-child(3) {
+    border-right: 0.5px solid #eee;
+    border-top: 0.5px solid #eee;
+  }
+
+  .ReportSummaryValueMainContainer:nth-child(4) {
+    border-left: 0.5px solid #eee;
+    border-top: 0.5px solid #eee;
+  }
+
+  .ReportSummaryValueMainSpanContainer {
+    grid-column: span 2 !important;
+    border-right: none !important
+  }
+
+  .reportSummaryValueContainer {
+    width: fit-content;
+    min-width: 50%;
+    border-right: none !important;
+    padding: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .ELSSReportDetailsOptionsContainer {
+    padding-top: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .ELSSReportDetailsOptionsInput {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .ELSSGenerateBtnContainer {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: 'center';
+    padding-top: 0.2rem
+  }
+
+  .ELSSActions {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    margin-left: unset
+  }
+
+  .ELSSReportDetailsOptionsContainerPadding {
+    padding: '0 0.5rem 0 0.5rem'
+  }
+
+  .reportActionsPopOver {
+    right: -170px;
+  }
+
+  .reportActionsPopOver:before {
+    left: -85px;
+  }
+
+  .reportActionsPopOver:after {
+    left: -85px;
+  }
+
+  .ELSSPopupHeader {
+    padding: 0 1rem 1rem 1rem;
+  }
+}

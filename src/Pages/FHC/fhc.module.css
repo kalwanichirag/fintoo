@@ -1,0 +1,9 @@
+.Membershiporg {
+  margin-top: 19rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .Membershiporg {
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,177 @@
+.sliderWrapper :global .slick-dots {
+    position: absolute;
+    bottom: 10px;
+}
+
+.slick-next-custom {
+    color: rgba(255, 255, 255, 0.598);
+    font-size: 2.5rem;
+    position: absolute;
+    top: 45%;
+    right: 0;
+    cursor: pointer;
+}
+
+.slick-prev-custom {
+    color: rgba(255, 255, 255, 0.598);
+    font-size: 2.5rem;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    cursor: pointer;
+    z-index: 222;
+}
+
+/* -----------------------------------------section styles------------------------------------- */
+.life-choice-section {
+    padding-bottom: 5rem;
+}
+
+.carousel-container {
+    padding: 0 10rem;
+}
+
+.life-choice-section-section-btn {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    fill: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #042b62;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #fcfcfc;
+    border-radius: 4px 4px 4px 4px;
+    transition: all 0.3s;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.life-choice-section-section-btn:hover {
+    color: #042b62;
+    background-color: rgba(44, 147, 245, 0);
+    border-color: #042b62;
+}
+
+/* ---------------------------------------carousel component styles--------------------------- */
+.carousel-item-container {
+    width: 100%;
+    aspect-ratio: 3/1.8;
+    background-color: aqua;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.carousel-item-container-background-overlay {
+    background-color: #1616161b;
+    opacity: 0.94;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.carousel-item-content {
+    position: relative;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    z-index: 999;
+}
+
+.carousel-item-content>h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: normal;
+}
+
+.carousel-item-content>h3 {
+    /* font-family: "Roboto Slab"; */
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+
+.none-display {
+    display: none;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0, 300px, 0)
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        transform: translate3d(0, 300px, 0)
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1
+    }
+}
+
+.animated {
+    animation-duration: 1.5s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-fill-mode: both
+}
+
+.animatedFadeInUp {
+    opacity: 0
+}
+
+.fadeInUp {
+    opacity: 0;
+    animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+}
+
+/* ---------------------------------------------------media queries--------------------------------------------------- */
+@media only screen and (max-width: 800px) {
+    .carousel-container {
+        padding: 0;
+    }
+
+    .carousel-item-content>h1 {
+        font-size: 2rem;
+
+    }
+
+    .carousel-item-content>h3 {
+
+        font-size: 1.3rem;
+
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .carousel-item-content>h1 {
+        font-size: 1.5rem;
+
+    }
+
+    .carousel-item-content>h3 {
+        font-size: 1rem;
+    }
+
+    .carousel-item-content {
+        margin-bottom: 1rem;
+    }
+}

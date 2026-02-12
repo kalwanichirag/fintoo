@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+        opacity: .5;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #042b62;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 43px;
+      }
+    </style>
+  </defs>
+  <rect id="Rectangle_4343" class="cls-1" x="119.96" y="74.27" width="334.5" height="334.5" rx="64.9" ry="64.9"/>
+  <rect id="Rectangle_4345" class="cls-1" x="859.47" y="287.59" width="190.53" height="190.53" rx="64.9" ry="64.9"/>
+  <rect id="Rectangle_4344" class="cls-1" x="28.78" y="560.16" width="204.64" height="204.64" rx="51.92" ry="51.92"/>
+  <rect id="Rectangle_4346" class="cls-1" x="770.47" y="767.51" width="237.48" height="237.48" rx="51.92" ry="51.92"/>
+  <g id="Group_37269">
+    <circle id="Ellipse_446" class="cls-2" cx="570.52" cy="582.91" r="389.38"/>
+    <g id="Group">
+      <g id="Vector">
+        <path class="cls-3" d="M423.1,600.81l84.24,83.96,210.6-209.91"/>
+        <path class="cls-3" d="M423.1,600.81l84.24,83.96,210.6-209.91"/>
+      </g>
+    </g>
+  </g>
+</svg>

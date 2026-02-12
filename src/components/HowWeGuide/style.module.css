@@ -1,0 +1,72 @@
+.container {
+    max-width: 1140px;
+    padding-top:3rem;
+    padding-bottom: 2rem;
+}
+.h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    padding-bottom: 2rem;
+}
+.cardBox{
+    padding: 30px 0px 10px 10px;
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+    border-radius: 5px 5px 5px 5px;
+    display: grid;
+    place-items: center;
+}
+.iconBox{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+    border-radius: 50%;
+}
+.Text{
+    padding: 0px 0px 0px 0px;
+    color: #000000;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+.TextData {
+    color: #000000;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.iconBox{
+    margin: 0px 30px 0px 0px;
+    height: 80px;
+    box-shadow: -1px 7px 15px 0px rgb(0 0 0 / 7%);
+    padding:1rem;
+    transform: rotate(0deg);
+    width: 80px;
+    line-height: 80px;
+}
+.iconBox svg{
+    width: 55px;
+    color: #042b62;
+    height: 55px;
+}
+.cardBox:hover .iconBox{
+
+    background-color: #042b62;
+}
+.cardBox:hover svg{
+    color: #fff;
+}
+@media (max-width: 767px){
+    .h2{
+      font-size: 1rem;
+    }
+    .Text{
+        font-size: 1rem;
+    }
+    .cardBox{
+        padding: 30px;
+    }
+    .TextData{
+        font-size: .9rem;
+    }
+  }

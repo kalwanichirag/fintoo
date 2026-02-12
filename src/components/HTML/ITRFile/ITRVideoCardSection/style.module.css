@@ -1,0 +1,287 @@
+.ITRVideoSection {
+  width: 100%;
+  margin: auto;
+  width: 100%;
+  padding: 0rem 5rem;
+}
+
+.ITRVideoSection .PlanFeatures span svg {
+  color: #042b62;
+  padding-right: 5px;
+}
+.ITRVideoSection .icon {
+  width: 40px;
+  height: 40px;
+}
+.title{
+  text-align: center;
+  margin-top: 2rem;
+}
+.subtitle{
+  text-align: center;
+}
+.DiffText {
+  color: #042b62;
+}
+.ITRplanCards {
+  display: grid;
+  grid-gap: 2rem;
+  margin: 0rem 0;
+  margin-top: 2rem;
+}
+.ITRplanCards .Plancards {
+  background-color: #ffff;
+  border-radius: 12px;
+  /* width: max-content; */
+  padding: 1rem;
+  margin: 2rem 0;
+  -webkit-box-shadow: -2px 4px 15px 6px rgba(229, 229, 229, 1);
+  -moz-box-shadow: -2px 4px 15px 6px rgba(229, 229, 229, 1);
+  box-shadow: -2px 4px 15px 6px rgba(229, 229, 229, 1);
+  height: max-content;
+}
+.mostPopular {
+  position: relative;
+  top: -2rem;
+  background-color: #ffff;
+  border-radius: 12px;
+  /* width: max-content; */
+  padding: 3rem 1rem;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+  -webkit-box-shadow: -2px 4px 15px 6px rgba(229, 229, 229, 1);
+  -moz-box-shadow: -2px 4px 15px 6px rgba(229, 229, 229, 1);
+  box-shadow: -2px 4px 15px 6px rgba(229, 229, 229, 1);
+  height: max-content;
+}
+.borderBtm {
+  border-bottom: 0.8px solid #e7e7e7;
+  padding-top: 1rem;
+}
+.popularTag {
+  position: absolute;
+  top: -0.7rem;
+  left: 3rem;
+  background-color: #042b62;
+  color: #ffff;
+  font-size: 0.8rem;
+  padding: 4px 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+}
+.plantype {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 3rem;
+  white-space: pre-wrap;
+  height: 6rem;
+  text-align: center;
+  display: flex;
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+
+}
+.SavingPrice{
+  padding: 4px 7px 3px;
+  background-color: #042b62;
+  border-radius: 4px;
+  float: right;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.SlashPrice{
+  color: #64666e;
+  text-align: center;
+  text-decoration: line-through;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.Premium {
+  color: #042b62;
+  font-size: 0.8rem;
+}
+.PlanPrice {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+.PlanPrice sub {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.PlanPrice span {
+  text-decoration: line-through;
+}
+.PlanFeatures {
+  margin-top: 2rem;
+  padding: 0rem 0.6rem;
+  height: 550px;
+    overflow-x: scroll;
+}
+.PlanFeatures::-webkit-scrollbar{
+  display: none;
+}
+.PlanFeatures div {
+  padding: 0.6rem 0rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  max-width: 300px;
+  white-space: pre-wrap;
+}
+.PlanFeatures div .Check svg {
+  /* background-color: #f0fbff; */
+  color: #042b62;
+  font-size: 1.6rem;
+}
+.PlanFeatures .Unheck {
+  color: #cacaca;
+}
+.PlanFeatures .Unheck span svg {
+  /* background-color: #f0fbff; */
+  color: #042b62;
+  font-size: 1.6rem;
+}
+.PlanBuy {
+  margin-top: 2rem;
+  text-align: center;
+}
+.PlanBuy button {
+  width: 100%;
+  outline: none;
+  padding: 10px 0px;
+  border: 1px solid #042b62;
+  background-color: #042b62;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.PlanMoreDetails {
+  text-align: center;
+  margin-top: 1rem;
+  color: #042b62;
+  font-weight: 600;
+}
+.PlanMoreDetails a {
+  color: #042b62;
+  font-size: 1.2rem;
+}
+.PlanMoreDetails svg {
+  font-size: 1.3rem;
+}
+.ITRVideoSection .icon {
+  color: #fff;
+  background-color: #042b62;
+  padding: 6px;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 50%;
+  margin: 0px 3px;
+  vertical-align: middle;
+}
+.btmText {
+  font-size: 2rem;
+  font-weight: 600;
+  padding-left: 10px;
+}
+.gstText{
+  text-align: right;
+  color: #808080;
+}
+@media only screen and (max-width: 850px) {
+  .ITRCardssectioncontainer {
+    width: 100%;
+  }
+  .gstText{
+    font-size: .8rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .ITRVideoSection {
+    padding: 2rem;
+  }
+  .ITRCard {
+    padding: 1rem;
+  }
+  .ITRCardssectioncontainer {
+    display: grid;
+    z-index: 10;
+    width: 100%;
+    margin-top: 0rem;
+  }
+  .ITRCardssectioncontainer h2 {
+    font-size: 2rem;
+    line-height: 2.2rem;
+  }
+  .ITRVideoSection .icon {
+    width: 59px;
+    height: 43px;
+    padding: 5px;
+  }
+  .subtitle{
+    margin-top: 1rem;
+    line-height: 1.7rem;
+  }
+  .ITRplanCards {
+    margin: 1rem 0;
+  }
+  .ITRplanCards .Plancards {
+    margin: 1rem 0rem;
+  }
+  .plantype {
+    font-size: 1.3rem;
+    height: max-content;
+  }
+  .PlanFeatures {
+    overflow-y: scroll;
+    height: max-content;
+  }
+  .PlanFeatures div {
+    padding: 0.8rem 0rem;
+    font-size: 1rem;
+  }
+  .btmText {
+    font-size: 1rem;
+  }
+}
+
+/* Screen larger than 600px? 2 column */
+@media (min-width: 600px) {
+  .ITRplanCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Screen larger than 900px? 3 columns */
+@media (min-width: 900px) {
+  .ITRplanCards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .PlanBuy {
+    margin-top: 1rem;
+  }
+}
+
+.newpagelinks {
+  display: none;
+}
+.btmText h3 {
+  font-size: 1rem!important;
+}
+@media (min-width: 768px) {
+  
+  .title {
+      font-size: 4rem;
+      font-weight: 600;
+  }
+  .section {
+      padding: 4rem;
+  }
+  .subtitle {
+      font-weight: 500;
+      font-size: 2rem;
+  }
+ 
+}

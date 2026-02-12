@@ -1,0 +1,86 @@
+.KeyFactors {
+    padding: 5rem 0;
+    background: #fff;
+    width: 100%;
+}
+
+.KeyFactorsBox {
+    width: 80%;
+    margin: auto;
+}
+
+.KeyFactors .KeyFactorstitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    width: 50%;
+    margin: auto;
+    color: #252F4A;
+}
+ .KeyFactorsCards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+    width: 60%;
+    margin: auto;
+    padding-top: 3rem;
+}
+
+.KeyFactorsCard {
+    border-radius: .5rem;
+    border: 1px solid #E3E3E3;
+    background: #FAFAFA;
+    padding: 1rem;
+    /* margin-top: 2rem; */
+}
+
+.KeyFactorsCardtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-top: 1.6rem;
+    color: #12141D;
+}
+
+.KeyFactorsCardDec {
+    font-size: 1rem;
+    padding: .5rem 0;
+    color: #8A8A8A;
+    /* text-align: justify;
+    word-spacing: 1px; */
+}
+.KeyFactorsCard:hover{
+    background-color: #004FBF;
+    color: #fff;
+    transition: .5s;
+}
+.KeyFactorsCard2{
+    width: 60%;
+    margin: 2rem auto;
+}
+.KeyFactorsCard:hover .KeyFactorsCardtitle {
+    color: #fff;
+}
+.KeyFactorsCard:hover .KeyFactorsCardDec{
+    color: #fff;
+
+}
+@media only screen and (max-width: 800px) {
+    .KeyFactors .KeyFactorstitle{
+        width: 100%;
+        font-size: 1.4rem;
+    }
+    .KeyFactorsCards{
+        width: 100%;
+        grid-template-columns:repeat(1, 1fr)
+    }
+    .KeyFactorsCardtitle {
+        font-size: 1rem;
+    }
+    .KeyFactorsCardDec{
+        font-size: .8rem;
+    }
+    .KeyFactorsCard2{
+        width: 100%;
+    }
+}

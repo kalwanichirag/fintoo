@@ -1,0 +1,85 @@
+.PlanofActionsection{
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    display: grid;
+    place-items: center;
+}
+.title{
+    color: #042b62;
+    font-size: 1.2rem;
+    margin-top: 3rem;
+}
+/* text-align: center; */
+.TabSection{
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+    /* width: 100%; */
+    height: 100%;
+    margin-top: 5rem;
+}
+.investList p{
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    background-color: #042b62;
+    color: #fff;
+    /* height: 100%; */
+    font-size: 1.2rem;
+    border-radius: 30px;
+    padding: 10px 35px;
+    /* width: 100%; */
+    border: 1px solid transparent;
+    position: relative;
+    z-index: 1;
+    margin: 15px auto;
+    transition: .2s all ease-out;
+}
+.investList img {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    margin-left: 15px;
+}
+.Tabbox{
+    width: 100%;
+    height: 100%;
+    padding: 0rem 4rem;
+}
+.CommingSoonImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.CommingSoonImg img {
+    width: 400px;
+    height: 400px;
+}
+@media only screen and (max-width: 768px) {
+    .PlanofActionsection .TabSection {
+        display: flex;
+        overflow-x: auto;
+        justify-content: inherit;
+    }
+    .PlanofActionsection .investList p{
+        display: flex;
+        margin-left: 1rem;
+        font-size: 1rem;
+    border-radius: 30px;
+    padding: 5px 22px;
+    white-space: nowrap;
+    }
+    .PlanofActionsection {
+        width: 100%;
+    }
+    .title {
+        margin-top: 1rem;
+        padding: 0rem 1rem;
+        text-align: justify;
+        font-size: 1rem;
+    }
+    .Tabbox{
+        padding: 0rem 1rem;
+    }
+}

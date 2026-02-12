@@ -1,0 +1,29 @@
+.SelectTitleBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #042b62;
+    padding: 6px;
+    cursor: pointer;
+}
+.selectTitle {
+    margin: 0px;
+}
+.selectBox {
+    position: relative;
+}
+.optionsPanel {
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    background: #fff;
+    padding: 10px;
+    user-select: none;
+    height: 200px;
+    overflow: scroll;
+}
+.option {
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+}

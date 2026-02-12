@@ -1,0 +1,64 @@
+.InvestmentInstruments {
+    padding: 5rem 0;
+    background: #fff;
+    width: 100%;
+}
+.InvestmentInstrumentssubtitle{
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 1.375rem;
+    width: 80%;
+    color: #252F4A;
+    margin: auto;
+}
+.InvestmentInstrumentsonetxt{
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4B5675;
+}
+.InvestmentInstrumentsBox {
+    width: 80%;
+    margin: auto;
+}
+.InvestmentInstrumentstitle{
+    color: #3E76FE;
+    font-size: 1.125rem;
+    font-weight: bold;
+}
+.InvestmentInstrumentssubinfo{
+    display: grid;
+    gap: 2rem;
+    padding: 2rem 0;
+    color: #38404A;
+}
+.InvestmentInstrumentsCards{
+    width: 70%;
+    margin: auto;
+    padding-top: 2rem;
+    display: grid;
+    gap: 2rem;
+}
+
+@media only screen and (max-width: 800px) {
+    .InvestmentInstrumentsBox{
+        width: 100%;
+    }
+    .InvestmentInstrumentsonetxt{
+        font-size: 1.4rem;
+    }
+    .InvestmentInstrumentssubtitle{
+        width: 100%;
+        font-size: .9rem;
+    }
+    .InvestmentInstrumentsCards{
+        width: 100%;
+        padding: 0 2rem;
+    }
+    .InvestmentInstrumentstitle{
+        font-size: 1rem;
+    }
+    .InvestmentInstrumentssubinfo{
+        font-size: .8rem;
+        padding: 1rem 0
+    }
+}

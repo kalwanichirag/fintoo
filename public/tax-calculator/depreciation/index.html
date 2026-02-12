@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/depreciation.css">
+    <title>Depreciation on plant and machinery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class=" tab_button fw-normal tablinks active"
+                onclick="handleTabSelection(event,'medical_facility_india');setTabNumber('1');resetTab2()">
+                DEPRECIATION ON PLANT AND MACHINIERY</div>
+            <div class="tab_button fw-normal tablinks"
+                onclick="handleTabSelection(event,'medical_facility_outside_india');setTabNumber('2');resetTab1()">
+                DEPRECIATION ON OTHER ASSETS
+            </div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <form class="incom-and-tax-calculator-form" id="depreciation_form_1">
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Assessment Year </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="AssessmentYearSelect1"
+                                        onchange="AssessmentYearSelect1Change(this)"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)">
+                                        <option selected="" value="">Select</option>
+                                    </select>
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Block of assets (Rate of
+                                    depreciation)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="BlockOfAssetsSelect1">
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Rate of Additional
+                                    Depreciation</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="RateOfAdditionalDepreciationSelect1"
+                                        onchange="RateOfAdditionalDepreciationSelect1Change(this)">
+                                        <option selected="selected" value="1">Not Eligible</option>
+                                        <option value="2">20</option>
+                                        <option value="3">35</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Written down value on the first day of previous
+                                    year </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="written_down_first" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Addition for a period of 180 days or more in the
+                                    previous year. </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="addition_more_180" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Amount on which additional depreciation is to be
+                                    claimed in the previous year at Full Rate</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="amount_full" type="text" maxlength="15"
+                                        onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Consideration or other realization of assets used 180
+                                    days or more during the previous year </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="consideration_more_180" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Addition for a period of less than 180 days in the
+                                    previous year. </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="addition_less_180" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Amount on which additional depreciation is to be
+                                    claimed in the previous year at Half Rate</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="amount_half" type="text" maxlength="15"
+                                        onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Consideration or other realization during the previous
+                                    year out of addition for a period of less than 180 days. </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="consideration_less_180" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+
+
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Depreciation at full rate</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="depreciation_full_rate"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Depreciation at half rate</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="depreciation_half_rate"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Additional Depreciation at full rate</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="additional_full_rate"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Additional Depreciation at Half rate</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="additional_half_rate"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Total Depreciation allowed as per Income-tax Act,
+                                    1961</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="total_depreciation"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Written down value on the last day of the previous
+                                    year</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="written_down_last"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </form>
+                </section>
+                <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                <section id="medical_facility_outside_india" class="incom-and-tax-calculator-form-section tabcontent">
+                    <form class="incom-and-tax-calculator-form" id="depreciation_form_2">
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Assessment Year </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="AssessmentYearSelect2"
+                                        onchange="AssessmentYearSelect2Change(this)"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)">
+                                        <option selected="" value="">Select</option>
+                                    </select>
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Block of assets</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="BlockOfAssetsSelect2"
+                                        onchange="BlockOfAssetsSelect2Change(this)">
+                                        <option selected="selected" value="1">Building</option>
+                                        <option value="2">Furniture and fittings</option>
+                                        <option value="3">Intangible assets</option>
+                                        <option value="4">Ships</option>
+                                    </select>
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Block of assets (Rate of
+                                    depreciation)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="RateOfAdditionalDepreciationSelect2"
+                                        onchange="RateOfAdditionalDepreciationSelect1Change(this)">
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Written down value on the first day of previous
+                                    year. </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="written_down_first_2" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Addition for a period of 180 days or more in the
+                                    previous </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="addition_more_180_2" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Consideration or other realization of assets used 180
+                                    days or more during the previous year </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="consideration_more_180_2" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Addition for a period of less than 180 days in the
+                                    previous year. </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="addition_less_180_2" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Consideration or other realization during the previous
+                                    year out of addition for a period of less than 180 days. </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="consideration_less_180_2" type="text"
+                                        maxlength="15" onblur="onBlurChange(this);ValidateAndFormatNumber(this,'')"
+                                        oninvalid="handleInvalidInput(this)"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Total Depreciation allowed as per Income-tax Act,
+                                    1961</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="total_depreciation_2"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Written down value on the last day of the previous
+                                    year</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="written_down_last_2"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </form>
+                </section>
+                <form>
+                </form>
+
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/depreciation.js"></script>
+
+</html>
+
+<script>
+    let tabNumber = '1'
+    const setTabNumber = (num) => {
+        return tabNumber = num
+    }
+
+    const getFormValidationState = () => {
+        return true
+    }
+
+    const Calculate = () => {
+
+        if (!getFormValidationState()) {
+            console.log('has errors')
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return;
+        }
+        hideAlert();
+        $(".dashboard-loader").addClass('active');
+        if (tabNumber=="1") {
+            var assessmentYear = +document.getElementById("AssessmentYearSelect1").value.replace(/,/g, '') || "";
+            var block_assets_rate = document.getElementById("BlockOfAssetsSelect1").value;    
+            var written_down_first = +document.getElementById("written_down_first").value.replace(/,/g, '') || "";
+            var addition_more_180 = +document.getElementById("addition_more_180").value.replace(/,/g, '') || "";
+            var consideration_more_180 = +document.getElementById("consideration_more_180").value.replace(/,/g, '') || "";
+            var addition_less_180 = +document.getElementById("addition_less_180").value.replace(/,/g, '') || "";
+            var consideration_less_180 = +document.getElementById("consideration_less_180").value.replace(/,/g, '') || "";
+        }
+        else{
+            var assessmentYear = +document.getElementById("AssessmentYearSelect2").value.replace(/,/g, '') || "";
+            var block_assets_rate = document.getElementById("RateOfAdditionalDepreciationSelect2").value;    
+            var written_down_first = +document.getElementById("written_down_first_2").value.replace(/,/g, '') || "";
+            var addition_more_180 = +document.getElementById("addition_more_180_2").value.replace(/,/g, '') || "";
+            var consideration_more_180 = +document.getElementById("consideration_more_180_2").value.replace(/,/g, '') || "";
+            var addition_less_180 = +document.getElementById("addition_less_180_2").value.replace(/,/g, '') || "";
+            var consideration_less_180 = +document.getElementById("consideration_less_180_2").value.replace(/,/g, '') || "";
+        }
+        var rate_of_additional = document.getElementById("RateOfAdditionalDepreciationSelect1").value;    
+        var block_assets = document.getElementById("BlockOfAssetsSelect2").value; 
+        var amount_full = +document.getElementById("amount_full").value.replace(/,/g, '') || "";
+        var amount_half = +document.getElementById("amount_half").value.replace(/,/g, '') || "";
+        $.ajax({
+            url: "https://stgbot.minty.co.in/tax_calc_bots/depreciation/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/depreciation/",
+            type: "POST",
+            data: JSON.stringify({
+                "flag":tabNumber,
+                "assessment_year":assessmentYear,
+                "block_assets_rate":block_assets_rate,
+                "block_assets":block_assets,
+                "rate_of_additional":rate_of_additional,
+                "written_down_first":written_down_first,
+                "addition_more_180":addition_more_180,
+                "consideration_more_180":consideration_more_180,
+                "addition_less_180":addition_less_180,
+                "consideration_less_180":consideration_less_180,
+                "amount_full":amount_full,
+                "amount_half":amount_half
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    if(tabNumber=="1"){
+                        $("#depreciation_full_rate").val(res.data.depreciation_full_rate);
+                        $("#depreciation_half_rate").val(res.data.depreciation_half_rate);
+                        $("#additional_full_rate").val(res.data.additional_full_rate);
+                        $("#additional_half_rate").val(res.data.additional_half_rate);
+                        $("#total_depreciation").val(res.data.total_depreciation);
+                        $("#written_down_last").val(res.data.written_down_last);
+                    }
+                    else{
+                        $("#total_depreciation_2").val(res.data.total_depreciation);
+                        $("#written_down_last_2").val(res.data.written_down_last);
+                    }
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

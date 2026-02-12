@@ -1,0 +1,13 @@
+.investsection{
+    background-color: #E6EAEF;
+}
+.featured-in-xuiisis8 .slick-arrow::before {
+    display: none;
+}
+.featured-in-xuiisis8 .slick-arrow i {
+    font-size: 25px;
+    color: #042b62;
+}
+/* .btnopt::before {
+    display: none;
+} */

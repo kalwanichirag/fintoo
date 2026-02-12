@@ -1,0 +1,2088 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/deferred.css">
+    <title>Deferred Tax Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <span id="tooltip1" class="tooltip-class">
+        <span id="tooltip1Arrow" class="tooltipArrow-class"></span>
+        Profit/(loss) as per books of accounts
+        <br>
+        Add:- Expenses not deductible under Income tax act
+        <br>
+        Income chargeable under Income tax act
+        <br>
+        Less:- Income not chargeable under Income tax act
+        <br>
+        Expense chargeable under Income tax act
+        <br>
+        Other adjustments, if any Estimated annual taxable income as per Income tax act.
+        <br>
+        Exclude items (such as capital gains, etc.) which are taxable at different tax rates
+    </span>
+
+    <span id="tooltip2" class="tooltip-class">
+        <span id="tooltip2Arrow" class="tooltipArrow-class"></span>
+        Do not enter amounts here if the TDS is paid on or before the due date for filing return of income
+    </span>
+
+    <span id="tooltip3" class="tooltip-class">
+        <span id="tooltip3Arrow" class="tooltipArrow-class"></span>
+        Enter DTA as positive amounts and DTL as negative amounts.
+    </span>
+
+    <span id="tooltip4" class="tooltip-class">
+        <span id="tooltip4Arrow" class="tooltipArrow-class"></span>
+        1.Land should not be depreciated.
+        <br>2.Revaluation impact should be ignored.
+    </span>
+
+    <span id="tooltip5" class="tooltip-class">
+        <span id="tooltip5Arrow" class="tooltipArrow-class"></span>
+        1. Virtual certainity required for creation of deferred tax asset as required by AS 22.
+        <br>
+        2.Carry forward of losses subject to provisions of Income Tax
+    </span>
+
+    <span id="tooltip6" class="tooltip-class">
+        <span id="tooltip6Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section deals with the disallowance of certain expenses in the computation
+        of taxable income if they have not been paid during the previous year but are paid before the due date of filing
+        the tax return.
+    </span>
+
+    <span id="tooltip7" class="tooltip-class">
+        <span id="tooltip7Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section relates to the disallowance of deductions for certain statutory
+        payments, such as employees' contributions to provident funds, if they are not paid on or before the due date of
+        filing the tax return.
+    </span>
+
+    <span id="tooltip8" class="tooltip-class">
+        <span id="tooltip8Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section pertains to the disallowance of certain expenses, such as taxes,
+        duties, and cess, if they have not been paid on or before the due date of filing the tax return.
+    </span>
+
+    <span id="tooltip9" class="tooltip-class">
+        <span id="tooltip9Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section deals with the disallowance of certain expenses, like any
+        interest, bonus, commission, or royalty, if they have not been actually paid during the previous year but are
+        paid before the due date of filing the tax return.
+    </span>
+
+    <span id="tooltip10" class="tooltip-class">
+        <span id="tooltip10Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, these sections relate to the disallowance of certain deductions for
+        contributions to funds or schemes, such as employees' welfare funds or approved gratuity funds, if they have not
+        been paid on or before the due date of filing the tax return.
+    </span>
+
+    <span id="tooltip11" class="tooltip-class">
+        <span id="tooltip11Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section allows for a deduction of a specific amount in respect of any sum
+        paid by a banking company to the Rural Infrastructure Development Fund established by the National Bank for
+        Agricultural and Rural Development.
+    </span>
+
+    <span id="tooltip12" class="tooltip-class">
+        <span id="tooltip12Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section provides for a deduction of certain expenditure incurred for
+        obtaining rights to operate telecommunication services.
+    </span>
+
+    <span id="tooltip13" class="tooltip-class">
+        <span id="tooltip13Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section allows for a deduction of certain expenditure incurred for
+        obtaining a license to operate telecommunication services.
+    </span>
+
+    <span id="tooltip14" class="tooltip-class">
+        <span id="tooltip14Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section relates to the amortization of certain preliminary expenses
+        incurred before the commencement of a business or profession over a specified period.
+    </span>
+
+    <span id="tooltip15" class="tooltip-class">
+        <span id="tooltip15Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section deals with the disallowance of certain expenses, such as interest,
+        commission, brokerage, rent, royalty, or professional fees, if they are payable to a resident and are not
+        deducted or paid before the due date of filing the tax return.
+    </span>
+
+    <span id="tooltip16" class="tooltip-class">
+        <span id="tooltip16Arrow" class="tooltipArrow-class"></span>
+        In case of business head income, this section pertains to the disallowance of certain expenses, such as salary,
+        interest, commission, brokerage, rent, royalty, or professional fees, if they are payable to a resident but tax
+        has not been deducted or, if deducted, not paid on or before the due date of filing the tax return.
+    </span>
+
+    <span id="tooltip17" class="tooltip-class">
+        <span id="tooltip17Arrow" class="tooltipArrow-class"></span>
+        Section 115BAD is applicable to Resident Cooperative Societies and provides them with the benefit of a lower tax
+        rate of 22% for any previous year relevant to the assessment year beginning on or after 1st April 2021, subject
+        to certain conditions.
+    </span>
+
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="w-100 alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text" style="font-size: 1rem;">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="heading fw-normal fs-5">Deferred Tax Calculator</div>
+        </div>
+        <div class="form-content-container">
+            <section class="incom-and-tax-calculator-form-section">
+                <br /><br />
+                <form class="incom-and-tax-calculator-form" id="DeffForm">
+                    <div class="padding-div padding-div-bg">
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Tax status of the company *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select id="tax_status" class="form-select rounded-0 "
+                                    onchange="checkVisibleIncaseDomesticOptios();" oninvalid="handleInvalidInput(this)"
+                                    onblur="onBlurChange(this)" required>
+                                    <option value="">Select</option>
+                                    <option value="aops_boi">AOPs/BOI</option>
+                                    <option value="domestic_company">Domestic Company
+                                    </option>
+                                    <option value="foreign_company">Foreign Company</option>
+                                    <option value="firms">Firms</option>
+                                    <option value="co_operative_society">Co-operative
+                                        Society</option>
+
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Assessment year *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select id="assessment_year" class="form-select rounded-0"
+                                    onchange="checkVisibleIncaseDomesticOptios();" oninvalid="handleInvalidInput(this)"
+                                    onblur="onBlurChange(this)" required>
+                                    <option value="">Select</option>
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Estimated annual taxable income (pre tax) under profits and
+                                gains *
+                            </label>
+                            <div class="col-sm-4 col-xs-12 d-flex align-items-center">
+
+                                <input type="text" maxlength="15" id="annual_taxable_income"
+                                    class="form-control rounded-0 " oninvalid="handleInvalidInput(this)"
+                                    onblur="onBlurChange(this)" required>
+                                <p class="required-msg" style="margin-top: 5rem;">This field is required</p>
+                                <span class="desc-icon" onmouseenter="tooltipOn(this,'tooltip1','tooltip1Arrow',0)"
+                                    onmouseleave="tooltipOff(event,'tooltip1','tooltip1Arrow')">
+                                    <span class="desc-icon-container">
+                                        i
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Estimated average annual tax rate
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Current rate (%) :
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input class="form-control rounded-0" type="text" maxlength="6"
+                                    id="annual_tax_rate_current" onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Previous rate (%):
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input class="form-control rounded-0" type="text" maxlength="6"
+                                    id="annual_tax_rate_previous" onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div id="check_container" class="header-field-box marr10p big-fb" style="display: none;">
+                            <div class="col-sm-12">
+                                <div class="row justify-content-between align-content-center checkbox_elem"
+                                    onchange="TickOnlyOne();" style="margin-bottom: 1rem;">
+                                    <div class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input " id="check_1" type="checkbox"
+                                                name="check_1">
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="check_1">Tick
+                                            if,
+                                            total turnover or gross receipts of the company
+                                            in the previous year 2015-16 does not exeeds 50
+                                            crore rupees</label>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center checkbox_elem"
+                                    onchange="TickOnlyOne115BA();" style="margin-bottom: 1rem;">
+                                    <div class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input " id="check_2" type="checkbox"
+                                                name="check_2">
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="check_2">Tick
+                                            if, company opted and qualify under section
+                                            115BA</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div id="check_3_container"
+                                    class="row justify-content-between align-content-center checkbox_elem"
+                                    onchange="TickOnlyOne115BAA();" style="display: none;margin-bottom: 1rem;">
+                                    <div class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input " id="check_3" type="checkbox"
+                                                name="check_3">
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="check_3">Tick
+                                            if, company opted and qualify for section
+                                            115BAA</label>
+                                    </div>
+                                </div>
+                                <div id="check_4_container"
+                                    class="row justify-content-between align-content-center checkbox_elem"
+                                    onchange="TickOnlyOne115BAB();" style="display: none;margin-bottom: 1rem;">
+                                    <div class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input " id="check_4" type="checkbox"
+                                                name="check_4">
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="check_4">Tick
+                                            if, company opted and qualify for section
+                                            115BAB</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="check_5_container"
+                            class="row justify-content-between align-content-center checkbox_elem"
+                            style="display: none;margin-bottom: 1rem;">
+                            <div class="d-flex">
+                                <div style="margin-right: 0.5rem;">
+                                    <input class="form-check-input" id="check_5" type="checkbox" name="check_5">
+                                </div>
+                                <label class="col-xs-12 control-label fw-bold fs-6" for="check_5">Co-operative
+                                    society opted and qualify for section
+                                    <span class="linkText"
+                                        onmouseenter="tooltipOn(this,'tooltip17','tooltip17Arrow',200)"
+                                        onmouseleave="tooltipOff(event,'tooltip17','tooltip17Arrow')">115BAD</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="padding-div">
+                        <div class="grid-inputs-container">
+                            <label class="label-fw-class" id="income-from-salary-label">Description</label>
+                            <label class="holderelem"></label>
+                            <label class="label-fw-class" id="income-from-salary-label">Closing
+                                Balance</label>
+                            <label class="label-fw-class" id="income-from-salary-label">Opening
+                                Balance</label>
+                        </div>
+                        <div id="maintree">
+                            <div class="maintree" onclick="showchild(this,'maingid1','mainpid1');">
+                                <span class="plus label-fw-class" id="mainpid1">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Employee related
+                                </span>
+                            </div>
+                            <div class="slided" id="maingid1" style="display: none;">
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid1_1','subpid1_1');">
+                                    <span class="plus label-fw-class" id="subpid1_1">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        Gratuity
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid1_1" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Provision for gratuity [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip6','tooltip6Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip6','tooltip6Arrow')">Section
+                                                43B(b)</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="provision_for_gratuity_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="provision_for_gratuity_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Gratuity asset/ defined benefit asset on
+                                            gratuity
+                                        </label>
+                                        <div></div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="gratuity_asset_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="gratuity_asset_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+
+                                    <!-- -->
+                                </div>
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid1_2','subpid1_2');">
+                                    <span class="plus label-fw-class" id="subpid1_2">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        Leave Encashment
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid1_2" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Provision for leave encashment [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip7','tooltip7Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip7','tooltip7Arrow')">Section
+                                                43B(f)</span>]
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="provision_leave_encashment_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="provision_leave_encashment_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Defined benefit asset on leave encashment
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="asset_on_leave_encashment_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="asset_on_leave_encashment_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid1_3','subpid1_3');">
+                                    <span class="plus label-fw-class" id="subpid1_3">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        Bounus or Commission
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid1_3" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Provision for bonus or commission for the
+                                            services rendered [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip8','tooltip8Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip8','tooltip8Arrow')">Section
+                                                43B(c)</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="provision_for_bonus_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="provision_for_bonus_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Advance bonus/ commission for the services
+                                            rendered
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="advance_bonus_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="advance_bonus_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid1_4','subpid1_4');">
+                                    <span class="plus label-fw-class" id="subpid1_4">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        PF and other funds
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid1_4" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Provisions for Contribution to PF,
+                                            superannuation funds or other funds for the
+                                            welfare of employees [<span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip6','tooltip6Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip6','tooltip6Arrow')">Section
+                                                43B(b)</span>]
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="provisions_for_pf_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="provisions_for_pf_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Advance contribution to PF, superannuation
+                                            funds or other funds for the welfare of
+                                            employees.
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="advance_pf_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="advance_pf_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-inputs-container-inputs">
+                                        <div>
+                                            <input class="form-control rounded-0 allchar" type="text" maxlength="15"
+                                                id="txt_pf">
+                                        </div>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip3','tooltip3Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip3','tooltip3Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="txt_pf_close" onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div>
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="txt_pf_open" onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid2','mainpid2');">
+                                <span class="plus label-fw-class" id="mainpid2">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Fixed Assets
+                                </span>
+                            </div>
+                            <div class="submaintree_content" id="maingid2" style="display: none;">
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        WDV of depreciable assets as per Income-tax Act
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip4','tooltip4Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip4','tooltip4Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="wdv_as_per_income_tax_act_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="wdv_as_per_income_tax_act_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        WDV of depreciable assets as per books of
+                                        accounts
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip4','tooltip4Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip4','tooltip4Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="wdv_as_per_books_of_accounts_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="wdv_as_per_books_of_accounts_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid3','mainpid3');">
+                                <span class="plus label-fw-class" id="mainpid3">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Statutory and other dues
+                                </span>
+                            </div>
+                            <div class="slided" id="maingid3" style="display: none;">
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid3_1','subpid3_1');">
+                                    <span class="plus label-fw-class" id="subpid3_1">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        Tax, Duty &amp; Cess
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid3_1" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Provision or sums payable for tax, duty,
+                                            cess, payable and not paid till the date of
+                                            filing of return. [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip9','tooltip9Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip9','tooltip9Arrow')">Section
+                                                43B(a)</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="provision_payable_for_tax_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="provision_payable_for_tax_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Advance payment for tax, duty or cess
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="advance_payment_for_tax_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="advance_payment_for_tax_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+
+                                    <!-- -->
+                                </div>
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid3_2','subpid3_2');">
+                                    <span class="plus label-fw-class" id="subpid3_2">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        Interest on borrowings and loans
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid3_2" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Interest (on any loan or borrowing from any
+                                            public financial institution, loan or
+                                            advances from a scheduled bank), payable and
+                                            not paid till the date of filing of return
+                                            [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip10','tooltip10Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip10','tooltip10Arrow')">Section
+                                                43B(d) &amp; (e)</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="interest_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="interest_open" onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Advance interest paid (on any loan or
+                                            borrowing from any public financial
+                                            institution, loan or advances from a
+                                            scheduled bank)
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="advance_interest_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="advance_interest_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid4','mainpid4');">
+                                <span class="plus label-fw-class" id="mainpid4">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Bad debts
+                                </span>
+                            </div>
+                            <div class="submaintree_content" id="maingid4" style="display: none;">
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Provision for bad and doubtful debts [
+                                        <span class="linkText"
+                                            onmouseenter="tooltipOn(this,'tooltip11','tooltip11Arrow',400)"
+                                            onmouseleave="tooltipOff(event,'tooltip11','tooltip11Arrow')">Section
+                                            36(1)(vii)</span>
+                                        ]
+                                    </label>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="provision_for_bad_debts_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="provision_for_bad_debts_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid5','mainpid5');">
+                                <span class="plus label-fw-class" id="mainpid5">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Other Provision such as
+                                </span>
+                            </div>
+                            <div class="submaintree_content" id="maingid5" style="display: none;">
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Provision for warranty
+                                    </label>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="provision_for_warranty_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="provision_for_warranty_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Provision for rent straight lining
+                                    </label>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="provision_for_rent_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="provision_for_rent_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Provision for sales return
+                                    </label>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="provision_for_sales_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="provision_for_sales_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Provision for unascertained liability
+                                    </label>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="provision_for_unascertained_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="provision_for_unascertained_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Provision for diminution in current investment
+                                    </label>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="provision_for_diminution_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="provision_for_diminution_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0 allchar"
+                                            id="other_txt">
+                                    </div>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="other_txt_close" onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="other_txt_open" onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid6','mainpid6');">
+                                <span class="plus label-fw-class" id="mainpid6">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Losses and depreciation
+                                </span>
+                            </div>
+                            <div class="submaintree_content" id="maingid6" style="display: none;">
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Business losses
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip5','tooltip5Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip5','tooltip5Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="business_losses_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="business_losses_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Speculative business losses
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip5','tooltip5Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip5','tooltip5Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="speculative_business_losses_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="speculative_business_losses_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Long-term capital losses
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip5','tooltip5Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip5','tooltip5Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="long_term_capital_losses_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="long_term_capital_losses_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Short-term capital losses
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip5','tooltip5Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip5','tooltip5Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="short_term_capital_losses_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="short_term_capital_losses_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Loss from house property
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip5','tooltip5Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip5','tooltip5Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="loss_from_house_property_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="loss_from_house_property_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Loss from owning and maintaining horse races
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip5','tooltip5Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip5','tooltip5Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="loss_from_owning_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="loss_from_owning_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Unabsorbed depreciation
+                                    </label>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip5','tooltip5Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip5','tooltip5Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="unabsorbed_depreciation_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="unabsorbed_depreciation_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid7','mainpid7');">
+                                <span class="plus label-fw-class" id="mainpid7">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    VRS, amalgamation, demerger and preliminary expenses
+                                </span>
+                            </div>
+                            <div class="slided" id="maingid7" style="display: none;">
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid7_1','subpid7_1');">
+                                    <span class="plus label-fw-class" id="subpid7_1">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        Expenses on amalgmation or demerger
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid7_1" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Expenses incurred on amalgamation or demerger
+                                            (As per accounting principles)
+                                        </label>
+                                        <div></div>
+
+                                        <div>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="expenses_amalgamation_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div>
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="expenses_amalgamation_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Less: Deduction as per IT Act (amortise in 5
+                                            year) [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip12','tooltip12Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip12','tooltip12Arrow')">Section
+                                                35DD</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+
+                                        <div>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="expenses_amalgamation_deduction_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div>
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="expenses_amalgamation_deduction_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <!-- -->
+                                </div>
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid7_2','subpid7_2');">
+                                    <span class="plus label-fw-class" id="subpid7_2">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        Expenses on VRS
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid7_2" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Expenses incurred on voluntary retirement scheme
+                                            (As per accounting principles)
+                                        </label>
+                                        <div></div>
+
+                                        <div>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="expenses_voluntary_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div>
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="expenses_voluntary_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Less: Deduction as per IT Act (amortise in 5
+                                            year) [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip13','tooltip13Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip13','tooltip13Arrow')">Section
+                                                35DDA</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+
+                                        <div>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="expenses_voluntary_deduction_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div>
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="expenses_voluntary_deduction_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid7_3','subpid7_3');">
+                                    <span class="plus label-fw-class" id="subpid7_3">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        Premliminary expenses
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid7_3" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Preliminary expenses incurred (As per accounting
+                                            principles)
+                                        </label>
+                                        <div></div>
+
+                                        <div>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="preliminary_expenses_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div>
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="preliminary_expenses_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Less: Deduction as per IT Act (amortise in 10
+                                            year) [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip14','tooltip14Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip14','tooltip14Arrow')">Section
+                                                35D</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+
+                                        <div>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="preliminary_expenses_deduction_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div>
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="preliminary_expenses_deduction_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid8','mainpid8');">
+                                <span class="plus label-fw-class" id="mainpid8">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Expenses on which TDS not deducted/ paid
+                                </span>
+                            </div>
+                            <div class="slided" id="maingid8" style="display: none;">
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid8_1','subpid8_1');">
+                                    <span class="plus label-fw-class" id="subpid8_1">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        In case of Non-Resident
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid8_1" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Expenses incurred on interest, commission or
+                                            brokerage, fees for professional/technical
+                                            services, contractor or sub-contractor
+                                            payable to a non-resident/ outside India on
+                                            which tax not deducted and paid
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="expenses_on_interest_non_resident_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="expenses_on_interest_non_resident_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Less:Expenses disallowed in current year [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip15','tooltip15Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip15','tooltip15Arrow')">Sec.
+                                                40(a)(i)</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="disallowed_current_year_non_resident_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="disallowed_current_year_non_resident_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Less:Disallowance of last years but paid in
+                                            current year [ <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip15','tooltip15Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip15','tooltip15Arrow')">Sec.
+                                                40(a)(i)</span>]
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="disallowed_last_year_non_resident_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="disallowed_last_year_non_resident_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <!-- -->
+                                </div>
+                                <div class="submaintree maintree" onclick="showchild(this,'subgid8_2','subpid8_2');">
+                                    <span class="plus label-fw-class" id="subpid8_2">
+                                        <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                        <span class="hide" style="display: none;"><i
+                                                class="fa-solid fa-minus"></i></span>
+                                        In case of Resident
+                                    </span>
+                                </div>
+                                <div class="submaintree_content" id="subgid8_2" style="display: none;">
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Expenses incurred on interest, commission or
+                                            brokerage, fees for professional/technical
+                                            services, contractor or sub-contractor
+                                            payable to a resident on which tax not
+                                            deducted and paid
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="expenses_on_interest_resident_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="expenses_on_interest_resident_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Less:Expenses disallowed in current year
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="disallowed_current_year_resident_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="disallowed_current_year_resident_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                    <div class="grid-inputs-container-inputs">
+                                        <label class="label-fw-class">
+                                            Less:Disallowance of last years but paid in
+                                            current year [
+                                            <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'tooltip16','tooltip16Arrow',400)"
+                                                onmouseleave="tooltipOff(event,'tooltip16','tooltip16Arrow')">Sec.
+                                                40(a)(ia)</span>
+                                            ]
+                                        </label>
+                                        <div></div>
+
+                                        <div class="d-flex align-items-center">
+                                            <span class="desc-icon"
+                                                onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',100)"
+                                                onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">
+                                                <span class="desc-icon-container">
+                                                    i
+                                                </span>
+                                            </span>
+                                            <input type="text" maxlength="15" class="form-control rounded-0"
+                                                id="disallowed_last_year_resident_close"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control rounded-0" type="text" maxlength="15"
+                                                id="disallowed_last_year_resident_open"
+                                                onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid9','mainpid9');">
+                                <span class="plus label-fw-class" id="mainpid9">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Any other expenses
+                                </span>
+                            </div>
+                            <div class="submaintree_content" id="maingid9" style="display: none;">
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Exp. allowable as per Income-tax Act
+                                    </label>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="exp_allowable_income_tax_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="exp_allowable_income_tax_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                                <div class="grid-inputs-container-inputs">
+                                    <label class="label-fw-class">
+                                        Exp. allowable as per books
+                                    </label>
+                                    <div></div>
+
+                                    <div>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="exp_allowable_books_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="exp_allowable_books_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="maintree" onclick="showchild(this,'maingid10','mainpid10');">
+                                <span class="plus label-fw-class" id="mainpid10">
+                                    <span class="show"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="hide" style="display: none;"><i class="fa-solid fa-minus"></i></span>
+                                    Any other timing difference
+                                </span>
+                            </div>
+                            <div class="submaintree_content" id="maingid10" style="display: none;">
+                                <div class="grid-inputs-container-inputs">
+                                    <div>
+                                        <input class="form-control rounded-0 allchar" type="text" maxlength="15"
+                                            id="timing_difference_txt1">
+                                    </div>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip3','tooltip3Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip3','tooltip3Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0 negative-input"
+                                            id="timing_difference_txt1_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0 negative-input" type="text" maxlength="15"
+                                            id="timing_difference_txt1_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+
+                                <div class="grid-inputs-container-inputs">
+                                    <div>
+                                        <input class="form-control rounded-0 allchar" type="text" maxlength="15"
+                                            id="timing_difference_txt2">
+                                    </div>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip3','tooltip3Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip3','tooltip3Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0 negative-input"
+                                            id="timing_difference_txt2_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0 negative-input" type="text" maxlength="15"
+                                            id="timing_difference_txt2_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+
+                                <div class="grid-inputs-container-inputs">
+                                    <div>
+                                        <input class="form-control rounded-0 allchar" type="text" maxlength="15"
+                                            id="timing_difference_txt3">
+                                    </div>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip3','tooltip3Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip3','tooltip3Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0 negative-input"
+                                            id="timing_difference_txt3_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0 negative-input" type="text" maxlength="15"
+                                            id="timing_difference_txt3_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+
+                                <div class="grid-inputs-container-inputs">
+                                    <div>
+                                        <input class="form-control rounded-0 allchar" type="text" maxlength="15"
+                                            id="timing_difference_txt4">
+                                    </div>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip3','tooltip3Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip3','tooltip3Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="timing_difference_txt4_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="timing_difference_txt4_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+
+                                <div class="grid-inputs-container-inputs">
+                                    <div>
+                                        <input class="form-control rounded-0 allchar" type="text" maxlength="15"
+                                            id="timing_difference_txt5">
+                                    </div>
+                                    <div></div>
+
+                                    <div class="d-flex align-items-center">
+                                        <span class="desc-icon"
+                                            onmouseenter="tooltipOn(this,'tooltip3','tooltip3Arrow',100)"
+                                            onmouseleave="tooltipOff(event,'tooltip3','tooltip3Arrow')">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span>
+                                        </span>
+                                        <input type="text" maxlength="15" class="form-control rounded-0"
+                                            id="timing_difference_txt5_close"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control rounded-0" type="text" maxlength="15"
+                                            id="timing_difference_txt5_open"
+                                            onblur="javascript:ValidateAndFormatNumber(this,'')">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </section>
+            <br>
+            <div class="action-buttons-container padding-div">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <br>
+
+            <div id="result-table">
+
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br>
+            <div class="s4-wpcell-plain ms-webpartzone-cell ms-webpart-cell-vertical ms-fullWidth ">
+                <div class="ms-webpart-chrome ms-webpart-chrome-vertical ms-webpart-chrome-fullWidth ">
+                    <div WebPartID="7da27129-a0f4-4703-90f7-1211f15d6474" HasPers="false" id="WebPartWPQ2" width="100%"
+                        class="ms-WPBody " allowDelete="false">
+                        <div class="ms-rtestate-field">
+                            <secction class="incom-and-tax-calculator-form-bottom-note-section">
+                                <div class="note-container note-container-advisory">
+                                    <span class="fw-bold"> Advisory: </span>
+                                    Information relates to the law prevailing in the year <span class="fst-italic">of
+                                        publication/ as
+                                        indicated</span>. Viewers are advised to ascertain the correct
+                                    position/prevailing law before relying upon any document.
+                                    <br /><br />
+                                    <span class="fw-bold"> Disclaimer: </span>
+                                    The
+                                    above calculator is only to enable public to have a quick and an easy access to
+                                    basic
+                                    tax
+                                    calculation and does not purport to give correct tax calculation in all
+                                    circumstances.
+                                    It is
+                                    advised that for filing of returns the exact calculation may be made as per the
+                                    provisions
+                                    contained in the relevant Acts, Rules etc.
+                                </div>
+                            </secction>​​​​​​
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/deferred.js"></script>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        // var year1 = current_date.getFullYear() - 1;
+        var year1 = current_date.getFullYear();
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 11; i++) {
+            var year2 = (year1 + 1).toString().substr(-2);
+            $('#assessment_year').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1;
+        }
+    });
+
+    const getFormValidationState = () => {
+        const formElement = document.getElementById('DeffForm');
+        const isFormValid = formElement.checkValidity();
+        return isFormValid
+    }
+
+
+    function Calculate() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        let check = "";
+        if ($('#check_1').is(":checked") || $('#check_5').is(":checked")) {
+            check = "1";
+        }
+        else if ($('#check_2').is(":checked")) {
+            check = "2";
+        }
+        else if ($('#check_3').is(":checked")) {
+            check = "3";
+        }
+        else if ($('#check_4').is(":checked")) {
+            check = "4";
+        }
+        const tax_status = $("#tax_status").val();
+        const assessment_year = +$("#assessment_year").val().replace(/,/g, '') || "";
+        const annual_taxable_income = +$("#annual_taxable_income").val().replace(/,/g, '') || "";
+        const annual_tax_rate_current = +$("#annual_tax_rate_current").val().replace(/,/g, '') || "";
+        const annual_tax_rate_previous = +$("#annual_tax_rate_previous").val().replace(/,/g, '') || "";
+        const provision_for_gratuity_close = +$("#provision_for_gratuity_close").val().replace(/,/g, '') || "";
+        const provision_for_gratuity_open = +$("#provision_for_gratuity_open").val().replace(/,/g, '') || "";
+        const gratuity_asset_close = +$("#gratuity_asset_close").val().replace(/,/g, '') || "";
+        const gratuity_asset_open = +$("#gratuity_asset_open").val().replace(/,/g, '') || "";
+        const provision_leave_encashment_close = +$("#provision_leave_encashment_close").val().replace(/,/g, '') || "";
+        const provision_leave_encashment_open = +$("#provision_leave_encashment_open").val().replace(/,/g, '') || "";
+        const asset_on_leave_encashment_close = +$("#asset_on_leave_encashment_close").val().replace(/,/g, '') || "";
+        const asset_on_leave_encashment_open = +$("#asset_on_leave_encashment_open").val().replace(/,/g, '') || "";
+        const provision_for_bonus_close = +$("#provision_for_bonus_close").val().replace(/,/g, '') || "";
+        const provision_for_bonus_open = +$("#provision_for_bonus_open").val().replace(/,/g, '') || "";
+        const advance_bonus_close = +$("#advance_bonus_close").val().replace(/,/g, '') || "";
+        const advance_bonus_open = +$("#advance_bonus_open").val().replace(/,/g, '') || "";
+        const provisions_for_pf_close = +$("#provisions_for_pf_close").val().replace(/,/g, '') || "";
+        const provisions_for_pf_open = +$("#provisions_for_pf_open").val().replace(/,/g, '') || "";
+        const advance_pf_close = +$("#advance_pf_close").val().replace(/,/g, '') || "";
+        const advance_pf_open = +$("#advance_pf_open").val().replace(/,/g, '') || "";
+        const txt_pf = $("#txt_pf").val();
+        const txt_pf_close = +$("#txt_pf_close").val().replace(/,/g, '') || "";
+        const txt_pf_open = +$("#txt_pf_open").val().replace(/,/g, '') || "";
+        const wdv_as_per_income_tax_act_close = +$("#wdv_as_per_income_tax_act_close").val().replace(/,/g, '') || "";
+        const wdv_as_per_income_tax_act_open = +$("#wdv_as_per_income_tax_act_open").val().replace(/,/g, '') || "";
+        const wdv_as_per_books_of_accounts_close = +$("#wdv_as_per_books_of_accounts_close").val().replace(/,/g, '') || "";
+        const wdv_as_per_books_of_accounts_open = +$("#wdv_as_per_books_of_accounts_open").val().replace(/,/g, '') || "";
+        const provision_payable_for_tax_close = +$("#provision_payable_for_tax_close").val().replace(/,/g, '') || "";
+        const provision_payable_for_tax_open = +$("#provision_payable_for_tax_open").val().replace(/,/g, '') || "";
+        const advance_payment_for_tax_close = +$("#advance_payment_for_tax_close").val().replace(/,/g, '') || "";
+        const advance_payment_for_tax_open = +$("#advance_payment_for_tax_open").val().replace(/,/g, '') || "";
+        const interest_close = +$("#interest_close").val().replace(/,/g, '') || "";
+        const interest_open = +$("#interest_open").val().replace(/,/g, '') || "";
+        const advance_interest_close = +$("#advance_interest_close").val().replace(/,/g, '') || "";
+        const advance_interest_open = +$("#advance_interest_open").val().replace(/,/g, '') || "";
+        const provision_for_bad_debts_close = +$("#provision_for_bad_debts_close").val().replace(/,/g, '') || "";
+        const provision_for_bad_debts_open = +$("#provision_for_bad_debts_open").val().replace(/,/g, '') || "";
+        const provision_for_warranty_close = +$("#provision_for_warranty_close").val().replace(/,/g, '') || "";
+        const provision_for_warranty_open = +$("#provision_for_warranty_open").val().replace(/,/g, '') || "";
+        const provision_for_rent_close = +$("#provision_for_rent_close").val().replace(/,/g, '') || "";
+        const provision_for_rent_open = +$("#provision_for_rent_open").val().replace(/,/g, '') || "";
+        const provision_for_sales_close = +$("#provision_for_sales_close").val().replace(/,/g, '') || "";
+        const provision_for_sales_open = +$("#provision_for_sales_open").val().replace(/,/g, '') || "";
+        const provision_for_unascertained_close = +$("#provision_for_unascertained_close").val().replace(/,/g, '') || "";
+        const provision_for_unascertained_open = +$("#provision_for_unascertained_open").val().replace(/,/g, '') || "";
+        const provision_for_diminution_close = +$("#provision_for_diminution_close").val().replace(/,/g, '') || "";
+        const provision_for_diminution_open = +$("#provision_for_diminution_open").val().replace(/,/g, '') || "";
+        const other_txt = $("#other_txt").val().replace(/,/g, '') || "";
+        const other_txt_close = +$("#other_txt_close").val().replace(/,/g, '') || "";
+        const other_txt_open = +$("#other_txt_open").val().replace(/,/g, '') || "";
+        const business_losses_close = +$("#business_losses_close").val().replace(/,/g, '') || "";
+        const business_losses_open = +$("#business_losses_open").val().replace(/,/g, '') || "";
+        const speculative_business_losses_close = +$("#speculative_business_losses_close").val().replace(/,/g, '') || "";
+        const speculative_business_losses_open = +$("#speculative_business_losses_open").val().replace(/,/g, '') || "";
+        const long_term_capital_losses_close = +$("#long_term_capital_losses_close").val().replace(/,/g, '') || "";
+        const long_term_capital_losses_open = +$("#long_term_capital_losses_open").val().replace(/,/g, '') || "";
+        const short_term_capital_losses_close = +$("#short_term_capital_losses_close").val().replace(/,/g, '') || "";
+        const short_term_capital_losses_open = +$("#short_term_capital_losses_open").val().replace(/,/g, '') || "";
+        const loss_from_house_property_close = +$("#loss_from_house_property_close").val().replace(/,/g, '') || "";
+        const loss_from_house_property_open = +$("#loss_from_house_property_open").val().replace(/,/g, '') || "";
+        const loss_from_owning_close = +$("#loss_from_owning_close").val().replace(/,/g, '') || "";
+        const loss_from_owning_open = +$("#loss_from_owning_open").val().replace(/,/g, '') || "";
+        const unabsorbed_depreciation_close = +$("#unabsorbed_depreciation_close").val().replace(/,/g, '') || "";
+        const unabsorbed_depreciation_open = +$("#unabsorbed_depreciation_open").val().replace(/,/g, '') || "";
+        const expenses_amalgamation_close = +$("#expenses_amalgamation_close").val().replace(/,/g, '') || "";
+        const expenses_amalgamation_open = +$("#expenses_amalgamation_open").val().replace(/,/g, '') || "";
+        const expenses_amalgamation_deduction_close = +$("#expenses_amalgamation_deduction_close").val().replace(/,/g, '') || "";
+        const expenses_amalgamation_deduction_open = +$("#expenses_amalgamation_deduction_open").val().replace(/,/g, '') || "";
+        const expenses_voluntary_close = +$("#expenses_voluntary_close").val().replace(/,/g, '') || "";
+        const expenses_voluntary_open = +$("#expenses_voluntary_open").val().replace(/,/g, '') || "";
+        const expenses_voluntary_deduction_close = +$("#expenses_voluntary_deduction_close").val().replace(/,/g, '') || "";
+        const expenses_voluntary_deduction_open = +$("#expenses_voluntary_deduction_open").val().replace(/,/g, '') || "";
+        const preliminary_expenses_close = +$("#preliminary_expenses_close").val().replace(/,/g, '') || "";
+        const preliminary_expenses_open = +$("#preliminary_expenses_open").val().replace(/,/g, '') || "";
+        const preliminary_expenses_deduction_close = +$("#preliminary_expenses_deduction_close").val().replace(/,/g, '') || "";
+        const preliminary_expenses_deduction_open = +$("#preliminary_expenses_deduction_open").val().replace(/,/g, '') || "";
+        const expenses_on_interest_resident_close = +$("#expenses_on_interest_resident_close").val().replace(/,/g, '') || "";
+        const expenses_on_interest_resident_open = +$("#expenses_on_interest_resident_open").val().replace(/,/g, '') || "";
+        const disallowed_current_year_resident_close = +$("#disallowed_current_year_resident_close").val().replace(/,/g, '') || "";
+        const disallowed_current_year_resident_open = +$("#disallowed_current_year_resident_open").val().replace(/,/g, '') || "";
+        const disallowed_last_year_resident_close = +$("#disallowed_last_year_resident_close").val().replace(/,/g, '') || "";
+        const disallowed_last_year_resident_open = +$("#disallowed_last_year_resident_open").val().replace(/,/g, '') || "";
+        const expenses_on_interest_non_resident_close = +$("#expenses_on_interest_non_resident_close").val().replace(/,/g, '') || "";
+        const expenses_on_interest_non_resident_open = +$("#expenses_on_interest_non_resident_open").val().replace(/,/g, '') || "";
+        const disallowed_current_year_non_resident_close = +$("#disallowed_current_year_non_resident_close").val().replace(/,/g, '') || "";
+        const disallowed_current_year_non_resident_open = +$("#disallowed_current_year_non_resident_open").val().replace(/,/g, '') || "";
+        const disallowed_last_year_non_resident_close = +$("#disallowed_last_year_non_resident_close").val().replace(/,/g, '') || "";
+        const disallowed_last_year_non_resident_open = +$("#disallowed_last_year_non_resident_open").val().replace(/,/g, '') || "";
+        const exp_allowable_income_tax_close = +$("#exp_allowable_income_tax_close").val().replace(/,/g, '') || "";
+        const exp_allowable_income_tax_open = +$("#exp_allowable_income_tax_open").val().replace(/,/g, '') || "";
+        const exp_allowable_books_close = +$("#exp_allowable_books_close").val().replace(/,/g, '') || "";
+        const exp_allowable_books_open = +$("#exp_allowable_books_open").val().replace(/,/g, '') || "";
+        const timing_difference_txt1 = $("#timing_difference_txt1").val().replace(/,/g, '') || "";
+        const timing_difference_txt1_close = +$("#timing_difference_txt1_close").val().replace(/,/g, '') || "";
+        const timing_difference_txt1_open = +$("#timing_difference_txt1_open").val().replace(/,/g, '') || "";
+        const timing_difference_txt2 = $("#timing_difference_txt2").val().replace(/,/g, '') || "";
+        const timing_difference_txt2_close = +$("#timing_difference_txt2_close").val().replace(/,/g, '') || "";
+        const timing_difference_txt2_open = +$("#timing_difference_txt2_open").val().replace(/,/g, '') || "";
+        const timing_difference_txt3 = $("#timing_difference_txt3").val().replace(/,/g, '') || "";
+        const timing_difference_txt3_close = +$("#timing_difference_txt3_close").val().replace(/,/g, '') || "";
+        const timing_difference_txt3_open = +$("#timing_difference_txt3_open").val().replace(/,/g, '') || "";
+        const timing_difference_txt4 = $("#timing_difference_txt4").val().replace(/,/g, '') || "";
+        const timing_difference_txt4_close = +$("#timing_difference_txt4_close").val().replace(/,/g, '') || "";
+        const timing_difference_txt4_open = +$("#timing_difference_txt4_open").val().replace(/,/g, '') || "";
+        const timing_difference_txt5 = $("#timing_difference_txt5").val().replace(/,/g, '') || "";
+        const timing_difference_txt5_close = +$("#timing_difference_txt5_close").val().replace(/,/g, '') || "";
+        const timing_difference_txt5_open = +$("#timing_difference_txt5_open").val().replace(/,/g, '') || "";
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/deferred_tax/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/deferred_tax/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/deferred_tax/",
+            type: "POST",
+            data: JSON.stringify({
+                "tax_status": tax_status,
+                "assessment_year": assessment_year,
+                "annual_taxable_income": annual_taxable_income,
+                "annual_tax_rate_current": annual_tax_rate_current,
+                "annual_tax_rate_previous": annual_tax_rate_previous,
+                "check": check,
+                "provision_for_gratuity_close": provision_for_gratuity_close,
+                "provision_for_gratuity_open": provision_for_gratuity_open,
+                "gratuity_asset_close": gratuity_asset_close,
+                "gratuity_asset_open": gratuity_asset_open,
+                "provision_leave_encashment_close": provision_leave_encashment_close,
+                "provision_leave_encashment_open": provision_leave_encashment_open,
+                "asset_on_leave_encashment_close": asset_on_leave_encashment_close,
+                "asset_on_leave_encashment_open": asset_on_leave_encashment_open,
+                "provision_for_bonus_close": provision_for_bonus_close,
+                "provision_for_bonus_open": provision_for_bonus_open,
+                "advance_bonus_close": advance_bonus_close,
+                "advance_bonus_open": advance_bonus_open,
+                "provisions_for_pf_close": provisions_for_pf_close,
+                "provisions_for_pf_open": provisions_for_pf_open,
+                "advance_pf_close": advance_pf_close,
+                "advance_pf_open": advance_pf_open,
+                "txt_pf": txt_pf,
+                "txt_pf_close": txt_pf_close,
+                "txt_pf_open": txt_pf_open,
+                "wdv_as_per_income_tax_act_close": wdv_as_per_income_tax_act_close,
+                "wdv_as_per_income_tax_act_open": wdv_as_per_income_tax_act_open,
+                "wdv_as_per_books_of_accounts_close": wdv_as_per_books_of_accounts_close,
+                "wdv_as_per_books_of_accounts_open": wdv_as_per_books_of_accounts_open,
+                "provision_payable_for_tax_close": provision_payable_for_tax_close,
+                "provision_payable_for_tax_open": provision_payable_for_tax_open,
+                "advance_payment_for_tax_close": advance_payment_for_tax_close,
+                "advance_payment_for_tax_open": advance_payment_for_tax_open,
+                "interest_close": interest_close,
+                "interest_open": interest_open,
+                "advance_interest_close": advance_interest_close,
+                "advance_interest_open": advance_interest_open,
+                "provision_for_bad_debts_close": provision_for_bad_debts_close,
+                "provision_for_bad_debts_open": provision_for_bad_debts_open,
+                "provision_for_warranty_close": provision_for_warranty_close,
+                "provision_for_warranty_open": provision_for_warranty_open,
+                "provision_for_rent_close": provision_for_rent_close,
+                "provision_for_rent_open": provision_for_rent_open,
+                "provision_for_sales_close": provision_for_sales_close,
+                "provision_for_sales_open": provision_for_sales_open,
+                "provision_for_unascertained_close": provision_for_unascertained_close,
+                "provision_for_unascertained_open": provision_for_unascertained_open,
+                "provision_for_diminution_close": provision_for_diminution_close,
+                "provision_for_diminution_open": provision_for_diminution_open,
+                "other_txt": other_txt,
+                "other_txt_close": other_txt_close,
+                "other_txt_open": other_txt_open,
+                "business_losses_close": business_losses_close,
+                "business_losses_open": business_losses_open,
+                "speculative_business_losses_close": speculative_business_losses_close,
+                "speculative_business_losses_open": speculative_business_losses_open,
+                "long_term_capital_losses_close": long_term_capital_losses_close,
+                "long_term_capital_losses_open": long_term_capital_losses_open,
+                "short_term_capital_losses_close": short_term_capital_losses_close,
+                "short_term_capital_losses_open": short_term_capital_losses_open,
+                "loss_from_house_property_close": loss_from_house_property_close,
+                "loss_from_house_property_open": loss_from_house_property_open,
+                "loss_from_owning_close": loss_from_owning_close,
+                "loss_from_owning_open": loss_from_owning_open,
+                "unabsorbed_depreciation_close": unabsorbed_depreciation_close,
+                "unabsorbed_depreciation_open": unabsorbed_depreciation_open,
+                "expenses_amalgamation_close": expenses_amalgamation_close,
+                "expenses_amalgamation_open": expenses_amalgamation_open,
+                "expenses_amalgamation_deduction_close": expenses_amalgamation_deduction_close,
+                "expenses_amalgamation_deduction_open": expenses_amalgamation_deduction_open,
+                "expenses_voluntary_close": expenses_voluntary_close,
+                "expenses_voluntary_open": expenses_voluntary_open,
+                "expenses_voluntary_deduction_close": expenses_voluntary_deduction_close,
+                "expenses_voluntary_deduction_open": expenses_voluntary_deduction_open,
+                "preliminary_expenses_close": preliminary_expenses_close,
+                "preliminary_expenses_open": preliminary_expenses_open,
+                "preliminary_expenses_deduction_close": preliminary_expenses_deduction_close,
+                "preliminary_expenses_deduction_open": preliminary_expenses_deduction_open,
+                "expenses_on_interest_resident_close": expenses_on_interest_resident_close,
+                "expenses_on_interest_resident_open": expenses_on_interest_resident_open,
+                "disallowed_current_year_resident_close": disallowed_current_year_resident_close,
+                "disallowed_current_year_resident_open": disallowed_current_year_resident_open,
+                "disallowed_last_year_resident_close": disallowed_last_year_resident_close,
+                "disallowed_last_year_resident_open": disallowed_last_year_resident_open,
+                "expenses_on_interest_non_resident_close": expenses_on_interest_non_resident_close,
+                "expenses_on_interest_non_resident_open": expenses_on_interest_non_resident_open,
+                "disallowed_current_year_non_resident_close": disallowed_current_year_non_resident_close,
+                "disallowed_current_year_non_resident_open": disallowed_current_year_non_resident_open,
+                "disallowed_last_year_non_resident_close": disallowed_last_year_non_resident_close,
+                "disallowed_last_year_non_resident_open": disallowed_last_year_non_resident_open,
+                "exp_allowable_income_tax_close": exp_allowable_income_tax_close,
+                "exp_allowable_income_tax_open": exp_allowable_income_tax_open,
+                "exp_allowable_books_close": exp_allowable_books_close,
+                "exp_allowable_books_open": exp_allowable_books_open,
+                "timing_difference_txt1": timing_difference_txt1,
+                "timing_difference_txt1_close": timing_difference_txt1_close,
+                "timing_difference_txt1_open": timing_difference_txt1_open,
+                "timing_difference_txt2": timing_difference_txt2,
+                "timing_difference_txt2_close": timing_difference_txt2_close,
+                "timing_difference_txt2_open": timing_difference_txt2_open,
+                "timing_difference_txt3": timing_difference_txt3,
+                "timing_difference_txt3_close": timing_difference_txt3_close,
+                "timing_difference_txt3_open": timing_difference_txt3_open,
+                "timing_difference_txt4": timing_difference_txt4,
+                "timing_difference_txt4_close": timing_difference_txt4_close,
+                "timing_difference_txt4_open": timing_difference_txt4_open,
+                "timing_difference_txt4": timing_difference_txt4,
+                "timing_difference_txt4_close": timing_difference_txt4_close,
+                "timing_difference_txt4_open": timing_difference_txt4_open,
+                "timing_difference_txt5": timing_difference_txt5,
+                "timing_difference_txt5_close": timing_difference_txt5_close,
+                "timing_difference_txt5_open": timing_difference_txt5_open
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#result-table").html(res.data.html_val);
+                    $('div[style*="background:#353535"]').css("background", "#24a7df");
+                    $(window).scrollTop($('#result-table').offset().top);
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+
+    }
+</script>

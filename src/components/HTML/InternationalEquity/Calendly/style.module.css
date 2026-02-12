@@ -1,0 +1,51 @@
+.appointment-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+   
+    font-size: 2.5rem;
+}
+.SectionTitle{
+    font-size: 2.9rem;
+    color: #042b62;
+    font-weight: 600;
+}
+.appointment-section-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.appointment-section-text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: 500;
+    font-size: 2.5rem;
+    padding: 10rem 0;
+    color: #042b62;
+}
+
+.appointment-section-iframe {
+    display: flex;
+    align-items: center;
+}
+
+/* ------------------------------------------------------------------------media query----------------------------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+    .appointment-section-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .appointment-section-text {
+        padding: 0 0 1rem 0;
+        text-align: center;
+        line-height: 2rem;
+        font-size: 1.7rem;
+        font-weight: 400;
+    }
+    .appointment-section-iframe {
+        display: flex;
+        align-items: center;
+        height: 60vh;
+    }
+}

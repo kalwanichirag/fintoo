@@ -1,0 +1,149 @@
+.FpProcess {
+    padding: 4rem 0;
+    background: #fff;
+    width: 100%;
+}
+.FpProcesssubtitle{
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 1.375rem;
+    width: 70%;
+    margin: auto;
+}
+.FpProcessonetxt{
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+.FpProcessBox {
+    width: 84%;
+    margin: auto;
+}
+.FpProcesssubtitle{
+    font-size: 1.375rem;
+    color: #4B5675;
+    width: 77%;
+    margin: auto;
+}
+.FpProcessCards{
+    width: 70%;
+    margin: 2.5rem  auto;
+    position: relative;
+
+}
+.FpProcessCards .fpimg img{
+    position: absolute;
+    left: 45%;
+    top: -3rem;
+}
+.FpProcessCard{
+    background-color: #EFF6FF;
+    padding: 4rem 2rem;
+    border-radius: 1.375rem;
+    text-align: center;
+    z-index: 100;
+}
+.FpProcessCards .fp_RightLine img{
+    position: absolute;
+    width: 43%;
+    /* top: 260px; */
+    left: 2%;
+    z-index: 0;
+}
+.FpProcessCards .Fp_Left_line img{
+    position: absolute;
+    /* top: 260px; */
+    width: 43%;
+    right: 2%;
+    z-index: 0;
+}
+.FpProcessCard .title{
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 1rem 0;
+}
+.FpProcessCard .Desc {
+    color: #636466;
+    padding: 0 5rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #636466;
+}
+.FpProcessCard .list{
+    padding: 1rem 0;
+    text-align: left;
+    width: 60%;
+    margin: auto;
+    color: #636466;
+}
+.FpProcessCard span{
+    font-weight: 500;
+}
+
+/* Responsive  */
+
+@media only screen and (min-width: 200px) and (max-width: 800px) {
+    .FpProcess {
+        padding: 4rem 2rem;
+    }
+    .FpProcessonetxt {
+        font-size: 1.4rem;
+        width: 100%;
+    }
+    .FpProcesssubtitle {
+        width: 100%;
+        font-size: 1rem;
+    }
+    .FpProcessBox{
+        width: 100%;
+    }
+    .FpProcessCards{
+        width: 100%;
+    }
+    .FpProcessCards .fpimg img{
+        left: 37%;
+        width: 76px;
+    }
+    .FpProcessCard .title{
+        font-size: 1rem;
+    }
+    .FpProcessCard .Desc{
+        padding: 0 1rem;
+        font-size: .8rem;
+    }
+    .FpProcessCard .list{
+        width: 100%;
+    }
+    .FpProcessCards .fp_RightLine img{
+        display: none;
+    }
+    .FpProcessCards .Fp_Left_line img{
+        display: none;
+    }
+    .FpProcessCards::after {
+        content: "";
+        display: block;
+        width: 2px;
+        height: 21px;
+        background: repeating-linear-gradient(to bottom, #000, #000 5px, transparent 5px, transparent 10px);
+        position: absolute;
+        left: 49%;
+        bottom: -22px;
+        transform: translateX(-50%);
+    }
+    .FpProcessCards::before {
+        content: "";
+        position: absolute;
+        left: 49%;
+        bottom: -30px;
+        transform: translateX(-50%);
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 10px solid black;
+    }
+    .FpProcessCards:last-child:after{
+        content: none;
+    }
+    .FpProcessCards:last-child:before{
+        content: none;
+    }
+}

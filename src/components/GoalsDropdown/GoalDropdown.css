@@ -1,0 +1,152 @@
+.dropbtn {
+  background-color: #fff;
+  color: #042b62;
+  padding: 16px;
+  font-size: 16px;
+  border-bottom: 1px solid #dadada;
+  cursor: pointer;
+  font-family: "Muli", sans-serif !important;
+  font-size: 14px;
+  padding-left: 0;
+}
+
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: #fff;
+}
+
+.goal-table,
+.goal-table tbody {
+  width: 100%;
+}
+.goal-table thead {
+  background-color: #fff;
+  color: #042b62;
+  text-align: center;
+}
+/* .goal-table  .dropdown-content tr td{
+    width: 100%;
+  } */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.prioritytd {
+  width: 30.5%;
+  padding: 8px;
+  border-right: 1px solid;
+}
+.dropdown-content {
+  background-color: #fff;
+  min-width: 160px;
+  overflow: auto;
+  z-index: 1;
+  height: 150px;
+}
+.heading {
+  color: #042b62;
+}
+.dropdown-content tr {
+  color: #042b62;
+  /* padding: 12px 16px; */
+  text-decoration: none;
+}
+.dropdown-content tr:hover {
+  color: #fff;
+  /* background: #042b62; */
+  background-color: #042b62;;
+  /* padding: 12px 16px; */
+  text-decoration: none;
+}
+
+.dropdown a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #042b62;
+  color: #042b62;
+  text-align: center;
+  font: 14px Arial, sans-serif;
+  margin: 0 auto;
+}
+.goalName {
+  padding-left: 16px;
+}
+.goal-table {
+  width: 100%;
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+.goal-table-header {
+  border-bottom: 1px solid;
+  height: 30px;
+}
+.goal-table-header:hover {
+  background: #fff !important;
+  color: #042b62 !important;
+}
+.goal-table-header th {
+  text-align: center;
+}
+
+.goalSelected,
+.isAutomatedSelected {
+  /* background: #827f7f; */
+  background: #042b62;
+  color: #fff !important;
+  border-bottom: 1px solid #fff;
+}
+.goalSelected td {
+  color: #fff;
+}
+/* commented by Nilesh written by Sourabh wrong use of class */
+/* .disabled {
+  background-color: #ccccccc2;
+  color: #666666;
+  pointer-events: all;
+} */
+.table-container {
+  overflow: auto;
+  max-height: 400px;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+/* .circle::after{
+  content: " ";
+  display: block;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 0.01em 0.01em 0;
+  position: absolute;
+  right: 25px;
+  top: 44%;
+  margin-top: -3px;
+  transform: rotate(45deg);
+} */
+.checkmark-img {
+  width: 34px;
+  height: 34px;
+  margin-left: -11px;
+  margin-top: -11px;
+}
+.isAutomatedSelected:hover {
+  /* background: url('../../Assets/Images/checkmark-hover.png') no-repeat !important; */
+  background-color: #042b62;
+  color: #fff;
+}
+/* .circle:hover{
+  background: url('../../Assets/Images/checkmark-hover.png') no-repeat !important;
+
+} */
+/* 0a7c94 */

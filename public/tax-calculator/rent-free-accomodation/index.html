@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/tax-calc/css/rent_free_accomodation.css">
+
+    <!-- <link rel="stylesheet" href="{% static 'autobot_files/css/rent_free_accomodation.css"> -->
+    <title>Rent Free Accomodation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="alert_msg">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button">RENT FREE ACCOMODATION CALCULATOR</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <form class="incom-and-tax-calculator-form">
+                        <div class="padding-div">
+                            <div id="radio_element"
+                                class="row justify-content-between align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="basic_salary_label">Employer Type :</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="employerTypeRadio"
+                                            id="flexRadioDefault1" checked onchange="onConditionalRadioChange()"
+                                            value="0">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            &nbsp;&nbsp;Government
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault2"
+                                            name="employerTypeRadio" onchange="onConditionalRadioChange()" value="1">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            &nbsp;&nbsp;Other than Government
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="radio_element"
+                                class="row justify-content-between align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="basic_salary_label">Accomodation provided :</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault3"
+                                            name="accomodationProvidedRadio" checked
+                                            onchange="onConditionalRadioChange()" value="0">
+                                        <label class="form-check-label" for="flexRadioDefault3">
+                                            &nbsp;&nbsp;Hotel
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault4"
+                                            name="accomodationProvidedRadio" onchange="onConditionalRadioChange()"
+                                            value="1">
+                                        <label class="form-check-label" for="flexRadioDefault4">
+                                            &nbsp;&nbsp;Other than Hotel
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="basic_salary_element"
+                                class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="basic_salary_label">Basic salary</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="basic_salary" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="DA_element" class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class" id="da_forming_label">DA
+                                    forming part of salary</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DA" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="commission_element"
+                                class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="commission__label">Commission (as % of turnover achieved by the
+                                    employee)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="commission" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="other_commission_element"
+                                class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="other_commission_label">Any Other Commision</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="other_commission" type="text"
+                                        maxlength="15" pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="fees_element" class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="fees_label">Fees</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="fees" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="bonus_element" class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="bonus_label">Bonus</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="bonus" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="monetary_payment_element"
+                                class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="monetary_taxable_payment_label">Monetary payment which is taxable</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="monetary_payment" type="text"
+                                        maxlength="15" pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="tax_allowance_element"
+                                class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="all_taxable_allowances_label">All taxable allowances</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="tax_allowance" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="acccommodation_type_element"
+                                class="row justify-content-between align-content-center income-from-salary element_div">
+                                <hr><br>
+                                <label class="col-sm-12 col-xs-12 control-label fw-bold"
+                                    id="all_taxable_allowances_label">Type of Accommodation</label><br><br>
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault3"
+                                            name="typeOfAccomodationRadio" checked value="0">
+                                        <label class="form-check-label">
+                                            &nbsp;&nbsp;Accommodation not owned by employer
+                                        </label>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault3"
+                                            name="typeOfAccomodationRadio" value="1">
+                                        <label class="form-check-label">
+                                            &nbsp;&nbsp;Accommodation owned by employer and population exceeds 25 lakh
+                                        </label>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault3"
+                                            name="typeOfAccomodationRadio" value="2">
+                                        <label class="form-check-label">
+                                            &nbsp;&nbsp;Accommodation owned by employer and population is 10 to 25 lakh
+                                        </label>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault3"
+                                            name="typeOfAccomodationRadio" value="3">
+                                        <label class="form-check-label">
+                                            &nbsp;&nbsp;Accommodation owned by employer and is up to 10 lakh
+                                        </label>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="flexRadioDefault3"
+                                            name="typeOfAccomodationRadio" value="4">
+                                        <label class="form-check-label">
+                                            &nbsp;&nbsp;Accommodation in remote area
+                                        </label>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <hr>
+                            </div>
+
+                            <div id="licensee_fees_element"
+                                class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="license_fee_of_accomodation_label">License fee of accommodation determined by
+                                    government</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="licensee_fees" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="rent_paid_element" class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="rent_paid_element_label">Rent paid/payable to hotel</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="rent_paid" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return RentPaidValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="higer_charges_element"
+                                class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="10furniture_and_hire_charge_label">Enter 10% of cost of furniture to the
+                                    employer + hire charges paid or payable by the employer.</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="higer_charges" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="amount_recover_element"
+                                class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="amount_recovered_label">Amount recovered from employee</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="amount_recover" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+
+                            <div id="tax_element" class="row align-content-center income-from-salary element_div">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="taxable_value_of_prequisits_label">Taxable value of the perquisites</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary" id="tax" type="text"
+                                        maxlength="15" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <form>
+                </form>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="../../static/tax-calc/js/rent_free_accomodation.js"></script>
+<!-- <script src="{% static 'autobot_files/js/rent_free_accomodation.js"></script> -->
+
+</html>
+<script>
+    function Calculate() {
+    hideAlert();
+    LogoShiftUp();
+    govt=$('input[name="employerTypeRadio"]:checked').val();
+    hotel=$('input[name="accomodationProvidedRadio"]:checked').val();
+    basic_salary="";
+    DA="";
+    commission="";
+    other_commission="";
+    fees="";
+    bonus="";
+    monetary_payment="";
+    tax_allowance="";
+    rent_paid="";
+    amount_recover="";
+    licensee_fees="";
+    higer_charges="";
+    acccommodation_type="0";
+    if(govt== 0 && hotel == 0){
+        basic_salary=+$('#basic_salary').val().replace(/,/g, '')||"";
+        DA=+$('#DA').val().replace(/,/g, '')||"";
+        commission=+$('#commission').val().replace(/,/g, '')||"";
+        other_commission=+$('#other_commission').val().replace(/,/g, '')||"";
+        fees=+$('#fees').val().replace(/,/g, '')||"";
+        bonus=+$('#bonus').val().replace(/,/g, '')||"";
+        monetary_payment=+$('#monetary_payment').val().replace(/,/g, '')||"";
+        tax_allowance=+$('#tax_allowance').val().replace(/,/g, '')||"";
+        rent_paid=+$('#rent_paid').val().replace(/,/g, '')||"";
+    }
+    else if(govt==0 && hotel == 1){
+        licensee_fees=+$('#licensee_fees').val().replace(/,/g, '')||"";
+        higer_charges=+$('#higer_charges').val().replace(/,/g, '')||"";
+    }
+    else if(govt==1 && hotel == 0){
+        basic_salary=+$('#basic_salary').val().replace(/,/g, '')||"";
+        DA=+$('#DA').val().replace(/,/g, '')||"";
+        commission=+$('#commission').val().replace(/,/g, '')||"";
+        other_commission=+$('#other_commission').val().replace(/,/g, '')||"";
+        fees=+$('#fees').val().replace(/,/g, '')||"";
+        bonus=+$('#bonus').val().replace(/,/g, '')||"";
+        monetary_payment=+$('#monetary_payment').val().replace(/,/g, '')||"";
+        tax_allowance=+$('#tax_allowance').val().replace(/,/g, '')||"";
+        rent_paid=+$('#rent_paid').val().replace(/,/g, '')||"";
+        higer_charges=+$('#higer_charges').val().replace(/,/g, '')||"";
+    }
+    else if(govt==1 && hotel == 1){
+        basic_salary=+$('#basic_salary').val().replace(/,/g, '')||"";
+        DA=+$('#DA').val().replace(/,/g, '')||"";
+        commission=+$('#commission').val().replace(/,/g, '')||"";
+        other_commission=+$('#other_commission').val().replace(/,/g, '')||"";
+        fees=+$('#fees').val().replace(/,/g, '')||"";
+        bonus=+$('#bonus').val().replace(/,/g, '')||"";
+        monetary_payment=+$('#monetary_payment').val().replace(/,/g, '')||"";
+        tax_allowance=+$('#tax_allowance').val().replace(/,/g, '')||"";
+        acccommodation_type=$('input[name="typeOfAccomodationRadio"]:checked').val();
+        rent_paid=+$('#rent_paid').val().replace(/,/g, '')||"";
+        higer_charges=+$('#higer_charges').val().replace(/,/g, '')||"";
+    }
+    amount_recover=+$('#amount_recover').val().replace(/,/g, '')||"";
+    $(".dashboard-loader").addClass('active');
+    $.ajax({
+        url: "https://auto-v2.fintoo.in/tax_calc_bots/rentfreeaccommodation/",
+        // url: "http://127.0.0.1:8080/tax_calc_bots/rentfreeaccommodation/",
+        type: "POST",
+        data: JSON.stringify({
+            "govt":govt,
+            "hotel":hotel,
+            "basic_salary":basic_salary,
+            "DA":DA,
+            "commission":commission,
+            "other_commission":other_commission,
+            "fees":fees,
+            "bonus":bonus,
+            "monetary_payment":monetary_payment,
+            "tax_allowance":tax_allowance,
+            "rent_paid":rent_paid,
+            "amount_recover":amount_recover,
+            "licensee_fees":licensee_fees,
+            "higer_charges":higer_charges,
+            "acccommodation_type":acccommodation_type
+        }),
+        dataType: "json",   
+        success: function (res) {
+            // console.log(res)
+            $(".dashboard-loader").removeClass('active');
+            if (res.error_code == "100") {
+                $("#tax").val(res.data.tax)
+            }
+            else if (res.error_code == "102") {
+                showAlert();
+                document.getElementById("alert_msg").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+            }
+            else {
+                showAlert();
+                document.getElementById("alert_msg").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+            }
+        }
+    })
+}
+</script>

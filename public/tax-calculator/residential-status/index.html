@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/tax-calc/css/residential_status.css">
+    <title>Residential Status</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button">RESIDENTIAL STATUS CALCULATOR</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <div class="incom-and-tax-calculator-form">
+                        <div class="padding-div">
+                            <div>
+                                <div id="basecntnrChild">
+                                    <div
+                                        class="row justify-content-between align-content-center tax-payer element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Assessment Year
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <select id="assessment-year" class="form-select rounded-0">
+                                                <option value="2023">2023-2024 </option>
+                                                <option value="2022">2022-2023 </option>
+                                                <option value="2021">2021-2022 </option>
+                                                <option value="2020">2020-2021 </option>
+                                                <option value="2019">2019-2020 </option>
+                                                <option value="2018">2018-2019 </option>
+                                                <option value="2017">2017-2018 </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="row justify-content-between align-content-center tax-payer element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            You are
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <select id="user-category" class="form-select rounded-0">
+                                                <option value="1">
+                                                    Indian Citizen/Person of Indian Origin Visiting India
+                                                </option>
+                                                <option value="2">
+                                                    Crew member of indian ship
+                                                </option>
+                                                <option value="3">
+                                                    Leaving india for employment purpose
+                                                </option>
+                                                <option value="4">
+                                                    Any other person
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-between align-content-center income-from-salary element-container"
+                                        id="divYouAreFirstOption">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">Please tick if
+                                            you are a Person of Indian Origin</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="checkbox" class="form-check-input"
+                                                id="chkPersonOfIndianOrigin">
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-between align-content-center tax-payer element-container"
+                                        id="divYouAreForthOption" style="display: none;">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Please Specify
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <select id="citizen-category" class="form-select rounded-0">
+                                                <option value="0">Please Select</option>
+                                                <option value="1">Indian Citizen</option>
+                                                <option value="2">Person of Indian Origin</option>
+                                                <option value="3">Others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-between align-content-center income-from-salary element-container"
+                                        id="15-lac-first-question" style="display: none;">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="basic_salary_label">Whether your income exceeds INR 15 lakhs (Other than
+                                            Foreign
+                                            Sources) as specified in Section 6?</label>
+                                        <div class="row align-content-center col-sm-4 col-xs-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="radio2"
+                                                    id="flexRadioDefault1" value="0">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    &nbsp;&nbsp;Yes
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="radio2"
+                                                    name="employerTypeRadio" value="1">
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    &nbsp;&nbsp;No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-between align-content-center income-from-salary">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"> No of journey
+                                            during the Previous year</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input id="number-of-trips" class="form-control rounded-0" type="text"
+                                                onkeyup="return NumberOfJourney(this);">
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+
+                                <div class="table-coontainer">
+                                    <div id="main-calculation" class="div-table">
+                                        <div class="div-row thead theader">
+                                            <div class="div-cell header-cell">
+                                                S.No.
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Date of arrival in India(a)
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Date of departure from India (b)
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Total(b-a)
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">1 </div>
+                                            <div class="div-cell">
+                                                <input id="datepicker" class="form-control rounded-0 date-start"
+                                                    placeholder="dd-mm-yyyy" type="date">
+                                            </div>
+
+                                            <div class="div-cell">
+                                                <input placeholder="dd-mm-yyyy" class="form-control rounded-0 date-end"
+                                                    type="date">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input placeholder="Number of days"
+                                                    class="form-control rounded-0 date-diff" type="text" disabled="">
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row total-row">
+                                            <div class="div-cell s-no"></div>
+                                            <div class="div-cell"></div>
+                                            <div class="div-cell">
+                                                Total
+                                            </div>
+                                            <div class="div-cell">
+                                                <input type="text" class="form-control rounded-0 total-days-difference"
+                                                    placeholder="Total days" disabled="disabled">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input_fields_wrap_AD mart10p" hidden="">
+                                    <a id="residential-add-more-fields" href="javascript:void(0)"
+                                        class="add_field_button_AD btn btn-primary margin-left-0">
+                                        Add More</a>
+                                    <a id="residential-remove-last-field" href="javascript:void(0)"
+                                        class="remove_field_AD btn btn-default">
+                                        Remove</a>
+                                </div>
+
+                                <div id="residential-input-5" class="element-container" style="display: none;">
+                                    <br>
+                                    <div class="row justify-content-between align-content-center income-from-salary">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"> Period of
+                                            stay in India in preceeding years</label>
+                                        <div class="col-sm-4 col-xs-12">
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="calculate-row-container" id="Div1">
+                                        <div class="calculate-row">
+                                            <input placeholder="FY 2016-17" type="text"
+                                                class="form-control rounded-0 fa1">
+                                            <a aria-label="fa1"
+                                                class="col-sm-1 btn btn-primary residential-open-model-popup">
+                                                Calculate
+                                            </a>
+                                        </div>
+
+                                        <div class="calculate-row">
+                                            <input placeholder="FY 2015-16" type="text"
+                                                class="form-control rounded-0 fa2">
+                                            <a aria-label="fa2" href="javascript:void(0)"
+                                                class="col-sm-1 btn btn-primary residential-open-model-popup">
+                                                Calculate
+                                            </a>
+                                        </div>
+
+                                        <div class="calculate-row">
+                                            <input placeholder="FY 2014-15" type="text"
+                                                class="form-control rounded-0 fa3">
+                                            <a aria-label="fa3" href="javascript:void(0)"
+                                                class="col-sm-1 btn btn-primary residential-open-model-popup">
+                                                Calculate
+                                            </a>
+                                        </div>
+
+                                        <div class="calculate-row">
+                                            <input placeholder="FY 2013-14" type="text"
+                                                class="form-control rounded-0 fa4">
+                                            <a aria-label="fa4" href="javascript:void(0)"
+                                                class="col-sm-1 btn btn-primary residential-open-model-popup">
+                                                Calculate
+                                            </a>
+                                        </div>
+
+                                        <div class="calculate-row residential-input-other" style="display: none;">
+                                            <input placeholder="FY 2012-13" type="text"
+                                                class="form-control rounded-0 fa5">
+                                            <a aria-label="fa5" href="javascript:void(0)"
+                                                class="col-sm-1 btn btn-primary residential-open-model-popup">
+                                                Calculate
+                                            </a>
+                                        </div>
+
+                                        <div class="calculate-row residential-input-other" style="display: none;">
+                                            <input placeholder="FY 2011-12" type="text"
+                                                class="form-control rounded-0 fa6">
+                                            <a aria-label="fa6" href="javascript:void(0)"
+                                                class="col-sm-1 btn btn-primary residential-open-model-popup">
+                                                Calculate
+                                            </a>
+                                        </div>
+
+                                        <div class="calculate-row residential-input-other" style="display: none;">
+                                            <input placeholder="FY 2010-11" type="text"
+                                                class="form-control rounded-0 fa7">
+                                            <a aria-label="fa7" href="javascript:void(0)"
+                                                class="col-sm-1 btn btn-primary residential-open-model-popup">
+                                                Calculate
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="div-row total-row">
+                                    <div class="col-sm-3 col-sm-12" style="float: right">
+                                        <input type="text" placeholder="Total days" disabled="disabled"
+                                            class="form-control rounded-0  total-days-difference-final">
+                                    </div>
+                                </div> -->
+
+                                <div class="xs-mt-20 clearfix residential-input-further element-container">
+
+                                    <div id="first-question">
+                                        <div
+                                            class="row justify-content-between align-content-center income-from-salary element_div">
+                                            <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                                id="basic_salary_label">Are you resident in India in at least 2 years
+                                                out of
+                                                10 previous
+                                                years</label>
+                                            <div class="row align-content-center col-sm-4 col-xs-12">
+                                                <div class="form-check">
+                                                    <input class="form-check-input first-question-checked-yes"
+                                                        type="radio" name="radio">
+                                                    <label class="form-check-label">
+                                                        &nbsp;&nbsp;Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input first-question-checked-no"
+                                                        type="radio" name="radio">
+                                                    <label class="form-check-label">
+                                                        &nbsp;&nbsp;No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+
+                                    <div id="third-question">
+                                        <div
+                                            class="row justify-content-between align-content-center income-from-salary element_div">
+                                            <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                                id="basic_salary_label">Whether your income exceeds INR 15 lakhs (Other
+                                                than
+                                                Foreign
+                                                Sources)</label>
+                                            <div class="row align-content-center col-sm-4 col-xs-12">
+                                                <div class="form-check">
+                                                    <input class="form-check-input third-question-checked-yes"
+                                                        type="radio" name="radio3">
+                                                    <label class="form-check-label">
+                                                        &nbsp;&nbsp;Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input third-question-checked-no"
+                                                        type="radio" name="radio3">
+                                                    <label class="form-check-label">
+                                                        &nbsp;&nbsp;No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div id="forth-question">
+                                        <div
+                                            class="row justify-content-between align-content-center income-from-salary element_div">
+                                            <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                                id="basic_salary_label">Are you liable for tax in any other country or
+                                                Territory
+                                                except
+                                                India</label>
+                                            <div class="row align-content-center col-sm-4 col-xs-12">
+                                                <div class="form-check">
+                                                    <input class="form-check-input forth-question-checked-yes"
+                                                        type="radio" name="radio4">
+                                                    <label class="form-check-label">
+                                                        &nbsp;&nbsp;Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input forth-question-checked-no"
+                                                        type="radio" name="radio4">
+                                                    <label class="form-check-label">
+                                                        &nbsp;&nbsp;No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="template-data" hidden="">
+                                    <div id="main-template">
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">2 </div>
+                                            <div class="div-cell">
+                                                <input placeholder="dd-mm-yyyy"
+                                                    class="form-control rounded-0 date-start" type="date">
+                                            </div>
+
+                                            <div class="div-cell">
+                                                <input placeholder="dd-mm-yyyy" class="form-control rounded-0 date-end"
+                                                    type="date">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input placeholder="Number of days"
+                                                    class="form-control rounded-0 date-diff" type="text" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="dit-modal-popup-overlay" id="ditover"></div>
+                                <div class="dit-modal-popup" id="Annexure1Dialog">
+                                    <div class="dit-modal-popup-heading modal_popup_heading">
+                                        <div class="modal_popup_heading">
+                                            <span class="dit-modal-popup-heading-name">Computation of length of service
+                                                period</span>
+                                            <a href="#"
+                                                class="popup_close dit-modal-popup-heading-close residential-close-model-popup">X
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal_popup_content_container">
+                                        <div class="table-coontainer div-table" id="popup-calculation">
+                                            <div class="div-row thead theader">
+                                                <div class="div-cell header-cell sno">
+                                                    S.No.
+                                                </div>
+                                                <div class="div-cell header-cell">
+                                                    Date of arrival in India(a)
+                                                </div>
+                                                <div class="div-cell header-cell">
+                                                    Date of departure from India (b)
+                                                </div>
+                                                <div class="div-cell header-cell">
+                                                    Total(b-a)
+                                                </div>
+                                            </div>
+
+                                            <div class="div-row">
+                                                <div class="div-cell s-no">1 </div>
+                                                <div class="div-cell">
+                                                    <input id="date1" placeholder="dd-mm-yyyy"
+                                                        class="form-control rounded-0 date-start" type="date">
+                                                </div>
+
+                                                <div class="div-cell">
+                                                    <input placeholder="dd-mm-yyyy"
+                                                        class="form-control rounded-0 date-end" type="date">
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input placeholder="Number of days"
+                                                        class="form-control rounded-0 date-diff" type="text"
+                                                        disabled="">
+                                                </div>
+                                            </div>
+
+                                            <div class="div-row total-row">
+                                                <div class="div-cell s-no"></div>
+                                                <div class="div-cell"></div>
+                                                <div class="div-cell">
+                                                    Total
+                                                </div>
+                                                <div class="div-cell">
+                                                    <input type="text" placeholder="Total days" disabled="disabled"
+                                                        class="form-control total-days-difference">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <br> <br>
+                                            <div class="popup-btns">
+                                                <a id="residential-add-more-fields-popup" href="javascript:void(0)"
+                                                    class="add_field_button_AD btn btn-primary margin-left-0">
+                                                    Add More</a>
+                                                <a id="residential-remove-last-field-popup" href="javascript:void(0)"
+                                                    class="remove_field_AD btn btn-default">
+                                                    Remove</a>
+                                                <a href="javascript:void(0)"
+                                                    class="btn btn-default residential-close-model-popup">
+                                                    Close
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="result-container">
+                                You are&nbsp;
+                                <strong id="taxpayer-category"> -- </strong>
+                                &nbsp;for the AY&nbsp;
+                                <span id="sel-assessment-year">2023-2024 </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container2 padding-div">
+                <!-- <button class="calculate-badge" onclick="Calculate()">Calculate</button> -->
+                <button class="reset-badge" onClick="location.reload()">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br><br><br>
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../../static/tax-calc/js/residential_status.js"></script>
+<script>
+    // $(document).ready(function () {
+    //     current_date = new Date();
+    //     var year1 = current_date.getFullYear();
+    //     var apr = new Date('4 1 ' + year1.toString());
+    //     if (current_date < apr) {
+    //         year1 -= 1;
+    //     }
+    //     for (i = 0; i < 7; i++) {
+    //         var year2 = (year1 + 1).toString().substr(-2);
+    //         if (i === 0) {
+    //             $('#assessment-year').append(`<option value="${year1}" selected >${(year1).toString() + "-" + (year2).toString()}</option>`)
+    //         } else {
+    //             $('#assessment-year').append(`<option value="${year1}">${(year1).toString() + "-" + (year2).toString()}</option>`)
+    //         }
+
+    //         year1 -= 1;
+    //     }
+    // });
+</script>
+
+</html>

@@ -1,0 +1,88 @@
+.how-we-work-section {
+    background-color: #ffffff;
+}
+
+.StepsInvestmentPlanBox{
+    width: 80%;
+    margin: auto;
+  }
+  .StepsInvestmentPlanCard { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .StepsInvestmentPlanCard:nth-child(even) {
+    text-align: right;
+  }
+  .StepsInvestmentPlancontent{
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+  .StepsInvestmentPlanCardImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+  }
+  .StepsInvestmentPlanCardImg img {
+    width: 100%;
+  }
+  .StepsInvestmentPlancontent{
+    width: 100%;
+  }
+  .StepsInvestmentPlancontenttitle {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1em;
+    letter-spacing: 0.5px;
+    color: #042b62;
+  }
+  .StepsInvestmentPlanContentText {
+    padding-top: 1rem;
+    color: #878989;
+    font-size: 1.1rem;
+  }
+  @media only screen and (max-width: 768px) {
+    .StepsInvestmentPlanSection{
+      padding: 1rem;
+    }
+    .StepsInvestmentPlanHederText {
+      width: 100%;
+    }
+    .StepsInvestmentPlanBox{
+      width: 100%;
+    }
+    .StepsInvestmentPlanCard{
+      display: grid;
+      place-items: center;
+    }
+    .StepsInvestmentPlanCard:nth-child(even) {
+      text-align: center;
+    }
+    .StepsInvestmentPlanCard:nth-child(even) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .StepsInvestmentPlancontent{
+      margin-top: 2rem;
+      margin-left: 0rem;
+      margin-right: 0rem;
+      text-align: center;
+    }
+    .StepsInvestmentPlancontenttitle {
+      font-size: 1.2rem;
+    }
+    .StepsInvestmentPlanContentText {
+      font-size: .8rem;
+    }
+    .StepsInvestmentPlanCardImg{
+      width: 35%;
+    }
+  }
+  @media only screen and (max-width : 850px) {
+    .StepsInvestmentPlanBox{
+      width: 100%;
+    }
+  }

@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/deduction_under_section_80TTA.css">
+    <title>Deduction under section 80TTA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class=" tab_button fw-normal active">
+                DEDUCTION UNDER SECTION 80TTA</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                <section>
+                    <form class="incom-and-tax-calculator-form" id="80TTA_form">
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center tax-payer element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Assessment Year *
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select id="ayear80TTA" class="form-select rounded-0"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" onchange=""
+                                        required>
+                                        <option value="">
+                                            Select</option>
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+                            <div id="radio_element"
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class" id="divLiteral1"
+                                    style="display: block;">You are an Individual/ HUF</label>
+
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class" id="divLiteral12"
+                                    style="display: none;">You are Individual/HUF other than senior citizen</label>
+
+                                <div class="row align-content-center col-sm-4 col-xs-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="isIndHUF" checked="checked"
+                                            name="radioOption" value="Yes">
+                                        <label class="form-check-label" for="is_individual_yes">
+                                            &nbsp;&nbsp;Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="isNotIndHUF" name="radioOption"
+                                            value="No">
+                                        <label class="form-check-label" for="is_individual_no">
+                                            &nbsp;&nbsp;No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between align-content-center tax-payer element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Interest income from *
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select id="resStatus80TTA" class="form-select rounded-0"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" onchange=""
+                                        required>
+                                        <option value="">Select</option>
+                                        <option value="sBankAct">Saving bank account </option>
+                                        <option value="postOfcAct">Post office saving account</option>
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center element-container amount_of_deduction_elem">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Amount of interest *</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 number-class" id="amtIntrest80TTA" type="text"
+                                        maxlength="15" oninvalid="handleInvalidInput(this)"
+                                        onblur="onBlurChange(this);addComma(this)"
+                                        onkeypress="return isNumberKey(event)" required />
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center element-container amount_of_deduction_elem">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Amount of deduction</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary" id="deductionAmt80TTA"
+                                        type="text" maxlength="15" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br><br><br>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/deduction_under_section_80TTA.js"></script>
+
+</html>
+
+<script>
+
+    $(document).ready(function () {
+        // current_date=new Date('4 1 2023');
+        current_date = new Date();
+        var year1 = current_date.getFullYear();
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 7; i++) {
+            var year2 = (year1 + 1).toString().substr(-2);
+            $('#ayear80TTA').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1;
+        }
+    });
+
+    const getFormValidationState = () => {
+        if ($('input[name=radioOption]:checked').val() === 'No') return false;
+        const formElement = document.getElementById('80TTA_form');
+        const isFormValid = formElement.checkValidity();
+        return isFormValid
+    }
+
+    const getIsIndividualValue = (strValue) => {
+        switch (strValue) {
+            case 'Yes':
+                return '0'
+            case 'No':
+                return '1'
+            default:
+                return "";
+        }
+    }
+
+    function Calculate() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        $(".dashboard-loader").addClass('active');
+        var assessmentYear = $("#ayear80TTA option:selected").text();
+        var is_individual = getIsIndividualValue($("input[name='radioOption']:checked").val());
+        var income_from = document.getElementById("resStatus80TTA").value;
+        var interest_amount = +document.getElementById("amtIntrest80TTA").value.replace(/,/g, '');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/section80tta/",
+            type: "POST",
+            data: JSON.stringify({
+                "assessment_year": assessmentYear,
+                "is_individual": is_individual,
+                "income_from": income_from,
+                "interest_amount": interest_amount
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    if (res.data.deduction_amount % 1 != 0) {
+                        before_decimal=(res.data.deduction_amount).toString().split(".")[0]
+                        after_decimal=(res.data.deduction_amount).toString().split(".")[1]
+                        $("#deductionAmt80TTA").val((parseInt(before_decimal)).toLocaleString('en-IN')+"."+after_decimal);
+                    }
+                    else{
+                        $("#deductionAmt80TTA").val((parseInt(res.data.deduction_amount)).toLocaleString('en-IN'));
+                    }
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

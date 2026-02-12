@@ -1,0 +1,11 @@
+.txt {
+  border: 1px solid #959191;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 1rem;
+}
+.para:hover, .paraselect {
+  font-weight: 500;
+}

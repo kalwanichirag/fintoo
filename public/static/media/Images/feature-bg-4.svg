@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="485px" height="677px" viewBox="0 0 485 677" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Path 10</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-58.0946089%" y1="100%" x2="71.4946254%" y2="33.7584433%" id="linearGradient-1">
+            <stop stop-color="#6AAA13" stop-opacity="0.502458479" offset="0%"></stop>
+            <stop stop-color="#8DC63F" stop-opacity="0.134314904" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Services" transform="translate(-1215.000000, -3543.000000)" fill="url(#linearGradient-1)">
+            <path d="M1459.79688,3661.18937 C1603.16973,3544.20669 1715.07707,3544.20669 1795.5189,3661.18937 C1841.15035,3727.54898 1665.98751,3756.16133 1778.39273,3913.2949 C1890.79794,4070.42847 1731.29265,4218.50154 1645.5141,4238.30831 C1526.41937,4265.80798 1471.52417,4217.63805 1400.67691,4183.80415 C1199.99503,4087.9663 1219.70169,3913.76138 1459.79688,3661.18937 Z" id="Path-10" transform="translate(1540.376595, 3909.954599) scale(-1, 1) rotate(-33.000000) translate(-1540.376595, -3909.954599) "></path>
+        </g>
+    </g>
+</svg>

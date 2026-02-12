@@ -1,0 +1,101 @@
+.StockSubhead.TopHeader.fixedHeaderStock {
+  position: fixed;
+  top: 6rem;
+}
+  .StockSubhead.TopHeader {
+  /* position: fixed; */
+  width: 100%;
+  background-color: rgb(6, 82, 116);
+  /* top: 58px; */
+  padding: 0.8rem;
+  z-index: 8888;
+  overflow-y: hidden;
+  transition: all 1s ease;
+  height: 70px;
+}
+
+
+.slide-item {
+  /* transition: all .3s ease-in-out; */
+  height: 0px;
+  overflow: auto;
+  /* margin-top: 8px; */
+}
+.slide-item.active {
+  transition: all .7s ease-in-out;
+  height: 50px;
+}
+.StockSubhead .TopHeader:hover .slide-item.active{
+  transition: none;
+  height: 70px;
+}
+.StockSubhead .Demo {
+  /* height: 50px; */
+  float: left;
+  /* margin-right: 0.3em; */
+}
+.sale {
+  float: left;
+  overflow: hidden;
+  position: relative;
+  /* height: 50px; */
+}
+.sale .StockName {
+  display: inline-block;
+  /* color: #e74c3c; */
+  position: relative;
+  white-space: nowrap;
+  top: 0;
+  left: 0;
+  
+}
+
+.StockSubhead .StockName {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8em;
+  text-align: center;
+  
+}
+.sale .StockValueRed {
+  color: red;
+  font-weight: 600;
+  position: relative;
+  white-space: nowrap;
+  top: 0;
+  left: 0;
+  
+}
+.sale .StockValueGreen {
+  color: #85bb59;
+  font-weight: 600;
+  position: relative;
+  white-space: nowrap;
+  top: 0;
+  left: 0;
+  
+}
+
+
+@media only screen and (max-width: 768px) {
+  .StockSubhead .Demo {
+    width: 33.33%;
+  }
+  .StockSubhead .StockName {
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100px;
+  }
+  .StockSubhead .StockValueRed {
+    color: red;
+    font-size: 0.5em;
+    font-weight: 600;
+  }
+  .StockSubhead .StockValueGreen {
+    color: #85bb59;
+    font-size: 0.5em;
+    font-weight: 600;
+  }
+}

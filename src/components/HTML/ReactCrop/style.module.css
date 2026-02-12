@@ -1,0 +1,10 @@
+
+.mybtn {
+    border: 0px;
+    background-color: #042b62;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.mybtn i {
+    color: #fff;
+}

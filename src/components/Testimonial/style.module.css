@@ -1,0 +1,44 @@
+.card-box {
+    width: 80%;
+    margin: auto;
+}
+.card-item {
+    padding: 1rem;
+}
+.card-item-container {
+    border-left: 3px solid #042b62;
+    padding: 1rem;
+    box-shadow: 9px 11px 14px 0 rgb(0 0 0 / 10%);
+    background-color: white;
+}
+.given-by {
+    margin-top: 2rem;
+}
+.given-by p {
+    color: #042b62;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+    text-align: center;
+}
+.text {
+    color: #656565;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 767px) {
+    .card-box {
+        width: 90%;
+        margin: auto;
+    }
+    .card-item {
+        padding: 0px;
+    }
+    .card-item-container {
+        box-shadow: none;
+        border-left: 0px;
+    }
+}

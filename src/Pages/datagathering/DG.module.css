@@ -1,0 +1,317 @@
+.bgfamily {
+    background: url(https://images.minty.co.in/static/assets/img/bg/form-bg-family.svg) no-repeat bottom right !important;
+}
+
+.bgincomeexpense {
+    background: url(https://images.minty.co.in/static/assets/img/bg/form-bg-expenses.svg) no-repeat bottom right !important;
+}
+
+.bgGoals {
+    background: url(https://images.minty.co.in/static/assets/img/bg/form-bg-goals.svg) no-repeat bottom right !important;
+}
+
+.bgAssetLib {
+    background: url(https://images.minty.co.in/static/assets/img/bg/form-bg-assets.svg) no-repeat bottom right !important;
+}
+
+.bgInsurance {
+    background: url(https://images.minty.co.in/static/assets/img/bg/form-bg-assets.svg) no-repeat bottom right !important;
+}
+
+/* .bgfamily .selected{
+border: 2px solid;
+} */
+.HideSHowicon {
+    color: #042b62;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.moneyjarcontainer {
+    padding-right: 30px;
+    z-index: 1;
+    position: fixed;
+    top: 255px;
+    /* top: 210px; */
+    right: 0;
+    text-align: center;
+}
+
+
+.ModalHeadStyle {
+    display: block;
+    background-color: #ce8080 !important;
+    color: #fff;
+    font-size: 1.2rem;
+    border: 1px solid #042b62 !important;
+    font-weight: 600;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+}
+
+.modal_Heading {
+    font-size: 1.2rem;
+}
+
+
+.CloseBtnpopup {
+    position: absolute;
+    right: 10px;
+}
+
+.CloseBtnpopup img {
+    width: 30px;
+}
+
+.DematmodalBody {
+    width: 100%;
+    display: flex;
+}
+
+.DematmodalBody .Modalbottombody {
+    margin-top: 6rem;
+}
+
+.DematmodalBody .LeftSection {
+    background: #f9f9f9;
+    width: 40%;
+    border-bottom-left-radius: 10px;
+    padding: 1rem 2.4rem;
+    box-shadow: 0px 6.5px 13px 0px rgba(0, 0, 0, 0.1);
+}
+
+.DematmodalBody .RightSection {
+    width: 60%;
+}
+
+.DematmodalBody .LiquidLeftSection {
+    width: 50%;
+    padding: 4rem 3rem;
+}
+
+.DematmodalBody .LiquidRightSection {
+    margin: 4rem 0;
+    width: 50%;
+}
+
+.DematmodalBody .inputCheckBox {
+    border: 1px solid #e2e2e2;
+    background: #fff;
+    width: 15px;
+    height: 15px;
+}
+
+.DematmodalBody .inputField::placeholder {
+    color: #042b62;
+}
+
+.DematmodalBody .LinkTerms {
+    color: #042b62;
+    text-decoration: underline;
+    line-height: 0.5rem;
+}
+
+.DematmodalBody .inputCheckBox {
+    background-color: #fff;
+    /* -webkit-appearance: none; */
+}
+
+.DematmodalBody input[type="checkbox"]:checked {
+    background-color: #fff;
+}
+
+.parBody {
+    padding: 2rem 3rem;
+    margin: 0 auto;
+    display: grid;
+    place-content: center;
+}
+
+.parBody .parTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.parBody ul {
+    padding: 1rem 0;
+    list-style: disc;
+    margin: 0 2rem;
+}
+
+.parBody ul li {
+    padding: .6rem 0;
+}
+
+.partreportselectiontype {
+    border-radius: 12px;
+    border: 1px dashed #042b62;
+    padding: 1rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    position: relative;
+}
+
+.partreportselectiontype .titleName {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.partreportselectiontype .information {
+    font-size: 1rem;
+    padding: .6rem 0;
+    font-weight: 400;
+}
+
+.continueBtns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.continueBtns button {
+    background-color: #042b62;
+    outline: none;
+    border: 0;
+    padding: 0.625rem 1.5625rem;
+    color: #fff;
+    border-radius: 2rem;
+    font-weight: 600;
+}
+
+.continueBtns .outlineBtn {
+    background-color: #fff;
+    color: #042b62;
+    border: 1px solid #042b62;
+}
+
+.continueBtnsDisable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.continueBtnsDisable button {
+    background-color: #BFBFBF;
+    outline: none;
+    border: 0;
+    padding: 0.625rem 1.5625rem;
+    color: #fff;
+    border-radius: 2rem;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.ListContainer {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.ListIcon {
+    font-size: 1.5rem;
+    color: #042b62;
+}
+
+.ListContainer .lll {
+    color: red;
+}
+
+.Title1 {
+    color: #080808;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.SubTitle1 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #8d8d8d;
+}
+
+.MFReportBg {
+    position: absolute;
+    width: 25%;
+    bottom: 0;
+    right: 0;
+}
+
+.DetailsViewContainer {
+    width: 70%;
+}
+
+.OTPviewInput {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.OTPviewInput input {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 8px !important;
+    border: 2px solid #E3E2E2 !important;
+    margin-right: 0 !important;
+}
+.DematmodalBody .waitingTxt{
+    font-size: 1.4rem;
+}
+
+@media (min-width: 1200px) {
+    .DematmodalBody .LeftSection {
+        width: 34%;
+    }
+}
+
+@media (max-width: 992px) {
+    .DetailsViewContainer {
+        width: 95%;
+    }
+
+    .moneyjarcontainer {
+        padding-right: 30px;
+        z-index: 0;
+        position: static;
+        right: 0;
+        text-align: center;
+    }
+
+    .DematmodalBody {
+        display: grid;
+        overflow: auto;
+    }
+
+    .DematmodalBody .LeftSection {
+        width: 99%;
+        padding-left: 1rem;
+    }
+
+    .DematmodalBody .RightSection {
+        width: 90%;
+    }
+
+    .DematmodalBody .LeftSection {
+        box-shadow: none;
+    }
+
+    .DematmodalBody .LiquidLeftSection {
+        /* width: 50%; */
+        padding: 3rem 2rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .parBody {
+        padding: 1rem;
+    }
+
+    .MFReportBg {
+        display: none;
+    }
+
+    .MFReportModal {
+        max-width: 96%;
+    }
+}

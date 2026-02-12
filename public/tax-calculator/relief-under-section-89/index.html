@@ -1,0 +1,1924 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/relief89.css">
+    <title>Relief under section 89</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999999;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <span id="tooltip1" class="tooltip-class">
+        <span id="tooltip1Arrow" class="tooltipArrow-class"></span>
+        Section 115BAC of the Income Tax Act pertains to the new optional tax regime for individuals and Hindu Undivided
+        Families (HUFs). Under this section, taxpayers have the choice to opt for a simplified tax structure with lower
+        tax rates and reduced deductions.
+
+    </span>
+
+    <span id="tooltip2" class="tooltip-class">
+        <span id="tooltip2Arrow" class="tooltipArrow-class"></span>
+        Section 89 of the Income Tax Act allows for relief in cases of salary arrears or advance salary. It enables
+        taxpayers to claim tax relief by spreading the income tax liability over the years in which the arrears or
+        advance salary were due, thus reducing the tax burden in the relevant financial year. This provision is
+        particularly beneficial for individuals who receive salary arrears or advance salary payments in a lump sum.
+    </span>
+
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="w-100 alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="heading fw-normal fs-5">RELIEF UNDER SECTION 89</div>
+        </div>
+        <div class="form-content-container">
+            <section class="incom-and-tax-calculator-form-section">
+                <br /><br />
+                <form class="incom-and-tax-calculator-form" id="89Form">
+
+                    <div class="padding-div">
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Assessment year *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select id="ddlAssessmentYearRelief" class="form-select rounded-0"
+                                    oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" required>
+                                    <option value="">
+                                        Select</option>
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Previous year
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input class="form-control rounded-0" type="text" maxlength="14" id="ddlPreviousYear"
+                                    disabled="disabled" style="text-align: left;">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Tax status
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input class="form-control rounded-0" id="txtStatus" value="Individual" disabled=""
+                                    maxlength="14">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Residential status *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select id="ddlResedentialStatus" class="form-select rounded-0"
+                                    oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" required>
+                                    <option value="">
+                                        Select</option>
+                                    <option value="resident">
+                                        Resident</option>
+                                    <option value="non_resident">
+                                        Non-Resident</option>
+                                    <option value="resident_but_not_ordinary">
+                                        Resident but not ordinary Resident
+                                    </option>
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div id="sec_115BAC_elem" style="display: none;">
+                            <div class="row justify-content-between align-content-center tax-payer element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class label115BAC">
+                                    Whether opting for taxation under Section <span class="linkText"
+                                        onmouseenter="tooltipOn(this,'tooltip1','tooltip1Arrow',200)"
+                                        onmouseleave="tooltipOff(event,'tooltip1','tooltip1Arrow')">115BAC</span>?
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select id="ddlbac115" class="form-select rounded-0 ">
+                                        <option value="0">
+                                            Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                DOB *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input class="form-control rounded-0" type="date" id="txtDOB" maxlength="14"
+                                    oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" required>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Gender *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select id="ddlGender" class="form-select rounded-0"
+                                    oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" required>
+                                    <option value="">
+                                        Select</option>
+                                    <option value="male">
+                                        Male</option>
+                                    <option value="female">
+                                        Female</option>
+
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 enter-details-container">
+                            <div class="grid-inputs-container">
+                                <label class="label-fw-class" id="income-from-salary-label">Description</label>
+                                <label class="holderelem"></label>
+                                <label class="label-fw-class" id="income-from-salary-label">Amount in (Rs.)</label>
+                            </div>
+
+                            <div class="grid-inputs-container-inputs">
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class">
+                                    Salary received in arrear [ Rule 21A(2)]
+                                </label>
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class enter-details">
+                                    <span class="enter-details-text" id="LinkAnnexure1">
+                                        Enter details
+                                    </span>
+                                </label>
+                                <div class="col-sm-12 col-xs-12">
+                                    <input class="form-control rounded-0" type="text" id="txtAnnexureI"
+                                        disabled="disabled" maxlength="14">
+                                </div>
+                            </div>
+
+                            <div class="grid-inputs-container-inputs">
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class">
+                                    Gratuity received for past services extending a period of not less than 5
+                                    years but less than 15 years [Rule 21A(3)]
+                                </label>
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class enter-details">
+                                    <span class="enter-details-text" id="LinkAnnexure2">
+                                        Enter details
+                                    </span>
+                                </label>
+                                <div class="col-sm-12 col-xs-12">
+                                    <input class="form-control rounded-0" type="text" id="txtAnnexureII"
+                                        disabled="disabled" maxlength="14">
+                                </div>
+                            </div>
+
+                            <div class="grid-inputs-container-inputs">
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class">
+                                    Gratuity received for past service of a period of 15 years or more [Rule
+                                    21A(3)]
+                                </label>
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class enter-details">
+                                    <span class="enter-details-text" id="LinkAnnexure2A">
+                                        Enter details
+                                    </span>
+                                </label>
+                                <div class="col-sm-12 col-xs-12">
+                                    <input class="form-control rounded-0" type="text" id="txtAnnexureIIA"
+                                        disabled="disabled" maxlength="14">
+                                </div>
+                            </div>
+
+                            <div class="grid-inputs-container-inputs">
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class">
+                                    Compensation on termination of employment [Rule 21A(4)]
+                                </label>
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class enter-details">
+                                    <span class="enter-details-text" id="LinkAnnexure3">
+                                        Enter details
+                                    </span>
+                                </label>
+                                <div class="col-sm-12 col-xs-12">
+                                    <input class="form-control rounded-0" type="text" id="txtAnnexureIII"
+                                        disabled="disabled" maxlength="14">
+                                </div>
+                            </div>
+
+                            <div class="grid-inputs-container-inputs">
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class">
+                                    Payment of commutation of pension [Rule 21A(5)]
+                                </label>
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class enter-details">
+                                    <span class="enter-details-text" id="LinkAnnexure4">
+                                        Enter details
+                                    </span>
+                                </label>
+                                <div class="col-sm-12 col-xs-12">
+                                    <input class="form-control rounded-0" type="text" id="txtAnnexureIV"
+                                        disabled="disabled" maxlength="14">
+                                </div>
+                            </div>
+
+                            <div class="grid-inputs-container-inputs">
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class">
+                                    Total relief under section <span class="linkText"
+                                        onmouseenter="tooltipOn(this,'tooltip2','tooltip2Arrow',200)"
+                                        onmouseleave="tooltipOff(event,'tooltip2','tooltip2Arrow')">89</span>
+                                </label>
+                                <div></div>
+                                <div class="col-sm-12 col-xs-12">
+                                    <input class="form-control rounded-0" type="text" id="AnnexureTotal"
+                                        disabled="disabled" maxlength="14">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <!-- ====================================================================================================================================================== -->
+                <div class="dit-modal-popup-overlay" id="ditover"></div>
+                <div class="dit-modal-popup" id="Annexure4Dialog" style="display: none;">
+                    <div class="modal_popup_heading" style="padding-bottom: 0;">
+                        <span style="font-size: 1rem;text-align: center;width: 100%">As amended upto Finance Act,
+                            2023</span>
+                        <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                    </div>
+                    <div class="modal_popup_heading">
+                        <span>Commutaion of pension</span>
+                    </div>
+                    <div class="modal_popup_content_container">
+                        <div class="modal_popup_content div-label-font-normal" id="Div2">
+                            <div class="calculator-content form-horizontal" id="Div3">
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">Previous Year in
+                                        which commutation of pension received *</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" type="text" id="txtPYar4"
+                                            disabled="disabled" maxlength="14">
+                                    </div>
+                                </div>
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">Taxable commuted
+                                        pension received *</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 tax_commmuted_pension" type="text"
+                                            id="txtAar4" maxlength="14">
+                                    </div>
+                                </div>
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">Total income
+                                        (including taxable commuted pension) *</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 total_income4" type="text" id="txtBar4"
+                                            maxlength="14">
+                                    </div>
+                                </div>
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">Tax on total income
+                                        (including taxable commuted pension) *</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 tax_on_tot_income4" type="text"
+                                            id="txtCar4" maxlength="14">
+                                    </div>
+                                </div>
+                                <div class="h5 col-sm-12">
+                                    Provide the following information of two previous years immediately preceding the
+                                    previous year in which amount in commutation of pension is received
+
+                                </div>
+                                <div class="table-coontainer">
+                                    <div class="div-table">
+                                        <div class="div-row thead theader">
+                                            <div class="div-cell header-cell">
+                                                S.No.
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Previous year
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Total income
+
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Tax on total income plus 1/3rd of taxable commuted pension
+
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">1. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY1ar4"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income4_py1" type="text"
+                                                    id="txtTI1ar4" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income4_py1" type="text"
+                                                    id="txtT1ar4" maxlength="14">
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">2. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY2ar4"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income4_py2" type="text"
+                                                    id="txtTI2ar4" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income4_py2" type="text"
+                                                    id="txtT2ar4" maxlength="14">
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">3. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY3ar4"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income4_py3" type="text"
+                                                    id="txtTI3ar4" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income4_py3" type="text"
+                                                    id="txtT3ar4" maxlength="14">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="action-buttons-container padding-div">
+                                    <button id="BtnCalculateAnnexure4" onclick="CalculateDetail_5()"
+                                        class="calculate-badge" value="Calculate">Calculate</button>
+                                </div>
+                                <br>
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">Relief under section 89</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" type="text" id="txtAnnnexure4Output"
+                                            maxlength="14" disabled="disabled">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons-container padding-div" id="Div1">
+                                <button id="ResetAnnexure4" class="calculate-badge" type="reset">Reset</button>
+                                <button id="CLoseAnnexure4" class="reset-badge dit-modal-popup-heading-close"
+                                    value="Close">Close</button>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+                <div class="dit-modal-popup" id="Annexure3Dialog" style="display: none;">
+                    <div class="modal_popup_heading" style="padding-bottom: 0;">
+                        <span style="font-size: 1rem;text-align: center;width: 100%">As amended upto Finance Act,
+                            2023</span>
+                        <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                    </div>
+                    <div class="modal_popup_heading">
+                        <span>Compensation on termination of employment</span>
+                    </div>
+
+                    <div class="modal_popup_content_container">
+                        <div class="modal_popup_content div-label-font-normal" id="Div5">
+                            <div class="calculator-content form-horizontal" id="Div6">
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Previous Year in which Compensation received
+                                        <span class="start-red">*</span>
+
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" type="text" id="txtPYar3"
+                                            disabled="disabled" maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Taxable compensation received
+                                        <span class="start-red">*</span>
+
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 tax_compensation_recvd" type="text"
+                                            id="txtAar3" maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Total income (including taxable compensation)
+                                        <span class="start-red">*</span>
+
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 total_income3" type="text" id="txtBar3"
+                                            maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Tax on total income (Including taxable compensation)
+                                        <span class="start-red">*</span>
+
+
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 tax_on_tot_income3" type="text"
+                                            id="txtCar3" maxlength="14">
+                                    </div>
+                                </div>
+                                <div class="h5 col-sm-12">
+                                    Provide the following information of three previous years immediately preceding the
+                                    previous year in which compensation is received
+                                </div>
+                                <div class="table-coontainer">
+                                    <div class="div-table">
+                                        <div class="div-row thead theader">
+                                            <div class="div-cell header-cell">
+                                                S.No.
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Previous year
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Total income
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Tax on total income plus 1/3rd of taxable compensation
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">1. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY1ar3"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income3_py1" type="text"
+                                                    id="txtTI1ar3" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income3_py1" type="text"
+                                                    id="txtT1ar3" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">2. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY2ar3"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income3_py2" type="text"
+                                                    id="txtTI2ar3" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income3_py2" type="text"
+                                                    id="txtT2ar3" maxlength="14">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">3. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY3ar3"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income3_py3" type="text"
+                                                    id="txtTI3ar3" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income3_py3" type="text"
+                                                    id="txtT3ar3" maxlength="14">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="action-buttons-container padding-div">
+                                    <button id="BtnCalculateAnnexure3" onclick="CalculateDetail_4()"
+                                        class="calculate-badge" value="Calculate">Calculate</button>
+                                </div>
+                                <br>
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Relief under section 89
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" type="text" id="txtAnnexure3Output"
+                                            disabled="disabled" maxlength="14">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-buttons-container padding-div" id="Div13">
+                                <button id="ResetAnnexure3" class="calculate-badge" type="reset">Reset</button>
+                                <button id="Button1" class="reset-badge dit-modal-popup-heading-close"
+                                    value="Close">Close</button>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+                <div class="dit-modal-popup" id="Annexure2ADialog" style="display: none;">
+                    <div class="modal_popup_heading" style="padding-bottom: 0;">
+                        <span style="font-size: 1rem;text-align: center;width: 100%">As amended upto Finance Act,
+                            2023</span>
+                        <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                    </div>
+                    <div class="modal_popup_heading">
+                        <span>Gratuity</span>
+                    </div>
+                    <div class="modal_popup_content_container">
+                        <div class="modal_popup_content div-label-font-normal" id="Div8">
+                            <div class="calculator-content form-horizontal" id="Div9">
+                                <div class="h5 col-sm-12">
+                                    Past services extending over a period of 15 years and more
+                                </div>
+                                <br>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Previous Year in which Gratuity received
+                                        <span class="start-red">*</span>
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" type="text" id="txtPYar2A"
+                                            disabled="disabled" maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Taxable gratuity received
+                                        <span class="start-red">*</span>
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 tax_gratuity2" type="text" id="txtAar2A"
+                                            maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Total income (including taxable gratuity)
+                                        <span class="start-red">*</span>
+
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 total_income2" type="text" id="txtBar2A"
+                                            maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Tax on total income (Including taxable gratuity)
+                                        <span class="start-red">*</span>
+
+
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 tax_on_tot_income2" type="text"
+                                            id="txtCar2A" maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div class="h5 col-sm-12">
+                                    Provide the following information of three previous years immediately preceding the
+                                    previous year in which Gratuity is received
+                                </div>
+
+                                <div class="table-coontainer">
+                                    <div class="div-table">
+                                        <div class="div-row thead theader">
+                                            <div class="div-cell header-cell">
+                                                S.No.
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Previous year
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Total income
+
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Tax on total income plus 1/3rd of taxable gratuity
+
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">1. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY1ar2A"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income2_py1" type="text"
+                                                    id="txtTI1ar2A" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income2_py1" type="text"
+                                                    id="txtT1ar2A" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">2. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY2ar2A"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income2_py2" type="text"
+                                                    id="txtTI2ar2A" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income2_py2" type="text"
+                                                    id="txtT2ar2A" maxlength="14">
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">3. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY3ar2A"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income2_py3" type="text"
+                                                    id="txtTI3ar2A" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income2_py3" type="text"
+                                                    id="txtT3ar2A" maxlength="14">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="action-buttons-container padding-div">
+                                    <button id="BtnCalculateAnnexure2A" onclick="CalculateDetail_3()"
+                                        class="calculate-badge" value="Calculate">Calculate</button>
+                                </div>
+                                <br>
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Relief under section 89
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" type="text" id="Annexure2AOutput"
+                                            disabled="disabled" maxlength="14">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="action-buttons-container padding-div" id="Div4">
+                                <button id="ResetAnnexure2A" class="calculate-badge" type="reset">Reset</button>
+                                <button id="Button2" class="reset-badge dit-modal-popup-heading-close"
+                                    value="Close">Close</button>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+                <div class="dit-modal-popup" id="Annexure2Dialog" style="display: none;">
+                    <div class="modal_popup_heading" style="padding-bottom: 0;">
+                        <span style="font-size: 1rem;text-align: center;width: 100%">As amended upto Finance Act,
+                            2023</span>
+                        <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                    </div>
+                    <div class="modal_popup_heading">
+                        <span>Gratuity</span>
+                    </div>
+
+                    <div class="modal_popup_content_container">
+                        <div class="modal_popup_content div-label-font-normal" id="Div11">
+                            <div class="calculator-content form-horizontal" id="Div12">
+
+                                <div class="col-sm-12 h5">
+                                    Gratuity received for past services extending a period of not less than 5 years but
+                                    less than 15 years [Rule 21A(3)]
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Previous Year in which Gratuity received
+                                        <span class="start-red">*</span>
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" type="text" id="txtPYar2"
+                                            disabled="disabled" maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Taxable gratuity received
+                                        <span class="start-red">*</span>
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 tax_gratuity1" type="text" id="txtAar2"
+                                            maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Total income (including taxable gratuity)
+                                        <span class="start-red">*</span>
+
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 total_income1" type="text" id="txtBar2"
+                                            maxlength="14">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Tax on total income (Including taxable gratuity)
+                                        <span class="start-red">*</span>
+
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 tax_on_tot_income1" type="text"
+                                            id="txtCar2" maxlength="14">
+                                    </div>
+                                </div>
+
+
+                                <div class="h5 col-sm-12">
+                                    Provide the following information of two previous years immediately preceding the
+                                    previous year in which Gratuity is received
+
+                                </div>
+                                <div class="table-coontainer">
+                                    <div class="div-table">
+                                        <div class="div-row thead theader">
+                                            <div class="div-cell header-cell">
+                                                S.No.
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Previous year
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Total income
+
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Tax on total income plus ½ of taxable gratuity
+
+                                            </div>
+                                        </div>
+
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">1. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY1ar2"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income1_py1" type="text"
+                                                    id="txtTI1ar2" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income1_py1" type="text"
+                                                    id="txtT1ar2" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell s-no">2. </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0" type="text" id="txtY2ar2"
+                                                    disabled="disabled" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 total_income1_py2" type="text"
+                                                    id="txtTI2ar2" maxlength="14">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 tax_on_tot_income1_py2" type="text"
+                                                    id="txtT2ar2" maxlength="14">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="action-buttons-container padding-div">
+                                    <button id="BtnCalculateAnnexure2" onclick="CalculateDetail_2()"
+                                        class="calculate-badge" value="Calculate">Calculate</button>
+                                </div>
+                                <br>
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">
+                                        Relief under section 89
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" type="text" id="txtAnnexure2Output"
+                                            disabled="disabled" maxlength="14">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-buttons-container padding-div" id="Div7">
+                                <button id="ResetAnnexure2" class="calculate-badge" type="reset">Reset</button>
+                                <button id="Button3" class="reset-badge dit-modal-popup-heading-close"
+                                    value="Close">Close</button>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+                <div class="dit-modal-popup dit-modal-fullscreen" id="Annexure1Dialog" style="display: none;">
+                    <div class="modal_popup_heading" style="padding-bottom: 0;">
+                        <span style="font-size: 1rem;text-align: center;width: 100%">As amended upto Finance Act,
+                            2023</span>
+                        <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                    </div>
+                    <div class="modal_popup_heading">
+                        <span>Salary received in arrear</span>
+                    </div>
+
+                    <div class="modal_popup_content_container">
+                        <div class="modal_popup_content div-label-font-normal" id="Div14">
+                            <div class="calculator-content form-horizontal" id="Div15">
+
+                                <div class="arear-advance-salary">
+                                    <div class="col-sm-16">
+                                        <div class="header-grid">
+                                            <div class="grid-cell grid-header-cell">
+                                                Previous year
+                                            </div>
+                                            <div class="grid-cell grid-header-cell">
+                                                Assessment year
+                                            </div>
+                                            <div class="grid-cell grid-header-cell">
+                                                Total Income (1)
+                                            </div>
+                                            <div class="grid-cell grid-header-cell">
+                                                Tax on (1) including surcharge and education cess (2)
+                                            </div>
+                                            <div class="grid-cell grid-header-cell">
+                                                Special Income included in (1)
+                                            </div>
+                                            <div class="grid-cell grid-header-cell">
+                                                Special tax included in (2)
+                                            </div>
+                                            <div class="grid-cell grid-header-cell">
+                                                Net agricultural income
+                                            </div>
+                                            <div class="grid-cell grid-header-cell">
+                                                Salary received in arrear in the current previous year
+                                            </div>
+
+                                        </div>
+                                        <div class="row-grid">
+                                            <div class="grid-cell">
+                                                <strong>
+                                                    Current Year
+                                                </strong>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row-grid">
+                                            <div id="divdefualt" class="years-grid-2">
+                                                <div class="grid-cell">2016-17</div>
+                                                <div class="grid-cell">2017-18</div>
+                                            </div>
+                                            <div id="divcurrentAssesmentYear" class="years-grid-2"
+                                                style="display: none;">
+                                                <div class="grid-cell">2017-18</div>
+                                                <div class="grid-cell">2018-19</div>
+                                            </div>
+                                            <div id="divcurrentAssesmentYear201920" class="years-grid-2"
+                                                style="display: none;">
+                                                <div class="grid-cell">2018-19</div>
+                                                <div class="grid-cell">2019-20</div>
+                                            </div>
+                                            <div id="divcurrentAssesmentYear202021" class="years-grid-2"
+                                                style="display: none;">
+                                                <div class="grid-cell">2019-20</div>
+                                                <div class="grid-cell">2020-21</div>
+                                            </div>
+                                            <div id="divcurrentAssesmentYear202122" class="years-grid-2"
+                                                style="display: none;">
+                                                <div class="grid-cell">2020-21</div>
+                                                <div class="grid-cell">2021-22</div>
+                                            </div>
+                                            <div id="divcurrentAssesmentYear202223" class="years-grid-2"
+                                                style="display: none;">
+                                                <div class="grid-cell">2021-22</div>
+                                                <div class="grid-cell">2022-23</div>
+                                            </div>
+                                            <div id="divcurrentAssesmentYear202324" class="years-grid-2"
+                                                style="display: none;">
+                                                <div class="grid-cell">2022-23</div>
+                                                <div class="grid-cell">2023-24</div>
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income_current" type="text"
+                                                    id="txtAcy" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess_current" type="text"
+                                                    id="txtXcy" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income_current" type="text"
+                                                    id="txtDcy" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax_current" type="text"
+                                                    id="txtEcy" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income_current"
+                                                    type="text" id="txtFcy" maxlength="14">
+                                            </div>
+                                            <!--<div class="div-cell"><input class="form-control rounded-0" type="text" ></div>-->
+                                        </div>
+
+                                        <div class="row-grid">
+                                            <div class="grid-cell">
+                                                <strong>
+                                                    Preceding Years
+                                                </strong>
+                                            </div>
+                                        </div>
+
+                                        <div class="header-grid inputs-row">
+                                            <div class="grid-cell">2010-11</div>
+                                            <div class="grid-cell">2011-12</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA1" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX1" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD1" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE1"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF1" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC1" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row">
+                                            <div class="grid-cell">2011-12</div>
+                                            <div class="grid-cell">2012-13</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA2" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX2" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD2" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE2"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF2" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC2" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row">
+                                            <div class="grid-cell">2012-13</div>
+                                            <div class="grid-cell">2013-14</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA3" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX3" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD3" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE3"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF3" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC3" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row">
+                                            <div class="grid-cell">2013-14</div>
+                                            <div class="grid-cell">2014-15</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA4" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX4" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD4" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE4"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF4" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC4" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row">
+                                            <div class="grid-cell">2014-15</div>
+                                            <div class="grid-cell">2015-16</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA5" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX5" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD5" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE5"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF5" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC5" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row">
+                                            <div class="grid-cell">2015-16</div>
+                                            <div class="grid-cell">2016-17</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA6" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX6" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD6" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE6"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF6" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC6" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row" style="display: none"
+                                            id="divInputRow20161718">
+                                            <div class="grid-cell">2016-17</div>
+                                            <div class="grid-cell">2017-18</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA7" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX7" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD7" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE7"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF7" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC7" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row" style="display: none"
+                                            id="divInputRow20171819">
+                                            <div class="grid-cell">2017-18</div>
+                                            <div class="grid-cell">2018-19</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA8" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX8" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD8" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE8"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF8" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC8" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row" style="display: none"
+                                            id="divInputRow20181920">
+                                            <div class="grid-cell">2018-19</div>
+                                            <div class="grid-cell">2019-20</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA9" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX9" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD9" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text" id="txtE9"
+                                                    maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF9" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC9" maxlength="14">
+                                            </div>
+                                        </div>
+                                        <div class="header-grid inputs-row" style="display: none"
+                                            id="divInputRow20192021">
+                                            <div class="grid-cell">2019-20</div>
+                                            <div class="grid-cell">2020-21</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA10" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX10" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD10" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text"
+                                                    id="txtE10" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF10" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC10" maxlength="14">
+                                            </div>
+                                        </div>
+
+                                        <div class="header-grid inputs-row" style="display: none"
+                                            id="divInputRow20202122">
+                                            <div class="grid-cell">2020-21</div>
+                                            <div class="grid-cell">2021-22</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA11" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX11" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD11" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text"
+                                                    id="txtE11" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF11" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC11" maxlength="14">
+                                            </div>
+                                        </div>
+
+                                        <div class="header-grid inputs-row" style="display: none"
+                                            id="divInputRow20212223">
+                                            <div class="grid-cell">2021-22</div>
+                                            <div class="grid-cell">2022-23</div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 total_income" type="text"
+                                                    id="txtA12" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 tax_on_educess" type="text"
+                                                    id="txtX12" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_income" type="text"
+                                                    id="txtD12" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 special_tax" type="text"
+                                                    id="txtE12" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 net_agri_income" type="text"
+                                                    id="txtF12" maxlength="14">
+                                            </div>
+                                            <div class="grid-cell">
+                                                <input class="form-control rounded-0 recieved_arrear_salary" type="text"
+                                                    id="txtC12" maxlength="14">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="action-buttons-container padding-div">
+                                    <button id="BtnCalculateAnnexure1" onclick="CalculateDetail_1()"
+                                        class="calculate-badge" value="Calculate">Calculate</button>
+                                </div>
+                                <br>
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label">Relief under section 89</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 total_income" type="text"
+                                            id="txtAnnexure1Output" maxlength="14" disabled="disabled">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons-container padding-div" id="Div10">
+                                <button id="ResetAnnexure1" class="calculate-badge" type="reset">Reset</button>
+                                <button id="Button4" class="reset-badge dit-modal-popup-heading-close"
+                                    value="Close">Close</button>
+                            </div>
+                            <br>
+                            <div class="annualdetailslisttables" id="divOutPutTableAnne1">
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <!-- ====================================================================================================================================================== -->
+        </section>
+        <br>
+        <div class="action-buttons-container padding-div">
+            <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+            <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+        </div>
+        <div class="loader-container dashboard-loader ">
+            <div class="loader" id="loader-6"></div>
+        </div>
+        <br>
+        <div class="s4-wpcell-plain ms-webpartzone-cell ms-webpart-cell-vertical ms-fullWidth ">
+            <div class="ms-webpart-chrome ms-webpart-chrome-vertical ms-webpart-chrome-fullWidth ">
+                <div WebPartID="7da27129-a0f4-4703-90f7-1211f15d6474" HasPers="false" id="WebPartWPQ2" width="100%"
+                    class="ms-WPBody " allowDelete="false">
+                    <div class="ms-rtestate-field">
+                        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+                            <div class="note-container note-container-advisory">
+                                <span class="fw-bold"> Advisory: </span>
+                                Information relates to the law prevailing in the year <span class="fst-italic">of
+                                    publication/ as
+                                    indicated</span>. Viewers are advised to ascertain the correct
+                                position/prevailing law before relying upon any document.
+                                <br /><br />
+                                <span class="fw-bold"> Disclaimer: </span>
+                                The
+                                above calculator is only to enable public to have a quick and an easy access to
+                                basic
+                                tax
+                                calculation and does not purport to give correct tax calculation in all
+                                circumstances.
+                                It is
+                                advised that for filing of returns the exact calculation may be made as per the
+                                provisions
+                                contained in the relevant Acts, Rules etc.
+                            </div>
+                        </secction>​​​​​​
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/relief89.js"></script>
+
+</html>
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        // var year1 = current_date.getFullYear() - 1;
+        var year1 = current_date.getFullYear();
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 7; i++) {
+            var year2 = (year1 + 1).toString().substr(-2);
+            $('#ddlAssessmentYearRelief').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1;
+        }
+    });
+
+    const getFormValidationState = () => {
+        const formElement = document.getElementById('89Form');
+        const isFormValid = formElement.checkValidity();
+        return isFormValid
+    }
+
+    function getFormattedValue(strValue) {
+        strValue = strValue.replace(/,/g, '');
+        if (strValue != "") {
+            if (strValue % 1 != 0) {
+                round_off_val = parseFloat(strValue).toFixed(2)
+                before_decimal = (round_off_val).toString().split(".")[0]
+                after_decimal = (round_off_val).toString().split(".")[1]
+                return (parseInt(before_decimal)).toLocaleString('en-IN') + "." + after_decimal;
+            }
+            else {
+                return (parseInt(strValue)).toLocaleString('en-IN');
+            }
+        }
+        else {
+            return "0";
+        }
+    }
+
+    function CalculateDetail_1() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        const assessment_year = $("#ddlAssessmentYearRelief option:selected").text();
+        const res_status = $("#ddlResedentialStatus").val();
+        const split = $("#txtDOB").val().split("-");
+        const dob = split[2] + "/" + split[1] + "/" + split[0];
+        const gender = $("#ddlGender").val();
+        const is_opting_115BAC = $("#ddlbac115").val();
+        const total_income_current = +$("#txtAcy").val().replace(/,/g, '') || "";
+        const tax_on_educess_current = +$("#txtXcy").val().replace(/,/g, '') || "";
+        const special_income_current = +$("#txtDcy").val().replace(/,/g, '') || "";
+        const special_tax_current = +$("#txtEcy").val().replace(/,/g, '') || "";
+        const net_agri_income_current = +$("#txtFcy").val().replace(/,/g, '') || "";
+        data = {};
+        for (let i = 1; i < 13; i++) {
+            var yr = (2009 + i).toString() + "-" + (i + 10).toString();
+            const total_income = +$("#txtA" + i).val().replace(/,/g, '') || "";
+            const tax_on_educess = +$("#txtX" + i).val().replace(/,/g, '') || "";
+            const special_income = +$("#txtD" + i).val().replace(/,/g, '') || "";
+            const special_tax = +$("#txtE" + i).val().replace(/,/g, '') || "";
+            const net_agri_income = +$("#txtF" + i).val().replace(/,/g, '') || "";
+            const recieved_arrear_salary = +$("#txtC" + i).val().replace(/,/g, '') || "";
+            data[yr] = { "total_income": total_income, "tax_on_educess": tax_on_educess, "special_income": special_income, "special_tax": special_tax, "net_agri_income": net_agri_income, "recieved_arrear_salary": recieved_arrear_salary };
+        }
+        const arrear_salary = [
+            { "current_year": { "total_income_current": total_income_current, "tax_on_educess_current": tax_on_educess_current, "special_income_current": special_income_current, "special_tax_current": special_tax_current, "net_agri_income_current": net_agri_income_current } },
+            [data]
+        ];
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/relief_section89/",
+            type: "POST",
+            data: JSON.stringify({
+                "enter_detail": "1",
+                "assessment_year": assessment_year,
+                "res_status": res_status,
+                "dob": dob,
+                "gender": gender,
+                "is_opting_115BAC": is_opting_115BAC,
+                "arrear_salary": arrear_salary,
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#divOutPutTableAnne1").html(res.data.arrear_table);
+                    popup1DisplayTableStyleSet();
+                    $("#txtAnnexure1Output").val(getFormattedValue(res.data.arrear_salary));
+                    $("#txtAnnexureI").val(getFormattedValue(res.data.arrear_salary));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic and technical issues, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time.";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+
+    function CalculateDetail_2() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        const assessment_year = $("#ddlAssessmentYearRelief option:selected").text();
+        const res_status = $("#ddlResedentialStatus").val();
+        const split = $("#txtDOB").val().split("-");
+        const dob = split[2] + "/" + split[1] + "/" + split[0];
+        const gender = $("#ddlGender").val();
+        const is_opting_115BAC = $("#ddlbac115").val();
+        const tax_gratuity1 = +$("#txtAar2").val().replace(/,/g, '') || "";
+        const total_income1 = +$("#txtBar2").val().replace(/,/g, '') || "";
+        const tax_on_tot_income1 = +$("#txtCar2").val().replace(/,/g, '') || "";
+        const total_income1_py1 = +$("#txtTI1ar2").val().replace(/,/g, '') || "";
+        const total_income1_py2 = +$("#txtTI2ar2").val().replace(/,/g, '') || "";
+        const tax_on_tot_income1_py1 = +$("#txtT1ar2").val().replace(/,/g, '') || "";
+        const tax_on_tot_income1_py2 = +$("#txtT2ar2").val().replace(/,/g, '') || "";
+        const gratuity_recieved_less_5yrs = {
+            "tax_gratuity1": tax_gratuity1,
+            "total_income1": total_income1,
+            "tax_on_tot_income1": tax_on_tot_income1,
+            "total_income1_py1": total_income1_py1,
+            "tax_on_tot_income1": tax_on_tot_income1,
+            "total_income1_py1": total_income1_py1,
+            "total_income1_py2": total_income1_py2,
+            "tax_on_tot_income1_py1": tax_on_tot_income1_py1,
+            "tax_on_tot_income1_py2": tax_on_tot_income1_py2,
+        }
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://stgbot.minty.co.in/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/relief_section89/",
+            type: "POST",
+            data: JSON.stringify({
+                "enter_detail": "2",
+                "assessment_year": assessment_year,
+                "res_status": res_status,
+                "dob": dob,
+                "gender": gender,
+                "is_opting_115BAC": is_opting_115BAC,
+                "gratuity_recieved_less_5yrs": gratuity_recieved_less_5yrs,
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#txtAnnexure2Output").val(getFormattedValue(res.data.gratuity_recieved_less_5yrs));
+                    $("#txtAnnexureII").val(getFormattedValue(res.data.gratuity_recieved_less_5yrs));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic and technical issues, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time.";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+
+    function CalculateDetail_3() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        const assessment_year = $("#ddlAssessmentYearRelief option:selected").text();
+        const res_status = $("#ddlResedentialStatus").val();
+        const split = $("#txtDOB").val().split("-");
+        const dob = split[2] + "/" + split[1] + "/" + split[0];
+        const gender = $("#ddlGender").val();
+        const is_opting_115BAC = $("#ddlbac115").val();
+        const tax_gratuity2 = +$("#txtAar2A").val().replace(/,/g, '') || "";
+        const total_income2 = +$("#txtBar2A").val().replace(/,/g, '') || "";
+        const tax_on_tot_income2 = +$("#txtCar2A").val().replace(/,/g, '') || "";
+        const total_income2_py1 = +$("#txtTI1ar2A").val().replace(/,/g, '') || "";
+        const total_income2_py2 = +$("#txtTI2ar2A").val().replace(/,/g, '') || "";
+        const total_income2_py3 = +$("#txtTI3ar2A").val().replace(/,/g, '') || "";
+        const tax_on_tot_income2_py1 = +$("#txtT1ar2A").val().replace(/,/g, '') || "";
+        const tax_on_tot_income2_py2 = +$("#txtT2ar2A").val().replace(/,/g, '') || "";
+        const tax_on_tot_income2_py3 = +$("#txtT3ar2A").val().replace(/,/g, '') || "";
+        const gratuity_recieved_more_15yrs = {
+            "tax_gratuity2": tax_gratuity2,
+            "total_income2": total_income2,
+            "tax_on_tot_income2": tax_on_tot_income2,
+            "total_income2_py1": total_income2_py1,
+            "total_income2_py2": total_income2_py2,
+            "total_income2_py3": total_income2_py3,
+            "tax_on_tot_income2_py1": tax_on_tot_income2_py1,
+            "tax_on_tot_income2_py2": tax_on_tot_income2_py2,
+            "tax_on_tot_income2_py3": tax_on_tot_income2_py3
+        }
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://stgbot.minty.co.in/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/relief_section89/",
+            type: "POST",
+            data: JSON.stringify({
+                "enter_detail": "3",
+                "assessment_year": assessment_year,
+                "res_status": res_status,
+                "dob": dob,
+                "gender": gender,
+                "is_opting_115BAC": is_opting_115BAC,
+                "gratuity_recieved_more_15yrs": gratuity_recieved_more_15yrs,
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#Annexure2AOutput").val(getFormattedValue(res.data.gratuity_recieved_more_15yrs));
+                    $("#txtAnnexureIIA").val(getFormattedValue(res.data.gratuity_recieved_more_15yrs));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic and technical issues, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time.";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+    function CalculateDetail_4() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        const assessment_year = $("#ddlAssessmentYearRelief option:selected").text();
+        const res_status = $("#ddlResedentialStatus").val();
+        const split = $("#txtDOB").val().split("-");
+        const dob = split[2] + "/" + split[1] + "/" + split[0];
+        const gender = $("#ddlGender").val();
+        const is_opting_115BAC = $("#ddlbac115").val();
+        const tax_compensation_recvd = +$("#txtAar3").val().replace(/,/g, '') || "";
+        const total_income3 = +$("#txtBar3").val().replace(/,/g, '') || "";
+        const tax_on_tot_income3 = +$("#txtCar3").val().replace(/,/g, '') || "";
+        const total_income3_py1 = +$("#txtTI1ar3").val().replace(/,/g, '') || "";
+        const total_income3_py2 = +$("#txtTI2ar3").val().replace(/,/g, '') || "";
+        const total_income3_py3 = +$("#txtTI3ar3").val().replace(/,/g, '') || "";
+        const tax_on_tot_income3_py1 = +$("#txtT1ar3").val().replace(/,/g, '') || "";
+        const tax_on_tot_income3_py2 = +$("#txtT2ar3").val().replace(/,/g, '') || "";
+        const tax_on_tot_income3_py3 = +$("#txtT3ar3").val().replace(/,/g, '') || "";
+        const emp_termination_compensation = {
+            "tax_compensation_recvd": tax_compensation_recvd,
+            "total_income3": total_income3,
+            "tax_on_tot_income3": tax_on_tot_income3,
+            "total_income3_py1": total_income3_py1,
+            "total_income3_py2": total_income3_py2,
+            "total_income3_py3": total_income3_py3,
+            "tax_on_tot_income3_py1": tax_on_tot_income3_py1,
+            "tax_on_tot_income3_py2": tax_on_tot_income3_py2,
+            "tax_on_tot_income3_py3": tax_on_tot_income3_py3
+        }
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://stgbot.minty.co.in/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/relief_section89/",
+            type: "POST",
+            data: JSON.stringify({
+                "enter_detail": "4",
+                "assessment_year": assessment_year,
+                "res_status": res_status,
+                "dob": dob,
+                "gender": gender,
+                "is_opting_115BAC": is_opting_115BAC,
+                "emp_termination_compensation": emp_termination_compensation,
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#txtAnnexure3Output").val(getFormattedValue(res.data.emp_termination_compensation));
+                    $("#txtAnnexureIII").val(getFormattedValue(res.data.emp_termination_compensation));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic and technical issues, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time.";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+    function CalculateDetail_5() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        const assessment_year = $("#ddlAssessmentYearRelief option:selected").text();
+        const res_status = $("#ddlResedentialStatus").val();
+        const split = $("#txtDOB").val().split("-");
+        const dob = split[2] + "/" + split[1] + "/" + split[0];
+        const gender = $("#ddlGender").val();
+        const is_opting_115BAC = $("#ddlbac115").val();
+        const tax_commmuted_pension = +$("#txtAar4").val().replace(/,/g, '') || "";
+        const total_income4 = +$("#txtBar4").val().replace(/,/g, '') || "";
+        const tax_on_tot_income4 = +$("#txtCar4").val().replace(/,/g, '') || "";
+        const total_income4_py1 = +$("#txtTI1ar4").val().replace(/,/g, '') || "";
+        const total_income4_py2 = +$("#txtTI2ar4").val().replace(/,/g, '') || "";
+        const total_income4_py3 = +$("#txtTI3ar4").val().replace(/,/g, '') || "";
+        const tax_on_tot_income4_py1 = +$("#txtT1ar4").val().replace(/,/g, '') || "";
+        const tax_on_tot_income4_py2 = +$("#txtT2ar4").val().replace(/,/g, '') || "";
+        const tax_on_tot_income4_py3 = +$("#txtT3ar4").val().replace(/,/g, '') || "";
+        const commutation_pension = {
+            "tax_commmuted_pension": tax_commmuted_pension,
+            "total_income4": total_income4,
+            "tax_on_tot_income4": tax_on_tot_income4,
+            "total_income4_py1": total_income4_py1,
+            "total_income4_py2": total_income4_py2,
+            "total_income4_py3": total_income4_py3,
+            "tax_on_tot_income4_py1": tax_on_tot_income4_py1,
+            "tax_on_tot_income4_py2": tax_on_tot_income4_py2,
+            "tax_on_tot_income4_py3": tax_on_tot_income4_py3
+        }
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://stgbot.minty.co.in/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/relief_section89/",
+            type: "POST",
+            data: JSON.stringify({
+                "enter_detail": "5",
+                "assessment_year": assessment_year,
+                "res_status": res_status,
+                "dob": dob,
+                "gender": gender,
+                "is_opting_115BAC": is_opting_115BAC,
+                "commutation_pension": commutation_pension,
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#txtAnnnexure4Output").val(getFormattedValue(res.data.commutation_pension));
+                    $("#txtAnnexureIV").val(getFormattedValue(res.data.commutation_pension));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic and technical issues, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time.";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+
+    function Calculate() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        const assessment_year = $("#ddlAssessmentYearRelief option:selected").text();
+        const res_status = $("#ddlResedentialStatus").val();
+        const split = $("#txtDOB").val().split("-");
+        const dob = split[2] + "/" + split[1] + "/" + split[0];
+        const gender = $("#ddlGender").val();
+        const is_opting_115BAC = $("#ddlbac115").val();
+        const m_arrear_salary = +$("#txtAnnexureI").val().replace(/,/g, '') || "";
+        const m_gratuity_recieved_less_5yrs = +$("#txtAnnexureII").val().replace(/,/g, '') || "";
+        const m_gratuity_recieved_more_15yrs = +$("#txtAnnexureIIA").val().replace(/,/g, '') || "";
+        const m_emp_termination_compensation = +$("#txtAnnexureIII").val().replace(/,/g, '') || "";
+        const m_commutation_pension = +$("#txtAnnexureIV").val().replace(/,/g, '') || "";
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://stgbot.minty.co.in/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/relief_section89/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/relief_section89/",
+            type: "POST",
+            data: JSON.stringify({
+                "enter_detail": "0",
+                "assessment_year": assessment_year,
+                "res_status": res_status,
+                "dob": dob,
+                "gender": gender,
+                "is_opting_115BAC": is_opting_115BAC,
+                "m_arrear_salary": m_arrear_salary,
+                "m_gratuity_recieved_less_5yrs": m_gratuity_recieved_less_5yrs,
+                "m_gratuity_recieved_more_15yrs": m_gratuity_recieved_more_15yrs,
+                "m_emp_termination_compensation": m_emp_termination_compensation,
+                "m_commutation_pension": m_commutation_pension,
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#txtAnnexureI").val(getFormattedValue(res.data.arrear_salary));
+                    $("#txtAnnexureII").val(getFormattedValue(res.data.gratuity_recieved_less_5yrs));
+                    $("#txtAnnexureIIA").val(getFormattedValue(res.data.gratuity_recieved_more_15yrs));
+                    $("#txtAnnexureIII").val(getFormattedValue(res.data.emp_termination_compensation));
+                    $("#txtAnnexureIV").val(getFormattedValue(res.data.commutation_pension));
+                    $("#AnnexureTotal").val(getFormattedValue(res.data.total_relief_tax_section89));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic and technical issues, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time.";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

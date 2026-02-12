@@ -1,0 +1,153 @@
+.PlanAboutSection {
+  width: 80%;
+  margin: auto;
+}
+
+.IndexContent {
+  scroll-padding-top: 100px;
+}
+.PlanIndex {
+  padding: 1rem;
+  position: sticky !important;
+  top: 105px !important;
+}
+.PlanIndex .planlist {
+  padding: 1rem 0rem;
+  border-bottom: 1px solid #e7e7e7;
+  width: 70%;
+}
+.PlanIndex .planlist a {
+  text-decoration: none;
+  color: #70757b;
+  font-size: 1.1rem;
+}
+.abtPlan {
+  margin-top: 7rem;
+  scroll-margin-top: 100px;
+  scroll-behavior: smooth;
+}
+.anotherPlan {
+  margin-top: 5rem;
+  scroll-margin-top: 100px;
+  scroll-behavior: smooth;
+}
+.indextitlename {
+  color: #314259;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.titleDes {
+  font-size: 1.1rem;
+  padding: 1.4rem 0rem;
+  line-height: 2rem;
+  font-weight: 400;
+}
+.ServiceTxt {
+  font-size: 1.1rem;
+  color: #314259;
+  /* font-weight: 500; */
+}
+.hrline {
+  border-bottom: 1px solid #e7e7e7;
+  padding: 2rem 0;
+}
+.BuyDes {
+  padding: 2rem 0rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 1rem;
+  grid-row-gap: 2rem;
+}
+
+.indextitleDes {
+  padding: 1.6rem 0rem;
+  color: #92959a;
+  font-size: 1.2rem;
+  width: 60%;
+}
+.DaysDes {
+  font-size: 1.4rem;
+  color: #314259;
+  font-weight: 500;
+}
+.Process_line {
+  position: relative;
+  list-style-image: url("https://d2s63alnkuz6gf.cloudfront.net/assets/website/ui_icons/PDP/PDP-list-bullet-blue.svg");
+  padding-left: 3rem;
+  padding-top: 2rem;
+}
+.Process_line li:before {
+  content: " ";
+  position: absolute;
+  left: -16px;
+  top: 0px;
+  height: 32px;
+  width: 32px;
+  background-image: url("https://assets1.cleartax-cdn.com/cleartax/images/1606455307_validate.svg");
+  background-color: #fff;
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  border: 1px solid #8abbfd;
+  box-sizing: border-box;
+}
+.Process_line li:last-child:before {
+  background-image: url(https://assets1.cleartax-cdn.com/cleartax/images/1597039822_greentick.png);
+}
+.Process_line li:last-child::after {
+  content: none;
+  width: 1px;
+  height: 37px;
+  background: #8abbfd;
+  display: block;
+  margin-left: -33px;
+  margin-top: 4px;
+}
+
+.Process_line li {
+  list-style-image: none;
+  list-style-type: none;
+  background-repeat: no-repeat;
+  line-height: 28px;
+  padding-left: 1rem;
+  position: relative;
+  border-left: 1px solid #8abbfd;
+}
+
+.Process_line div {
+  padding-bottom: 37px;
+}
+.Process_line li:last-child {
+  border-left: 0px;
+}
+.Process_line div {
+  position: relative;
+  top: 3px;
+  left: 5px;
+  color: #314259;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.DocumentsDes {
+  padding: 2rem 0rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 1rem;
+  grid-row-gap: 2rem;
+}
+.planlist .Active {
+  color: #1572ed !important;
+  text-decoration: underline !important;
+  font-weight: 500;
+}
+@media (min-width: 768px) {
+  .BuyDes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .DocumentsDes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

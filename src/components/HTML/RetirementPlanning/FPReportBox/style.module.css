@@ -1,0 +1,57 @@
+.FPReportBox {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+   width: 92%;
+   margin-top: 2rem;
+}
+.FPReport{
+    margin-bottom: 3rem;
+}
+.FPReportImg img{
+    width: 35rem;
+}
+.FPReportBoxContent{
+    width: 37%;
+
+}
+.FPReportBoxContent .FPReportBoxContentTitle {
+    color: #042b62;
+    font-size: 2rem;
+    font-weight: 400;
+    font-weight: 500;
+}
+.FPReportBoxContentText{
+    color: #767676;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+/* ------------------------------------------------------------------------media query----------------------------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+    .FPReportBox {
+        display: grid;
+        margin: auto;
+        width: 100%;
+        margin-top: 1rem;
+     }
+     .FPReport .FPReportBox:nth-child(even){
+        display: inline-flex;
+        flex-direction: column-reverse;
+        margin-top: 1rem;
+     }
+     .FPReportBoxContent{
+        width: 100%;
+        margin-top: 1rem;
+    }
+    .FPReportBoxContentText{
+        font-size: 1.1rem;
+    }
+    .FPReportImg img{
+        width: 100%;
+    }
+    .FPReportBoxContent .FPReportBoxContentTitle {
+       font-size: 1.5rem;
+    }
+}

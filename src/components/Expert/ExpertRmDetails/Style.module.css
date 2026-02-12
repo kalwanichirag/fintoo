@@ -1,0 +1,323 @@
+.RMPersonalData {
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 0.3px solid #e3e3e3;
+  width: 97%;
+}
+
+::-webkit-scrollbar {
+  width: 3px !important;
+}
+
+.RmBox img {
+  width: 47px !important;
+  height: 47px;
+  border-radius: 50%;
+}
+
+.RMName {
+  color: #042b62;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.RMPersonalData .RmQualification {
+  border-bottom: 0.3px solid #e3e3e3;
+  padding-bottom: 0.4rem;
+}
+
+.RMPersonalData .RmQualification .Education {
+  color: #858487;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.RMPersonalData .RmQualification span {
+  color: #858487;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.aboutRm .Textinfo {
+  height: 20vh;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 10px !important;
+}
+
+.RMPersonalData .BorderRight {
+  border-right: 0.3px solid #e3e3e3;
+  padding-right: 1rem;
+}
+
+.RMPersonalData .Rmcareer {
+  padding: 1rem;
+}
+
+.RMPersonalData .Rmcareer {
+  border-bottom: 0.3px solid #e3e3e3;
+  padding-bottom: 1rem;
+  justify-content: center;
+}
+
+.RMPersonalData .Rmcareer .textLabel {
+  color: #114c5d;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-align: left;
+}
+
+.RMPersonalData .Rmcareer .ValueLabel {
+  color: #a1a1a1;
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+
+.RMPersonalData .rating {
+  font-size: 0.7rem;
+}
+
+.RMPersonalData .RatePoint {
+  font-size: 0.9rem;
+}
+
+.RMPersonalData .rating .checked {
+  color: orange;
+}
+
+.rating .Unchecked {
+  color: gray;
+}
+
+.RMPersonalData .aboutRm {
+  border-bottom: 0.3px solid #e3e3e3;
+  padding-bottom: 0.5rem;
+}
+
+.RMPersonalData .labelText {
+  padding-top: 1rem;
+  color: #114c5d;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.RMPersonalData .Textinfo,
+.FeedbackMsg {
+  color: #a1a1a1;
+  font-size: 0.7rem;
+  line-height: 1.3rem !important;
+}
+
+.FeedBackCustomer .FeedbackMsg {
+  height: 13vh;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 10px !important;
+}
+
+.aboutRm .Textinfo {
+  height: 13vh;
+  overflow: auto;
+  padding: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 10px !important;
+}
+
+.RMPersonalData .bookAppointment button {
+  padding: 0.2rem 2.5rem;
+  background-color: #042b62;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid #042b62;
+  outline: none;
+  border-radius: 20px;
+  margin-top: 1rem;
+}
+
+.RMPersonalData .thanksContinue button {
+  padding: 0.2rem 2.5rem;
+  background-color: #042b62;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid #042b62;
+  outline: none;
+  border-radius: 20px;
+  margin-top: 0rem;
+}
+
+.RMPersonalData .customerDetails {
+  line-height: 13px;
+  padding-top: 0.1rem;
+}
+
+.RMPersonalData .customerrating .fa-star {
+  color: gray;
+  font-size: 0.7rem;
+}
+
+.RMPersonalData .customerrating .checked {
+  color: orange;
+  font-size: 0.7rem;
+}
+
+.RMPersonalData .customerrating .Uchecked {
+  color: gray;
+  font-size: 0.7rem;
+}
+
+.RMPersonalData .customerName {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.RMPersonalData .customerrating {
+  font-size: 0.5rem;
+}
+
+.RMPersonalData .FeedBackDays {
+  color: #a4a4a4;
+  font-size: 0.7rem;
+  padding-top: 7.6rem;
+}
+
+.item img {
+  display: block;
+  /* width: 100%; */
+  width: 28px !important;
+}
+
+.BooKLabel {
+  color: #114c5d;
+  font-weight: 700;
+  border-bottom: 0.3px solid #e3e3e3;
+  padding-bottom: 0.4rem;
+}
+
+.bookIntro {
+  font-size: 0.7rem;
+  color: #c4c4c4;
+}
+
+.ThanksSection .thankyoumsg {
+  padding-top: 1rem;
+  color: #042b62;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.ThanksSection .ThanksParagraphs {
+  font-size: 0.9rem;
+}
+
+.ThanksSection .teamFintoo {
+  margin: 1.5rem;
+  color: #042b62;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.FeedBackCustomer div:focus {
+  border: none;
+  outline: none;
+}
+
+.outerRmBox {
+  width: 100%;
+}
+
+.TaxExpertInfoTopContainer {
+  display: grid;
+  grid-template-columns: 30% 35% 35%;
+}
+
+.skilChipContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skilChip {
+  width: fit-content;
+  padding: 0.2rem 0.4rem;
+  margin: 0.05rem 0;
+  border-radius: 50px;
+  border: 2px solid #042b62;
+  color: #042b62;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+
+  .outerRmBox {
+    width: 30%;
+    padding-left: 0.75rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .TaxExpertInfoTopContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .RMPersonalData .BorderRight {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .RMPersonalData {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .TaxExpertInfoTopContainer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem
+  }
+
+  .imgclose {
+    position: relative;
+  }
+
+  .imgclose div {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+  }
+
+  .imgclose img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .outerRmBox {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 110vh;
+    z-index: 9999;
+    transition: top 0.3s ease 0s;
+  }
+
+  .RMPersonalData {
+    margin-top: 7rem;
+    bottom: -107vh;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: #fff;
+  }
+
+  .TaxRmSpace {
+    padding-bottom: 7rem;
+  }
+}

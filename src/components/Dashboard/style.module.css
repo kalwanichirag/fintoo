@@ -1,0 +1,67 @@
+.sidebar {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    /* text-align: center; */
+    /* width: 12rem; */
+    color: #fff;
+    /* background-color: #042b62; */
+    /* margin-top: 1.5rem; */
+}
+.menu-link {
+    text-decoration: none;
+    /* color: #042b62; */
+    color: #9b9b9b;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+
+.profile-menu-list img {
+    width: 20px;
+}
+
+.fintoo-dashboard-logo {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    text-align: center;
+}
+.fintoo-dashboard-logo img {
+    width: 50px;
+}
+
+.in-sidebar {
+    display: flex;
+    align-items: center;
+}
+.profile-menu-list {
+    padding-right: 1rem;
+}
+.profile-menu-list span:first-child {
+    padding-right: 5px;
+}
+@media (min-width: 768px) {
+    .profile-menu-list {
+        padding-right: 0px;
+    }
+    .sidebar {
+        width: 12rem;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    .profile-menu-list {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+    .profile-menu-list:hover a {
+        color: #042b62;
+    }
+    .in-sidebar {
+        flex-direction: column;
+        align-items: start;       
+    }
+    .profile-menu-list span:first-child {
+        padding-right: 10px;
+    }
+}

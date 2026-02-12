@@ -1,0 +1,65 @@
+.slick-next-custom {
+    color: rgba(255, 255, 255, 0.598);
+    font-size: 2.5rem;
+    position: absolute;
+    top: 45%;
+    right: 0;
+    cursor: pointer;
+}
+
+.slick-prev-custom {
+    color: rgba(255, 255, 255, 0.598);
+    font-size: 2.5rem;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    cursor: pointer;
+    z-index: 222;
+}
+
+.investsection {
+    background-color: #042b621f;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.SectionSubtext {
+    color: #86898b;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.featured-in-xuiisis8 .slick-arrow::before {
+    display: none;
+}
+
+.featured-in-xuiisis8 .slick-arrow i {
+    font-size: 25px;
+    color: hsla(0, 0%, 93.3%, .9);
+}
+
+@media (min-width: 1400px) {
+    .container {
+        width: 1140px !important;
+    }
+}
+
+.card-item img {
+    margin: auto;
+}
+
+@media (max-width: 767px) {
+    .featured-in-xu {
+        width: 80%;
+        margin: auto;
+    }
+
+    .sliderWrapper :global .slick-dots {
+        bottom: -45px
+    }
+
+    .sliderWrapper :global .slick-dots li {
+        width: 10px;
+        height: 10px;
+    }
+}

@@ -1,0 +1,252 @@
+.ReportPdf {
+  width: 70%;
+  margin: auto;
+  height: 100%;
+}
+.PageBreak {
+  clear: both;
+  page-break-after: always;
+  page-break-after: always;
+  padding-top: 4rem;
+  margin: 0rem 2rem;
+  margin-bottom: 22rem;
+}
+.PageBreak table {
+  page-break-inside: auto;
+}
+.PageBreak tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+.Norecord {
+  text-align: center;
+}
+.Norecord p {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.Header {
+  position: fixed;
+  margin: 0;
+  width: 70%;
+  padding: 3rem;
+  background-color: #f7f8f8;
+  background-image: url(../Html/css/Fintoologo_.svg);
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  /* background-size: 200px 200px; */
+}
+.Header img {
+  width: 100px;
+  float: right;
+}
+.Footer {
+  position: fixed;
+  width: 70%;
+  bottom: 0;
+  border-top: 1px solid #e7e7e7;
+}
+.FooterContent {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0rem;
+  color: #332e7f;
+  font-size: 1rem;
+  font-weight: 500;
+  /* font-size: 1.2rem;
+    color: #4f138700; */
+}
+.ProfileSection {
+  /* padding: 0rem 0rem 0rem 2.4rem; */
+  width: 100%;
+}
+.ReportProfile {
+  width: 65%;
+  margin: auto;
+  height: 100vh;
+}
+.ReportSection {
+  background-color: #042b62;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 0rem;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.RPSection{
+  margin-left: 2rem;
+}
+.borderDv {
+  height: 1px;
+  background: #e8e8e8;
+  clear: both;
+  margin: auto;
+  width: 86%;
+}
+.LeftSide {
+  width: 100%;
+}
+.LeftSide .icons svg {
+  font-size: 2rem;
+  color: #0c9cd9;
+}
+.Textlabel {
+  font-size: 1.4rem;
+  color: #332e7f;
+  padding-top: 0.3rem;
+  font-weight: 700;
+  vertical-align: top;
+}
+.SubTxt {
+  padding-top: 1rem;
+}
+.SubTxt p {
+  color: #9e9e9e;
+  font-weight: 400;
+}
+.profileType {
+  padding: 0rem 2.4rem 1rem 2.4rem;
+}
+.RightSide img {
+  width: 120px;
+  float: right;
+  margin-top: -2rem;
+}
+.TypeBox {
+  background-color: #28a7de;
+  padding: 0.3rem 1rem;
+  width: 10rem;
+  border-radius: 30px;
+  vertical-align: middle;
+  position: relative;
+  top: -1.2rem;
+}
+.TypeSubBox {
+  background-color: #e7e7e7;
+  padding: 0.2rem;
+  width: 13rem;
+  border: 1px solid #28a7de;
+  border-radius: 30px;
+  vertical-align: middle;
+  position: relative;
+}
+.TypeSubBox .Heading {
+  color: #332e7f;
+  padding-left: 1.4rem;
+}
+.TypeSubBox .bgWHite {
+  margin-left: -1.3rem;
+  margin-top: -0.4rem;
+}
+.TypeSubBox img {
+  width: 30px;
+}
+.ProfileSection {
+  max-width: 100%;
+  padding: 10px;
+}
+/* .ProfileSection .table {
+  table-layout: fixed;
+  width: 200px;
+} */
+.ProfileSection tr td {
+  min-width: 150px;
+  padding-left: 0px;
+}
+.ProfileSection tr td .DataImg {
+  float: left;
+  vertical-align: middle;
+}
+.ProfileSection tr td .DataInfo {
+  float: left;
+  margin-left: 1rem;
+}
+.ProfileSectionone {
+  margin-left: 3rem;
+}
+.ProfileSection .DataInfo div:first-child {
+  color: #042b62;
+  font-weight: 500;
+}
+.ProfileSection .Datalabel {
+  color: #9e9e9e;
+  font-weight: 500;
+}
+.Heading {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding-left: 2rem;
+}
+.bgWHite {
+  background-color: transparent;
+  border-radius: 50%;
+  margin-left: -2rem;
+  margin-top: -0.7rem;
+  position: absolute;
+}
+.ProfileSection .Spacer {
+  padding-top: 2rem;
+}
+
+.MyFamily {
+  margin-top: 4rem;
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    page-break-inside: auto;
+  }
+  .ReportPdf {
+    width: 100%;
+    margin: auto;
+    height: 100%;
+  }
+  .ReportProfile {
+    width: 100%;
+    /* padding-right: 2rem; */
+  }
+  .Header {
+    position: fixed;
+    margin: 0;
+    width: 100%;
+    padding: 3rem;
+    background-color: #f7f8f8;
+    background-image: url(../Html/css/Fintoologo_.svg);
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    /* background-size: 200px 200px; */
+  }
+  .ProfileSection tr td {
+    min-width: 120px;
+    padding-left: 0px;
+  }
+  .PageBreak {
+    page-break-before: always;
+  }
+  .PageBreak table {
+    page-break-inside: auto;
+  }
+  .PageBreak tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  .Footer {
+    width: 100%;
+  }
+  .Footer p {
+    margin: 0rem 2rem;
+  }
+}
+@page {
+  size: landscape;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin: 0;
+}

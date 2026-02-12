@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35" height="35" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #042b62;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-2" x="104.39" y="88.11" width="903.61" height="903.61"/>
+    </clipPath>
+  </defs>
+  <g class="cls-3">
+    <path class="cls-1" d="M962.82,585.1c-2.97,54.12-18.88,106.74-46.4,153.44-27.51,46.7-65.83,86.11-111.73,114.94l-248.49,138.25-248.49-138.25c-45.9-28.83-84.22-68.24-111.73-114.94-27.52-46.7-43.43-99.31-46.4-153.44V223.66c152.71,0,293.67-50.6,406.62-135.54,112.95,85.39,253.91,135.54,406.63,135.54v361.44ZM556.19,633.89l131.93,92.17-46.54-154.07,128.31-97.14-160.84-3.62-52.86-151.81-52.86,151.81-160.84,3.62,127.86,96.69-46.54,153.61,132.38-90.81v-.45Z"/>
+  </g>
+  <image width="1080" height="1080" transform="translate(-1077 -1)" xlink:href="../../web icon/yoursafetyandsecuritycomefirst.png"/>
+</svg>

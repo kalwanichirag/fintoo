@@ -1,0 +1,107 @@
+.ndacontent{
+    font-size: 16px;
+    
+}
+.ndacontent h3 b{
+    font-size: 25px !important;
+}
+.ndacontent table{
+    text-align: left;
+}
+.ndacontent td{
+    width: 50% !important;
+    padding-top: 0 !important;
+}
+.NDA-Page header{
+    display: none;
+}
+.NDApage{
+    position: absolute;
+    top: 0;
+    font-size: 1.2rem;
+    height: 100%;
+    width: 100%;
+    
+}
+
+.backgrounddiv{
+    background: url('https://images.minty.co.in/static/assets/img/bg/back.svg') no-repeat left bottom;
+    height: 165px;
+    background-size: cover;
+    position: relative;
+}
+/* .backgrounddiv .bg{
+    background: url(https://images.minty.co.in/static/assets/img/bg/about.svg) no-repeat right top;
+} */
+.backgrounddiv .bg{
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    transition: 0.9s ease all;
+    background-size: auto 170px !important;
+}
+.backgrounddiv .bg.active {
+    transform: translateY(0px);
+}
+.backgrounddiv .backarrow{
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    top: 30px;
+    left: 30px;
+    background-color: rgba(0,82,99,.14);
+    padding: 14px;
+    border-radius: 12px;
+    z-index: 1;
+}
+.ndacontent{
+    padding:3rem 4rem;
+    height: 100%;
+}
+
+.ndacontent ul li{
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+.ndacontent ol li{
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+.rContent >div >div{
+    max-width: 100% !important;
+}
+
+.subheader{
+    font-size: 2rem;
+    color: #042b62;
+    text-align: center;
+}
+.ul_list{
+    list-style: decimal;
+    margin-left: 0px !important;
+    margin-top: 10px;
+}
+.table{
+    width: 100%;
+}
+.NDA_ndacontent__bACnD{
+    width: 100%;
+    max-width: 100%;
+}
+@media only screen and (max-width: 768px)  {
+    .ndacontent{
+        padding: 2rem 0rem;
+    }
+    .subheader{
+        font-size: 1.4rem;
+    }
+    .backgrounddiv .backarrow{
+        padding: 8px;
+        top: 30px;
+    left: 7px;
+    }
+    .ndacontent ul, ol li{
+        font-size: 1rem;
+    }
+}

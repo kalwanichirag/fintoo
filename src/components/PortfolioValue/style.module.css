@@ -1,0 +1,92 @@
+.title {
+    font-weight: 600;
+}
+.symbol {
+    font-weight: 600;
+    font-size: 2rem;
+}
+.value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #042b62;
+}
+.insidePo {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.diffDv .value, .diffDv .title {
+    color: rgb(161 161 161)
+}
+.clsName {
+    background: #eee;
+    padding: 10px;
+    border-radius: 7px;
+}
+.clsN {
+    font-weight: bold;
+    font-size: .9rem;
+}
+.clsN1 {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #a8a8a8;
+}
+.clsN1 span {
+    padding-left: 7px;
+    font-size: .8rem;
+}
+.grid08 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    position: relative;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.gridItem {
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+}
+.pbox {
+    display: flex;
+    justify-content: space-between;
+}
+.bepbox {
+    padding: 10px;
+}
+
+@media (min-width: 768px) {
+    .grid08::after {
+        content: ' ';
+        position: absolute;
+        top: 10%;
+        height: 80%;
+        width: .7px;
+        background: lightgray;
+        right: -20px;
+    }
+    .bepbox {
+        padding: 10px;
+    }
+    .pbox {
+        align-items: center;
+    }
+    .pbox1 {
+        /* d-flex align-items-center */
+        display: flex;
+        align-items: center;
+    }
+    .diffDv {
+        transform: scale(.8);
+    }
+    .diffDv .insidePo {
+        padding-left: 2rem;
+    }
+    .diffDv {
+        border-left: 1px solid rgb(161 161 161);
+    }
+}

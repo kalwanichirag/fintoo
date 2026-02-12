@@ -1,0 +1,7 @@
+.Accordion_acc_section_active {
+    box-shadow: 0px 0px 5px 3px #dcdada;
+}
+.Accordion_acc_section_active .Accordion_title-container {
+    box-shadow: 0px 0px 5px 3px #dcdada;
+    border-bottom: 1px solid #ececec;
+}

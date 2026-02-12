@@ -1,0 +1,65 @@
+
+.fintoo-input-slider:before {
+    position: absolute;
+    content: attr(data-min);
+    top: 30px;
+    left: -5px !important;
+    font-size: 12px;
+    line-height: 12px;
+}
+.fintoo-input-slider:after {
+    position: absolute;
+    content: attr(data-max);
+    right: -8px;
+    top: 30px;
+    font-size: 12px;
+    line-height: 12px;
+}
+.fintoo-input-slider .rc-slider-handle:after {
+    position: absolute;
+    content: attr(aria-valuenow);
+    right: -15px;
+    top: 15px;
+    font-size: 12px;
+    line-height: 12px;
+    width: 40px;
+    text-align: center;
+}
+
+.return-slider .rc-slider-rail {
+    background-color: #ddd!important;
+    height: 100%!important;
+}
+.return-slider .rc-slider-track {
+    background-color: #042b62!important;
+    height: 100%!important;
+}
+.return-slider .rc-slider {
+    height: 11px!important;
+}
+.return-slider .rc-slider-handle {
+    height: 20px!important;
+    width: 20px!important;
+    background: #fff!important;
+    border: 0px!important;
+    opacity: 1!important;
+    box-shadow: none!important;
+}
+.return-slider .rc-slider-handle:after {
+    display: none;
+}
+.sl-hide-left .fintoo-input-slider:before {
+    display: none;
+}
+.sl-hide-right .fintoo-input-slider:after {
+    display: none;
+}
+.sl-hide-left.fintoo-input-slider:before {
+    display: none;
+}
+.sl-hide-right.fintoo-input-slider:after {
+    display: none;
+}
+.return-slider .fintoo-input-slider:after, .return-slider .fintoo-input-slider::before {
+    display: none;
+}

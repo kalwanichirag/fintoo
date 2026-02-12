@@ -1,0 +1,22 @@
+.fintoo-client-testimonial-j4r .slick-dots button::before {
+    display: none;
+}
+.fintoo-client-testimonial-j4r .slick-dots li {
+    margin: 0 4px;
+}
+.fintoo-client-testimonial-j4r .slick-dots button {
+    border-radius: 100px 100px 100px 100px;
+    width: 8px;
+    height: 8px;
+    border-radius: 100px 100px 100px 100px;
+    background-color: #e7e7e7;
+}
+.fintoo-client-testimonial-j4r .slick-active button {
+    background-color: #042b62;
+    transform: scale(1.2);
+    width: 16px;
+    height: 16px;
+}
+.fintoo-client-testimonial-j4r .slick-arrow::before {
+    display: none;
+}

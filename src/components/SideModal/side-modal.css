@@ -1,0 +1,63 @@
+.mymodal .modal-dialog {
+  position: fixed;
+  margin: auto;
+ /* width: 320px;
+  */
+ /* width: 512px;
+  */
+ /* width: 1000px;
+  */
+  height: 100%;
+  right: 0px;
+  max-width: 100%;
+}
+.mymodal.smallfrm .modal-dialog {
+  width: 500px;
+}
+.mymodal.largefrm .modal-dialog {
+  width: 1000px;
+}
+.mymodal .modal-content {
+  height: 100%;
+  border: none;
+  border-radius: 0px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  overflow-y: scroll;
+  padding: 0;
+}
+.myrow {
+  height: 100%;
+}
+.cnbx {
+  background-color: #f0f4f3;
+}
+.mymodal .modal-header, .mymodal .modal-body {
+  padding: 0;
+}
+.mymodal .mybtn-close {
+  position: fixed;
+  background: #cfdddf;
+  border-radius: 0.5rem;
+  border: 0px;
+  padding: 1rem 1rem;
+  top: 20px;
+  right: 435px;
+}
+.mymodal .mybtn-close img {
+  width: 20px;
+  height: 20px;
+}
+.mymodal.largefrm .mybtn-close {
+  right: 935px !important;
+}
+.mos1 .mycardcon {
+  padding-left: 4rem;
+  padding-top: 8rem;
+  padding-right: 2rem;
+}
+@media only screen and (max-width: 1280px) {
+  .mos1 .mycardcon {
+    padding-top: 3rem !important;
+ }
+}

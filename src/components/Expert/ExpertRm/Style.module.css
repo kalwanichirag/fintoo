@@ -1,0 +1,146 @@
+.CardBox {
+  width: 100%;
+}
+/* .rmlist {
+  width: 54rem;
+} */
+.rmlist .item {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  grid-template-rows: repeat(4, 1fr) !important;
+  grid-column-gap: 0px !important;
+  grid-row-gap: 0px !important;
+}
+/* .rmlist .rec-swipable{
+  
+} */
+.RmBox{
+    background-color: #eaebef;
+    /* margin-right: 2rem; */
+    padding: 1rem 1rem 1rem 1rem;
+    font-size: 0.6rem;
+    border-radius: 12px;
+    /* height: 120px; */
+    cursor: pointer;
+    border: 2px transparent;
+}
+.RmBox img {
+  width: 57px !important;
+  height: 57px;
+  border-radius: 50%;
+}
+.rmName {
+  color: #042b62;
+  /* font-size: 0.9rem; */
+  font-weight: 700;
+}
+.rmPersonal {
+  border-bottom: 0.7px solid #dad4d4;
+  padding-bottom: 0.3rem;
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 12rem;
+}
+.rmProfile {
+  color: #858487;
+  /* font-size: 0.8rem; */
+  font-weight: 700;
+}
+.rmQualification {
+  color: #858487;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.BorderRight {
+  border-right: 0.9px solid #a1a1a1;
+  padding-right: 0.9rem;
+}
+.textLabel {
+  color: #858487;
+  /* font-size: 0.8rem; */
+  font-weight: 700;
+}
+.ValueLabel {
+  font-size: 0.8rem;
+}
+span.fa.fa-star.checked {
+  color: orange;
+}
+
+.BackBtn {
+  background-color: #eaebef !important;
+  width: 6rem;
+  height: 2.5rem;
+  /* padding: 2rem; */
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  position: absolute;
+  top: 95.4%;
+  left: 1.2rem;
+  border: none;
+}
+.BackImg {
+  width: 14px;
+  height: 14px;
+}
+.NextBtn {
+  background-color: #eaebef !important;
+  width: 6rem;
+  height: 2.5rem;
+  /* padding: 2rem; */
+  border-top-right-radius: 20px;
+  border: none;
+  float: right;
+  margin-right: 2rem;
+  border-bottom-right-radius: 20px;
+}
+.NextImg {
+  width: 14px;
+  height: 14px;
+}
+.SlideRm div:focus {
+  border: none;
+  outline: none;
+}
+.activeRM .RmBox {
+  /* border: 2px solid rgb(52, 160, 196); */
+  border: 2px solid #042b62;
+}
+.exMainData {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .exMainData {
+    width: 55%;
+  }
+  .exMainData_1 {
+    width: 85%!important;
+    display: grid;
+    place-items: center;
+  }
+  .exMainData_1 p{
+  font-size: 1.2rem;
+  width: 80%;
+  text-align: center;
+  }
+}
+@media screen and (max-width : 768px) {
+  .MobileRMList{
+    margin-top: 1rem;
+    max-height: 450px;
+    overflow-y: scroll;
+    padding: 0rem 1rem 1rem 1rem;
+  }
+    .rmlist{
+        width: 25rem;
+    }
+    .BackBtn{
+        display: none;
+    }
+    .NextBtn {
+        display: none;
+    }
+}

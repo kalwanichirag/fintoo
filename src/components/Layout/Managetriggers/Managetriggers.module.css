@@ -1,0 +1,129 @@
+.wrapper {
+  display: flex;
+  background: #ffff;
+  border-radius: 29px;
+}
+.navbar {
+  width: 12rem;
+  text-align: center;
+  min-height: 100vh;
+  background: #fff;
+  padding: 1rem;
+  /* border-top-left-radius: 29px; */
+  /* border-bottom-left-radius: 29px; */
+  border-right: 1px solid #eeee;
+}
+.navbar svg {
+  color: #042b62;
+  width: 2rem;
+  height: 2rem;
+}
+.menuitem {
+  /* display: flex; */
+  padding: 1em;
+  margin-top: 1rem;
+  margin-left: 0rem;
+  margin-bottom: 0rem;
+}
+.menutext {
+  font-size: .8rem;
+  padding-top: 0.3em;
+  font-weight: 600;
+  color: #a1a1a1;
+  margin-left: 1em;
+  /* width: 100%; */
+  cursor: pointer;
+  white-space: nowrap;
+}
+.menuitem .active{
+  color: #042b62 !important;
+}
+.menuitem a {
+  color: #042b62;
+  outline: none;
+}
+.menuitem a.active {
+  /* border-left: 5px solid #f0806d;
+    background: rgba(240, 128, 109, 0.1); */
+  color: #042b62;
+  font-weight: 500;
+}
+.navbar .menutext:first-child {
+  color: #042b62;
+}
+.menutext:hover {
+  color: #042b62;
+  /* border-right: 1px solid #042b62; */
+}
+.contentWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column !important;
+}
+.menuLogo {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.mobileHumburger img {
+  width: 20px;
+}
+
+.navbar .RmBox {
+  margin-top: 4rem;
+  width: 100%;
+  text-align: left;
+  margin-left: 1rem;
+}
+.navbar .RmBox .RmImg {
+  margin-bottom: 0rem;
+}
+.navbar .RmBox .RmImg img {
+  width: 34px;
+}
+.navbar .RmBox .RmProfile {
+  color: #a1a1a1;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.navbar .RmBox .RmName {
+  color: #4b348e;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.navbar .RmBox .MailTxt{
+    color: #a1a1a1;
+    font-size: .8rem;
+    font-weight: 600;
+}
+.navbar .RmBox .Rminfo{
+color: #4b348e;
+font-weight: 700;
+font-size: .9rem;
+}
+.navbar .RmBox .bookDemo button {
+  padding: 6px;
+  /* padding-left: 10px; */
+  /* padding-left: 10px;/ */
+  background-color: #015ea1;
+  color: #fff;
+  font-weight:700;
+  font-size: .7rem;
+  border-radius: 20px;
+  margin-top: 1rem;
+  border: none;
+  white-space: nowrap;
+  width: 9rem;
+  text-transform: uppercase;
+  outline: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+
+  .wrapper {
+    border-radius: 0px!important;
+  }
+}

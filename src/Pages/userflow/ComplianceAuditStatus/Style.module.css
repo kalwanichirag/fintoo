@@ -1,0 +1,39 @@
+.ComplianceAuditStatus{
+    width: 80%;
+    margin: auto;
+}
+.TableBox{
+    overflow-x: auto;
+}
+.TableBox table{
+    overflow-x: auto;
+}
+/* .TableBox tbody, td, tfoot, th, thead, tr{
+    border: 1px solid#dee2e6;
+} */
+.TableBox thead td{
+    background-color: #f1f1f1;
+}
+.TableBox  td{
+    padding: 1rem;
+    font-size: 1.2rem;
+    border-right: 1px solid #dee2e6 !important;
+    /* border-right: 1px solid#dee2e6; */
+}
+.HeaderText{
+    margin-bottom: 2rem;
+    color: #042b62;
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+@media only screen and (max-width: 768px) {
+    .ComplianceAuditStatus{
+        width: 90%;
+        margin: auto;
+    }
+    .TableBox td{
+        font-size: .9rem;
+        white-space: nowrap;
+    }
+}
+    

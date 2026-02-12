@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 11</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-57.4952015%" y1="58.3354404%" x2="178.047729%" y2="58.3354404%" id="linearGradient-1">
+            <stop stop-color="#8DC63F" offset="0%"></stop>
+            <stop stop-color="#6AAA13" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-57.4952015%" y1="58.3354404%" x2="178.047729%" y2="58.3354404%" id="linearGradient-2">
+            <stop stop-color="#8DC63F" offset="0%"></stop>
+            <stop stop-color="#6AAA13" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Services" transform="translate(-905.000000, -1120.000000)">
+            <g id="Group-11" transform="translate(905.000000, 1120.000000)">
+                <circle id="Oval-Copy" fill="#8DC63F" opacity="0.0975864955" cx="36" cy="36" r="36"></circle>
+                <circle id="Oval-Copy-2" fill="#8DC63F" opacity="0.099609375" cx="36" cy="36" r="30"></circle>
+                <g id="expert-advise" transform="translate(21.000000, 18.000000)">
+                    <g id="noun_team_48301">
+                        <path d="M15.3637442,16.7737586 C17.7190233,16.7737586 19.856293,15.8289828 21.4018233,14.3049655 C22.941514,12.7873276 23.894007,10.6942759 23.894007,8.38687931 C23.894007,3.76187931 20.067814,0 15.364393,0 C10.6603233,0 6.83413023,3.76187931 6.83413023,8.38687931 C6.83413023,10.6949138 7.78727209,12.7866897 9.32696279,14.3049655 C10.8718442,15.8289828 13.0078163,16.7737586 15.3637442,16.7737586 Z" id="Path" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                        <path d="M24.0646512,15.9737931 C23.8388558,15.7970862 23.611114,15.6248448 23.3762349,15.4615345 C21.4011744,17.6202931 18.5411,18.981 15.3630953,18.981 C12.1850907,18.981 9.32501628,17.620931 7.35125349,15.4615345 C7.11702326,15.6242069 6.88863256,15.7970862 6.66218837,15.9737931 C2.80614884,18.9912069 0.284767442,23.9568621 0.284767442,29.5776724 C0.284767442,30.2468621 0.339269767,30.8535345 0.445030233,31.4047069 C1.4611093,36.7103793 7.18969302,36.8398793 14.2717512,36.8398793 C14.6318558,36.8398793 14.9958535,36.8392414 15.3630953,36.8392414 C16.8236279,36.8392414 18.2361465,36.8660345 19.5708047,36.8660345 C25.2208791,36.8660345 29.4915256,36.3748276 30.2928395,31.3989655 C30.3823791,30.8446034 30.4407744,30.2494138 30.4407744,29.5783103 C30.4414233,23.9568621 27.9206907,18.9912069 24.0646512,15.9737931 Z" id="Path" fill="url(#linearGradient-2)" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+                <circle id="Oval" fill="#8DC63F" opacity="0.502673921" cx="15" cy="38" r="2"></circle>
+                <circle id="Oval-Copy-4" fill="#8DC63F" opacity="0.502673921" cx="50" cy="31" r="2"></circle>
+                <circle id="Oval-Copy-17" fill="#8DC63F" opacity="0.502673921" cx="20.5" cy="20.5" r="1.5"></circle>
+                <circle id="Oval-Copy-22" fill="#8DC63F" opacity="0.502673921" cx="60.5" cy="29.5" r="1.5"></circle>
+                <circle id="Oval-Copy-23" fill="#8DC63F" opacity="0.502673921" cx="42" cy="12" r="1"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

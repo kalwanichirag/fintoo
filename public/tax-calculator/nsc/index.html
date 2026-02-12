@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/NSC.css">
+    <title>Interest on National Savings Certificate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <span class="link80C">
+        <span class="link80CArrow"></span>
+        It's a provision in
+        the Indian Income Tax Act that allows an individual to claim a
+        deduction of up to Rs. 1.5 lakh from their taxable income. This
+        deduction is available to individuals who make certain types of
+        investments or expenses, such as: <br>
+        1. Life insurance premium payments<br>
+        2. Contributions to Employee Provident Fund (EPF) and Public
+        Provident Fund (PPF)<br>
+        3. Investments in National Savings Certificates (NSC)<br>
+        4. Equity Linked Savings Scheme (ELSS) mutual fund investments
+        5. Repayment of home loan principal<br>
+        6. Tuition fees paid for children's education<br>
+        It is important to note that the total deduction available under
+        Section 80C, 80CCC and 80CCD(1) cannot exceed Rs. 1.5 lakh in a
+        financial year.</span>
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button">INTEREST ON NATIONAL SAVINGS CERTIFICATE</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <div class="incom-and-tax-calculator-form">
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center tax-payer element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Assessment Year
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select id="assessment-year" class="form-select rounded-0"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" onchange=""
+                                        required>
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="table-coontainer" id="tb">
+                                <div class="div-table">
+                                    <div class="div-row thead theader">
+                                        <div class="div-cell header-cell">S.No. </div>
+                                        <div class="div-cell header-cell">NSC Type </div>
+                                        <div class="div-cell header-cell">Period</div>
+                                        <div class="div-cell header-cell">Amount of Investment </div>
+                                        <div class="div-cell header-cell">Interest </div>
+                                        <div class="div-cell header-cell">DEDUCTION UNDER SECTION <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'link80C')"
+                                                onmouseleave="tooltipOff(event,'link80C')">80C</span>
+                                        </div>
+                                    </div>
+                                    <div id="myDiv" class="div-row">
+                                        <div class="div-cell s-no">1</div>
+                                        <div class="div-cell">
+                                            <select class="form-select rounded-0 nsc-type">
+                                                <option value="0">Select </option>
+                                                <option value="1">VIII Issue </option>
+                                                <option value="2">IX Issue </option>
+                                            </select>
+                                        </div>
+                                        <div class="div-cell">
+                                            <select class="form-select rounded-0 nsc-period">
+                                                <option value="0">Select </option>
+                                            </select>
+                                        </div>
+                                        <div class="div-cell">
+                                            <input class="form-control rounded-0 investment-amount"
+                                                onkeypress="return NumericOnly(this);" type="text" maxlength="15">
+                                        </div>
+                                        <div class="div-cell">
+                                            <input class="form-control rounded-0 interest-amount" disabled="disabled"
+                                                type="text">
+                                        </div>
+                                        <div class="div-cell">
+                                            <input class="form-control rounded-0 deduction-amount"
+                                                onkeypress="return NumericOnly(this);" type="text" disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="div-row total-row">
+                                        <div class="div-cell s-no"></div>
+                                        <div class="div-cell"></div>
+                                        <div class="div-cell">Total </div>
+                                        <div class="div-cell">
+                                            <input disabled="disabled"
+                                                class="form-control rounded-0 investment-amount-total" type="text">
+                                        </div>
+                                        <div class="div-cell">
+                                            <input disabled="disabled"
+                                                class="form-control rounded-0 interest-amount-total" type="text">
+                                        </div>
+                                        <div class="div-cell">
+                                            <input disabled="disabled"
+                                                class="form-control rounded-0 deduction-amount-total" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="input_fields_wrap action-buttons-container">
+                                <button id="nsc-add-more-fields" class="add_field_button calculate-badge">
+                                    Add
+                                    More</button>
+                                <a id="nsc-remove-last-field" style="text-decoration: none;" href="javascript:void(0)"
+                                    class="remove_field reset-badge">
+                                    Remove
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container2 padding-div">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br><br><br>
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../../static/tax-calc/js/NSC.js"></script>
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        current_date.setFullYear(current_date.getFullYear() + 1);
+        var year1 = current_date.getFullYear();
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 7; i++) {
+            var year2 = year1 + 1;
+            $('#assessment-year').append(`<option value="${i + 1}">${(year1 - 1).toString() + "-" + (year2 - 1).toString()}</option>`)
+            year1 -= 1;
+        }
+    });
+    const getNSC = (strValue) => {
+        switch (strValue) {
+            case '1':
+                return '2'
+            case '2':
+                return '1'
+            default:
+                return "";
+        }
+    }
+    function getFormattedValue(strValue){
+        if (strValue !="") {
+            if (strValue % 1 != 0) {
+                round_off_val=parseFloat(strValue).toFixed(2)
+                before_decimal=(round_off_val).toString().split(".")[0]
+                after_decimal=(round_off_val).toString().split(".")[1]
+                return (parseInt(before_decimal)).toLocaleString('en-IN')+"."+after_decimal;
+            }
+            else{
+                return (parseInt(strValue)).toLocaleString('en-IN');
+            }
+        }
+        else{
+            return "0";
+        }
+    }
+
+    function Calculate() {
+
+        hideAlert();
+        document.getElementsByClassName("investment-amount")[0].style.border = "1px solid rgb(222 226 230)";
+        var assessmentYear = $("#assessment-year option:selected").text();
+        var data = [];
+        tot_rows = $(".div-row").length - 2;
+        var invest_error=true;
+        for (let i = 0; i < tot_rows; i++) {
+            var nsc_type = +getNSC(document.getElementsByClassName("nsc-type")[i].value)||"";
+            var period = +document.getElementsByClassName("nsc-period")[i].value;
+            var invest_amt = +document.getElementsByClassName("investment-amount")[i].value.replace(/,/g, '') || "";
+            if (invest_amt != "") {
+                invest_error=false;
+            }
+            data.push({
+                "nsc_type": nsc_type,
+                "investment_amount": invest_amt,
+                "period": period,
+            });
+        }
+        if (invest_error==true) {
+            showAlert();
+            document.getElementById("income_and_tax_calculator_alert_text").innerHTML = " <strong>Error ! !</strong> Please enter mandatory fields.";
+            document.getElementsByClassName("investment-amount")[0].style.border = "1px solid red";
+            return false;
+        }
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/interest_on_nsc/",
+            type: "POST",
+            data: JSON.stringify({
+                "assessment_year": assessmentYear,
+                "data": data
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    tot_rows = Object.keys(res.data.row_data).length;
+                    for (let i = 0; i < tot_rows; i++) {
+                        document.getElementsByClassName("interest-amount")[i].value = getFormattedValue(res.data.row_data[i]['interest_amount'])
+                        document.getElementsByClassName("deduction-amount")[i].value = getFormattedValue(res.data.row_data[i]['deduction_amount'])
+                    }
+                    $(".investment-amount-total").val(getFormattedValue(res.data.total_invst_amount));
+                    $(".interest-amount-total").val(getFormattedValue(res.data.total_interest_amount));
+                    $(".deduction-amount-total").val(getFormattedValue(res.data.total_deduction_amount));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>
+
+</html>

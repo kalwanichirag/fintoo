@@ -1,0 +1,14 @@
+.ExpertSection{
+    width: 100%;
+    background-color: #f6f8fc;
+    margin-top: 6rem;
+}
+.MainSection{
+    margin-top: 1rem;
+  display: flex;
+}
+@media screen and (max-width : 768px) {
+.MainSection{
+  display: grid;
+}
+}

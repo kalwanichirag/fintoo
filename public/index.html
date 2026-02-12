@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="https://fintoo.in/static/media/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <meta http-equiv="Content-Security-Policy" content="connect-src * wss: https:; img-src * data:;">
+
+  <link rel="apple-touch-icon" href="logo192.png" />
+  <script src="https://gateway.smallcase.com/scdk/2.0.0/scdk.js"></script>
+
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11313015202"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-948765509"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Tangerine:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" charset="UTF-8"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+<script src="https://cdn-script.com/ajax/libs/jquery/3.6.4/jquery.js" type="text/javascript"></script>
+ 
+
+  <link rel="stylesheet" type="text/css" charset="UTF-8"
+    href="https://www.fintoo.in/image/?frontend=1&file=https://www.fintoo.in/web/custom-color.css">
+
+  
+  
+
+
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <title>Fintoo</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .background-div .bg {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      bottom: 0;
+      right: 0;
+      transform: translateY(210px);
+      background-size: auto 170px !important;
+      transition: .9s ease all;
+    }
+    .background-div .bg#bg-retirement {
+      background: url('./static/media/DG/about/retirement.svg') no-repeat right top !important;
+    }
+
+    .background-div .bg#bg-income-tax {
+      background: url('./static/media/DG/about/income-tax.svg') no-repeat right top !important;
+    }
+    .background-div .bg.active {
+      transform: translateY(0px);
+    }
+  </style>
+  <style>
+    .dg-layout .recommen_sec_div .inner_text_div ul li,
+    .dg-layout .notes_sec_div ul li {
+      background-image: url("https://www.fintoo.in/image/?frontend=1&file=https://backup.fintoo.in/web/static/media/Report/Next.svg") !important;
+
+    }
+
+    .main-layout .otp-illustration {
+      /* background: url("https://www.fintoo.in/image/?file=userflow/otp-illustration.svg") no-repeat 0; */
+      background: url(/image/?file=userflow/otp-illustration.svg) no-repeat 0;
+      background-size: 500px 500px;
+      padding: 0;
+    }
+
+    .main-layout .registration-illustration {
+        background: url(/image/?file=userflow/registration-illustration.svg) no-repeat 0;
+        background-size: 600px 600px;
+      padding: 0;
+      padding: 0;
+    }
+
+    .main-layout .login-illustration {
+      background: url(/image/?file=userflow/login-illustration.svg) no-repeat 0;
+      background-size: 600px 600px;
+      padding: 0;
+      padding: 0;
+    }
+  </style>
+  <!-- <style>
+     .dg-layout .recommen_sec_div .inner_text_div ul li, .dg-layout .notes_sec_div ul li{
+      background-image:url("/image/?frontend=1&file=https://backup.fintoo.in/web/static/media/Report/Next.svg") !important;
+
+    }
+    .main-layout .otp-illustration {
+      background: url(/image/?frontend=1&file=userflow/otp-illustration.svg) no-repeat 0;
+      background-size: 500px 500px;
+      padding: 0;
+    }
+    .main-layout .registration-illustration {
+      background: url(/image/?file=userflow/registration-illustration.svg) no-repeat 0;
+      background-size: 600px 600px;
+      padding: 0;
+      padding: 0;
+    }
+  </style> -->
+
+  <!-- ===================================================webengage======================================================== -->
+
+  <!-- ===================================================webengage======================================================== -->
+
+  <!-- Google tag (gtag.js) added on 15oct2025 -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-T15R5ED28G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-T15R5ED28G');
+</script> -->
+
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <!-- <div class="d-none"><a href="https://www.fintoo.in/web/sitemap">Sitemap</a></div> -->
+  <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+</body>
+<script async
+    src="https://cdn-in.pagesense.io/js/mihikainsurancefinancialcons/0eee1ab2fb1742cc809cefc5773dc0cd.js"></script>
+
+  <script>
+
+    if (window.location.host.includes('fintoo.in') || window.location.host.includes('fintoo.ae') || window.location.host.includes('fintoo.ai')) {
+
+      console.log(`
+=========== === ===       === =======   ====     ====
+=========   === ====      === ======= ==    == ==    ==
+===         === === =     ===   ===   ==    == ==    ==
+===         === ===  =    ===   ===   ==    == ==    ==
+======      === ===   =   ===   ===   ==    == ==    ==
+======      === ===    =  ===   ===   ==    == ==    ==
+===         === ===     = ===   ===   ==    == ==    ==
+===         === ===       ===   ===     ====     ====
+`);
+      // var console = {};
+      // console.log = function () { };
+      // console.error = function () { };
+      // console.warn = function () { };
+    }
+    const imagePath = window.location.hostname === "localhost"
+      ? "http://127.0.0.1:8000/image/?frontend=1&file="
+      : "/image/?frontend=1&file=";
+
+    // const bg_back_svg = imagePath + "https://images.fintoo.in/static/assets/img/bg/back.svg";
+    // // console.log("hi", document.getElementsByClassName("background-div"));
+    // document.getElementsByClassName("background-div")[0].style.background = 'url("'+ bg_back_svg +
+    //                                            '") no-repeat left bottom !important;';
+
+    // var background_divs = document.getElementsByClassName("dg-layout background-div");
+    // console.log("Background divs: ", background_divs);
+
+  </script>   
+</html>

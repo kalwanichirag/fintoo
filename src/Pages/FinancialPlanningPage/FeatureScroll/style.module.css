@@ -1,0 +1,153 @@
+.featureScrollSection {
+    height: 100vh;
+}
+
+.featureSection {
+    height: 100%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    padding-bottom: 5rem;
+}
+
+.featureContainer {
+    padding: 3rem 0;
+    height: 100%;
+    display: flex;
+    scroll-snap-align: start;
+}
+
+.featureContentContainer {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.featureTxtContent {
+    width: 50%;
+}
+
+.featureTxtContentBtn1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #042b62;
+    border: 2px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.featureTxtContentBtn1:hover {
+    color: white;
+    background-color: #042b62;
+    border: 2px solid #042b62;
+}
+
+.featureImgContent {
+    width: 50%;
+    /* height: 450px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.featureImg1 {
+    width: 70%;
+}
+
+.featureImg2 {
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.GlobalText {
+    padding: 2rem;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.GlobalText2 {
+    padding: 2rem;
+    color: #042b62;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.FeatureHeading {
+    font-size: 2.5rem !important;
+}
+
+.Text1 {
+    /* padding: 2rem; */
+    color: #042b62;
+    font-size: 1.5rem;
+    /* font-weight: bold; */
+}
+
+@media only screen and (max-width: 850px) {
+    .featureContentContainer {
+        width: 90%;
+    }
+
+    .featureScrollSection {
+        height: 35vh;
+    }
+
+    .featureImgContent {
+        height: 300px;
+    }
+
+    .FeatureHeading {
+        font-size: 2rem !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .featureContentContainer {
+        width: 95%;
+    }
+
+    .featureScrollSection {
+        height: unset;
+    }
+
+    .GlobalText {
+        font-size: 1.5rem;
+    }
+
+    .GlobalText2 {
+        font-size: 1.5rem;
+    }
+
+    .featureContentContainer {
+        flex-wrap: wrap;
+    }
+
+    .featureTxtContent {
+        width: 100%;
+    }
+
+    .featureImgContent {
+        width: 100%;
+        height: 200px;
+    }
+
+    .featureImg2 {
+        width: 60%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

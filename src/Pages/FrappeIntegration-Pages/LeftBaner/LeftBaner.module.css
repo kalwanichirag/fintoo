@@ -1,0 +1,69 @@
+.container {
+  width: 50%;
+  height: 100%;
+  display: none;
+  position: relative;
+}
+
+@media (min-width: 1280px) {
+  .container {
+    display: block;
+  }
+}
+
+.bgImageTopLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+}
+
+.bgImageTopRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  transform: rotate(0deg);
+}
+
+.bgImageBottomRight {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 200px;
+}
+
+.bgImageBottomLeft {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 120px;
+  transform: rotate(0deg);
+}
+
+.bannerWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem; /* roughly space-y-5 */
+}
+
+.bannerImage {
+  margin-bottom: 1.5rem;
+  width: 55%;
+}
+
+.textContainer {
+  text-align: center;
+}
+
+.heading {
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38" height="38" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e5e5e5;
+      }
+
+      .cls-2 {
+        fill: #042b62;
+        opacity: .97;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 20px;
+      }
+
+      .cls-4 {
+        fill: #fff;
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 352.57px;
+      }
+    </style>
+  </defs>
+  <g>
+    <path class="cls-2" d="M165.43,125h786.23c41.61,0,75.39,33.78,75.39,75.39v203.61H90.04v-203.61c0-41.61,33.78-75.39,75.39-75.39Z"/>
+    <path class="cls-3" d="M108.54,442.65h899.96v391.85c0,66.23-53.77,120-120,120H228.54c-66.23,0-120-53.77-120-120v-391.85h0Z"/>
+  </g>
+  <rect class="cls-1" x="302" y="82" width="67" height="229" rx="33.5" ry="33.5"/>
+  <rect class="cls-1" x="749" y="82" width="67" height="229" rx="33.5" ry="33.5"/>
+  <circle class="cls-2" cx="557.5" cy="698.5" r="176.5"/>
+  <text class="cls-4" transform="translate(464.16 825.86)"><tspan x="0" y="0">1</tspan></text>
+</svg>

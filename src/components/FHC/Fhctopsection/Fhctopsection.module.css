@@ -1,0 +1,95 @@
+.Fhctopsection {
+  background-color: #042b62;
+  margin-top: 3rem;
+  border-radius: 15px;
+
+  height: 676px;
+  padding: 4rem 0rem;
+  margin-bottom: 5rem;
+  position: relative;
+}
+.Fhctopsection .imgDiv {
+  position: relative;
+    width: 1055px;
+    height: 800px;
+    margin: -2rem auto auto;
+    z-index: 100;
+    background-image: url(./Assets/Section.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.Fhctopsection .fhctitle {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: #fff;
+}
+.Fhctopsection .fhcsubtitle {
+  color: #ffffff;
+  font-size: 400;
+}
+.fhcmanimg {
+  position: relative;
+  top: -2rem;
+  left: 16%;
+}
+/* .hidden {
+    opacity: 1;
+    transition: opacity 0.5s ease; /* Add a smooth transition for a better visual effect */
+/* }  */
+.fadeIn {
+  opacity: 1;
+  transition: opacity 1s ease-in-out; /* Adjust the transition timing as needed */
+}
+.bounceAnimation {
+  animation: bounce 1s infinite;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+@media only screen and (max-width: 600px) {
+  .Fhctopsection{
+    height: 100%;
+    margin-bottom: 0rem;
+  }
+  .fhtitlesection{
+    padding: 0 2rem;
+  }
+.Fhctopsection  .fhctitle{
+    font-size:1.7rem;
+  }
+  .Fhctopsection .fhcsubtitle {
+    font-size: .9rem;
+    padding-top: 1rem;
+  }
+  
+}
+@media screen and (max-width: 1300px) {
+  .Fhctopsection .imgDiv {
+    width: 960px !important;
+    margin:  -5rem auto auto !important;
+  }
+  .Fhctopsection div:first-child {
+    top: -12% !important;
+  }
+  .Fhctopsection .imgDiv div:nth-child(2) {
+    top: 7.7rem !important;
+  }
+  .Fhctopsection .imgDiv div:nth-child(3) {
+    top: 6.9rem !important;
+  }
+  .Fhctopsection .imgDiv div:nth-child(4) {
+    bottom: 23% !important;
+    left: -4.5rem !important;
+  }
+  .Fhctopsection .imgDiv div:last-child {
+    top: 17.6rem !important;
+  }
+}
+

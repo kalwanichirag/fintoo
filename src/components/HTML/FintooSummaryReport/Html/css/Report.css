@@ -1,0 +1,1030 @@
+::-webkit-scrollbar {
+  width: 3px !important;
+  height: 2px !important;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: #042b62;
+}
+
+body {
+  margin: 0;
+  font-family: "Red Hat Text", "Arial", "Helvetica", "sans-serif";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.FintooReport {
+  width: 70%;
+  margin: auto;
+  height: 100%;
+}
+.FintooReport Header {
+  position: fixed;
+  top: 0;
+  margin: 0;
+  width: 63%;
+  padding: 3rem;
+  background-color: #f7f8f8;
+  background-image: url(./Fintoologo_.svg);
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  z-index: 1000;
+  /* background-size: 200px 200px; */
+}
+.PageBreak {
+  clear: both;
+  page-break-after: always;
+  page-break-before: always;
+  margin: 3rem 0rem;
+}
+.FintooReport header {
+  page-break-before: always;
+  page-break-after: always;
+}
+.FintooReport footer {
+  page-break-before: always;
+  page-break-after: always;
+  z-index: 1000;
+}
+.FintooReport Header img {
+  width: 100px;
+  float: right;
+}
+
+/* Fintoo Report Front-Page */
+.FrontPage {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  margin-top: 6rem;
+  background-image: url("../Assets/01_01_front.png");
+  background-size: 99.5% 1160px;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.FrontPage > section header {
+  display: none;
+}
+.pdfMainPage {
+  position: absolute;
+}
+.BorderSection {
+  border: 1px solid #615f5f;
+  position: absolute;
+  margin: 2rem;
+}
+.ProductLists {
+  width: 95%;
+  margin: auto;
+}
+.ProductLists table td {
+  padding: 1rem 2rem;
+}
+
+/* Profile Section */
+.ReportSection {
+  background-color: #042b62;
+  text-align: center;
+  width: 90%;
+  margin: auto;
+  margin-top: 6rem;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding-bottom: 1rem;
+}
+.ReportSection div {
+  padding-top: 1rem;
+  display: -webkit-box; /* wkhtmltopdf uses this one */
+  display: flex;
+  -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+  justify-content: center;
+  align-items: center;
+}
+.profileType {
+  padding: 0rem 2.4rem 0rem 2.4rem;
+}
+.RightSide img {
+  width: 120px;
+  float: right;
+  margin-top: -2rem;
+  margin-right: 3rem;
+}
+.borderDv {
+  height: 1px;
+  background: #e8e8e8;
+  clear: both;
+  margin: auto;
+  width: 89%;
+}
+.LeftSide {
+  width: 100%;
+}
+.LeftSide .icons svg {
+  font-size: 2rem;
+  color: #0c9cd9;
+}
+.Textlabel {
+  font-size: 1.4rem;
+  color: #332e7f;
+  padding-top: 0.3rem;
+  font-weight: 700;
+  vertical-align: top;
+}
+.SubTxt {
+  padding-top: 1rem;
+}
+.SubTxt p {
+  color: #9e9e9e;
+  font-weight: 400;
+}
+.TypeBox {
+  background-color: #28a7de;
+  padding: 6px 0px;
+  width: 7rem;
+  border-radius: 30px;
+  vertical-align: middle;
+  position: relative;
+  top: -1rem;
+  left: 1.4rem;
+}
+.TypeSubBox {
+  background-color: #e7e7e7;
+  padding: 0.2rem;
+  width: 13rem;
+
+  border: 1px solid #28a7de;
+  border-radius: 30px;
+  vertical-align: middle;
+  position: relative;
+}
+.TypeSubBox .Heading {
+  color: #332e7f;
+  padding-left: 1.4rem;
+}
+.TypeSubBox .bgWHite {
+  margin-left: -1.3rem;
+  margin-top: -0.4rem;
+}
+.TypeSubBox img {
+  width: 30px;
+}
+.profilemember .TypeBox {
+  background-color: #f1f1f2;
+  padding: 0.2rem;
+  width: max-content;
+  padding-right: 1rem;
+  outline: none;
+  border: 1px solid #aed3ee;
+  border-radius: 30px;
+  vertical-align: middle;
+  position: relative;
+}
+.profilemember .TypeBox .Heading {
+  color: #332e7f;
+  padding-left: 1.4rem;
+}
+.profilemember .TypeBox .bgWHite {
+  margin-left: -2.3rem;
+  margin-top: -0.6rem;
+}
+.profilemember .TypeBox img {
+  width: 35px;
+}
+.ProfileSection {
+  max-width: 100%;
+  padding: 10px;
+  margin-left: 2rem;
+}
+.ProfileSection table {
+  width: 100%;
+}
+.ProfileSection tr td {
+  min-width: 108px;
+  padding-left: 0px;
+  margin-left: 2rem;
+}
+.ProfileSection tr td .DataImg {
+  float: left;
+  vertical-align: middle;
+}
+.ProfileSection tr td .DataInfo {
+  float: left;
+  margin-left: 0.4rem;
+  font-size: 12px;
+}
+.ProfileSectionone {
+  margin-left: 3rem;
+}
+.ProfileSection .DataInfo div:first-child {
+  color: #042b62;
+  font-weight: 500;
+}
+.ProfileSection .Datalabel {
+  color: #9e9e9e;
+  padding-top: 5px;
+  font-weight: 500;
+}
+.Heading {
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding-left: 1.1rem;
+}
+.icons img {
+  margin-left: 10px;
+  width: 35px;
+}
+.bgWHite {
+  background-color: transparent;
+  border-radius: 50%;
+  margin-left: -2rem;
+  margin-top: -0.7rem;
+  position: absolute;
+}
+.ProfileSection .Spacer {
+  padding-top: 2rem;
+}
+.ProfileSection tfoot td {
+  height: 4rem;
+}
+.MyFamily {
+  margin-top: 4rem;
+}
+
+.FintooReport footer {
+  /* position: fixed;
+  width: 70%;
+  bottom: 0;
+  border-top: 1px solid #e7e7e7; */
+  position: fixed;
+  bottom: 0px;
+  /* height: 20px; */
+  display: block;
+  width: 70%;
+  border-top: solid 1px #e7e7e7;
+  overflow: visible;
+}
+.FooterContent {
+  display: -webkit-box; /* wkhtmltopdf uses this one */
+  display: flex;
+  -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+  justify-content: space-between;
+  padding: 0.6rem 0rem;
+  color: #332e7f;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.SectionGap {
+  margin-top: 3rem;
+}
+.profilesctionMember table {
+  width: 51%;
+}
+
+/* Risk Appetite */
+.RiskSection {
+  margin: 0rem 0rem 0rem 3rem;
+}
+.RiskImg {
+  vertical-align: initial;
+  padding: 1rem 0.5rem;
+}
+.RPSection .RiskSection:first-child .RiskImg {
+  vertical-align: initial;
+  padding: 1.2rem 0.5rem;
+}
+.riskLeft {
+  float: left;
+  margin-top: 1.3rem;
+}
+.riskConetnt {
+  /* float: right; */
+  margin-left: 0rem;
+}
+.RiskPara {
+  width: 60%;
+  padding: 0.7rem 0rem;
+}
+.RiskSection .RightSection p {
+  text-align: center;
+}
+.riskTitle {
+  color: #24a7de;
+  font-size: 12pt;
+  font-weight: 500;
+}
+.riskPara {
+  width: 100%;
+  font-size: 14px;
+  text-align: justify;
+}
+.barText {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.riskappetitebar {
+  width: 400px;
+  position: relative;
+  padding: 10px 0;
+  clear: both;
+}
+.riskappetitebar .riskbar {
+  width: 18%;
+  padding: 0;
+  clear: both;
+  display: -webkit-box;
+}
+.barText span {
+  font-size: 1.1rem;
+  font-weight: 500;
+  /* float: left; */
+  color: #938c8c;
+}
+.riskappetitebar .riskbar li {
+  height: 15px;
+  width: 100%;
+  padding: 0;
+  border-radius: 4px;
+  margin-left: 1.6px;
+  list-style-type: none;
+}
+.riskappetitebar .riskbar .level1 {
+  background: #07a500;
+}
+.riskappetitebar .riskbar .level2 {
+  background: #85e503;
+}
+.riskappetitebar .riskbar .level3 {
+  background: #f8d700;
+}
+.riskappetitebar .riskbar .level4 {
+  background: #fe7900;
+}
+.riskappetitebar .riskbar .level5 {
+  background: #f60400;
+}
+.riskindicator {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid #042b62;
+  top: 39px;
+}
+.RiskBarSection {
+  margin-top: 2rem;
+  position: relative;
+}
+.RightSection p {
+  color: #042b62;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.InvestmentPhilosophy {
+  margin-top: 3rem;
+}
+.Investment-Data {
+  margin-top: 6rem;
+}
+.Investment-Data .Dotimg {
+  position: relative;
+}
+.FullLine img {
+  position: absolute;
+  width: 24rem;
+  clear: both;
+  top: 0.8rem;
+  left: 12rem;
+}
+.InvestPyramid {
+  margin-top: 3rem;
+}
+.barBox {
+  width: 12rem;
+}
+.barBoxtype {
+  background-color: #a81e22;
+  padding: 0.4rem 2rem;
+  /* width: 28%; */
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 500;
+}
+.InvestBox {
+  margin-left: 0rem;
+  width: 40%;
+}
+.InvestTxt {
+  color: #042b62;
+  font-size: 1rem;
+  font-weight: 500;
+  padding-top: 1rem;
+}
+.InvestPara {
+  color: #042b62;
+  font-size: 0.8rem;
+  font-weight: 400;
+  padding-top: 0.4rem;
+}
+.InvestmentLeft {
+  display: -webkit-box; /* wkhtmltopdf uses this one */
+  display: flex;
+  -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+}
+.RightSection .investment_pyramid img {
+  width: 400px;
+  margin-top: 2rem;
+}
+.Investment-Data .RightSection {
+  position: relative;
+  top: 2rem;
+}
+.scoreTitle {
+  display: -webkit-box; /* wkhtmltopdf uses this one */
+  display: flex;
+  -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+  vertical-align: middle;
+  align-items: center;
+}
+.ScorecardSection .RiskPara {
+  width: 100%;
+  font-size: 13px;
+  text-align: justify;
+  line-height: 1.3rem;
+}
+.ScorecardSection {
+  margin-left: 3rem;
+  margin-top: 6rem;
+}
+.ScorecardSection .RiskPara {
+  width: 100%;
+}
+.ScorecardRound {
+  background-image: linear-gradient(#a2cd3a, #7ea13e);
+  border-radius: 50%;
+}
+.ScorecardSection .card {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(#60a544, #6db844);
+  /* box-shadow: 5px 5px 10px #a2cd3a, -5px -5px 10px #7ea13e; */
+  border-radius: 50%;
+  position: relative;
+  /* margin-12px 70px; */
+  box-shadow: inset 0 0 5px #6db844;
+
+  padding: 10px;
+}
+.ScorecardSection .circle-one {
+  width: 52px;
+  height: 52px;
+  border: 9px solid #cbe3b7;
+  box-shadow: inset 0 0 5px #cbe3b7;
+  border-radius: 50%;
+  /* margin: 8px; */
+  position: absolute;
+}
+.ScorecardSection .expenceRatio .card {
+  background: linear-gradient(#81a53e, #a1cc3a);
+  box-shadow: inset 0 0 5px #81a53e;
+}
+.ScorecardSection .expenceRatio .circle-one {
+  border: 9px solid #dfebc1;
+  box-shadow: inset 0 0 5px #dfebc1;
+}
+.ScorecardSection .NertworthRatio .card {
+  background: linear-gradient(#fde900, #beb131);
+  box-shadow: inset 0 0 5px #beb131;
+}
+.ScorecardSection .NertworthRatio .circle-one {
+  border: 9px solid #fcf4c1;
+  box-shadow: inset 0 0 5px #fcf4c1;
+}
+.ScorecardSection .LiquidityRatio .card {
+  background: linear-gradient(#f8ac1a, #ac772b);
+  box-shadow: inset 0 0 5px #beb131;
+}
+.ScorecardSection .LiquidityRatio .circle-one {
+  border: 9px solid #ead3b1;
+  box-shadow: inset 0 0 5px #ead3b1;
+}
+.ScorecardSection .SolvancyRatio .card {
+  background: linear-gradient(#ea4d42, #ed4f43);
+  box-shadow: inset 0 0 5px #f8c6b6;
+}
+.ScorecardSection .SolvancyRatio .circle-one {
+  border: 9px solid #f8c6b6;
+  box-shadow: inset 0 0 5px #f8c6b6;
+}
+
+.Numval {
+  padding: 1.2rem 8px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #fff;
+}
+.ScorecardSection table {
+  table-layout: fixed;
+}
+.ScorecardSection .Ratiotable table tbody tr td {
+  padding: 0.7rem 1rem !important;
+  /* width: 33%;  */
+}
+.ScorecardSection .risk-Data .riskConetnt {
+  padding: 0.4rem 0.5rem !important;
+  /* width: 33%;  */
+}
+.ScorecardSection .RiskImg {
+  vertical-align: initial;
+  padding: 0rem 0rem;
+}
+.ScorecardSection table tbody tr .ScoreCircle {
+  padding-top: 0rem !important;
+  /* width: 12%; */
+}
+.ScorecardSection .ScoreData .boderLay {
+  border-collapse: collapse;
+  width: 100%;
+}
+.ScorecardSection .ScoreData {
+  width: 37%;
+}
+.ScorecardSection .labelTxt {
+  color: #24a7de;
+  font-size: 1rem;
+  font-weight: 500;
+  padding-bottom: 8px;
+}
+.ScorecardSection .ScoreData table .tbody th {
+  /* border: 1px solid #c4c3c3; */
+  border-right: 1px solid #e6e6e5;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  background-color: #e6e6e5;
+  padding: 5px;
+  color: #615f5f;
+  font-weight: 600;
+}
+.ScorecardSection .ScoreData table .tbody th:first-child {
+  border-top-left-radius: 7px;
+}
+.ScorecardSection .ScoreData table .tbody th:last-child {
+  border-top-right-radius: 7px;
+  border: none;
+}
+.ScorecardSection .ScoreData table .tbody td {
+  font-size: 0.8rem;
+  padding: 5px;
+  border: 1px solid #e6e6e5;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+.ScorecardSection .ScoreData table .tbody td:first-child {
+  border-top-left-radius: 7px;
+}
+.ScorecardSection .ScoreData table .tbody td:last-child {
+  border-top-right-radius: 7px;
+  /* border: none; */
+}
+.ScorecardSection table tbody tr .ScorePara {
+  padding-top: 1rem !important;
+  text-align: justify;
+  font-size: 11px;
+  line-height: 1.1rem;
+}
+.centerCircle {
+  position: relative;
+}
+.ScoreData table tr td .Circle {
+  background-color: #fff;
+  border: 1px solid #e6e6e5;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border-radius: 16px;
+  width: 16px;
+  text-align: center;
+  height: 16px;
+  position: absolute;
+  right: -9px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.ScoreCircle {
+  padding-top: 1rem;
+}
+.RatioTxt {
+  font-size: 0.8rem;
+  padding: 4px 0px;
+  width: 300x;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #cda52c;
+  font-weight: 500;
+}
+.RiskMeterSection {
+  text-align: center;
+}
+.RiskMeterSection table {
+  /* width: 63%; */
+  margin: 0rem 12rem;
+}
+.RiskMeterSection table td {
+  text-align: center;
+}
+.RiskMeterSection .scorePara {
+  font-size: 1.1rem;
+}
+.RiskMeterSection .Result {
+  color: #59803a;
+  font-weight: 700;
+}
+/* Meter Css */
+#meter-box {
+  display: inline-block;
+  /* border: 1px solid; */
+  position: relative;
+  margin-left: 4rem;
+}
+#meter-box img {
+  width: 301px;
+}
+#meter-box #line {
+  background: url(../Assets/05_03_Report_card_half_circle.png) center bottom
+    no-repeat;
+  background-size: contain;
+  height: 100%;
+  display: block;
+  width: 35px;
+  top: -3rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 0px;
+  position: absolute;
+  transform-origin: bottom center;
+  -webkit-transform: rotate(0deg);
+  -webkit-transform-origin-y: 90%;
+  -webkit-transform-origin-x: 50%;
+}
+
+/* Fintoo Recommnads */
+.FintooRecommandData {
+  width: 88%;
+  border: 0.6px solid #c5c3c3;
+  border-radius: 12px;
+  padding: 3rem;
+  margin: 0rem 1rem;
+  position: relative;
+  top: -60px;
+  z-index: 0;
+}
+.FintooRecommands .light-img img {
+  z-index: 100;
+  position: relative;
+  float: right;
+}
+.FintooRecommands .riskTitle {
+  margin-right: 13rem;
+}
+.FintooRecommands table {
+  width: 100%;
+  margin: 0rem 1rem;
+}
+.RatioInfo .RiskImg {
+  vertical-align: initial;
+  padding: 1rem 0.5rem;
+}
+.Ratio_content {
+  padding-top: 1.4rem;
+}
+.Ratio_content .riskTitle {
+  font-weight: 600;
+}
+.Ratioinfo-conetent {
+  color: #042b62;
+  font-size: 15px;
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 0.6px solid #c5c3c3;
+}
+.borderNone {
+  border-bottom: none;
+}
+.recommeds_title {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #24a7de;
+  font-weight: 700;
+}
+.allocationType {
+  border: 1px solid #e7e7e7;
+  border-radius: 20px;
+  padding: 7px 27px;
+  width: max-content;
+  color: #055263;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.Allocation_Section .allocationType:first-child {
+  margin-left: 4rem;
+}
+.allocation_Table table {
+  width: 100%;
+  margin: 0rem 2rem;
+}
+.allocation_Table table .LeftSection {
+  width: 35%;
+}
+.allocation_Table table .allocation_Right {
+  width: 45%;
+}
+.allocation_bar {
+  margin-left: 1rem;
+  border-radius: 12px;
+  padding: 4px 7rem 6px 10px;
+  background: linear-gradient(to right, #456c8e 15%, #1f3f72 75%);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 100;
+  float: left;
+}
+.allocation_bar span {
+  text-align: left;
+}
+.allocation_val {
+  font-size: 1rem;
+  color: #676464;
+  font-weight: 700;
+  float: left;
+}
+.AllocationCircle {
+  position: absolute;
+  right: -8px;
+  top: -10px;
+  z-index: 0;
+}
+.AllocationCircle img {
+  width: 43px;
+}
+.Allocation_type {
+  text-align: center;
+}
+.Allocation_market {
+  border: 1px solid #24a7de;
+  padding: 4px 3rem;
+  color: #24a7de;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.allocation_Right .allocation_val {
+  margin-left: 1rem;
+}
+.allocation_Right .allocation_bar {
+  margin-left: 1rem;
+  border-radius: 12px;
+  padding: 4px 10px 6px 9rem;
+  background: linear-gradient(to right, #1f3f72 15%, #456c8e 75%);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 100;
+}
+.allocation_Right .AllocationCircle {
+  position: absolute;
+  left: -8px;
+  top: -10px;
+  z-index: 0;
+}
+.allocation_12 {
+  color: #676464;
+  padding: 3px;
+  font-weight: 600;
+}
+.allocation_rs {
+  font-weight: 700;
+}
+.Success {
+  color: #0f8240;
+}
+.Downmarket {
+  color: red;
+}
+.Allocation_Debt,
+.Allocation_RealEstate,
+.Allocation_Liquid,
+.Allocation_Alternate,
+.Allocation_Gold {
+  margin-top: 2rem;
+}
+.Allocation_Debt .allocation_bar {
+  background: linear-gradient(to right, #fcb415 15%, #da9a28 75%);
+  /* padding: 4px 11rem 6px .6rem; */
+}
+.Allocation_Debt .allocation_Right .allocation_bar {
+  background: linear-gradient(to right, #da9a28 15%, #fcb415 75%);
+  /* padding: 4px 10px 6px 7rem; */
+}
+.Allocation_RealEstate .allocation_bar {
+  background: linear-gradient(to right, #f47b39 15%, #f15b22 75%);
+  /* padding: 4px 11rem 6px .6rem; */
+}
+.Allocation_RealEstate .allocation_Right .allocation_bar {
+  background: linear-gradient(to right, #f15b22 15%, #f47b39 75%);
+  /* padding: 4px 10px 6px 9rem; */
+}
+.Allocation_Liquid .allocation_bar {
+  background: linear-gradient(to right, #28afcf 15%, #4579b8 75%);
+  /* padding: 4px 6rem 6px .6rem; */
+}
+.Allocation_Liquid .allocation_Right .allocation_bar {
+  background: linear-gradient(to right, #4579b8 15%, #28afcf 75%);
+  /* padding: 4px 10px 6px 5rem; */
+}
+.Allocation_Alternate .allocation_bar {
+  background: linear-gradient(to right, #a2a1a1 15%, #bcbcbc 75%);
+  /* padding: 4px 6rem 6px .6rem; */
+}
+.Allocation_Alternate .allocation_Right .allocation_bar {
+  background: linear-gradient(to right, #669e42 15%, #9bb742 75%);
+  /* padding: 4px 10px 6px 7rem; */
+}
+.Allocation_Gold .Allocation_market {
+  padding: 4px 1rem;
+}
+.Allocation_Gold .allocation_bar {
+  background: linear-gradient(to right, #e74c3d 15%, #ca2a27 75%);
+  /* padding: 4px 6rem 6px .6rem; */
+}
+.Allocation_Gold .allocation_Right .allocation_bar {
+  background: linear-gradient(to right, #ca2a27 15%, #e74c3d 75%);
+  /* padding: 4px 10px 6px 7rem; */
+}
+.Total_Allocation {
+  margin-top: 2rem;
+  margin-left: 0rem;
+}
+.Total_Allocation .allocationType {
+  background-color: #24a7de;
+  color: #fff;
+}
+.Total_Allocation .allocationType span {
+  font-weight: 200;
+  padding: 0rem 1rem;
+}
+.Total_Allocation .allocationType:first-child {
+  margin-left: 0rem;
+}
+
+.FintooRecommandsPoints {
+  border: 1px solid #e6e6e5;
+  border-radius: 12px;
+  padding: 1rem;
+}
+.FintooRecommandsPoints {
+  font-size: 0.7rem;
+  padding: 1rem;
+  margin: 0rem 1rem;
+}
+.FintooRecommandsPoints .RiskImg {
+  vertical-align: text-top;
+  margin-top: -10px;
+}
+.RecommPoints {
+  padding: 1rem 1rem;
+}
+.ReportSection {
+  background-color: #042b62;
+  text-align: center;
+  width: 90%;
+  margin: auto;
+  margin-top: 6rem;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding-bottom: 1rem;
+}
+.ideal_net .allocation_bar {
+  margin-left: 1rem;
+  border-radius: 12px;
+  padding: 5px 3rem;
+  background: linear-gradient(to right, #1f3f72 15%, #456c8e 75%);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 100;
+  width: 9%;
+}
+
+/* .Saving_Ratio .progress-bar {
+  width: 65px;
+  height: 65px;
+  padding: 3px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #60a544 79%, transparent 80% 100%),
+    conic-gradient(#cbe3b7 75%, #ffff 0);
+} */
+
+.progress-bar {
+  width: 65px;
+  height: 65px;
+  padding: 3px;
+  border-radius: 50%;
+  /* box-shadow: inset 0 0 25px #a2ae9d, 3px 3px 5px 0 #60a544; */
+}
+
+ .Numval {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+/* Closing Notes */
+.ClosingNotes .ThankYouTitle{
+  color: #24a7de;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.risk-Data{
+  margin: 0rem 4rem;
+}
+.Thankyou-para{
+  color: #9e9e9e;
+  border-bottom: 1px solid #cfcfc7;
+}
+.Thankyou-para div{
+  margin-bottom: 1rem;
+  line-height: 1.7rem;
+}
+.Disclaimer .Thankyou-para{
+  border-bottom: none;
+}
+.Services {
+  width: 100%;
+  margin-top: 4rem;
+  /* border-bottom: 1px solid #cfcfc7; */
+}
+.Services table:first-child{
+  width: 50%;
+  /* margin-top: 3rem; */
+  margin-left: 5rem;
+ float: left;
+ border-right: 1px solid #cfcfc7;
+}
+.Services table:first-child .brBottom{
+  border-bottom: 1px solid #cfcfc7;
+  padding:2rem 0rem;
+}
+.Services table:nth-child(2){
+  padding-left: 7rem;
+}
+.Services table th{
+  text-align: left;
+}
+.Services table th {
+  color: #24a7de;
+  font-size: 1.3rem;
+}
+.Services table td, a{
+  padding: 1rem 0rem;
+  color: #24a7de;
+  font-weight: 500;
+  text-decoration: none;
+  padding-top: 2rem;
+}
+.ContactUs td{
+  padding-top: 3rem;
+}
+.BorderBottom{
+  border-bottom: 1px solid #cfcfc7 !important;
+}
+.ContactUs .brBottom{
+  border-bottom: 1px solid #cfcfc7;
+  padding:2rem 0rem;
+}
+.Disclaimer table{
+  margin-top: 3rem !important;
+  /* position: relative; */
+}
+@page {
+  size: A4 portrait;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin: 0;
+}

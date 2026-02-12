@@ -1,0 +1,116 @@
+@media (min-width: 1400px) {
+    .container {
+        width: 1140px!important;
+    }
+}
+
+.card {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.cardinner {
+    padding: 10px;
+    padding: 130px 20px 65px 20px;
+}
+.cardbox {
+    padding: 0px 80px 0px 80px;
+}
+.cardcontainer {
+    padding: 10px;
+}
+.cardheading {
+    padding: 0px 0px 0px 0px;
+    color: #042b62;
+    font-family: "Poppins", Sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+}
+.cardparagraph {
+    color: #333333;
+    font-family: "Lato", Sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+}
+.card-ITR {
+    background-image: url('./images/ITR.png');
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: auto;
+    box-shadow: 0px 10px 60px 0px rgb(0 0 0 / 10%);
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+    border-color: #f5f5f5;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #fff;
+}
+.card-NRI {
+    background-image: url('./images/NRI_Tax.svg');
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: 140px;
+    box-shadow: 0px 10px 60px 0px rgb(0 0 0 / 10%);
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+    border-color: #f5f5f5;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #fff;
+}
+.card-Notices {
+    background-image: url('./images/Notices.svg');
+    background-position:left top;
+    background-repeat: no-repeat;
+    background-size: 140px;
+    box-shadow: 0px 10px 60px 0px rgb(0 0 0 / 10%);
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+    border-color: #f5f5f5;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #fff;
+}
+.cardextrapadding {
+    margin-top: 70px;
+}
+.investsection {
+    /* background-color: #042b621f; */
+    background-image: url('./images/software_pattern__.png');
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0px 0px 30px 0px;
+}
+.section-title {
+    color: #042b62;
+    text-shadow: 0px 0px 0px rgb(0 0 0 / 30%);
+    margin: 0px 0px 0px 0px;
+    font-family: "Poppins", Sans-serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    line-height: 54px;
+}
+
+@media (max-width: 767px) {
+    .section-title {
+        font-size: 1.5rem;
+    }
+    .cardextrapadding {
+        margin-top: 0px;
+    }
+    
+}
+
+.animated {
+    animation-name: bounceInUp;
+    animation-duration: 1s;
+}
+@keyframes bounceInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(2000px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}

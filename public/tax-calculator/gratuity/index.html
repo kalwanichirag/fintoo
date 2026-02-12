@@ -1,0 +1,811 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/gratuity.css">
+    <title>Gratuity Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button">TAXABLE GRATUITY CALCULATOR</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section class="tabcontent">
+                    <!-- ================================================================================================================================================================================== -->
+                    <div class="col-sm-12" id="basecntnr">
+                        <div class="calculator-content form-horizontal" id="basecntnrChild">
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Assessment Year
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="ayearGra">
+                                        <option value="">
+                                            Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Type of employer *
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="resStatusGra" onblur="onBlurChange(this)"
+                                        oninvalid="handleInvalidInput(this)" required>
+                                        <option value="">
+                                            Select</option>
+                                        <option value="govtEmplr">
+                                            Central / state govt.</option>
+                                        <option value="statutoryEmplr">
+                                            Statutory Corp</option>
+                                        <option value="localAuthEmplr">
+                                            Local Authority</option>
+                                        <option value="otherEmplr">
+                                            Other</option>
+                                    </select>
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <div class="form-group alternative-g-grey-row" id="divUnderGatAct" style="display: none">
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"> Select if covered
+                                        under payment of gratuity Act, 1972</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <label class="control-label fw-bold">
+                                            <input class="form-check-input" id="isUnderGatAct"
+                                                type="checkbox" />&nbsp;&nbsp;&nbsp;(Tick
+                                            if Yes)</label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-content-center element-container gratuityClass"
+                                    style="display: none;">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">Select if wages based
+                                        on piece rate</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <label class="control-label fw-bold">
+                                            <input class="form-check-input" id="isWagesBased"
+                                                type="checkbox" />&nbsp;&nbsp;&nbsp;(Tick
+                                            if Yes)</label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-content-center element-container gratuityClass"
+                                    style="display: none;">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">Is seasonal
+                                        establishment</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <label class="control-label fw-bold">
+                                            <input class="form-check-input" id="isSeasonal"
+                                                type="checkbox" />&nbsp;&nbsp;&nbsp;(Tick
+                                            if Yes)</label>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                        Length of service period *</label>
+                                    <div class="col-sm-4 col-xs-12 input_with_compute">
+                                        <input type="text" id="serviceLengthGra"
+                                            class="form-control number-only rounded-0"
+                                            oninvalid="handleInvalidInput(this)"
+                                            onblur="onBlurChange(this),onIntOnlyChange(this)" required>
+                                        <p class="required-msg" style="bottom: -90.5%;">This field is
+                                            required</p>
+                                        <button type="button" class="compute_btn" id="computeYearGra">compute</button>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-content-center income-from-salary element-container"
+                                    id="divGratuitybecomespayableon">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">Gratuity becomes
+                                        payable on</label>
+                                    <div class="col-sm-4 col-xs-12 date_input_view">
+                                        <input class="form-control rounded-0 actualDate" type="date" placeholder=""
+                                            id="dt" onchange="mydate1(this);" hidden
+                                            onclick="console.log('clickeeeddd')" />
+                                        <input class="form-control rounded-0 placeHolderDate" type="text"
+                                            id="txtGratuitybecomespayableon" readonly onclick="mydate(this)"
+                                            placeholder="dd/mm/yyyy" />
+                                        <!-- <button type="button" onclick="mydate(this);">Date</button> -->
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center income-from-salary gratuityClass element-container"
+                                    style="display: none;">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="LblLastDrawnSalary">
+                                        Last drawn salary / Last drawn three month salary (excluding OT)</label>
+                                    <div class="col-sm-4 col-xs-12 input_with_compute">
+                                        <input type="text" id="lastDrownSalaryGra" class="form-control rounded-0"
+                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                        <button type="button" class="compute_btn" id="compute3Salary">compute</button>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                        Exemption claimed in earlier years (if any)</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input type="text" id="exeptionClaimedGra" class="form-control rounded-0"
+                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="row justify-content-between align-content-center income-from-salary noGatAct element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                        Average salary of last 10 months *</label>
+                                    <div class="col-sm-4 col-xs-12 input_with_compute">
+                                        <input type="text" id="avg10SalaryGra"
+                                            class="form-control number-only rounded-0"
+                                            oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" required>
+                                        <p class="required-msg" style="bottom: -90.5%;">This field is
+                                            required</p>
+                                        <button type="button" class="compute_btn" id="compute10Month">compute</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Gratuity received *</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" id="gratuityAmtGra" class="form-control number-only rounded-0"
+                                        value="" onkeypress="return isNumberKey(event)" maxlength="15"
+                                        onblur="onBlurChange(this)" oninvalid="handleInvalidInput(this)" required>
+                                    <p class="required-msg">This field is
+                                        required</p>
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Exempted gratuity
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text"
+                                        class="form-control number-only input-disabled bg-body-secondary rounded-0"
+                                        id="exeGratAmtGra" value="" onkeypress="return isNumberKey(event)"
+                                        readonly="readonly">
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Taxable gratuity
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text"
+                                        class="form-control number-only input-disabled bg-body-secondary rounded-0"
+                                        id="taxGratAmtGra" value="" onkeypress="return isNumberKey(event)"
+                                        readonly="readonly">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="dit-modal-popup-overlay" id="ditover"></div>
+                    <div class="dit-modal-popup" id="gra-dialogYearGra">
+                        <div class="modal_popup_heading">
+                            <span>Computation of length of service period</span>
+                            <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                        </div>
+                        <div class="modal_popup_content div-label-font-normal">
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-3 col-xs-12 control-label label-fw-class">
+                                    Length of service period
+                                </label>
+                                <div class="row justify-content-between align-content-center col-sm-9 col-xs-12">
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control number-only input-disabled rounded-0"
+                                            id="comYearGra" value="" placeholder="year" readonly="readonly">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control number-only input-disabled rounded-0"
+                                            id="comMonthGra" value="" placeholder="month" readonly="readonly">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control number-only input-disabled rounded-0"
+                                            id="comDayGra" value="" placeholder="date" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Date of joining</label>
+                                <div class="col-sm-4 col-xs-12 date_input_view">
+                                    <input class="form-control rounded-0 actualDate" type="date" placeholder=""
+                                        onchange="mydate1(this);" hidden onclick="console.log('clickeeeddd')" />
+                                    <input class="form-control rounded-0 placeHolderDate" type="text" id="joiningDtGra"
+                                        readonly onclick="mydate(this)" placeholder="dd/mm/yyyy" />
+                                    <!-- <button type="button" onclick="mydate(this);">Date</button> -->
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Date of retirement
+                                    (mandatory field)</label>
+                                <div class="col-sm-4 col-xs-12 date_input_view">
+                                    <input class="form-control rounded-0 actualDate" type="date" placeholder=""
+                                        onchange="mydate1(this);" hidden />
+                                    <input class="form-control rounded-0 placeHolderDate" type="text" id="retireDtGra"
+                                        readonly onclick="mydate(this)" placeholder="dd/mm/yyyy" />
+                                    <!-- <button type="button" onclick="mydate(this);">Date</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dit-modal-popup" id="gra-dialog3MonthGra">
+                        <div class="dit-modal-popup-heading">
+                            <div class="modal_popup_heading">
+                                <span>Computation of One month</span>
+                                <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                            </div>
+                        </div>
+                        <div class="modal_popup_content">
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"> Wages of 3 months ending
+                                    on date of retirement (excluding OT)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" id="wages3monthGra" class="number-only form-control rounded-0"
+                                        value="" onkeypress="return isNumberKey(event)" placeholder="wages">
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Last drawn salary / Last
+                                    drawn three month salary (excluding OT)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" id="3monthSalGra"
+                                        class="number-only form-control bg-body-secondary rounded-0" value=""
+                                        onkeypress="return isNumberKey(event)" readonly>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="dit-modal-popup-footer" style="display: none">
+                            <a href="javascript:void(0)" class="btn-blue-popup btn-popup" id="save3MonthGra">Save </a>
+                            <a href="javascript:void(0)" class="btn-grey-popup btn-popup" id="close3MonthGra">Close </a>
+                        </div>
+                    </div>
+
+                    <div class="dit-modal-popup" id="gra-dialogAvgSalaryGra">
+                        <div class="dit-modal-popup-heading">
+                            <div class="modal_popup_heading">
+                                <span>Leave entitled during the service period</span>
+                                <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                            </div>
+                        </div>
+                        <div class="modal_popup_content_container">
+                            <div class="modal_popup_content WindowMaxHeightdiv div-label-font-normal">
+                                <div>
+                                    <div>
+                                        <div class="row justify-content-between align-content-center element-container2"
+                                            style="background-color: #24a7df;">
+                                            <div class="col-sm-2 popup_table_header"><strong>
+                                                    Month
+                                                </strong></div>
+                                            <div class="col-sm-2 popup_table_header"><strong>
+                                                    Basic Salary
+                                                </strong></div>
+                                            <div class="col-sm-2 popup_table_header"><strong>
+                                                    Dearness Allowance (forming part of salary)
+                                                </strong></div>
+                                            <div class="col-sm-2 popup_table_header"><strong>
+                                                    Percentage commission based on turnover
+                                                </strong></div>
+                                            <div class="col-sm-4 popup_table_header"><strong>
+                                                    Total Salary</strong></div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell popup_table_cell">
+                                                Month
+                                                1</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                2</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                3</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                4</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                5</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                6</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                7</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                8</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                9</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                10</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center popup_bottom_imputs"
+                                    style="background-color: #e4f6ff;">
+                                    <label class="label-control col-sm-8 row align-content-center">
+                                        Total salary for 10 months</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="total10SalGra number-only form-control rounded-0"
+                                            readonly="readonly" value="">
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container2 popup_bottom_imputs"
+                                    style="background-color: #e4f6ff;">
+                                    <label class="label-control col-sm-8 row align-content-center">
+                                        10 months average salary</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="avg10SalGra" class="form-control rounded-0" value=""
+                                            readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ================================================================================================================================================================================== -->
+                </section>
+
+                <br /><br />
+                <div class="action-buttons-container padding-div">
+                    <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                    <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+                </div>
+            </secction>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br><br><br>
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/gratuity.js"></script>
+<script>
+    const getResidentialValue = (strValue) => {
+        switch (strValue) {
+            case 'govtEmplr':
+                return 'central_state_govt'
+            case 'statutoryEmplr':
+                return 'statutory_corp'
+            case 'localAuthEmplr':
+                return 'local_authority'
+            case 'otherEmplr':
+                return 'other'
+            default:
+                return "";
+        }
+    }
+
+    $(document).ready(function () {
+        var year1 = new Date().getFullYear();
+        for (i = 0; i < 7; i++) {
+            get_year2 = year1 + 1;
+            var year2 = get_year2.toString().substr(-2);
+            $('#ayearGra').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1
+        }
+    });
+
+    const getFormValidationState = () => {
+        const formElement1 = document.getElementById('resStatusGra').checkValidity();
+        const formElement2 = document.getElementById('serviceLengthGra').checkValidity();
+        const formElement3 = document.getElementById('avg10SalaryGra').checkValidity();
+        const formElement4 = document.getElementById('gratuityAmtGra').checkValidity();
+
+        const isFormValid = formElement1 && formElement2 && formElement3 && formElement4;
+
+        console.log(isFormValid)
+        return isFormValid
+    }
+    const Calculate = () => {
+
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return;
+        }
+        hideAlert();
+        $(".dashboard-loader").addClass('active');
+        var assessmentYear = +document.getElementById("ayearGra").value || "";
+        var empType = getResidentialValue(document.getElementById("resStatusGra").value);
+        var gratuityAmt = +document.getElementById("gratuityAmtGra").value.replace(/,/g, '') || "";
+        var isUnderGatAct = isWagesBased = isSeasonal = last_and_avg = servicePeriod = gratuity_payable_on = exeptionClaimed = avg10Salary = "";
+        if ($('#isUnderGatAct').is(":checked")) {
+            var isUnderGatAct = '1';
+            if ($('#isWagesBased').is(":checked")) {
+                var isWagesBased = '1';
+            }
+            else if ($('#isSeasonal').is(":checked")) {
+                var isSeasonal = '1';
+            }
+        }
+        var servicePeriod = +document.getElementById("serviceLengthGra").value || "";
+        var gratuity_payable_on = document.getElementById("txtGratuitybecomespayableon").value.replace(/,/g, '') || "";
+        var last_salary = +document.getElementById("lastDrownSalaryGra").value || "";
+        var avg_3_months = +document.getElementById("wages3monthGra").value || "";
+        var exeptionClaimed = +document.getElementById("exeptionClaimedGra").value || "";
+        var avg10Salary = +document.getElementById("avg10SalaryGra").value || "";
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/taxable_gratuity/",
+            type: "POST",
+            data: JSON.stringify({
+                "assessment_year": assessmentYear,
+                "employer_type": empType,
+                "gratuity_recieved": gratuityAmt,
+                "gratuity_check": isUnderGatAct,
+                "service_length": servicePeriod,
+                "gratuity_payable_on": gratuity_payable_on,
+                "exemption_claimed": exeptionClaimed,
+                "avg_10_salary": avg10Salary,
+                "wages_check": isWagesBased,
+                "seasonal_check": isSeasonal,
+                "last_salary": last_salary,
+                "avg_3_months": avg_3_months
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#exeGratAmtGra").val(res.data.exempted_gratuity);
+                    $("#taxGratAmtGra").val(res.data.taxable_gratuity);
+                    if (res.data.average_3_months_salary != "") {
+                        $("#lastDrownSalaryGra").val(res.data.average_3_months_salary);
+                    }
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>
+
+</html>

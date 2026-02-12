@@ -1,0 +1,2158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/tax-calc/css/style.css">
+    <!-- <link rel="stylesheet" href='./style.css'> -->
+    <title>Income And Tax Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+<script>
+    const showAlert = () => $('.alert').show();
+    const hideAlert = () => $('.alert').hide();
+    const LogoShiftDown = () => $('.container-fluid').css('padding-top', '3rem');
+    const LogoShiftUp = () => $('.container-fluid').css('padding-top', '1rem');
+</script>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                <button type="button" class="btn-close" aria-label="Close"
+                    onclick="hideAlert(); LogoShiftUp();"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="heading fw-normal fs-5">INCOME AND TAX CALCULATOR</div>
+        </div>
+        <div class="form-content-container">
+
+            <secction class="incom-and-tax-calculator-form-section">
+                <br /><br />
+                <form class="incom-and-tax-calculator-form">
+                    <div class="padding-div">
+                        <!-- ---------------------------------------------condiditional setter---------------------------------------------------->
+                        <div class="row justify-content-between align-content-center assessment-year">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">Assessment Year *</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select class="form-select rounded-0" id="AssessmentYearSelect"
+                                    onblur="onBlurChange(this)" onchange="onSelectChange(event)">
+                                    <option selected="" value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row justify-content-between align-content-center tax-payer">
+
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">Tax Payer</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select class="form-select rounded-0" onchange="onTaxPayerTypeSelectChange(event)"
+                                    disabled>
+                                    <option value="Select">Select</option>
+                                    <option selected="Individual" value="Individual">
+                                        Individual
+                                    </option>
+                                    <option value="HUF">HUF</option>
+                                    <option value="AOPs/BOI">AOPs/BOI</option>
+                                    <option value="Domestic Company">Domestic Company</option>
+                                    <option value="Foreign Company">Foreign Company</option>
+                                    <option value="Firms">Firms</option>
+                                    <option value="LLP">LLP</option>
+                                    <option value="Co-operative Society">
+                                        Co-operative Society
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- -------------------------------------------------conditional----------------------------------------------- -->
+
+                        <div id="taxation-opting-dropDown-div">
+                            <br>
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Whether opting for
+                                    taxation
+                                    under Section <span class="linkText">115BAC<span class="link115Desc">New Income tax
+                                            Regime where you can avail benefit of lower tax slabs. However, to avail
+                                            this lower tax rate, the taxpayer must forgo certain deductions and
+                                            exemptions.</span></span>?</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="is_opting" onchange="BACCheck(event)">
+                                        <option selected="" value="">Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conditional-on-individual-tax-payer">
+                            <br />
+                            <div class="row justify-content-between align-content-center Male-Female-Senior-Citizen">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Male / Female / Senior
+                                    Citizen</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div id="with_super_senior">
+                                        <select class="form-select rounded-0" id="male_female2">
+                                            <option value="">Select</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="senior_citizen">Senior Citizen</option>
+                                            <option value="super_senior_citizen">
+                                                Super Senior Citizen
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div id="without_super_senior" style="display: none;">
+                                        <select class="form-select rounded-0" id="male_female">
+                                            <option value="">Select</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="senior_citizen">Senior Citizen</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="conditional-on-individual-tax-payer">
+                            <div class="row justify-content-between align-content-center residential-status">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Residential
+                                    Status</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="resi_status">
+                                        <option value="">Select</option>
+                                        <option value="resident">Resident</option>
+                                        <option value="non_resident">Non-Resident</option>
+                                        <option value="not_ordinary_resident">
+                                            Not Ordinary Resident
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ----------------------------------------condition text display based on #taxation-opting-dropDown-div-------------------------------- -->
+                        <div class="conditional-on-individual-tax-payer">
+                            <br />
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Income from Salary</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="salary_income" type="text" maxlength="15"
+                                        pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                        onkeypress="javascript:return numberValidation(this,event)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="conditional-on-individual-tax-payer">
+                        <br />
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class input-label-class">Income
+                                    From
+                                    House Property
+                                    <span class="desc-icon">
+                                        <span class="desc-icon-container">
+                                            i
+                                        </span>
+                                        <span class="iconIncomeFrom">Note: In case the assesse is opted for Section
+                                            115BAC,
+                                            Loss under head House Property for rented house shall not
+                                            be allowed to set off from any other head of income and
+                                            cannot be carried forward.</span>
+                                        <!-- <span class="tooltip-content tooltip-content_1">
+                                            Note: In case the assesse is opted for Section 115BAC,
+                                            Loss under head House Property for rented house shall not
+                                            be allowed to set off from any other head of income and
+                                            cannot be carried forward
+                                        </span> -->
+                                    </span>
+                                    <span class="show-hide-details-btn"
+                                        onclick="toggleDiv('IncomeFromHouseProperty','IncomeFromHousePropertyToggleBtn')">
+                                        <span id="IncomeFromHousePropertyToggleBtn">Show Details</span>
+                                    </span>
+                                </label>
+
+                                <div class="col-sm-4 col-xs-12 show-hide-details-input-container">
+                                    <!-- <span class="show-hide-details-btn"
+                                        onclick="toggleDiv('IncomeFromHouseProperty','IncomeFromHousePropertyToggleBtn')">
+                                        <span id="IncomeFromHousePropertyToggleBtn">Show Details</span>
+                                    </span> -->
+                                    <input class="form-control bg-body-secondary rounded-0"
+                                        id="IncomeFromHousePropertyMainInputView" type="text" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- -----------------------------------------------Income From House Property show details-------------------------- -->
+                        <div class="border border-secondary rounded-4 details-container" id="IncomeFromHouseProperty">
+                            <br>
+                            <div>
+                                <div id="IncomeFromSelfOccupiedPropertyElement">
+                                    <p class="fs-6 fw-bold">
+                                        A. Income from Self-occupied Property
+                                    </p>
+                                    <br />
+                                    <p class="fs-6 label-fw-class">
+                                        Interest Paid/Payable on Housing Loan
+                                    </p>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">1. Interest on
+                                            Housing Loan</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="interest_house_loan"
+                                                onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                                maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                                onchange="onHousingLoanInterestFieldChange(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">Income from
+                                            self-occupied house property</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0"
+                                                id="IncomeFromSelfOccupiedHousePropertyInput" type="text" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <br />
+                                    <p class="fs-6 fw-bold">B. Income from Let-out Property</p>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">1. Annual Letable
+                                            Value/Rent Received or
+                                            Receivable</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LetOutInput1" type="text"
+                                                maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateIncomeFromLetOutHouseProperty()" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">2. Less:
+                                            Municipal Taxes Paid During the Year</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LetOutInput2" type="text"
+                                                maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateIncomeFromLetOutHouseProperty()" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">3.
+                                            Less:Unrealized Rent</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LetOutInput3" type="text"
+                                                maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateIncomeFromLetOutHouseProperty()" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">4. Net Annual
+                                            Value (1-(2+3))</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0" type="text"
+                                                id="NetAnualValueInput" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <br />
+                                    <p class="fs-6 fw-bold">
+                                        Less: Deductions from Net Annual Value
+                                    </p>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">i. Standard
+                                            Deduction @ 30% of Net Annual Value</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0"
+                                                id="30PDeductionOfNetAnnualValueInput" type="text" readonly />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">ii. Interest on
+                                            Housing Loan</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="HousingLoanInterestInput"
+                                                type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateLetOutHouseProperty()" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">Income from
+                                            Let-out House Property</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0"
+                                                id="IncomeFromLetOutHousePropertyInput" type="text" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------------------------------------------------------------------------------- -->
+
+                    <div class="conditional-on-individual-tax-payer">
+                        <br />
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center capital-gains">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class input-label-class">Capital
+                                    Gains
+                                    <span class="show-hide-details-btn"
+                                        onclick="toggleDiv('CapitalGians','CapitalGiansToggleBtn')">
+                                        <span id="CapitalGiansToggleBtn">Show Details</span>
+                                    </span>
+                                </label>
+
+                                <div class="col-sm-4 col-xs-12 show-hide-details-input-container">
+                                    <!-- <span class="show-hide-details-btn"
+                                        onclick="toggleDiv('CapitalGians','CapitalGiansToggleBtn')">
+                                        <span id="CapitalGiansToggleBtn">Show Details</span>
+                                    </span> -->
+                                    <input class="form-control bg-body-secondary rounded-0"
+                                        id="CapitalGainsMainInputView" value="0" type="text" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- -----------------------------------------------Capital Gains show details-------------------------- -->
+                        <div class="border border-secondary rounded-4  details-container" id="CapitalGians">
+                            <br>
+                            <div>
+                                <div id="StermCGainsOtherThan111A">
+                                    <p class="fs-6 fw-bold">
+                                        Short Term Capital Gains (Other than covered under section
+                                        <span class="linkText">111A<span class="stcgDescOther">Short Term Capital Gains
+                                                (Covered u/s 111A) refers to the profit earned from the sale of certain
+                                                types of securities within a short period of time, which is less than or
+                                                equal to one year. This includes securities such as equity shares and
+                                                units of equity-oriented mutual funds through other than recognized
+                                                stock exchange.
+                                            </span></span>)
+                                    </p>
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsOtherThan111A1">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgOtherL1">From 01/04/2014
+                                            to 15/06/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsOtherThan111A1Input"
+                                                data-type="StermCGainsOtherThan111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsOtherThan111A2">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgOtherL2">From 16/06/2014
+                                            to 15/09/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsOtherThan111A2Input"
+                                                data-type="StermCGainsOtherThan111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsOtherThan111A3">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgOtherL3">From 16/09/2014
+                                            to 15/12/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsOtherThan111A3Input"
+                                                data-type="StermCGainsOtherThan111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsOtherThan111A4">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgOtherL4">From 16/12/2014
+                                            to 15/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsOtherThan111A4Input"
+                                                data-type="StermCGainsOtherThan111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsOtherThan111A5">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgOtherL5">From 16/03/2015
+                                            to 31/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsOtherThan111A5Input"
+                                                data-type="StermCGainsOtherThan111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label fw-bold">Total</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0"
+                                                id="StermCGainsOtherThan111ATotal" type="text" maxlength="15" value="0"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGains()" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="StermCGainsCovered111A">
+                                    <br />
+                                    <p class="fs-6 fw-bold">
+                                        Short Term Capital Gains (Covered under section <span class="linkText">111A<span
+                                                class="stcgDescCovered1">Short Term Capital Gains (Covered u/s 111A)
+                                                refers to the profit earned from the sale of certain types of securities
+                                                within a short period of time, which is less than or equal to one year.
+                                                This includes securities such as equity shares and units of
+                                                equity-oriented mutual funds through recognized stock exchange.
+                                            </span></span>)
+                                    </p>
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsCovered111A1">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgCoveredL1">From 01/04/2022
+                                            to 15/06/2022</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsCovered111A1Input"
+                                                data-type="StermCGainsCovered111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsCovered111A2">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgCoveredL2">From 16/06/2014
+                                            to 15/09/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsCovered111A2Input"
+                                                data-type="StermCGainsCovered111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsCovered111A3">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgCoveredL3">From 16/09/2014
+                                            to 15/12/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsCovered111A3Input"
+                                                data-type="StermCGainsCovered111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsCovered111A4">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgCoveredL4">From 16/12/2014
+                                            to 15/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsCovered111A4Input"
+                                                data-type="StermCGainsCovered111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center"
+                                        id="StermCGainsCovered111A5">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="stcgCoveredL5">From 16/03/2015
+                                            to 31/03/20215</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="StermCGainsCovered111A5Input"
+                                                data-type="StermCGainsCovered111A" type="text" maxlength="15"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label fw-bold">Total</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0"
+                                                id="StermCGainsCovered111ATotal" type="text" maxlength="15" value="0"
+                                                pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGains()" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="LtermCGains20">
+                                    <br />
+                                    <p class="fs-6 fw-bold">
+                                        Long Term Capital Gains (Charged to tax @ 20%)<span class="desc-icon">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span><span class="ltcgCharged20Desc1">Long-term capital gains refer to the
+                                                profit made by an individual on the sale of a capital asset that has
+                                                been held for a period of more than 36 months. These capital assets can
+                                                include property, shares, mutual funds, etc.</span>
+                                        </span>
+                                    </p>
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains201">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged20L1">From 01/04/2014
+                                            to 15/06/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains201Input"
+                                                data-type="LtermCGains20" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains202">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged20L2">From 16/06/2014
+                                            to 15/09/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains202Input"
+                                                data-type="LtermCGains20" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains203">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged20L3">From 16/09/2014
+                                            to 15/12/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains203Input"
+                                                data-type="LtermCGains20" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains204">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged20L4">From 16/12/2014
+                                            to 15/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains204Input"
+                                                data-type="LtermCGains20" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains205">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged20L5">From 16/03/2015
+                                            to 31/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains205Input"
+                                                data-type="LtermCGains20" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label fw-bold">Total</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0"
+                                                id="LtermCGains20Total" type="text" maxlength="15" pattern="[0-9]"
+                                                value="0" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGains()" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="LtermCGains10">
+                                    <br />
+                                    <p class="fs-6 fw-bold">
+                                        Long Term Capital Gains (Charged to tax @ 10%)<span class="desc-icon">
+                                            <span class="desc-icon-container">
+                                                i
+                                            </span><span class="ltcgCharged10Desc1">Other than LTCG coverd under
+                                                112A.</span>
+                                        </span>
+                                    </p>
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains101">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged10L1">From 01/04/2014
+                                            to 15/06/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains101Input"
+                                                data-type="LtermCGains10" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains102">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged10L2">From 16/06/2014
+                                            to 15/09/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains102Input"
+                                                data-type="LtermCGains10" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains103">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged10L3">From 16/09/2014
+                                            to 15/12/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains103Input"
+                                                data-type="LtermCGains10" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains104">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged10L4">From 16/12/2014
+                                            to 15/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains104Input"
+                                                data-type="LtermCGains10" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains105">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCharged10L5">From 16/03/2015
+                                            to 31/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains105Input"
+                                                data-type="LtermCGains10" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label fw-bold">Total</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0" value="0"
+                                                id="LtermCGains10Total" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGains()" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="LtermCGains112A">
+                                    <br />
+                                    <p class="fs-6 fw-bold">
+                                        Long Term Capital Gains (Covered under section <span class="linkText">112A<span
+                                                class="ltcgCovered1">Section 112A applies to the sale of equity shares
+                                                or equity-oriented mutual funds held for a minimum of 12 months. The
+                                                gains on the sale of such assets are considered as LTCG and taxed at 10%
+                                                only if the sale proceeds exceed Rs. 1 lakh. If the gains are less than
+                                                or equal to Rs. 1 lakh, no LTCG tax is applicable.</span></span>)
+                                    </p>
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains112A1">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCoveredL1">From 01/04/2014
+                                            to 15/06/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains112A1Input"
+                                                data-type="LtermCGains112A" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains112A2">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCoveredL2">From 16/06/2014
+                                            to 15/09/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains112A2Input"
+                                                data-type="LtermCGains112A" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains112A3">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCoveredL3">From 16/09/2014
+                                            to 15/12/2014</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains112A3Input"
+                                                data-type="LtermCGains112A" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains112A4">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCoveredL4">From 16/12/2014
+                                            to 15/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains112A4Input"
+                                                data-type="LtermCGains112A" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row justify-content-between align-content-center" id="LtermCGains112A5">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                            id="ltcgCoveredL5">From 16/03/2015
+                                            to 31/03/2015</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control rounded-0" id="LtermCGains112A5Input"
+                                                data-type="LtermCGains112A" type="text" maxlength="15" pattern="[0-9]"
+                                                onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGainsPart(event)" />
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row justify-content-between align-content-center">
+                                        <label class="col-sm-8 col-xs-12 control-label fw-bold">Total</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input class="form-control bg-body-secondary rounded-0"
+                                                id="LtermCGains112ATotal" type="text" maxlength="15" pattern="[0-9]"
+                                                value="0" onblur="ValidateAndFormatNumberControl(this)"
+                                                onkeypress="javascript:return numberValidation(this,event)"
+                                                onchange="calculateICapitalGains()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------------------------------------------------------------------------------- -->
+                    <br />
+                    <div class="padding-div">
+                        <div class="row justify-content-between align-content-center income-from-other-sources">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class input-label-class">Income From
+                                Other Sources
+                                <span class="show-hide-details-btn"
+                                    onclick="toggleDiv('IncomeFromOtherSources','IncomeFromOtherSourcesToggleBtn')">
+                                    <span id="IncomeFromOtherSourcesToggleBtn">Show Details</span>
+                                </span>
+                            </label>
+
+                            <div class="col-sm-4 col-xs-12 show-hide-details-input-container">
+                                <input class="form-control bg-body-secondary rounded-0" type="text"
+                                    id="IncomeFromOtherSourcesMainInputView" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- -----------------------------------------------Income From Other Sources show details-------------------------- -->
+                    <div class="border border-secondary rounded-4  details-container" id="IncomeFromOtherSources">
+                        <br>
+                        <div>
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Interest</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="IncomeFromOtherSourcesInterest"
+                                        type="text" maxlength="15" pattern="[0-9]"
+                                        onblur="ValidateAndFormatNumberControl(this)"
+                                        onkeypress="javascript:return numberValidation(this,event)"
+                                        onchange="calculateIncomeFromOtherSources()" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Commission/Other Income</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="IncomeFromOtherSourcesCommissionOther"
+                                        type="text" maxlength="15" pattern="[0-9]"
+                                        onblur="ValidateAndFormatNumberControl(this)"
+                                        onkeypress="javascript:return numberValidation(this,event)"
+                                        onchange="calculateIncomeFromOtherSources()" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Winnings from Lottery, Crossword
+                                    Puzzles, etc.</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="IncomeFromOtherSourcesLottertyEtc"
+                                        type="text" maxlength="15" pattern="[0-9]"
+                                        onblur="ValidateAndFormatNumberControl(this)"
+                                        onkeypress="javascript:return numberValidation(this,event)"
+                                        onchange="calculateIncomeFromOtherSources()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------------------------------------------------------------------------------- -->
+                    <br />
+                    <div class="padding-div">
+                        <div class="row justify-content-between align-content-center gains-form-business">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">Profits and Gains of Business
+                                or
+                                Profession (enter profit
+                                only)</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input class="form-control rounded-0" id="profit" type="text" maxlength="15"
+                                    pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                    onkeypress="javascript:return numberValidation(this,event)" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-between align-content-center agricultural-income">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">Agricultural Income</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input class="form-control rounded-0" id="agri_income" type="text" maxlength="15"
+                                    pattern="[0-9]" onblur="ValidateAndFormatNumberControl(this)"
+                                    onkeypress="javascript:return numberValidation(this,event)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="padding-div">
+                        <div class="row justify-content-between align-content-center deductions">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class input-label-class">Deductions
+                                <span class="show-hide-details-btn"
+                                    onclick="toggleDiv('Deductions','DeductionsToggleBtn')">
+                                    <span id="DeductionsToggleBtn">Show Details</span>
+                                </span>
+                            </label>
+
+                            <div class="col-sm-4 col-xs-12 show-hide-details-input-container">
+                                <input class="form-control bg-body-secondary rounded-0" id="DeductionsMainInputView"
+                                    type="text" value="0" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- -----------------------------------------------Deductions show details----------------------------------- -->
+                    <div class="border border-secondary rounded-4  details-container" id="Deductions">
+                        <br>
+                        <div id="data-deductionInput">
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Life Insurance premium
+                                    paid</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput1" data-deductionInput
+                                        data-inTotal type="text" maxlength="15" pattern="[0-9]"
+                                        onblur="ValidateAndFormatNumberControl(this)"
+                                        onkeypress="javascript:return numberValidation(this,event)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Payment for annuity plan</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput2" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Contribution toward provident
+                                    fund / PPF</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput3" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Investment in NSC (VIII issue) +
+                                    Interest</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput4" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Contribution toward ULIP</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput5" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Contribution toward notified
+                                    pension fund by MF/UTI</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput6" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Re-payment of housing loan
+                                    etc</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput7" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Tuition fees paid for
+                                    children</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput8" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">5 Years fixed deposit with PO or
+                                    Schedule Bank</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput9" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Contribution toward NPF</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput10" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Employee's / Self-employed
+                                    contribution toward NPS (up to
+                                    20%) (u/s <span class="linkText">80CCD<span class="link80CCD1">
+                                            <span class="fw-bold">Note:</span> Deduction in respect of employee’s
+                                            contribution to NPS is allowed to extent of 10% of salary. Whereas,
+                                            deduction in respect of contribution to NPS made by a self-employed
+                                            individual is allowed to the extent of 20% of his gross total income.
+                                        </span></span>)
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput11" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Additional contribution towards
+                                    NPS [u/s <span class="linkText">80CCD(1B)<span class="link80CCD">Allows an
+                                            individual to claim an additional deduction of up to Rs. 50,000 over and
+                                            above the deduction available under Section 80C and 80CCD(1). This deduction
+                                            is available to individuals who make contributions to their National Pension
+                                            Scheme (NPS) account.</span></span>]</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput12" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center"
+                                id="EmployersContriTowardsNPS80CCDElement">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Employer's contribution toward
+                                    NPS (u/s <span class="linkText">80CCD<span class="link80CCD2">
+                                            <span class="fw-bold">Note:</span> Deduction in respect of employer’s
+                                            contribution to
+                                            NPS is allowed to the extent of 14% of salary in case of
+                                            Central Government employee or 10% of salary in case of
+                                            any other employee.
+                                        </span></span>)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput13" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+
+                            <!-- =============================================================================================== -->
+                            <div id="DeductionsConditionalInput14">
+                                <br />
+                                <div class="row justify-content-between align-content-center">
+                                    <label class="col-sm-8 col-xs-12 control-label fw-bold">Long-term infrastructure
+                                        bonds
+                                        (u/s <span class="linkText">80CCF<span class="link80CCF">Under section 80CCF, an
+                                                individual can claim a deduction of up to Rs. 20,000 from their taxable
+                                                income for investments made in notified long-term infrastructure bonds
+                                                of investment in infrastructure projects.</span></span>)</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="DeductionsInput14" data-deductionInput
+                                            data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                            type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                            onchange="calculateDeductionValue(event)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="DeductionsConditionalInput15">
+                                <br />
+                                <div class="row justify-content-between align-content-center">
+                                    <label class="col-sm-8 col-xs-12 control-label fw-bold">Investment under equity
+                                        saving
+                                        scheme (u/s <span class="linkText">80CCG<span class="link80CCG">Under section
+                                                80CCG, an individual can claim a tax deduction of 50% of the amount
+                                                invested in eligible equity shares, subject to a maximum investment of
+                                                Rs. 50,000 per financial year. The deduction is available only to
+                                                first-time investors who have an annual income of less than or equal to
+                                                Rs. 12 lakhs. The deduction is available for three consecutive financial
+                                                years, starting from the year in which the investment is
+                                                made.</span></span>)</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="DeductionsInput15" data-deductionInput
+                                            data-notInTotal onkeypress="javascript:return numberValidation(this,event)"
+                                            type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                            onchange="calculateDeductionValue(event)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- =============================================================================================== -->
+
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Deposit with Sukanya Samridhi
+                                    Accounts</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput16" data-deductionInput
+                                        data-notInTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Any other deductable (u/s
+                                    <span class="linkText">80C
+                                        <span class="link80C">Its a provision in the Indian Income Tax Act that allows
+                                            an individual to claim a deduction of up to Rs. 1.5 lakh from their taxable
+                                            income. This deduction is available to individuals who make certain types of
+                                            investments or expenses, such as:<br>
+                                            1. Life insurance premium payments. <br>
+                                            2. Contributions to Employee Provident Fund (EPF) and Public Provident Fund
+                                            (PPF). <br>
+                                            3. Investments in National Savings Certificates (NSC). <br>
+                                            4. Equity Linked Savings Scheme (ELSS) mutual fund investments. <br>
+                                            5. Repayment of home loan principal. <br>
+                                            6. Tuition fees paid for children's education. <br>
+                                            It is important to note that the total deduction available under Section
+                                            80C, 80CCC and 80CCD(1) cannot exceed Rs. 1.5 lakh in a financial year.
+                                        </span>
+                                    </span>)
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput17" data-deductionInput
+                                        data-inTotal onkeypress="javascript:return numberValidation(this,event)"
+                                        type="text" maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Total</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="DeductionsInput18"
+                                        type="text" value="0" readonly />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Medi-claim premium (u/s
+                                    <span class="linkText">80D<span class="link80D">Section 80D is a provision in the
+                                            Indian Income Tax Act that allows an individual to claim a deduction for the
+                                            amount spent on medical insurance premium for self, spouse, dependent
+                                            children, and parents. The maximum deduction allowed under Section 80D is
+                                            Rs. 25,000 per financial year for the premium paid for self, spouse, and
+                                            dependent children. In addition to this, an individual can claim a deduction
+                                            of up to Rs. 25,000 for the premium paid for their parents. If the parents
+                                            are senior citizens (aged 60 years or more), the maximum deduction limit is
+                                            increased to Rs. 50,000.</span></span>)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput19" data-deductionInput
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Actual payment towards medical
+                                    treatment (u/s <span class="linkText">80DDB<span class="link80DDB">That allows an
+                                            individual to claim a deduction for medical expenses incurred for the
+                                            treatment of specified diseases for themselves or their dependents, The
+                                            maximum deduction allowed under Section 80DDB is Rs. 1 lakh per financial
+                                            year.</span></span>
+                                    )</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput20" data-deductionInput
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <!-- =============================================================================================== -->
+                            <div id="DeductionsConditionalInput21">
+                                <br />
+                                <div class="row justify-content-between align-content-center">
+                                    <label class="col-sm-8 col-xs-12 control-label fw-bold">Interest payable on loan for
+                                        residentials house property (u/s <span class="linkText">80EEA<span
+                                                class="link80EEA">Section 80EEA is a provision in the Indian Income Tax
+                                                Act that allows an additional deduction of up to Rs. 1.5 lakh on the
+                                                interest paid on a home loan taken for the purchase of an affordable
+                                                housing property. The deduction is available to first-time home buyers
+                                                who have taken a home loan between 1st April 2019 to 31st March 2022 and
+                                                must comply with certain conditions.</span></span> )</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="DeductionsInput21" data-deductionInput
+                                            data-notInTotal type="text" maxlength="15"
+                                            onkeypress="javascript:return floatValidation(this,event)"
+                                            onblur="onBlurChange(this)" onchange="calculateDeductionValue(event)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="DeductionsConditionalInput22">
+                                <br />
+                                <div class="row justify-content-between align-content-center">
+                                    <label class="col-sm-8 col-xs-12 control-label fw-bold">Interest payable on loan for
+                                        purchase of electric vehicles(u/s <span class="linkText">80EEB<span
+                                                class="link80EEB">Section 80EEB is a provision in the Indian Income Tax
+                                                Act that allows an individual to claim a deduction on the interest paid
+                                                on a loan taken for the purchase of an electric vehicle. The deduction
+                                                is available to individuals who have taken a loan between 1st April 2019
+                                                to 31st March 2023. To be eligible for the deduction under Section
+                                                80EEB, certain conditions are need to be satisfied.</span></span>
+                                        )</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="DeductionsInput22" data-deductionInput
+                                            data-notInTotal type="text" maxlength="15"
+                                            onkeypress="javascript:return floatValidation(this,event)"
+                                            onblur="onBlurChange(this)" onchange="calculateDeductionValue(event)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- =============================================================================================== -->
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Donations (u/s <span
+                                        class="linkText">80G<span class="link80G">Section 80G is a provision in the
+                                            Indian Income Tax Act that allows an individual or an entity to claim a
+                                            deduction for donations made to certain charitable
+                                            organizations.</span></span>)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput23" data-deductionInput
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Deduction for maintenance /
+                                    medical treatment of dependent
+                                    (u/s <span class="linkText">80DD<span class="link80DD1">Section 80DD is a provision
+                                            that allows a deduction to a resident individual or HUF for expenses
+                                            incurred on the maintenance and medical treatment of a dependant with a
+                                            disability. The deduction is available to taxpayers who are either taking
+                                            care of their disabled dependant or paying for their
+                                            expenses.</span></span>)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" data-deductionInput
+                                        type="text" id="deduction80DDCheckboxnumber" value="0" readonly />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">
+                                    <input class="form-check-input" type="checkbox" id="deduction80DDCheckboxIfClaimed"
+                                        onchange="calculateDeductionForMaintenanceCheckbox()" />&nbsp;&nbsp;&nbsp;Tick
+                                    if <span class="linkText">80DD<span class="link80DD2">Section 80DD is a provision
+                                            that allows a deduction to a resident individual or HUF for expenses
+                                            incurred on the maintenance and medical treatment of a dependant with a
+                                            disability. The deduction is available to taxpayers who are either taking
+                                            care of their disabled dependant or paying for their expenses.</span></span>
+                                    is claimed</label>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">
+                                    <input class="form-check-input" type="checkbox" id="deduction80DDCheckboxIfDisable"
+                                        onchange="calculateDeductionForMaintenanceCheckbox()" />&nbsp;&nbsp;&nbsp;Tick
+                                    if severe disability</label>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Interest on loan for higher
+                                    education (u/s <span class="linkText">80E<span class="link80E">Section 80E is a
+                                            provision in the Indian Income Tax Act that allows a deduction to an
+                                            individual for the interest paid on a loan taken for higher
+                                            education.</span></span>)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput24" data-deductionInput
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Interest on loan taken for
+                                    Residential House (u/s
+                                    <span class="linkText">80EE<span class="link80EE">Section 80EE is a provision in the
+                                            Indian Income Tax Act that allows an additional deduction on the interest
+                                            paid on a home loan taken by a first-time homebuyer. The deduction is
+                                            available to individuals who have taken a home loan to purchase a
+                                            residential property for the first time and is applicable for a maximum of
+                                            two assessment years.</span></span>)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput25" data-deductionInput
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Deduction in case of a person
+                                    with disability (u/s
+                                    <span class="linkText">80U<span class="link80U1">Section 80U is a provision in the
+                                            Indian Income Tax Act that allows a deduction to a resident individual for
+                                            expenses incurred on the maintenance and medical treatment of themselves or
+                                            a dependent with a disability.</span></span>)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" data-deductionInput
+                                        type="text" readonly id="deduction80UCheckboxnumber" value="0" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">
+                                    <input class="form-check-input" type="checkbox" id="deduction80UCheckboxIfClaimed"
+                                        onchange="calculateDeductionIncaseDisableCheckbox(event)" />&nbsp;&nbsp;&nbsp;Tick
+                                    if <span class="linkText">80U<span class="link80U2">Section 80U is a provision in
+                                            the Indian Income Tax Act that allows a deduction to a resident individual
+                                            for expenses incurred on the maintenance and medical treatment of themselves
+                                            or a dependent with a disability.</span></span> is claimed</label>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">
+                                    <input class="form-check-input" type="checkbox" id="deduction80UCheckboxIfDisable"
+                                        onchange="calculateDeductionIncaseDisableCheckbox(event)" />&nbsp;&nbsp;&nbsp;Tick
+                                    if severe disability</label>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold"
+                                    id="interest-on-deposits-field-label">Interest on deposits in saving
+                                    account (u/s <span class="linkText">80TTA<span class="link80TTA">Section 80TTA is a
+                                            provision in the Indian Income Tax Act that allows a deduction to an
+                                            individual or a Hindu Undivided Family (HUF) for the interest earned on
+                                            savings account deposits.</span></span>)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput26" data-deductionInput
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label fw-bold">Any other deductions</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="DeductionsInput27" data-deductionInput
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)"
+                                        onchange="calculateDeductionValue(event)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------------------------------------------------------------------------------- -->
+                    <br />
+                    <div class="padding-div">
+                        <div class="row justify-content-between align-content-center net-taxable-income">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">Net Taxable Income</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input class="form-control bg-body-secondary rounded-0" id="net_taxable" type="text"
+                                    readonly />
+                            </div>
+                        </div>
+                        <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+                        <br />
+                        <div class="conditional-on-individual-tax-payer">
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Income Liable to Tax at
+                                    Normal Rate ---</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="container g-0">
+                                        <div class="row two-inputs-row g-0">
+                                            <div class="col me-2">
+                                                <input class="form-control bg-body-secondary rounded-0"
+                                                    id="income_laible1" type="text" readonly />
+                                            </div>
+                                            <div class="col ms-2">
+                                                <input class="form-control bg-body-secondary rounded-0"
+                                                    id="income_laible2" type="text" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Short Term Capital Gains
+                                    (Covered u/s <span class="linkText">111A<span class="stcgDescCovered2">Short Term
+                                            Capital Gains (Covered u/s 111A) refers to the profit earned from the sale
+                                            of certain types of securities within a short period of time, which is less
+                                            than or equal to one year. This includes securities such as equity shares
+                                            and units of equity-oriented mutual funds through recognized stock exchange.
+                                        </span></span>) 15%</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="container g-0">
+                                        <div class="row two-inputs-row g-0">
+                                            <div class="col me-2">
+                                                <input class="form-control bg-body-secondary rounded-0"
+                                                    id="st_covered2_1" type="text" readonly />
+                                            </div>
+                                            <div class="col ms-2">
+                                                <input class="form-control bg-body-secondary rounded-0"
+                                                    id="st_covered2_2" type="text" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div id="long-term-capital-gains-112A-container">
+                                <div class="row justify-content-between align-content-center">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">Long Term Capital
+                                        Gains
+                                        (Covered u/s <span class="linkText">112A<span class="ltcgCovered2">Section 112A
+                                                applies to the sale of equity shares or equity-oriented mutual funds
+                                                held for a minimum of 12 months. The gains on the sale of such assets
+                                                are considered as LTCG and taxed at 10% only if the sale proceeds exceed
+                                                Rs. 1 lakh. If the gains are less than or equal to Rs. 1 lakh, no LTCG
+                                                tax is applicable.</span></span>) 10%</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <div class="container g-0">
+                                            <div class="row two-inputs-row g-0">
+                                                <div class="col me-2">
+                                                    <input class="form-control rounded-0" id="covered_101" type="text"
+                                                        maxlength="15"
+                                                        onkeypress="javascript:return floatValidation(this,event)"
+                                                        onblur="onBlurChange(this)" />
+                                                </div>
+                                                <div class="col ms-2">
+                                                    <input class="form-control rounded-0" id="covered_102" type="text"
+                                                        maxlength="15"
+                                                        onkeypress="javascript:return floatValidation(this,event)"
+                                                        onblur="onBlurChange(this)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Long Term Capital Gains
+                                    (Charged to tax @ 20%) 20%<span class="desc-icon">
+                                        <span class="desc-icon-container">
+                                            i
+                                        </span><span class="ltcgCharged20Desc2">Long-term capital gains refer to the
+                                            profit made by an individual on the sale of a capital asset that has been
+                                            held for a period of more than 36 months. These capital assets can include
+                                            property, shares, mutual funds, etc.</span>
+                                    </span></label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="container g-0">
+                                        <div class="row two-inputs-row g-0">
+                                            <div class="col me-2">
+                                                <input class="form-control bg-body-secondary rounded-0"
+                                                    id="lt_charged20_1" type="text" readonly />
+                                            </div>
+                                            <div class="col ms-2">
+                                                <input class="form-control bg-body-secondary rounded-0"
+                                                    id="lt_charged20_2" type="text" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Long Term Capital Gains
+                                    (Charged to tax @ 10%) 10%<span class="desc-icon">
+                                        <span class="desc-icon-container">
+                                            i
+                                        </span><span class="ltcgCharged10Desc2">Other than LTCG coverd under
+                                            112A.</span>
+                                    </span></label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="container g-0">
+                                        <div class="row two-inputs-row g-0">
+                                            <div class="col me-2">
+                                                <input class="form-control bg-body-secondary rounded-0"
+                                                    id="lt_charged10_1" type="text" readonly />
+                                            </div>
+                                            <div class="col ms-2">
+                                                <input class="form-control bg-body-secondary rounded-0"
+                                                    id="lt_charged10_2" type="text" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Winnings from Lottery,
+                                    Crossword Puzzles, etc 30%</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="container g-0">
+                                        <div class="row two-inputs-row g-0">
+                                            <div class="col me-2">
+                                                <input class="form-control bg-body-secondary rounded-0" id="win1"
+                                                    type="text" readonly />
+                                            </div>
+                                            <div class="col ms-2">
+                                                <input class="form-control bg-body-secondary rounded-0" id="win2"
+                                                    type="text" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- -------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="incom-tax-field-label">Income Tax</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="income_tax" type="text"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Surcharge</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="surcharge" type="text"
+                                        readonly />
+                                </div>
+                            </div>
+                            <br />
+                            <div id="education-cess-container">
+                                <div class="row justify-content-between align-content-center">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">Education
+                                        Cess</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control bg-body-secondary rounded-0" id="education_cess"
+                                            type="text" readonly />
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div id="secondary-hsc-cess-container">
+                                <div class="row justify-content-between align-content-center">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">Secondary and higher
+                                        education cess</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control bg-body-secondary rounded-0"
+                                            id="higer_education_cess" type="text" readonly />
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div id="health-education-cess-container">
+                                <div class="row justify-content-between align-content-center">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">Health and Education
+                                        Cess</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control bg-body-secondary rounded-0"
+                                            id="health_and_education_cess" type="text" readonly />
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Total Tax
+                                    Liability</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="total_liability"
+                                        type="text" readonly />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Due date of submission of
+                                    return *</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="due_date_submission" type="date"
+                                        onblur="onBlurChange(this)" />
+                                </div>
+                            </div>
+
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Actual date of submission
+                                    of
+                                    return/date of completion of assessment *</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="actual_date_submission" type="date"
+                                        onblur="onBlurChange(this)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="relief-field-label">Relief</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="relief"
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">TDS/TCS/MAT (AMT) Credit
+                                    Utilized</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="tds"
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)" />
+                                </div>
+                            </div>
+                            <!-- --------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <br />
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">Detail of tax
+                                paid</label><br /><br />
+                            <table class="table table-bordered" id="tb">
+                                <thead class="thead-row">
+                                    <tr>
+                                        <th scope="col" class="text-center">Date</th>
+                                        <th scope="col" class="text-center">Amount</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="DetailOfTaxPaidTableBody">
+                                    <tr class="DetailOfTaxPaidTableRowClass" id="0">
+                                        <td><input id="date_0" style="width: 100%;text-align: right;" type="date"></td>
+                                        <td><input id="amt_0" style="width: 100%;"
+                                                onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                                maxlength="15" onblur="ValidateAndFormatNumberControl(this)"></td>
+                                        <td class="deleteRowOption"
+                                            onclick="removeTableRow('DetailOfTaxPaidTableBody','DetailOfTaxPaidTableRowClass',this)">
+                                            x
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br />
+                            <span class="badge rounded-pill float-end p-2 add-row-option"
+                                onclick="addTableRow('DetailOfTaxPaidTableBody','DetailOfTaxPaidTableRowClass')">+ Add
+                                Row</span>
+                            <br />
+                            <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Amount of interest u/s
+                                    <span class="linkText">234A<span class="desc234A">Interest under section 234A of the
+                                            Income Tax Act, 1961 is levied on a taxpayer who fails to file their income
+                                            tax return (ITR) by the due date. The interest is calculated at the rate of
+                                            1% per month or part of a month, from the due date of filing the return till
+                                            the actual date of filing the return.</span></span></label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="234A"
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Amount of interest u/s
+                                    <span class="linkText">234B<span class="desc234B">when an individual or a taxpayer
+                                            fails to pay the advance tax or pays less than 90% of their total tax
+                                            liability before the end of the financial year. In such cases, the taxpayer
+                                            is liable to pay interest under section 234B.</span></span></label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="234B"
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Amount of interest u/s
+                                    <span class="linkText">234C<span class="desc234C">The amount of interest under
+                                            section 234C depends on the amount of tax paid as advance tax, and the due
+                                            dates for payment of such tax. The interest is calculated at the rate of 1%
+                                            per month or part of a month, for the period of
+                                            default.</span></span></label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="234C"
+                                        onkeypress="javascript:return numberValidation(this,event)" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumberControl(this)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-note">
+                <span class="fw-bold"> Note: </span>
+
+                The above calculator provides for interest calculation as per
+                Income-tax Act. However, as per Taxation and Other Laws Ordinance,
+                2020, any delay in payment of tax which is due for payment from
+                20-03-2020 to 29-06-2020 shall attract interest at the lower rate of
+                0.75% for every month or part thereof, if same is paid after the due
+                date but on or before 30-06-2020. Accordingly, if taxes due during
+                20-03-2020 to 29-06-2020 are paid after the due date but on or before
+                30-06-2020, users are requested to please calculate the interest
+                accordingly.
+            </div>
+            <br /><br />
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised to ascertain the correct
+                position/prevailing law before relying upon any document.​​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an
+                easy access to basic tax calculation and does not purport to give
+                correct tax calculation in all circumstances. It is advised that for
+                filing of returns the exact calculation may be made as per the
+                provisions contained in the relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="../../static/tax-calc/js/script.js"></script>
+<!-- <script src="./script.js"></script> -->
+
+</html>
+
+
+<script>
+    $(document).ready(function () {
+        // current_date=new Date('4 1 2023');
+
+        current_date = new Date();
+        current_date.setFullYear(current_date.getFullYear() + 1);
+        var year1 = current_date.getFullYear();
+        console.log(year1)
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 15; i++) {
+            var year2 = (year1 + 1).toString().substr(-2);
+            $('#AssessmentYearSelect').append(`<option value="${(i + 1).toString()}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1;
+        }
+        var defYear2 = parseInt($("#AssessmentYearSelect option[value='9']").text().substr(0, 4))
+        var defYear1 = defYear2 - 1
+        $('#stcgOtherL1').text('From 16/06/' + defYear1 + ' to 15/09/' + defYear1);
+        $('#stcgOtherL2').text('From 16/09/' + defYear1 + ' to 15/12/' + defYear1);
+        $('#stcgOtherL3').text('From 16/12/' + defYear1 + ' to 15/03/' + defYear2);
+        $('#stcgOtherL4').text('From 16/03/' + defYear2 + ' to 31/03/' + defYear2);
+
+        $('#stcgCoveredL1').text('From 16/06/' + defYear1 + ' to 15/09/' + defYear1);
+        $('#stcgCoveredL2').text('From 16/09/' + defYear1 + ' to 15/12/' + defYear1);
+        $('#stcgCoveredL3').text('From 16/12/' + defYear1 + ' to 15/03/' + defYear2);
+        $('#stcgCoveredL4').text('From 16/03/' + defYear2 + ' to 31/03/' + defYear2);
+
+        $('#ltcgCharged20L1').text('From 16/06/' + defYear1 + ' to 15/09/' + defYear1);
+        $('#ltcgCharged20L2').text('From 16/09/' + defYear1 + ' to 15/12/' + defYear1);
+        $('#ltcgCharged20L3').text('From 16/12/' + defYear1 + ' to 15/03/' + defYear2);
+        $('#ltcgCharged20L4').text('From 16/03/' + defYear2 + ' to 31/03/' + defYear2);
+
+        $('#ltcgCharged10L1').text('From 16/06/' + defYear1 + ' to 15/09/' + defYear1);
+        $('#ltcgCharged10L2').text('From 16/09/' + defYear1 + ' to 15/12/' + defYear1);
+        $('#ltcgCharged10L3').text('From 16/12/' + defYear1 + ' to 15/03/' + defYear2);
+        $('#ltcgCharged10L4').text('From 16/03/' + defYear2 + ' to 31/03/' + defYear2);
+
+        $('#ltcgCoveredL1').text('From 16/06/' + defYear1 + ' to 15/09/' + defYear1);
+        $('#ltcgCoveredL2').text('From 16/09/' + defYear1 + ' to 15/12/' + defYear1);
+        $('#ltcgCoveredL3').text('From 16/12/' + defYear1 + ' to 15/03/' + defYear2);
+        $('#ltcgCoveredL4').text('From 16/03/' + defYear2 + ' to 31/03/' + defYear2);
+    });
+    function Calculate() {
+        hideAlert(); LogoShiftUp();
+        var assessment_year = +document.getElementById("AssessmentYearSelect").value;
+        if (assessment_year == "") {
+            showAlert(); LogoShiftDown();
+            document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Please select 'Assessment Year'";
+            return false;
+        }
+        var is_opting = document.getElementById("is_opting").value;
+        if (assessment_year > 13) {
+            var male_female = document.getElementById("male_female").value;
+        }
+        else {
+            var male_female = document.getElementById("male_female2").value;
+        }
+        var resi_status = document.getElementById("resi_status").value;
+        var salary_income = +document.getElementById("salary_income").value.replace(/,/g, '') || "" || "";
+        var interest_house_loan = +document.getElementById("interest_house_loan").value.replace(/,/g, '') || "";
+        var annual_letable = +document.getElementById("LetOutInput1").value.replace(/,/g, '') || "";
+        var municipal_tax = +document.getElementById("LetOutInput2").value.replace(/,/g, '') || "";
+        var unrealized_rent = +document.getElementById("LetOutInput3").value.replace(/,/g, '') || "";
+        var interest_house_loan2 = +document.getElementById("HousingLoanInterestInput").value.replace(/,/g, '') || "";
+        var st_other_cover1 = +document.getElementById("StermCGainsOtherThan111A1Input").value.replace(/,/g, '') || "";
+        var st_other_cover2 = +document.getElementById("StermCGainsOtherThan111A2Input").value.replace(/,/g, '') || "";
+        var st_other_cover3 = +document.getElementById("StermCGainsOtherThan111A3Input").value.replace(/,/g, '') || "";
+        var st_other_cover4 = +document.getElementById("StermCGainsOtherThan111A4Input").value.replace(/,/g, '') || "";
+        var st_other_cover5 = +document.getElementById("StermCGainsOtherThan111A5Input").value.replace(/,/g, '') || "";
+        var st_other_cover_total = +document.getElementById("StermCGainsOtherThan111ATotal").value.replace(/,/g, '') || "";
+
+        var st_covered1 = +document.getElementById("StermCGainsCovered111A1Input").value.replace(/,/g, '') || "";
+        var st_covered2 = +document.getElementById("StermCGainsCovered111A2Input").value.replace(/,/g, '') || "";
+        var st_covered3 = +document.getElementById("StermCGainsCovered111A3Input").value.replace(/,/g, '') || "";
+        var st_covered4 = +document.getElementById("StermCGainsCovered111A4Input").value.replace(/,/g, '') || "";
+        var st_covered5 = +document.getElementById("StermCGainsCovered111A5Input").value.replace(/,/g, '') || "";
+        var st_covered_total = +document.getElementById("StermCGainsCovered111ATotal").value.replace(/,/g, '') || "";
+
+        var lt_201 = +document.getElementById("LtermCGains201Input").value.replace(/,/g, '') || "";
+        var lt_202 = +document.getElementById("LtermCGains202Input").value.replace(/,/g, '') || "";
+        var lt_203 = +document.getElementById("LtermCGains203Input").value.replace(/,/g, '') || "";
+        var lt_204 = +document.getElementById("LtermCGains204Input").value.replace(/,/g, '') || "";
+        var lt_205 = +document.getElementById("LtermCGains205Input").value.replace(/,/g, '') || "";
+        var lt_20_total = +document.getElementById("LtermCGains20Total").value.replace(/,/g, '') || "";
+
+        var lt_101 = +document.getElementById("LtermCGains101Input").value.replace(/,/g, '') || "";
+        var lt_102 = +document.getElementById("LtermCGains102Input").value.replace(/,/g, '') || "";
+        var lt_103 = +document.getElementById("LtermCGains103Input").value.replace(/,/g, '') || "";
+        var lt_104 = +document.getElementById("LtermCGains104Input").value.replace(/,/g, '') || "";
+        var lt_105 = +document.getElementById("LtermCGains105Input").value.replace(/,/g, '') || "";
+        var lt_10_total = +document.getElementById("LtermCGains10Total").value.replace(/,/g, '') || "";
+
+        var lt_covered1 = +document.getElementById("LtermCGains112A1Input").value.replace(/,/g, '') || "";
+        var lt_covered2 = +document.getElementById("LtermCGains112A2Input").value.replace(/,/g, '') || "";
+        var lt_covered3 = +document.getElementById("LtermCGains112A3Input").value.replace(/,/g, '') || "";
+        var lt_covered4 = +document.getElementById("LtermCGains112A4Input").value.replace(/,/g, '') || "";
+        var lt_covered5 = +document.getElementById("LtermCGains112A5Input").value.replace(/,/g, '') || "";
+        var lt_covered_total = +document.getElementById("LtermCGains112ATotal").value.replace(/,/g, '') || "";
+
+        var interest = +document.getElementById("IncomeFromOtherSourcesInterest").value.replace(/,/g, '') || "";
+        var other_income = +document.getElementById("IncomeFromOtherSourcesCommissionOther").value.replace(/,/g, '') || "";
+        var winnings = +document.getElementById("IncomeFromOtherSourcesLottertyEtc").value.replace(/,/g, '') || "";
+        var profit = +document.getElementById("profit").value.replace(/,/g, '') || "";
+        var agri_income = +document.getElementById("agri_income").value.replace(/,/g, '') || "";
+
+        var life_insurance = +document.getElementById("DeductionsInput1").value.replace(/,/g, '') || "";
+        var payment_annuity = +document.getElementById("DeductionsInput2").value.replace(/,/g, '') || "";
+        var PPF = +document.getElementById("DeductionsInput3").value.replace(/,/g, '') || "";
+        var NSC = +document.getElementById("DeductionsInput4").value.replace(/,/g, '') || "";
+        var ULIP = +document.getElementById("DeductionsInput5").value.replace(/,/g, '') || "";
+        var UTI = +document.getElementById("DeductionsInput6").value.replace(/,/g, '') || "";
+        var housing_loan = +document.getElementById("DeductionsInput7").value.replace(/,/g, '') || "";
+        var tution_fee = +document.getElementById("DeductionsInput8").value.replace(/,/g, '') || "";
+        var fixed_deposit = +document.getElementById("DeductionsInput9").value.replace(/,/g, '') || "";
+
+        var NPF = +document.getElementById("DeductionsInput10").value.replace(/,/g, '') || "";
+        var self_NPS = +document.getElementById("DeductionsInput11").value.replace(/,/g, '') || "";
+        var additional_NPS = +document.getElementById("DeductionsInput12").value.replace(/,/g, '') || "";
+        var employer_NPS = +document.getElementById("DeductionsInput13").value.replace(/,/g, '') || "";
+        var long_term_infrastructure = +document.getElementById("DeductionsInput14").value.replace(/,/g, '') || "";
+        var investment_under_equity = +document.getElementById("DeductionsInput15").value.replace(/,/g, '') || "";
+        var sukanya_samridhi = +document.getElementById("DeductionsInput16").value.replace(/,/g, '') || "";
+        var other_deductable = +document.getElementById("DeductionsInput17").value.replace(/,/g, '') || "";
+        var medi_claim = +document.getElementById("DeductionsInput19").value.replace(/,/g, '') || "";
+        var medi_treatment = +document.getElementById("DeductionsInput20").value.replace(/,/g, '') || "";
+
+        var house_property = +document.getElementById("DeductionsInput21").value.replace(/,/g, '') || "";
+        var interest_elect_vehicle = +document.getElementById("DeductionsInput22").value.replace(/,/g, '') || "";
+        var donations = +document.getElementById("DeductionsInput23").value.replace(/,/g, '') || "";
+        var loan_higher_edu = +document.getElementById("DeductionsInput24").value.replace(/,/g, '') || "";
+        var loan_resident = +document.getElementById("DeductionsInput25").value.replace(/,/g, '') || "";
+        var interest_deposits = +document.getElementById("DeductionsInput26").value.replace(/,/g, '') || "";
+
+        var other_deduction = +document.getElementById("DeductionsInput27").value.replace(/,/g, '') || "";
+        var covered_101 = +document.getElementById("covered_101").value.replace(/,/g, '') || "";
+        var covered_102 = +document.getElementById("covered_102").value.replace(/,/g, '') || "";
+        var due_date_submission = document.getElementById("due_date_submission").value;
+        if (due_date_submission == "") {
+            showAlert(); LogoShiftDown();
+            document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Please select 'Due date of submission of return'";
+            return false;
+        }
+        var due_date_submission = moment(due_date_submission, "YYYY-MM-DD").format("DD/MM/YYYY");
+
+        var actual_date_submission = document.getElementById("actual_date_submission").value;
+        if (actual_date_submission == "") {
+            showAlert(); LogoShiftDown();
+            document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Please select 'Actual date of submission of return/date of completion of assessment'";
+            return false;
+        }
+        var actual_date_submission = moment(actual_date_submission, "YYYY-MM-DD").format("DD/MM/YYYY");
+        var relief = +document.getElementById("relief").value.replace(/,/g, '') || "";
+        var TDS = +document.getElementById("tds").value.replace(/,/g, '') || "";
+        eightyDD = disability1 = eightyU = disability2 = "";
+        if ($('#deduction80DDCheckboxIfClaimed').is(":checked")) {
+            var eightyDD = '1';
+        }
+        if ($('#deduction80DDCheckboxIfDisable').is(":checked")) {
+            var disability1 = '1';
+        }
+        if ($('#deduction80UCheckboxIfClaimed').is(":checked")) {
+            var eightyU = '1';
+        }
+        if ($('#deduction80UCheckboxIfDisable').is(":checked")) {
+            var disability2 = '1';
+        }
+        get_table = document.getElementById("tb");
+        t_rows = get_table.tBodies[0].rows.length;
+        detail_tax_paid_data = [];
+        for (i = 0; i < t_rows; i++) {
+            var get_date = document.getElementById("date_" + i).value;
+            if (get_date != "") {
+                var get_date = moment(get_date, "YYYY-MM-DD").format("DD/MM/YYYY");
+            }
+            var get_amt = +document.getElementById("amt_" + i).value.replace(/,/g, '') || "";
+            if (get_date != "" || get_amt != "") {
+                detail_tax_paid_data.push({ "date": get_date, "amount": get_amt });
+            }
+        }
+        $(".action-buttons-container").hide();
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/income_tax_calculator/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/income_tax_calculator/",
+            type: "POST",
+            data: JSON.stringify({
+                "assessment_year": assessment_year,
+                "is_opting": is_opting,
+                "male_female": male_female,
+                "residential_status": resi_status,
+                "salary_income": salary_income,
+                "interest_house_loan": interest_house_loan,
+                "annual_letable": annual_letable,
+                "municipal_tax": municipal_tax,
+                "unrealized_rent": unrealized_rent,
+                "interest_house_loan2": interest_house_loan2,
+                "st_other_cover1": st_other_cover1,
+                "st_other_cover2": st_other_cover2,
+                "st_other_cover3": st_other_cover3,
+                "st_other_cover4": st_other_cover4,
+                "st_other_cover5": st_other_cover5,
+                "st_other_cover_total": st_other_cover_total,
+
+                "st_covered1": st_covered1,
+                "st_covered2": st_covered2,
+                "st_covered3": st_covered3,
+                "st_covered4": st_covered4,
+                "st_covered5": st_covered5,
+                "st_covered_total": st_covered_total,
+                "lt_201": lt_201,
+                "lt_202": lt_202,
+                "lt_203": lt_203,
+                "lt_204": lt_204,
+                "lt_205": lt_205,
+                "lt_20_total": lt_20_total,
+
+                "lt_101": lt_101,
+                "lt_102": lt_102,
+                "lt_103": lt_103,
+                "lt_104": lt_104,
+                "lt_105": lt_105,
+                "lt_10_total": lt_10_total,
+                "lt_covered1": lt_covered1,
+                "lt_covered2": lt_covered2,
+                "lt_covered3": lt_covered3,
+                "lt_covered4": lt_covered4,
+                "lt_covered5": lt_covered5,
+                "lt_covered_total": lt_covered_total,
+
+                "interest": interest,
+                "other_income": other_income,
+                "winnings": winnings,
+                "profit": profit,
+                "agri_income": agri_income,
+
+                "life_insurance": life_insurance,
+                "payment_annuity": payment_annuity,
+                "PPF": PPF,
+                "NSC": NSC,
+                "ULIP": ULIP,
+                "UTI": UTI,
+                "housing_loan": housing_loan,
+                "tution_fee": tution_fee,
+                "fixed_deposit": fixed_deposit,
+
+                "NPF": NPF,
+                "self_NPS": self_NPS,
+                "additional_NPS": additional_NPS,
+                "employer_NPS": employer_NPS,
+                "long_term_infrastructure": long_term_infrastructure,
+                "investment_under_equity": investment_under_equity,
+                "sukanya_samridhi": sukanya_samridhi,
+                "other_deductable": other_deductable,
+                "medi_claim": medi_claim,
+                "medi_treatment": medi_treatment,
+
+                "house_property": house_property,
+                "interest_elect_vehicle": interest_elect_vehicle,
+                "donations": donations,
+                "eightyDD": eightyDD,
+                "disability1": disability1,
+                "loan_higher_edu": loan_higher_edu,
+                "loan_resident": loan_resident,
+                "eightyU": eightyU,
+                "disability2": disability2,
+                "interest_deposits": interest_deposits,
+
+                "other_deduction": other_deduction,
+                "covered_101": covered_101,
+                "covered_102": covered_102,
+                "due_date_submission": due_date_submission,
+                "actual_date_submission": actual_date_submission,
+                "relief": relief,
+                "TDS": TDS,
+                "detail_tax_paid": detail_tax_paid_data
+            }),
+            dataType: "json",
+            success: function (res) {
+                // console.log(res)
+                $(".action-buttons-container").show();
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    if (res.data.error_msg != "") {
+                        showAlert(); LogoShiftDown();
+                        document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.data.error_msg;
+                    }
+                    $("#IncomeFromHousePropertyMainInputView").val(res.data.total_income_from)
+                    $("#IncomeFromSelfOccupiedHousePropertyInput").val(res.data.income_from_calculations.income_from_self)
+                    $("#NetAnualValueInput").val(res.data.income_from_calculations.net_annual)
+                    $("#30PDeductionOfNetAnnualValueInput").val(res.data.income_from_calculations.standard_deduction)
+                    $("#IncomeFromLetOutHousePropertyInput").val(res.data.income_from_calculations.income_from_let_out)
+
+                    $("#CapitalGainsMainInputView").val(res.data.total_capital_gains)
+                    $("#StermCGainsOtherThan111ATotal").val(res.data.capital_gains_calculations.st_other_cover_total)
+                    $("#StermCGainsCovered111ATotal").val(res.data.capital_gains_calculations.st_covered_total)
+                    $("#LtermCGains20Total").val(res.data.capital_gains_calculations.lt_20_total)
+                    $("#LtermCGains10Total").val(res.data.capital_gains_calculations.lt_10_total)
+                    $("#LtermCGains112ATotal").val(res.data.capital_gains_calculations.lt_covered_total)
+
+
+                    $("#IncomeFromOtherSourcesMainInputView").val(res.data.income_from_other)
+                    $("#DeductionsMainInputView").val(res.data.total_deductions)
+                    $("#DeductionsInput18").val(res.data.total_deductions_calculation.total_deduction_inner)
+                    $("#deduction80DDCheckboxnumber").val(res.data.total_deductions_calculation.deduction_for_maintenance)
+                    $("#deduction80UCheckboxnumber").val(res.data.total_deductions_calculation.deduction_person_disability)
+
+                    $("#net_taxable").val(res.data.net_taxable)
+                    $("#income_laible1").val(res.data.income_laible1)
+                    $("#income_laible2").val(res.data.income_laible2)
+                    $("#st_covered2_1").val(res.data.st_covered2_1)
+                    $("#st_covered2_2").val(res.data.st_covered2_2)
+                    $("#covered_101").val(res.data.lt_covered10_1)
+                    $("#covered_102").val(res.data.lt_covered10_2)
+                    $("#lt_charged20_1").val(res.data.lt_charged20_1)
+                    $("#lt_charged20_2").val(res.data.lt_charged20_2)
+                    $("#lt_charged10_1").val(res.data.lt_charged10_1)
+                    $("#lt_charged10_2").val(res.data.lt_charged10_2)
+                    $("#win1").val(res.data.win1)
+                    $("#win2").val(res.data.win2)
+                    $("#income_tax").val(res.data.income_tax)
+                    $("#surcharge").val(res.data.surcharge)
+                    if (typeof res.data.health_and_education_cess === 'undefined' || res.data.health_and_education_cess === null) {
+                        $("#education_cess").val(res.data.education_cess)
+                        $("#higer_education_cess").val(res.data.higer_education_cess)
+                    }
+                    else {
+                        $("#health_and_education_cess").val(res.data.health_and_education_cess)
+                    }
+                    $("#total_liability").val(res.data.total_liability)
+                    $("#234A").val(res.data.amount_of_interest_234a)
+                    $("#234B").val(res.data.amount_of_interest_234b)
+                    $("#234C").val(res.data.amount_of_interest_234c)
+                }
+                else if (res.error_code == "102") {
+                    showAlert(); LogoShiftDown();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert(); LogoShiftDown();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

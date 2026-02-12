@@ -1,0 +1,143 @@
+.ProfileFillDetailsBox {
+  display: flex;
+  justify-content: space-between;
+  /* width: 100%; */
+  /* margin: auto; */
+}
+.BGSvg {
+  height: 100vh;
+  width: 40%;
+}
+.fillindetails {
+  padding: 0;
+  background-image: url(https://images.minty.co.in/static/userflow/img/dashboard/fill-in-details.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 700px;
+  
+  /* height: 1; */
+}
+.Login_Block {
+  text-align: center;
+  width: 65%;
+}
+.Submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Submit button{
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    background: #8bc53f;
+    color: #fff;
+    border: 1px solid transparent;
+    position: relative;
+    z-index: 1;
+    font-size: 1.2rem;
+    padding: 10px 50px;
+    border-radius: 25px;
+    margin: 15px auto;
+    margin-top: 3rem;
+    transition: .2s all ease-out;
+}
+.Submit button:hover{
+    background: #569800;
+}
+.TextLabel p{
+    font-size:2rem;
+    font-weight: 500;
+}
+.subTxt{
+    margin-top: 20px;
+    color: darkorange;
+    font-size: 20px;
+}
+.ProfilePicSection p{
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+.DragDrop {
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+.DragDrop section div{
+    background: url('https://images.minty.co.in/static/userflow/img/icons/profile-add-image.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100px;
+    height: 100px;
+    outline: none;
+    cursor: pointer;
+}
+.NoteSection{
+    color: #ce0b0b;
+    font-size: 1.1rem;
+    width: 60%;
+     margin: auto;
+}
+.FormBox{
+    margin-top: 2rem;
+}
+.FormBox input{
+    border: none;
+    background: 0 0;
+    padding: 5px 0 5px 0;
+    display: block;
+    resize: none;
+    width: 80%;
+    color: #383838;
+    border: none;
+    padding: 2rem 0rem .5rem;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0,82,99,.31);
+}
+.inputs input{
+    width: 39%;
+}
+.FormBox input:focus{
+    border-bottom: 1px solid rgba(100, 140, 147, 0.31);
+    transition: .2s all ease-out;
+    /* width: 100%; */ 
+}
+.backarrow{
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    top: 30px;
+    left: 30px;
+    background-color: rgba(0,82,99,.14);
+    padding: 14px;
+    border-radius: 12px;
+    z-index: 1;
+}
+@media only screen and (max-width: 600px){
+    .ProfileFillDetailsBox{
+        display: grid
+    }
+    .fillindetails{
+        display: none;
+    }
+    .Login_Block{
+        width: 100%;
+        margin-top: 8rem;
+    }
+    .TextLabel p{
+        font-size: 1.3rem;
+    }
+    .BGSvg{
+        display: none;
+    }
+    .NoteSection{
+        width: 100%;
+        padding: 0rem 2rem;
+    }
+    .FormBox input{
+        width: 84%;
+        margin: 0rem  2rem;
+    }
+}

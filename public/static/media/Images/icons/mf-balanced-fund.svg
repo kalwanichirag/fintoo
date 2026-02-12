@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 32</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-238.363997%" y1="50%" x2="355.681387%" y2="45.7091971%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-74.653144%" y1="50%" x2="114.61221%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05-Mutual-funds---more-options-Copy" transform="translate(-766.000000, -539.000000)">
+            <g id="Group-32" transform="translate(766.000000, 539.000000)">
+                <g id="Group-35" fill="#EF305E">
+                    <circle id="Oval" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                    <circle id="Oval" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                    <circle id="Oval" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="29" cy="22" r="1"></circle>
+                    <circle id="Oval-Copy-2" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="26" cy="11" r="1"></circle>
+                    <circle id="Oval-Copy-15" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="8" cy="25" r="1"></circle>
+                    <circle id="Oval-Copy-3" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="13.5" cy="12.5" r="1"></circle>
+                </g>
+                <g id="balanced" transform="translate(8.000000, 17.000000)">
+                    <g id="Group-83">
+                        <path d="M14.6830357,10.7962963 C14.6830357,10.7962963 14.6830357,10.7962963 14.6830357,10.7962963 L7.82410714,10.7962963 C7.65982143,10.7962963 7.53660714,10.7148148 7.45446429,10.5925926 C7.37232143,10.4703704 7.37232143,10.3074074 7.45446429,10.1851852 L10.9044643,4.27777778 C10.9866071,4.15555556 11.1098214,4.07407407 11.2741071,4.07407407 C11.4383929,4.07407407 11.5616071,4.15555556 11.64375,4.27777778 L15.0526786,10.1444444 C15.09375,10.2259259 15.1348214,10.3074074 15.1348214,10.3888889 C15.09375,10.5925926 14.9294643,10.7962963 14.6830357,10.7962963 Z" id="Path" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                        <rect id="Rectangle" fill="url(#linearGradient-2)" x="0" y="0" width="23" height="3.25925926" rx="1.62962963"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

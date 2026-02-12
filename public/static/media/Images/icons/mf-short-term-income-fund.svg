@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 13</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-106.860125%" y1="50%" x2="196.31619%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05-Mutual-funds---more-options-Copy" transform="translate(-556.000000, -539.000000)">
+            <g id="Group-13" transform="translate(556.000000, 539.000000)">
+                <g id="Group-34" fill="#EF305E">
+                    <circle id="Oval" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                    <circle id="Oval" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                    <circle id="Oval" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="18" cy="8" r="1"></circle>
+                    <circle id="Oval-Copy-2" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="23" cy="31" r="1"></circle>
+                    <circle id="Oval-Copy-3" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="10.5" cy="9.5" r="1"></circle>
+                    <circle id="Oval-Copy-4" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="29.5" cy="22.5" r="1"></circle>
+                    <circle id="Oval-Copy-5" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="8.5" cy="21.5" r="1"></circle>
+                </g>
+                <g id="noun_clock_186665" transform="translate(11.000000, 11.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+                    <path d="M8,0 C3.58885476,0 0,3.58863537 0,7.99978061 C0,12.4111452 3.58863537,16 8,16 C12.4113646,16 16,12.4113646 16,7.99978061 C16,3.58885476 12.4111452,0 8,0 Z M11.0713032,8.60048267 L7.99978061,8.60048267 C7.63624397,8.60048267 7.34159719,8.30605529 7.34159719,7.94229925 L7.34159719,3.11562089 C7.34159719,2.75230364 7.63624397,2.45743747 7.99978061,2.45743747 C8.36309785,2.45743747 8.65796402,2.75230364 8.65796402,3.11562089 L8.65796402,7.28411584 L11.0713032,7.28411584 C11.4346204,7.28411584 11.7294866,7.57898201 11.7294866,7.94229925 C11.7294866,8.30627468 11.4346204,8.60048267 11.0713032,8.60048267 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

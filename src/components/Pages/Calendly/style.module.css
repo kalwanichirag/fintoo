@@ -1,0 +1,272 @@
+.appointment-section {
+    padding-top: 4rem;
+    /* padding-bottom: 4rem; */
+    font-size: 2.5rem;
+}
+
+.SectionTitle {
+    font-size: 2.9rem;
+    color: #042b62;
+    font-weight: 600;
+}
+
+.appointment-section-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 3rem;
+}
+
+.appointment-section-container1 {
+    display: block;
+}
+
+.appointment-section-text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: 500;
+    font-size: 2.5rem;
+    padding: 10rem 0;
+
+}
+
+.ITR-appointment-section-text {
+    /* justify-content: flex-start; */
+    padding: 14rem 0;
+    display: grid;
+    place-items: center;
+}
+
+.appointment-section-iframe {
+    display: flex;
+    align-items: center;
+}
+
+.ITR-Appointment {
+    padding: 0 0rem;
+}
+
+.appointment-section-sub-text {
+    /* font-size: 2rem; */
+    color: #042b62;
+    font-weight: 500;
+    font-size: 3rem;
+}
+
+.detailContainer {
+    border: 1px solid #B2B2B2;
+    border-radius: 10px;
+    width:95%;
+    margin: auto;
+    background-color: white;
+    /* aspect-ratio: 1; */
+}
+
+.logoContainer {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin: 0 auto 1rem auto;
+    border-bottom: 1px solid #B2B2B2;
+}
+
+.inputDetailsContainer {
+    /* width: 70%; */
+    margin: 0 auto;
+    padding: 0 3rem;
+}
+
+.inputElemTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.inputElemSubTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #99A1B7;
+}
+
+.maskedNo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #042b62;
+}
+
+.inputElemContainer {
+    margin-bottom: 1rem;
+}
+
+.inputElem {
+    width: 100%;
+    /* height: 50px; */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #B2B2B2;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: white !important; 
+    position: relative; 
+    /* z-index: 1;  */
+}
+
+.inputElemLabel {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.btnElem {
+    color: #fff;
+    background-color: #042b62;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 30px;
+    margin: auto;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btnElem:hover {
+    color: #042b62;
+    background-color: #042b624e;
+    border-color: #042b62;
+}
+
+.otpfields {
+    margin: 1.3rem 0;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.otpfields input[type="text"] {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ffff !important;
+    -webkit-appearance: none;
+    box-shadow: 0px 0px 2px 0px #b5afa1b8;
+    -webkit-box-shadow: 0px 0px 2px 0px #b5afa1b8;
+    border-radius: 6px;
+    margin-left: 1.6rem;
+    text-align: center;
+    color: #042b62;
+    font-size: 1.2rem;
+    padding: .8rem;
+    background: transparent;
+    font-weight: 600;
+}
+
+.otpfields input[type="text"]:first-child {
+    margin-left: 0rem;
+}
+
+.otpfields input[type="text"]:focus {
+    border-color: #042b62 !important;
+    /* Warna orange saat focus */
+}
+
+.terms input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.termsSection {
+    margin-bottom: 1rem;
+}
+
+.termsSection label {
+    font-size: .9rem;
+    color: rgb(158, 158, 158);
+    cursor: pointer;
+}
+
+.termsSection .termsSectionTxt {
+    font-size: 1rem;
+}
+
+/* ------------------------------------------------------------------------media query----------------------------------------------------------------- */
+
+@media only screen and (max-width: 850px) {
+    .logoContainer {
+        width: 100%;
+    }
+
+    .logoContainer img {
+        width: 100px;
+    }
+
+    .inputDetailsContainer {
+        width: 90%;
+        padding: 0;
+    }
+
+    .otpfields input[type="text"] {
+        width: 45px;
+        height: 45px;
+    }
+    .inputElemTitle{
+        font-size: 1rem;
+    }
+    .inputElemLabel{
+        font-size: .9rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .appointment-section-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .appointment-section-text {
+        padding: 0 0 1rem 0;
+        text-align: center;
+        line-height: 2rem;
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
+
+    .appointment-section-iframe {
+        display: flex;
+        align-items: center;
+        height: 60vh;
+        margin-top: 8rem;
+    }
+
+    .ITR-Appointment {
+        padding: 0 1.6rem !important;
+    }
+
+    .appointment-section-sub-text {
+        font-size: 2rem;
+        white-space: nowrap;
+        padding-bottom: 1rem;
+    }
+
+    .ITR-appointment-section-text {
+        font-size: 1.5rem;
+    }
+
+    .ITR-appointment-section-text {
+        padding: 6rem 0 0rem 0;
+    }
+
+    .containerDemo .otpfields input[type="text"] {
+        width: 50px;
+        height: 50px;
+    }
+    .detailContainer {
+        width: 100%;
+    }
+
+}

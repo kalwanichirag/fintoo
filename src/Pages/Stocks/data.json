@@ -1,0 +1,420 @@
+[
+    {
+      "Fliter": "S&P BSE 100 ESG Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Dividend Stability Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Enhanced Value Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Low Volatility Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE 150 Midcap Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Momentum Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Quality Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE 250 SmallCap Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE 250 LargeMidCap Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Diversified Financials Revenue Growth",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE 400 MidSmallCap Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE BANKEX",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Auto",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Metal",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Oil&Gas",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Mid-Cap",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Small-Cap",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE 100 LargeCap TMC Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Private Banks Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE IPO",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Realty Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Power",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Greenex",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE CARBONEX",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE India Infrastructure",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE CPSE",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Allcap Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Largecap",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Commodities",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Consumer Discretionary",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Energy",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Financial Services",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Industrials",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Telecommunication",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Utilities",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE India Manufacturing",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Midcap Select Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Smallcap Select Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE SENSEX 50 Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE SENSEX Next 50",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Bharat 22 Index",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE 500",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE IT Sector",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE FMCG Sector",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Healthcare",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE 100",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE 200",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Sensex",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE SME IPO",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Dollex 200",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE PSU",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Tech",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Capital Goods",
+      "NSE/BSE": "BSE"
+    },
+    {
+      "Fliter": "S&P BSE Consumer Durables",
+      "NSE/BSE": "BSE"
+    },
+    
+      {
+        "Fliter": "Nifty LargeMidcap 250",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Next 50",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 500",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 50 Equal Weight",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 100 Low Volatility 30",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Midcap 150",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty MidSmallcap 400",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Alpha Low-Volatility 30",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty IT",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty200 Momentum 30",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Healthcare Index",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 500 Multicap 50:25:25",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Smallcap 250",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Smallcap 50",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Smallcap 100",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Bank",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Energy",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Pharma",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Midcap 100",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 100",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Infrastructure",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Realty",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty PSU Bank",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Midcap 50",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty MNC",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty FMCG",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty PSE",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Consumption",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Auto",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Metal",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 200",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Media",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Commodities",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Financial Services",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Dividend Opportunities 50",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Alpha 50",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty CPSE",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty50 Value 20",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Growth Sectors 15",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 100 Equal Weight",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Midcap Liquid 15",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty100 Quality 30",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Private Bank",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 50",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Services Sector",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty 100 Liquid 15",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty200 Quality 30",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Financial Services 25/50",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Consumer Durables",
+        "NSE/BSE": "NSE"
+      },
+      {
+        "Fliter": "Nifty Oil & Gas",
+        "NSE/BSE": "NSE"
+      }
+      
+  ]

@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/deduction_under_section_80D.css">
+    <title>Deduction under section 80D</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <span class="link80D">
+        <span class="link80DArrow"></span>
+        Section 80D is a provision in the Indian Income Tax Act that allows an individual to claim a deduction for the
+        amount spent on medical insurance premium for self, spouse, dependent children, and parents. The maximum
+        deduction allowed under Section 80D is Rs. 25,000 per financial year for the premium paid for self, spouse, and
+        dependent children. In addition to this, an individual can claim a deduction of up to Rs. 25,000 for the premium
+        paid for their parents. If the parents are senior citizens (aged 60 years or more), the maximum deduction limit
+        is increased to Rs. 50,000.</span>
+
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class=" tab_button fw-normal active">
+                DEDUCTION UNDER SECTION 80D</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                <section>
+                    <form id="80D_form">
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center tax-payer element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Assessment Year *
+                                </label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <select class="form-select rounded-0" id="optassessmentyear"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" required>
+                                        <option value="">Select </option>
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center tax-payer element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Status *
+                                </label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <select class="form-select rounded-0" id="optstatus"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" required>
+                                        <option value="">Select </option>
+                                        <option value="1" selected="selected">Individual</option>
+                                        <option value="2">HUF</option>
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+
+                            <div class="inputs-container-element">
+                                <div class="grid-inputs-container inputs-heading">
+                                    <label></label>
+                                    <label class="label-fw-class" id="income-from-salary-label">Assessee, Spouse,
+                                        & dependent
+                                        Children</label>
+                                    <label class="label-fw-class" id="income-from-salary-label">Assesee's
+                                        parents</label>
+                                </div>
+                                <div id="individualDiv">
+                                    <div class="grid-inputs-container" id="firstDiv">
+                                        <label class="label-fw-class">
+                                            <span class="label-span">
+                                                Payment for medical insurance premium (mode other than
+                                                cash) /contribution to CGHS
+                                            </span>
+                                        </label>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="firstrowtxtID1"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="firstrowtxtID2"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                    </div>
+                                    <div class="grid-inputs-container" id="secondDiv">
+                                        <label class="label-fw-class">
+                                            <span class="label-span">
+                                                Payment of medical insurance premium for resident Sr.
+                                                Citizen – (mode other than
+                                                cash)
+                                            </span>
+                                        </label>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="secondrowtxtID1"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="secondrowtxtID2"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                    </div>
+                                    <div class="grid-inputs-container" id="thirdDiv">
+                                        <label class="label-fw-class">
+                                            <span class="label-span">
+                                                Payment made for preventive health check
+                                                up
+                                            </span>
+                                        </label>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="thirdrowtxtID1"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="thirdrowtxtID2"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                    </div>
+                                    <div class="grid-inputs-container" id="fourthDiv">
+                                        <label class="label-fw-class" id="divLiteral13"><span class="label-span">
+                                                Medical expenditure on the health
+                                                of
+                                                Resident very senior
+                                                citizen for whom no
+                                                amount is paid to effect/keep in force health) ( mode of payment other
+                                                than
+                                                cash
+                                                )
+                                            </span> </label>
+                                        <label class="label-fw-class" id="divLiteral18" style="display:none;">
+                                            <span class="label-span">
+                                                Medical
+                                                expenditure on the health of Resident senior
+                                                citizen and very senior
+                                                citizen for whom no amount is paid to effect/keep in force an insurance
+                                                on
+                                                the
+                                                health)( mode of payment other than cash)
+                                            </span>
+                                        </label>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="fourthrowtxtID1"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="fourthrowtxtID2"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="hufDiv" style="display: none;">
+                                    <div class="grid-inputs-container">
+                                        <label class="label-fw-class"><span class="label-span">
+                                                Payment made for Medi-claim insurance premium
+                                            </span></label>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="firstrowtxthufID1"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="firstrowtxthufID2"
+                                                maxlength="5" disabled="disabled" type="text" />
+                                        </span>
+                                    </div>
+                                    <div class="grid-inputs-container">
+                                        <label class="label-fw-class">
+                                            <span class="label-span">
+                                                Payment made for Mediclaim insurance premium paid for
+                                                resident Sr. Citizen of 60
+                                                years or more
+                                            </span>
+                                        </label>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="secondrowtxthufID1"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="secondrowtxthufID2"
+                                                maxlength="5" disabled="disabled" type="text" />
+                                        </span>
+                                    </div>
+                                    <div class="grid-inputs-container">
+                                        <label class="label-fw-class" id="divhufoldMedical">
+                                            <span class="label-span">
+                                                Medical expenditure on the
+                                                health
+                                                of Resident very senior citizen for whom no
+                                                amount is paid to effect/keep in force health) ( mode of payment other
+                                                than
+                                                cash
+                                                )
+                                            </span>
+                                        </label>
+                                        <label class="label-fw-class" id="divhufnewMedical" style="display:none;">
+                                            <span class="label-span">
+                                                Medical
+                                                expenditure on the health of Resident senior citizen and very senior
+                                                citizen for whom no amount is paid to effect/keep in force an insurance
+                                                on
+                                                the
+                                                health)( mode of payment other than cash)
+                                            </span>
+                                        </label>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="thirdrowtxthufID1"
+                                                maxlength="5" type="text" />
+                                        </span>
+                                        <span class="label-span">
+                                            <input class="form-control rounded-0 inputclass" id="thirdrowtxthufID2"
+                                                maxlength="5" disabled="disabled" type="text" />
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="grid-inputs-container">
+                                    <label class="label-fw-class"><span class="label-span">
+                                            DEDUCTION UNDER SECTION&nbsp; <span class="linkText"
+                                                onmouseenter="tooltipOn(this,'link80D')"
+                                                onmouseleave="tooltipOff(event,'link80D')"> 80D</span>
+                                        </span></label>
+                                    <div></div>
+                                    <span class="label-span">
+                                        <input class="form-control rounded-0" id="DeductionunderSection80D"
+                                            maxlength="5" disabled="disabled" type="text" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br><br><br>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../../static/tax-calc/js/deduction_under_section_80D.js"></script>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        var year1 = current_date.getFullYear();
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 7; i++) {
+            var year2 = (year1 + 1);
+            $('#optassessmentyear').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1;
+        }
+    });
+
+    const getFormValidationState = () => {
+        const formElement = document.getElementById('80D_form');
+        const isFormValid = formElement.checkValidity();
+        return isFormValid
+    }
+
+    function Calculate() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        }
+        hideAlert();
+        var assessmentYear = $("#optassessmentyear option:selected").text();
+        var status = $("#optstatus option:selected").text();
+        var medical_cghs_assesee = +$("#firstrowtxtID1").val()||"";
+        var medical_senior_assesee = +$("#secondrowtxtID1").val()||"";
+        var medical_exp_assesee = +$("#fourthrowtxtID1").val()||"";            
+        var health_checkup_child = +$("#thirdrowtxtID1").val()||"";
+        var medi_claim_parent = +$("#firstrowtxtID2").val()||"";
+        var sr_citizen_parent = +$("#secondrowtxtID2").val()||"";
+        var health_checkup_parent = +$("#thirdrowtxtID2").val()||"";
+        var medi_exp_parent = +$("#fourthrowtxtID2").val()||"";
+        var medi_claim_child = +$("#firstrowtxthufID1").val()||"";
+        var sr_citizen_child = +$("#secondrowtxthufID1").val()||"";
+        var medi_exp_child = +$("#thirdrowtxthufID1").val()||"";
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/section_80d/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/section_80d/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/section_80d/",
+            type: "POST",
+            data: JSON.stringify({
+                "assessment_year" : assessmentYear,
+                "status":status,
+                "medical_cghs_assesee" :medical_cghs_assesee,
+                "medical_cghs_assesee_parents" :medi_claim_parent,
+                "medical_senior_assesee" :medical_senior_assesee,
+                "medical_senior_assesee_parents" :sr_citizen_parent,
+                "health_checkup_assesee" : health_checkup_child,
+                "health_checkup_assesee_parents" : health_checkup_parent,
+                "medical_exp_assesee" : medical_exp_assesee,
+                "medical_exp_assesee_parents" : medi_exp_parent,
+                "medical_claim_assesee":medi_claim_child,
+                "medical_senior_assesee_huf":sr_citizen_child,
+                "medical_exp_assesee_huf":medi_exp_child
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    if (status=="Individual") {
+                        $("#DeductionunderSection80D").val(res.data.deducted_amount||0);
+                    }
+                    else{
+                        $("#DeductionunderSection80D").val(res.data.taxable_value||0);
+                    }
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

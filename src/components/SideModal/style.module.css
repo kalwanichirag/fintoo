@@ -1,0 +1,10 @@
+.mymodal .modal-dialog {
+  position: fixed;
+  margin: auto;
+  /* width: 320px; */
+  /* width: 512px; */
+  /* width: 1000px; */
+  height: 100%;
+  right: 0px;
+  max-width: 100%;
+}

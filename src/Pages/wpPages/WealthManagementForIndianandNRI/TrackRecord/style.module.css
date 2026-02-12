@@ -1,0 +1,90 @@
+.WeDeliverSection {
+    background-color: #00132E;
+    /* height: 100vh; */
+}
+
+.featureSection {
+    height: 100%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    padding-bottom: 5rem;
+}
+
+.GlobalText2 {
+    padding: 2rem;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.WeDeliverSectionItemContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.WeDeliverSectionItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    gap: 1rem;
+    color: white;
+    border-radius: 8px;
+    border: 3px solid white;
+}
+
+.WeDeliverSectionItem h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.WeDeliverSectionItem p {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.fadeInRight {
+    animation-name: fadeInRight;
+    animation-duration: 1.25s;
+}
+
+.fadeInLeft {
+    animation-name: fadeInLeft;
+    animation-duration: 1.25s;
+}
+
+@media only screen and (max-width: 600px) {
+    .WeDeliverSection {
+        background-color: white;
+    }
+
+    .WeDeliverSectionItemContainer {
+        grid-template-columns: 1fr;
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}

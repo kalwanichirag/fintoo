@@ -1,0 +1,127 @@
+.bannerSection {
+    background-color: #094762;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../../public/static/media/MFSnippet/IconsbgImage.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bannerSectionLogo{
+    width: 300px;
+    margin-bottom: 2rem;
+}
+
+.SpaceReduce {
+    color: #ffffff;
+    font-size: 4.3rem;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.land-txt p {
+    padding-top: 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2em;
+    margin: 0 !important;
+    color: #ffffff;
+}
+
+.mouseicon {
+    width: 25px;
+    height: 45px;
+    border-radius: 15px;
+    position: relative;
+    border: 2px solid #dedede;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 4rem;
+}
+
+.mouseicon span {
+    width: 3px;
+    height: 8px;
+    margin: 2px auto 0;
+    display: block;
+    background: #dedede;
+    border-radius: 5px;
+    -webkit-animation: 1.2s ease infinite wheel-up-down;
+    animation: 1.2s ease infinite wheel-up-down;
+}
+
+@media only screen and (max-width: 850px) {
+
+    .bannerSection {
+        height: 50vh;
+    }
+
+    .mouseicon {
+        width: 22px;
+        height: 33px;
+    }
+
+    .bannerSectionLogo{
+        width: 200px;
+        margin-bottom: 0;
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .SpaceReduce {
+        font-size: 1.4rem;
+        margin-top: 2rem;
+    }
+
+    .land-txt p {
+        font-size: .9rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .land-txt {
+        top: 10rem;
+        padding: .4rem;
+    }
+    .bannerSectionLogo{
+        width: 200px;
+        margin-bottom: 0;
+        margin-top: 3rem;
+    }
+}
+
+@-webkit-keyframes wheel-up-down {
+    0% {
+        margin-top: 2px;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        margin-top: 20px;
+        opacity: 0;
+    }
+}
+
+@keyframes wheel-up-down {
+    0% {
+        margin-top: 2px;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        margin-top: 20px;
+        opacity: 0;
+    }
+}

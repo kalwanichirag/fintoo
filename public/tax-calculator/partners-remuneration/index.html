@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/partners_remuneration.css">
+    <title>Partners' Remuneration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <span class="link40b">
+        <span class="link40bArrow"></span>
+        On first 3 lakhs of book profit or in case of loss – ₹ 1, 50,000 or 90% of book profits (whichever is higher).
+        On the balance book profit 60% of book profit.</span>
+
+    <span class="link40ba">
+        <span class="link40baArrow"></span>
+        Any payment of interest to a partner of a partnership firm is allowed as a deduction while computing the profits
+        and gains of the partnership firm for income tax purposes</span>
+
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button fw-normal active">
+                REMUNERATION TO PARTNERS</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <div>
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label"> Net profit/​(loss) as per profit &amp; Loss
+                                    account​</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtNetProfitAsPerPLAccount"
+                                        maxlength="14" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label"><strong> Add :</strong> Items debited to Profit &amp;
+                                    loss account</label>
+                                <div class="col-sm-4 col-xs-12">
+
+                                </div>
+                            </div>
+
+                            <div class="table-coontainer" id="tbl_main">
+                                <div class="div-table" id="div-table">
+                                    <div class="div-row thead theader">
+                                        <div class="div-cell header-cell">
+                                            S.No.</div>
+                                        <div class="div-cell header-cell">
+                                            Name of Partner​​</div>
+                                        <div class="div-cell header-cell">
+                                            Rate</div>
+                                        <div class="div-cell header-cell">
+                                            Amount of Interest</div>
+                                        <div class="div-cell header-cell">
+                                            Action</div>
+                                    </div>
+                                    <div class="div-row" id="div-row">
+                                        <div class="div-cell s-no" id="id_1">
+                                            1
+                                        </div>
+                                        <div class="div-cell">
+                                            <input id="txtParticular_1" type="text"
+                                                class="form-control rounded-0 particular" maxlength="14"
+                                                style="text-align: right;">
+                                        </div>
+                                        <div class="div-cell">
+                                            <input id="txtRate_1" type="text" class="form-control rounded-0 rate"
+                                                maxlength="14" style="text-align: right;">
+                                        </div>
+                                        <div class="div-cell">
+                                            <input id="txtInterest_1" type="text"
+                                                class="form-control rounded-0 interest" maxlength="14"
+                                                style="text-align: right;">
+                                        </div>
+                                        <div class="div-cell">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="action-buttons-container">
+                                <button id="anchorAdd" class="add_field_button calculate-badge" onclick="addTableRow()">
+                                    Add
+                                    More</button>
+                            </div>
+                            <br>
+
+                            <!-- =========================================================================================================================================================================== -->
+                            <div id="table-row-template" hidden>
+                                <div class="div-row">
+                                    <div class="div-cell s-no">
+                                        1
+                                    </div>
+                                    <div class="div-cell">
+                                        <input id="txtParticular_1" type="text"
+                                            class="form-control rounded-0 particular" maxlength="14"
+                                            onchange="changeFunction(this)">
+                                    </div>
+                                    <div class="div-cell">
+                                        <input id="txtRate_1" type="text" class="form-control rounded-0 rate"
+                                            maxlength="14" onchange="changeFunction(this)">
+                                    </div>
+                                    <div class="div-cell">
+                                        <input id="txtInterest_1" type="text" class="form-control rounded-0 interest"
+                                            maxlength="14" onchange="changeFunction(this)">
+                                    </div>
+                                    <div class="div-cell" style="cursor: pointer;" onclick="removeTableRow(this)">
+                                        remove
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- =========================================================================================================================================================================== -->
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Total interest paid to partners</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary calculate"
+                                        id="txtTotalInterestAmountDynamicRow" maxlength="14" type="text" readonly />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Remuneration to partners</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtRenumToPartners"
+                                        maxlength="14" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Salary to partners</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtSalaryToPartners"
+                                        maxlength="14" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Bonus to partners</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtBonusToPartners"
+                                        maxlength="14" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Commission to partners</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtCommissionToPartners"
+                                        maxlength="14" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Total remuneration allowed</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary calculate"
+                                        id="txtTotalRenumAllowed" maxlength="14" type="text" readonly />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Depreciation</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtDepreciation" maxlength="14"
+                                        type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Interest paid to partners and other
+                                    disallowances</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtOtherDisallowances"
+                                        maxlength="14" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Profit before interest, depreciation &amp;
+                                    remuneration</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary calculate"
+                                        id="txtProfitBeforeIntDepRenum" maxlength="14" type="text" readonly />
+                                </div>
+                            </div>
+
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label"><strong>Less :</strong> Interest on capital to
+                                    partners @ 12%</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate"
+                                        id="txtIntOfCapPartners" maxlength="14" type="text" />
+                                </div>
+                            </div>
+                            <!-- <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class input-label-class">
+                                    <strong>Less :</strong> Interest on capital to partners @ 12%
+                                    <span class="show-hide-details-btn" onclick="toggleDiv('collapse1')">
+                                        Edit
+                                    </span>
+                                </label>
+
+                                <div class="col-sm-4 col-xs-12 show-hide-details-input-container">
+                                    <input class="form-control rounded-0 calculate" id="txtIntOfCapPartners"
+                                        maxlength="14" type="text" />
+                                </div>
+                            </div> -->
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-12 col-xs-12 control-label label-fw-class input-label-class">
+                                    Please check the interest allowed as per income-tax act. In case any
+                                    capital is introduced or withdrawn during the year, please change the
+                                    interest amount manually.​​
+                                </label>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Depreciation allowable as per income-tax act,
+                                    1961</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtDepAsPerIT" maxlength="14"
+                                        type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Other allowable items</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 calculate" id="txtOthersAllowableItems"
+                                        maxlength="14" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Book profit</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary calculate" id="txtBookProfit"
+                                        maxlength="14" type="text" readonly />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Maximum remuneration allowable as per section
+                                    <span class="linkText" onmouseenter="tooltipOn(this,'link40b','link40bArrow')"
+                                        onmouseleave="tooltipOff(event,'link40b','link40bArrow')">
+                                        40(b)</span> of income tax act, 1961 (A)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary" id="txtTotalA"
+                                        maxlength="14" readonly disabled type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Total remuneration allowed as per books of account
+                                    (B)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary" id="txtTotalB"
+                                        maxlength="14" readonly disabled type="text" />
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Remuneration inadmissible under section &nbsp;<span
+                                        class="linkText" onmouseenter="tooltipOn(this,'link40b','link40bArrow')"
+                                        onmouseleave="tooltipOff(event,'link40b','link40bArrow')">40(b)</span>&nbsp;/<span
+                                        class="linkText" onmouseenter="tooltipOn(this,'link40ba','link40baArrow')"
+                                        onmouseleave="tooltipOff(event,'link40ba','link40baArrow')">40(ba)</span> (B -
+                                    A)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0 bg-body-secondary" id="txtTotalBMinusA"
+                                        maxlength="14" readonly disabled type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container2">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/partners_remuneration.js"></script>
+
+</html>
+<script>
+    function getFormattedValue(strValue){
+        if (strValue !="") {
+            if (strValue % 1 != 0) {
+                round_off_val=parseFloat(strValue).toFixed(2)
+                before_decimal=(round_off_val).toString().split(".")[0]
+                after_decimal=(round_off_val).toString().split(".")[1]
+                return (parseInt(before_decimal)).toLocaleString('en-IN')+"."+after_decimal;
+            }
+            else{
+                return (parseInt(strValue)).toLocaleString('en-IN');
+            }
+        }
+        else{
+            return "0";
+        }
+    }
+    function Calculate() {
+        hideAlert();
+        const net_profit = +$("#txtNetProfitAsPerPLAccount").val().replace(/,/g, '')||"";
+        const remuneration = +$("#txtRenumToPartners").val().replace(/,/g, '')||"";
+        const salary = +$("#txtSalaryToPartners").val().replace(/,/g, '')||"";
+        const bonus = +$("#txtBonusToPartners").val().replace(/,/g, '')||"";
+        const commission = +$("#txtCommissionToPartners").val().replace(/,/g, '')||"";
+        const depreciation = +$("#txtDepreciation").val().replace(/,/g, '')||"";
+        const interest_paid = +$("#txtOtherDisallowances").val().replace(/,/g, '')||"";
+        const less_interest = +$("#txtIntOfCapPartners").val().replace(/,/g, '')||"";
+        const depreciation_allowable = +$("#txtDepAsPerIT").val().replace(/,/g, '')||"";
+        const other_allowable = +$("#txtOthersAllowableItems").val().replace(/,/g, '')||"";
+        const items_debited = [];
+        tot_rows = $(".div-row").length - 2;
+        for (let i = 0; i < tot_rows; i++) {
+            const name_of_partner = document.getElementsByClassName("particular")[i].value||"";
+            const rate = +document.getElementsByClassName("rate")[i].value.replace(/,/g, '');
+            const amount_of_interest = +document.getElementsByClassName("interest")[i].value.replace(/,/g, '') || "";
+            items_debited.push({
+                "name_of_partner": name_of_partner,
+                "rate": rate,
+                "amount_of_interest": amount_of_interest,
+            });
+        }
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/remuneration_to_partners/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/remuneration_to_partners/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/remuneration_to_partners/",
+            type: "POST",
+            data: JSON.stringify({   
+                "net_profit":net_profit,
+                "items_debited":items_debited,
+                "remuneration":remuneration,
+                "salary":salary,
+                "bonus":bonus,
+                "commission":commission,
+                "depreciation":depreciation,
+                "interest_paid":interest_paid,
+                "depreciation_allowable":depreciation_allowable,
+                "other_allowable":other_allowable,
+                "less_interest":less_interest
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#txtTotalInterestAmountDynamicRow").val(getFormattedValue(res.data.total_interest));
+                    $("#txtTotalRenumAllowed").val(getFormattedValue(res.data.total_remuneration));
+                    $("#txtProfitBeforeIntDepRenum").val(getFormattedValue(res.data.profit_before));
+                    $("#txtIntOfCapPartners").val(getFormattedValue(res.data.less_interest));
+                    $("#txtBookProfit").val(getFormattedValue(res.data.book_profit));
+                    $("#txtTotalA").val(getFormattedValue(res.data.maximum_remuneration));
+                    $("#txtTotalB").val(getFormattedValue(res.data.total_remuneration_account));
+                    $("#txtTotalBMinusA").val(getFormattedValue(res.data.remuneration_inadmissible));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

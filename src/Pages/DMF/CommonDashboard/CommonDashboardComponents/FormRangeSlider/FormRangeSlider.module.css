@@ -1,0 +1,36 @@
+.gs-slider .rc-slider {
+    position: relative;
+}
+
+.gs-slider {
+    position: relative;
+}
+
+.gs-slider:before {
+    position: absolute;
+    /* content: "0"; */
+    content: attr(data-min);
+    top: 29px;
+    left: 0px !important;
+}
+
+.gs-slider:after {
+    position: absolute;
+    /* content: "20"; */
+    content: attr(data-max);
+    right: 2px;
+    top: 29px;
+}
+
+.gs-slider .rc-slider-handle:before {
+    position: absolute;
+    content: attr(aria-valuenow);
+    visibility: visible;
+    display: inline;
+    top: 13px;
+    left: -5px !important;
+}
+
+.gs-slider.hidenumber .rc-slider-handle:before {
+    display: none;
+}

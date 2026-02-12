@@ -1,0 +1,730 @@
+.otptext {
+    font-size: 1.4rem;
+    border: 0px;
+    border-bottom: 1px solid;
+    text-align: center;
+
+    margin: auto;
+    display: block;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+.stop-msg {
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+}
+.long-btn {
+    background-color: #042b62;
+    border: 1px solid #042b62;
+    border-radius: 15px;
+    color: #fff;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    width: 35%;
+    /* float: right; */
+    font-weight: 600;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.modal-cntn {
+    /* height: 300px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.lbltext {
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.p-1 {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.p-2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.enterbox {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.ecntRItems {
+    width: 14rem;
+}
+
+.borderSpace {
+    font-size: 0.9rem;
+    color: #7f7f7f;
+    padding-bottom: 0.8rem;
+    font-weight: 500;
+}
+
+.extraSpace {
+    padding-left: 2rem;
+}
+
+.newwidth {
+    width: 30%;
+}
+
+.newwidth {
+    width: 5% !important;
+}
+
+.policyCompany {
+    width: 16% !important;
+}
+
+.policyNumber {
+    width: 19% !important;
+}
+
+.smallfont {
+    font-size: .8rem;
+    color: #7f7f7f;
+}
+
+.trash {
+    color: #042b62;
+}
+
+.trash:hover {
+    cursor: pointer;
+}
+
+/* // d-flex align-items-center justify-content-between */
+
+.fltTrx {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.subTiles {
+    display: flex;
+    flex-direction: column;
+}
+
+.back-bt {
+    color: #042b62 !important;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-left: 1rem;
+}
+
+.addBtn {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.addBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.linkStyle {
+    text-decoration: none;
+}
+
+.realEstateTable th:nth-child(1),
+.realEstateTable td:nth-child(1) {
+    /* width: 15%; */
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.realEstateTable tr {
+    width: 100%;
+}
+
+.realEstateTable th:nth-child(2),
+.realEstateTable td:nth-child(2) {
+    width: 10%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.realEstateTable th:nth-child(3),
+.realEstateTable td:nth-child(3) {
+    width: 10%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.realEstateTable th:nth-child(4),
+.realEstateTable td:nth-child(4) {
+    width: 10%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.realEstateTable th:nth-child(5),
+.realEstateTable td:nth-child(5) {
+    width: 10%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.realEstateTable th:nth-child(6),
+.realEstateTable td:nth-child(6) {
+    width: 10%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.realEstateTable th:nth-child(7),
+.realEstateTable td:nth-child(7) {
+    width: 10%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+
+.actionBtnsContainer {
+    display: flex;
+    align-items: center;
+    gap: 2rem
+}
+
+
+.statsContainer {
+    /* display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 2rem; */
+    /* display: flex; */
+}
+
+.portfolioValue {
+    /* width: 100%; */
+}
+
+.statsData {
+    /* width: 100%;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none; */
+}
+
+.statsData::-webkit-scrollbar {
+    display: none;
+}
+
+.portfolio-insurance-table tr td:first-child {
+    width: 16% !important;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.portfolio-insurance-table tr td:nth-child(2),
+.portfolio-insurance-table tr td:nth-child(3),
+.portfolio-insurance-table tr td:nth-child(4),
+.portfolio-insurance-table tr td:nth-child(5),
+.portfolio-insurance-table tr td:nth-child(6),
+.portfolio-insurance-table tr td:nth-child(7) {
+    width: 12.5% !important;
+}
+
+.portfolio-insurance-table tr td:nth-child(8) {
+    width: 9% !important;
+}
+
+.portfolio-insurance-table tr td:first-child strong {
+    width: 13rem !important;
+    display: block;
+}
+
+.portfolio-insurance-table tr:last-child td,
+.portfolio-fd-table tr:last-child td,
+.realEstateTable tr:last-child td,
+.liquid-table tr:last-child td,
+.mfTable tr:last-child td,
+.alternateTbl tr:last-child td,
+.stockTbl tr:last-child td,
+.govtSchemeTbl tr:last-child td,
+.goldTbl tr:last-child td,
+.otherInvTbl tr:last-child td {
+    border-bottom-width: 0px;
+}
+
+.portfolio-fd-table tr td:nth-child(3) {
+    width: 9.11%;
+}
+
+.portfolio-fd-table tr td:nth-child(4) {
+    width: 14.11%;
+}
+
+.portfolio-fd-table tr td:nth-child(1),
+.portfolio-fd-table tr td:nth-child(2),
+.portfolio-fd-table tr td:nth-child(5),
+.portfolio-fd-table tr td:nth-child(6),
+.portfolio-fd-table tr td:nth-child(7),
+.portfolio-fd-table tr td:nth-child(8),
+.portfolio-fd-table tr td:nth-child(9) {
+    width: 11.11%
+}
+
+.bold-table tr td {
+    font-weight: bold;
+    color: #8d8d8d;
+}
+
+.realEstateTable tr td:nth-child(1),
+.realEstateTable tr td:nth-child(2),
+.realEstateTable tr td:nth-child(3),
+.realEstateTable tr td:nth-child(4),
+.realEstateTable tr td:nth-child(5),
+.realEstateTable tr td:nth-child(6),
+.realEstateTable tr td:nth-child(7) {
+    width: 14.28%;
+}
+
+.goldTbl tr td:nth-child(1) {
+    width: 22%;  /* Name of Asset (category) */
+}
+
+.goldTbl tr td:nth-child(2) {
+    width: 15%;  /* Member Name */
+}
+
+.goldTbl tr td:nth-child(3) {
+    width: 15%;  /* Invested Value */
+}
+
+.goldTbl tr td:nth-child(4) {
+    width: 15%;  /* Current Value */
+}
+
+.goldTbl tr td:nth-child(5) {
+    width: 13%;  /* Returns */
+}
+
+.goldTbl tr td:nth-child(6) {
+    width: 13%;  /* Absolute Return */
+}
+
+.goldTbl tr td:nth-child(7) {
+    width: 7%;   /* Actions column */
+}
+
+
+.liquid-table tr td:nth-child(1),
+.liquid-table tr td:nth-child(2),
+.liquid-table tr td:nth-child(3) {
+    width: 30%;
+}
+
+.mfTable tr td:nth-child(1) {
+    width: 45%;
+}
+
+.mfTable tr td:nth-child(2), .mfTable tr td:nth-child(3), .mfTable tr td:nth-child(4) {
+    width: 15%;
+}
+
+.mfTable tr td:nth-child(5) {
+    width: 5%;
+}
+
+.alternateTbl tr td:nth-child(1) {
+    width: 20%;
+}
+
+.alternateTbl tr td:nth-child(2),
+.alternateTbl tr td:nth-child(3),
+.alternateTbl tr td:nth-child(4),
+.alternateTbl tr td:nth-child(5),
+.alternateTbl tr td:nth-child(6) {
+    width: 14%;
+}
+.alternateTbl tr td:nth-child(7) {
+    width: 11%;
+}
+
+.stockTbl tr td:nth-child(2),
+.stockTbl tr td:nth-child(3),
+.stockTbl tr td:nth-child(4),
+.stockTbl tr td:nth-child(5),
+.stockTbl tr td:nth-child(6) {
+    width: 11%;
+}
+
+.stockTbl tr td:nth-child(1) {
+    width: 25%;
+}
+
+.stockTbl tr td:nth-child(7) {
+    width: 7%;
+}
+
+.stockTbl tr td:nth-child(9) {
+    width: 7%;
+}
+
+.govtSchemeTbl tr td:nth-child(1) {
+    width: 16%;
+}
+
+.govtSchemeTbl tr td:nth-child(2),
+.govtSchemeTbl tr td:nth-child(3),
+.govtSchemeTbl tr td:nth-child(4),
+.govtSchemeTbl tr td:nth-child(5),
+.govtSchemeTbl tr td:nth-child(6),
+.govtSchemeTbl tr td:nth-child(7),
+.govtSchemeTbl tr td:nth-child(8),
+.govtSchemeTbl tr td:nth-child(9) {
+    width: 11%;
+}
+
+.otherInvTbl tr td:nth-child(1) {
+    width: 47.5%;
+}
+.otherInvTbl tr td:nth-child(2) {
+    width: 47.5%;
+}
+/* .otherInvTbl tr td:nth-child(2),
+.otherInvTbl tr td:nth-child(3), */
+.otherInvTbl tr td:nth-child(4),
+.otherInvTbl tr td:nth-child(5) {
+    width: 18%;
+}
+
+.otherInvTbl tr td:nth-child(6) {
+    width: 7%;
+}
+
+.headerTable td {
+    font-size: .95rem;
+}
+
+.dataTable td {
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.tblIcons {
+    width: 15px;
+    height: 15px;
+}
+
+.SIPButtons {
+    display: flex;
+}
+
+.SIPButtons button {
+    margin: 0 1rem;
+    border: 1px solid #042b62;
+    outline: 0;
+    background-color: #fff;
+    padding: .3rem 1.7rem;
+    border-radius: 20px;
+    color: #042b62;
+    font-weight: bold;
+    font-size: .8rem;
+}
+
+.SIPButtons button:hover {
+    color: #fff;
+    background-color: #042b62;
+}
+
+.EditSiptext {
+    font-size: 1rem;
+    color: #737373;
+    font-weight: 500;
+}
+
+.EditSiptext .TextBold {
+    color: #737373;
+    font-weight: bolder;
+}
+
+.transactionType {
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+.transactionType_green {
+    background: #009259;
+}
+
+.transactionType_red {
+    background: #dd1c1c;
+}
+
+@media (max-width:900px) {
+    .wrapBtns {
+        flex-wrap: wrap !important;
+        margin-top: 2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .fltTrx {
+        flex-direction: row;
+    }
+
+    .subTiles {
+        flex-direction: row;
+    }
+}
+
+.flexBxAssetName {
+    justify-content: end;
+}
+
+@media (min-width: 768px) {
+    .flexBxAssetName {
+        justify-content: start;
+    }
+
+}
+
+@media (max-width: 500px) {
+    .statsContainer {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .ecntRItems {
+        width: 100%;
+    }
+
+    .portfolioValue {
+        width: 100%;
+    }
+
+    .statsData {
+        width: 100%;
+    }
+
+    .policyCompany {
+        width: 100% !important;
+    }
+
+    .dataTable td {
+        width: 100% !important;
+    }
+
+    .liquidopt {
+        justify-content: left;
+        display: flex;
+    }
+
+    .liquidTable td:first-child {
+        width: 100%;
+    }
+
+    .extraSpace {
+        padding-left: 0;
+    }
+}
+
+.fund-tick- {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    top: 0px;
+    left: 0px;
+}
+.fund-tick-1 {
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    margin-right: 5px;
+}
+.invtype-badge {
+    background: #e7e4cf;
+    color: #737373;
+}
+.registrar-badge {
+    background: #d1d1d1;
+    color: #737373;
+}
+.rounded-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+.fund-tick-active {
+    background: #80ed99;
+}
+
+.fund-tick-inactive {
+    background: #FFA500;
+}
+
+.fund-tick-offline {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    background: #92918e;
+    float: left;
+    margin-right: 5px;
+}
+
+.fund-tick-error {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    background: #dd1c1c;
+    float: left;
+    margin-right: 5px;
+}
+
+.fund-tick-external {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    float: left;
+    margin-right: 5px;
+    position: relative;
+    border: 1px solid #042b62;
+}
+
+.fund-tick-external::before {
+    content: "E";
+    position: absolute;
+    font-size: 10px;
+    left: 0px;
+    line-height: 12px;
+}
+
+.successfullmsg {
+    display: grid;
+    place-items: center;
+    place-content: center;
+    height: 100%;
+}
+
+.successheader {
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-bottom: 1px solid #d1d1d1;
+    width: 100%;
+    text-align: center;
+    padding-bottom: .6rem;
+}
+
+.successimg {
+    margin-top: 2rem;
+}
+
+.successimg img {
+    width: 200px;
+}
+
+.successDesc {
+    font-size: 1rem;
+    color: #042b62;
+    text-align: center;
+    padding: 2rem;
+    font-weight: 400;
+}
+
+.successBtn button {
+    background-color: #042b62;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    padding: .5rem 2rem;
+    border-radius: 22px;
+}
+
+.Nextsipdate {
+    border-bottom: 1px solid #d1d1d1;
+    width: 100%;
+    padding-top: .6rem;
+    color: #a3a3a3;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.Restricated_Edit_SIP_modal {
+    display: grid;
+    place-items: center;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 2rem;
+}
+
+.Restricated_Edit_SIP_modal_Header {
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-bottom: 1px solid #d1d1d1;
+    width: 100%;
+    padding-bottom: 1rem;
+}
+
+.Restricated_Edit_SIP_modal_Decs {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-top: 2rem;
+}
+
+.SIPCloseicon {
+    font-size: 2rem;
+    color: #042b62;
+    position: absolute;
+    right: 0;
+    top: -1rem;
+    cursor: pointer;
+}
+.manageSiptext{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.totalGainlossval{
+    font-size: .8rem;
+}
+@media screen and (max-width: 600px) {
+    .SIPCloseicon {
+        top: -.3rem;
+    }
+}
+ 
+
+
+.bullet-item-img {
+    width: 18px;
+    height: 18px;
+}
+.bullet-item-heading {
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2rem;
+    padding-bottom: .3rem;
+}
+.bullet-item-ActionButton {
+    background-color: #042b62;
+    color: #fff;
+    padding: .6rem 2rem;
+    border-radius: 2rem;
+    border: 0px;
+    font-size: 1rem;
+    margin-left: 1.3rem;
+}
+.bullet-item-ActionButton:disabled {
+    opacity: 0.6;
+}

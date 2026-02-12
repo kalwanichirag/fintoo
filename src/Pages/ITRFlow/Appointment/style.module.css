@@ -1,0 +1,98 @@
+.login_header {
+  position: absolute;
+  top: 0;
+  width: 59%;
+  z-index: 1;
+  padding: 15px;
+}
+.login_header .back_arrow {
+  top: 7rem;
+}
+.Appointment_section_block{
+  margin-top: 2rem;
+  /* margin-left: 3rem; */
+}
+.login_illustration {
+  background: url(../images/04_scheduled_appointment.png) no-repeat ;
+  background-size: 80%;
+  background-position:right 10%;
+  height: 100vh;
+  margin-top: 4rem;
+}
+.AppointmentFrame{
+  width:60%;
+  margin: auto;
+  /* height:70%; */
+  /* margin-left: 5rem; */
+  background: #fff;
+  overflow-y: hidden;
+  border-radius: 15px;
+  /* padding: 8rem; */
+}
+.AppointmentConfirmFrame{
+  width: 80%;
+  /* height:70%; */
+  margin-left: 5rem;
+  background: #fff;
+  overflow-y: hidden;
+  border-radius: 15px;
+  height: 600px;
+}
+.AppointmentFrame iframe 
+{
+  border-radius: 15px;
+  overflow-y: hidden;
+  margin: auto;
+  height: 600px;
+}
+.Confirmed{
+  display: grid;
+  place-items: center;
+  align-items: center;
+  margin-top: 8rem;
+  /* padding: 3rem 16rem; */
+  /* width: 100%; */
+}
+.confirmBox{
+  border: 1px solid #e7e7e7;
+  padding: 6rem;
+  text-align: center;
+}
+.Confirmed img{
+  width: 60px;
+}
+.Confirmed p{
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+.page_header{
+  font-size: 2.3rem;
+  margin-top: 1rem;
+}
+.page_subTxt{
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+.Appointment_section{
+  padding: 3rem 4rem;
+}
+@media (max-width : 768px){
+.login_illustration{
+  display: none;
+}
+.Appointment_section{
+  padding: 0rem;
+}
+.page_header{
+  font-size: 1.2rem;
+}
+.page_subTxt{
+  font-size: 1rem;
+}
+
+.AppointmentFrame{
+  margin-left: 0rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+}

@@ -1,0 +1,122 @@
+.FPCard {
+    background-color: #0000;
+    padding: 4rem;
+  }
+  .FPCard-section-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    z-index: 10;
+  }
+  .FpCardImg {
+    width: 100%;
+  }
+  .FpCardImg img {
+    width: 600px;
+  }
+  .FPRightbox {
+    width: 73%;
+  }
+  .FPRightbox .FPtitle {
+    color: #101010;
+    margin: 0px 0px 0px 0px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0px;
+  }
+  .FPSubtext {
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 15px 0px 10px 0px;
+  }
+  .FPbtn {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    fill: #ffffff;
+    color: #ffffff;
+    background-color: #042b62;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #fcfcfc;
+    border-radius: 30px;
+    transition: all 0.3s;
+    padding: 1rem 3rem;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .FPbtn:hover {
+    color: #042b62;
+    background-color: rgba(44, 147, 245, 0);
+    border-color: #042b62;
+  }
+  @media only screen and (max-width : 850px) {
+    .FPCard-section-container{
+      width: 100%;
+    }
+    .FpCardImg img{
+      width: 433px;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .FPCard {
+      padding: 1rem;
+    }
+    .FPCard-section-container {
+      display: grid;
+      z-index: 10;
+      width: 100%;
+    }
+    .FpCardImg {
+      width: 100%;
+    }
+    .FpCardImg img {
+      width: 100%;
+    }
+    .FPRightbox {
+      width: 100%;
+    }
+    .FPRightbox .FPtitle {
+      color: #101010;
+      margin: 2rem 0rem;
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0px;
+    }
+    .FPCard-section-container ul {
+      list-style-type: circle;
+      padding-left: 2rem;
+      padding-top: 1rem;
+    }
+    .FPSubtext {
+      color: #000000;
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 15px 0px 10px 0px;
+      text-align: center;
+    }
+    .FPbtn {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      fill: #ffffff;
+      color: #ffffff;
+      background-color: #042b62;
+      border-style: solid;
+      border-width: 2px 2px 2px 2px;
+      border-color: #fcfcfc;
+      border-radius: 30px;
+      transition: all 0.3s;
+      padding: 1rem 3rem;
+      text-align: center;
+    }
+  }
+  

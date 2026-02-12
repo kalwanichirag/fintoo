@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38" height="38" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 450.21px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #042b62;
+      }
+
+      .cls-3, .cls-4 {
+        fill: none;
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 29px;
+      }
+
+      .cls-2, .cls-4 {
+        opacity: .97;
+      }
+    </style>
+  </defs>
+  <path class="cls-2" d="M147.39,174h786.23c41.61,0,75.39,33.78,75.39,75.39v203.61H72v-203.61c0-41.61,33.78-75.39,75.39-75.39Z"/>
+  <text class="cls-1" transform="translate(438.36 852.83)"><tspan x="0" y="0">₹</tspan></text>
+  <rect class="cls-3" x="72.5" y="173.56" width="937.01" height="793.29" rx="78.2" ry="78.2"/>
+  <path class="cls-4" d="M151.5,173.5h779.01c43.6,0,79,35.4,79,79v200H72.5v-200c0-43.6,35.4-79,79-79Z"/>
+</svg>

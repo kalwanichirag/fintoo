@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-111.365753%" y1="50%" x2="144.508402%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons" transform="translate(-123.000000, -231.000000)">
+            <g id="Group-6" transform="translate(123.000000, 231.000000)">
+                <g id="Group-3-Copy-2" fill="#EF305E">
+                    <g id="Group-2-Copy">
+                        <g id="Group-47">
+                            <circle id="Oval" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                            <circle id="Oval" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                            <g id="Group-13" transform="translate(7.000000, 8.000000)" opacity="0.502673921">
+                                <circle id="Oval" style="mix-blend-mode: multiply;" cx="24" cy="11" r="1"></circle>
+                                <circle id="Oval-Copy-2" style="mix-blend-mode: multiply;" cx="1" cy="11" r="1"></circle>
+                                <circle id="Oval-Copy-3" style="mix-blend-mode: multiply;" cx="19.5" cy="18.5" r="1"></circle>
+                                <circle id="Oval-Copy-5" style="mix-blend-mode: multiply;" cx="20.5" cy="2.5" r="1"></circle>
+                                <circle id="Oval-Copy-4" style="mix-blend-mode: multiply;" cx="4.5" cy="0.5" r="1"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g id="life" transform="translate(11.000000, 13.000000)" fill="url(#linearGradient-1)">
+                    <g id="noun_life_1917974">
+                        <path d="M15.6064581,7.75358341 L9.46864597,13.6285453 C8.94970559,14.1238182 8.09076978,14.1238182 7.5539349,13.6285453 L1.39822828,7.77066179 C1.21928332,7.59987801 1.07612736,7.42909424 0.932971388,7.24123208 L3.67082927,7.24123208 C3.90345772,7.24123208 4.13608617,7.12168344 4.27924214,6.93382129 L5.24554492,5.58462946 L7.78656335,9.08569686 C7.92971932,9.27355901 8.14445327,9.39310765 8.39497621,9.39310765 C8.62760466,9.39310765 8.86023311,9.27355901 9.00338908,9.08569686 L10.3633708,7.22415371 L12.6001828,7.22415371 C13.0117562,7.22415371 13.3338571,6.91674291 13.3338571,6.52394023 C13.3338571,6.13113754 13.0117562,5.82372675 12.6001828,5.82372675 L9.95179737,5.82372675 C9.71916892,5.82372675 9.48654047,5.94327539 9.3433845,6.13113754 L8.37708172,7.46325099 L5.83606329,3.97926197 C5.69290732,3.79139982 5.47817337,3.67185117 5.22765042,3.67185117 C4.99502198,3.67185117 4.76239353,3.79139982 4.61923756,3.97926197 L3.25925587,5.84080512 L0.199297052,5.84080512 C-0.283854339,4.28667277 0.109824572,2.54467826 1.39822828,1.33211345 C3.25925587,-0.444037816 6.26553119,-0.444037816 8.12655878,1.33211345 L8.50234319,1.69075938 L8.86023311,1.33211345 C10.7212607,-0.444037816 13.727536,-0.444037816 15.5885636,1.33211345 C17.4674857,3.10826471 17.4674857,5.97743214 15.6064581,7.75358341 Z" id="Path" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

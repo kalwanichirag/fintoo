@@ -1,0 +1,100 @@
+.progressStatsContiner {
+    height: 100%;
+    display: flex;
+    gap: 1rem;
+    /* align-items: center;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    background-color: yellow; */
+}
+
+.progressStatsContiner::-webkit-scrollbar {
+    display: none;
+}
+
+.progressStatElem {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 3px 7px 3px 7px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.progressStatElemTitle {
+    font-size: 0.9rem;
+    margin: 0;
+    width: max-content;
+}
+
+.progressStatElemValue {
+    font-size: 0.8rem;
+    margin: 0;
+    font-weight: bold;
+    color: #a3a3a3
+}
+
+.progressStatElemIcon {
+    font-size: 0.8rem;
+    color: #a3a3a3;
+    cursor: pointer;
+}
+
+.progressStatElemDivider {
+    width: 2px;
+    height: 15px;
+    background-color: #a3a3a342;
+    margin-left: 1rem
+}
+.selectedItem {
+    background-color: #042b62;
+    color: #fff;
+}
+.progressStatsContiner :global(.rec-pagination) {
+    display: none;
+}
+.progressStatsContiner :global(.rec-arrow) {
+    display: block!important;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    line-height: 20px;
+    font-size: 1rem;
+    color: #042b62;
+    background: none;
+    border: 0px;
+    box-shadow: none;
+}
+.progressStatsContiner :global(.rec-arrow:disabled) {
+    visibility: hidden;
+}
+
+.progressStatsContiner :global(.rec-arrow:hover), .progressStatsContiner :global(.rec-arrow:focus) {
+    color: #042b62!important;
+    box-shadow: none!important;
+    background: none!important;
+}
+.progressStatsContiner :global(.rec-carousel-item) {
+    position: relative;
+}
+.progressStatsContiner :global(.rec-carousel) {
+    position: relative;
+}
+.progressStatsContiner :global(.rec-carousel:before) {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    background: #fff;
+    content: ' ';
+    z-index: 9;
+    left: 29px;
+}
+.progressStatsContiner :global(.rec-carousel-item:after) {
+    content: ' ';
+    height: 60%;
+    width: 2px;
+    background: #eee;
+    position: absolute;
+    top: 6px
+}

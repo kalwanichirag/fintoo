@@ -1,0 +1,45 @@
+.FpGoals {
+    background-color: #004FBF;
+    display: grid;
+    gap: 1rem;
+    place-items: center;
+    padding: 4rem 0;
+    color: #fff;
+}
+
+.FpGoalstitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+.FpGoalssubtitle{
+    font-size: 1.1rem;
+    font-weight: 400;
+    width: 40%;
+    margin: auto;
+    text-align: center;
+}
+.FpGoals .btn button{
+    padding: .7rem 2rem;
+    border-radius: 3.15806rem;
+    font-weight: 500;
+    background: #FFF;
+    border: 0;
+    color: #134994;
+    outline: none;
+    box-shadow: 0px 12.632px 50.529px 0px rgba(254, 134, 103, 0.10);
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    .FpGoals{
+        padding: 4rem 2rem;
+    }
+    .FpGoals .FpGoalstitle{
+        font-size: 1.4rem;
+        text-align: center;
+    }
+    .FpGoalssubtitle{
+        width: 100%;
+        font-size: .9rem;
+    }
+}

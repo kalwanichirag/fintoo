@@ -1,0 +1,388 @@
+.backgrounddiv {
+  background: url("https://images.minty.co.in/static/assets/img/bg/back.svg") no-repeat left bottom;
+  height: 210px;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  z-index: -1;
+}
+
+.expertfp {
+  background: url("https://images.minty.co.in/static/assets/img/bg/about.svg") no-repeat right top;
+  transform: translateY(0px);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  transition: 0.9s ease all;
+  background-size: auto 170px !important;
+}
+
+.whitebox {
+  background: #fff;
+  border-top-left-radius: 45px;
+  padding: 40px;
+  margin-top: -45px;
+  margin-left: 5px;
+  min-height: calc(100vh - 167px);
+  position: relative;
+  width: 100%;
+  padding-top: 0px !important;
+}
+
+.whitebox .backarrow {
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  top: 30px;
+  left: 4rem;
+  background-color: rgba(0, 82, 99, 0.14);
+  padding: 14px;
+  border-radius: 12px;
+  z-index: 1;
+  top: 3rem !important;
+}
+
+.whitebox .Proceedbtn {
+  border: none;
+  padding: 8px 30px;
+  border-radius: 30px;
+  margin: 1.5rem 0;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s ease all;
+  text-align: center;
+  outline: none;
+  font-weight: 600;
+  margin-right: 25px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #042b62;
+  z-index: 10000;
+}
+
+.fpcontent .clear30 {
+  clear: both;
+  height: 30px;
+}
+
+.fpcontent .ul_list {
+  list-style: decimal;
+}
+
+.fpcontent .ul_list_alpha {
+  list-style: upper-alpha;
+}
+
+.fpcontent ul {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.fpcontent ul li {
+  margin-bottom: 20px;
+}
+
+.fpcontent table td {
+  width: 50%;
+}
+
+.fpcontent #agreefp {
+  z-index: 10000;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  float: left;
+  cursor: pointer;
+}
+
+.fpcontent .agree {
+  float: left;
+  margin-left: 20px;
+}
+
+.fpcontent .color-blue {
+  color: #042b62;
+}
+
+.fpcontent .sub-header {
+  font-size: 25px !important;
+  margin-bottom: 25px !important;
+  color: #042b62;
+}
+
+.fpcontent .rContent {
+  color: #042b62;
+  margin-top: 20px;
+}
+
+.fpcontent table {
+  width: auto;
+}
+
+.fpcontent .back-arrow {
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  top: 30px;
+  left: 30px;
+  background-color: rgba(0, 82, 99, 0.14);
+  padding: 14px;
+  border-radius: 12px;
+  z-index: 1;
+}
+
+.fpcontent div {
+  max-width: 100% !important;
+}
+
+.fpcontent b {
+  font-weight: 500;
+}
+
+.fpcontent .page {
+  top: 50px;
+}
+
+.fpcontent h2 {
+  margin-top: 2rem;
+  font-size: 24px;
+}
+
+.fpcontent .error {
+  color: #ec2f5c;
+}
+
+.fpcontent .w60 {
+  width: 65%;
+}
+
+.fpcontent .vtop {
+  vertical-align: text-top;
+}
+
+.fpcontent ul,
+.fpcontent ul li {
+  margin-top: 20px;
+}
+
+.fpcontent ul li p {
+  margin-left: 10px;
+}
+
+.fpcontent table {
+  margin-top: 2rem;
+}
+
+.fpcontent .fee-structure th,
+.fpcontent .fee-structure td {
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid black;
+  height: 50px;
+
+}
+
+.fpcontent ol {
+  counter-reset: item;
+}
+
+.fpcontent li {
+  display: block;
+}
+
+.fpcontent li:before {
+  content: counters(item, ".") ". ";
+  counter-increment: item;
+  font-weight: bold;
+}
+
+.fpcontent li {
+  margin-top: 20px;
+}
+
+.fpcontent .underline {
+  text-decoration: underline;
+}
+
+.fpcontent .rectangle {
+  padding: 0px 10px 10px 20px;
+  height: 200px;
+  width: 700px;
+  border-style: groove;
+}
+
+.fpcontent .center-fix {
+  text-align: center;
+}
+
+.fpcontent .rectangle {
+  padding: 30px 10px 10px 20px;
+  height: 420px;
+  width: 500px;
+  border-style: groove;
+}
+
+.fpcontent .center-align {
+  text-align: center;
+}
+
+.fpcontent .first-row {
+  width: 150px;
+}
+
+.fpcontent .fee-structure th,
+.fpcontent .fee-structure td {
+  padding: 5px 10px 5px 10px;
+}
+
+.fpcontent .fee-structure .first_column {
+  width: 50px;
+}
+
+.fpcontent .sub-header {
+  font-size: 25px !important;
+  margin-bottom: 25px !important;
+
+}
+
+.fpcontent .back-arrow {
+  top: -10px !important;
+}
+
+.fpcontent .white-box {
+  padding-top: 0px !important;
+}
+
+.fpcontent .fee-structure tr td:first-child {
+  width: 30% !important;
+}
+
+.fpcontent .details_table tr th:first-child,
+.fpcontent .details_table tr td:first-child {
+  width: 10% !important;
+}
+
+.fpcontent .details_table,
+.fpcontent .details_table th,
+.fpcontent .details_table td {
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid black;
+  padding: 5px 10px 5px 10px;
+  height: 80px;
+}
+
+/* For NDA Page */
+.ExpertNda .whitebox {
+  background: #fff;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding-top: 0px !important;
+  padding: 0;
+  border-radius: 0;
+}
+
+.ExpertNda .ndacontent {
+  color: #042b62;
+  text-align: center;
+  font-weight: 600;
+}
+
+.ExpertNda .ndahighlight {
+  color: #f00;
+  text-align: center;
+  font-size: .9rem;
+}
+
+.ExpertNda .ndatxtbold {
+  color: #042b62;
+  margin-top: 1.7rem;
+}
+
+.ExpertNda .backlink {
+  position: fixed;
+  top: 2rem;
+
+  left: -1rem;
+}
+
+.ExpertNda .ExpertNdaimg {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+/* 
+.ExpertNda .expertNdaCheckbox {
+  display: grid;
+  place-content: center;
+} */
+
+.ExpertNda .expertNdaCheckbox {
+  margin: 4rem 0px 0px 7rem;
+}
+
+.ExpertNda .Proceedbtn {
+  display: grid;
+  place-content: center;
+}
+
+.ExpertNda .LinkTerms {
+  color: #042b62;
+  text-decoration: none;
+}
+
+.ExpertNda .LinkTerms:hover {
+  color: #388c9d;
+}
+
+.ExpertNda .fpcontent {
+  margin: 0rem 7rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .whitebox .backarrow {
+    top: 2rem !important;
+    left: 1rem;
+    padding: 14px;
+  }
+
+  .ExpertNda .fpcontent {
+    margin: 0rem 2rem;
+  }
+
+  .whitebox .backarrow img {
+    width: 14px;
+  }
+
+  .ExpertNda .expertNdaCheckbox {
+    margin: 1rem 0px 0px 2.3rem;
+    display: block;
+  }
+
+  .ExpertNda .ndahighlight {
+    margin: 0 2.3rem;
+  }
+
+  .ExpertNda .whitebox .backarrow {
+    top: 0rem !important;
+    left: 1.3rem;
+    padding: 8px;
+  }
+
+  .ExpertNda .whitebox .backarrow img {
+    width: 14px;
+  }
+}
+
+.ExpertNda .fpcontent li {
+  display: list-item;
+}
+.ExpertNda .fpcontent li::before{
+  content: "";
+}
+.ExpertNda .fpcontent li::marker{
+  font-weight: bold;
+}

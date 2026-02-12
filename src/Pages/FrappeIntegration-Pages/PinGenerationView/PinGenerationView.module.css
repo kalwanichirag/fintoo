@@ -1,0 +1,98 @@
+.cardWrapper {
+    width: 100%;
+    padding: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    background-color: white;
+    border-radius: 0.75rem;
+    border: 1px solid #F1F1F4;
+}
+
+.card {
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    /* Tailwind's gray-800 */
+    margin-top: 1rem;
+}
+
+.subtitle {
+    width: 80%;
+    max-width: 70ch;
+    font-size: 1rem;
+    color: #4b5563;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.inputWrapper {
+    width: 60%;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+.marginBottom {
+    margin-bottom: 1rem;
+}
+
+.errorText {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #ef4444;
+}
+
+.fullButton {
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.75rem 0;
+    background-color: #1f2937;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.disabled {
+    background-color:#f1f1f4;
+    color: black;
+    opacity: .3;
+    /* pointer-events: none; */
+    cursor: not-allowed;
+}
+
+.primary {
+    background-color: #134994;
+    color: white;
+    outline: none;
+    border: 0;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.signOutBtn {
+    margin-left: 0.5rem;
+    font-weight: 600;
+    color: #134994;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

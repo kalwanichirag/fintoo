@@ -1,0 +1,28 @@
+
+.srv-validation-message,.error{
+    font-size: 12px;
+}
+.checkbox-label{
+    font-size: 14px;
+}
+.checkbox-container .custom-checkbox{
+    position: relative !important;
+opacity: 1 !important;
+}
+.checkbox-container{
+    display: flex;
+    align-items: start;
+}
+.checkbox-container .custom-checkbox+label{
+    padding-left: 10px !important;
+}
+.checkbox-container .custom-checkbox{
+    margin-top: 5px !important;
+}
+.checkbox-container .custom-checkbox:checked.new+label:after{
+    display: none !important;
+}
+.checkbox-container .custom-checkbox.new+label::before{
+        display: none !important;
+
+}

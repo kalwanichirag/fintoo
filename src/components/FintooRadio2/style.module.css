@@ -1,0 +1,16 @@
+.radio {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* padding-left: .8rem; */
+    padding-right: .8rem;
+}
+.radio img {
+    width: 16px;
+    height: 16px;
+}
+.radio div {
+    padding-left: 4px;
+    padding-top: 3px;
+    font-size: 13px;
+}

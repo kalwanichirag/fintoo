@@ -1,0 +1,25 @@
+.faq-section{
+    background-color: white;
+    padding-bottom: 5rem;
+}
+.section-title {
+    color: #060606;
+    font-size: 2.3rem;
+    font-weight: 700;
+    text-align: center;
+    color: #2f3436;
+    font-family: "Poppins", Sans-serif;
+    letter-spacing: 1px;
+  }
+ .faq-section .bottomTxt{
+    color : #707070;
+    padding: 1rem 0;
+    font-size: 1.09163rem;
+    text-align: center;
+  }
+  @media only screen and (max-width: 600px) {
+    .section-title{
+      font-size: 1.4rem;
+    }
+
+  }

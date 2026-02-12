@@ -1,0 +1,29 @@
+.successData {
+    padding: 2rem;
+    display: grid;
+    align-items: center;
+    place-content: center;
+    text-align: center;
+}
+
+.successData .title {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.currVal {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem;
+}
+
+.currVal span {
+    color: #042b62;
+    font-weight: bold;
+}
+
+.successData .Description {
+    color: #99a1b7;
+    font-size: 1rem;
+    margin: 0 2rem;
+}

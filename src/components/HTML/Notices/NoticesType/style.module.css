@@ -1,0 +1,32 @@
+.Notice-section {
+  background-color: #E6EAEF;
+  color: #042b62;
+}
+.Notice-type-Section {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+.BoxSection {
+  display: flex;
+  margin-bottom: 2rem;
+}
+.BoxSection svg{
+  font-size: 2rem;
+}
+.BoxSectionTitle {
+  margin-left: 1rem;
+  font-size: 1.3rem;
+}
+.BottomText{
+  font-size: 1.3rem;
+}
+@media only screen and (max-width: 768px) {
+  .Notice-type-Section{
+   display: block;
+  }  
+}
+

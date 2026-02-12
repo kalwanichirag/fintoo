@@ -1,0 +1,61 @@
+.stepsContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0 3rem 0;
+}
+
+.stepItem {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stepItemCount {
+    position: relative;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #042b62;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.stepItemCountDisabled {
+    background-color: #d9d9d9 !important;
+    color: #a2a2a2 !important;
+}
+
+.stepConnector {
+    position: absolute;
+    left: 50%;
+    height: 1px;
+    width: 100%;
+    z-index: 0;
+    background-color: #042b62;
+}
+
+.stepItem:last-child .stepConnector {
+    display: none;
+}
+
+.stepName {
+    position: absolute;
+    margin-top: 3.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 550px) {
+    .stepName {
+        font-size: 0.5rem;
+    }
+  }

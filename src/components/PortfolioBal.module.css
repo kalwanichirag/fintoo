@@ -1,0 +1,68 @@
+.PortfolioBalClose {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    color: #042b62;
+}
+
+.PortfolioBalClose svg {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: right;
+    cursor: pointer;
+}
+
+.PortfolioBalbody {
+    text-align: center;
+    margin: 1rem 3rem;
+}
+
+.PortfolioBalbody .Verifiedimg svg {
+    width: 200px !important;
+}
+
+.PortfolioBalbody .PortfolioBalbodytxt {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1rem 0;
+}
+
+.ContinueBtn1 {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    outline: 0;
+    padding: .8rem 3rem;
+    border-radius: 25px;
+    margin: 0 auto 1rem auto;
+    background-color: #042b62;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.PortfolioBalbody .PortfoliotoatlBal {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #042b62;
+}
+
+@media only screen and (max-width: 600px) {
+    .PortfolioBalbody {
+        margin: 4rem 0rem;
+    }
+
+    .PortfolioBalbody .PortfolioBalbodytxt {
+        font-size: 1.1rem;
+    }
+}
+
+.small-modal {
+    width: 35rem;
+}
+
+.medium-modal {
+    width: 35rem;
+}

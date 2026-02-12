@@ -1,0 +1,66 @@
+.Whatifanalysis .GoalBox {
+    border-radius: 10px;
+    border: 1px solid #042b62;
+    background: #042b62;
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    place-content: center;
+    place-items: center;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    width: 60%;
+    margin: auto;
+    /* text-align: center; */
+}
+
+.Whatifanalysis .GoalBox .vrline {
+    border-right: 1px solid #eee;
+    height: 30px;
+
+}
+
+/* .GoalBox .textData {
+    margin: 0 4rem;
+} */
+
+.GoalBox .textData div:first-child {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.GoalBox .textData div:nth-child(2) {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.Whatifanalysis .InsuranceCompBox{
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    padding: 1rem;
+}
+.Whatifanalysis .InsuranceCompBox img{
+    width: 30rem;
+}
+@media screen and (max-width : 768px) {
+    .GoalBox div:nth-child(5){
+        grid-column: 1 / 4; 
+    }
+    .Whatifanalysis .GoalBox {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap:10px;
+        white-space: nowrap;
+        place-items:unset;
+    }
+
+    .Whatifanalysis .GoalBox .vrline {
+        display: none;
+    }
+
+
+}

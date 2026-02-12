@@ -1,0 +1,93 @@
+.BgColor{
+
+    background-color: #ffff;
+}
+.GraphBox{
+    background-image: url(./graph.svg);
+    background-position: 0px 1rem;
+    background-repeat: no-repeat;
+    background-size:contain;
+    padding-bottom: 10rem;
+}
+.container {
+    max-width: 1140px;
+    margin: auto;
+    padding: 3rem;
+}
+.TimePeriod .Dates{
+    text-align: left;
+    color: #4B4B4B;
+    font-size: .7rem;
+    font-weight: 400;
+    /* margin-bottom: 2rem; */
+}
+.ExpertBox{
+    margin: 3rem 0rem;
+  
+}
+.container h2{
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+.container p{
+    margin-top: 2rem;
+    font-size: 1.2rem;
+
+}
+.BookBtn button{
+    font-size: 1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    fill: #FFFFFF;
+    color: #FFFFFF;
+    outline: none;
+    background-color: #042b62;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #fcfcfc;
+    border-radius: 9px;
+    padding: 15px;
+}
+.BookBtn button:hover{
+    color: #042b62;
+    background-color: rgba(44,147,245,0);
+    border-color: #042b62;
+}
+.Icons .blue svg{
+    color: #042b62;
+    border-color: #042b62;
+    font-size: 1.4rem;
+    vertical-align: middle;
+}
+ .RightData .Portfolio{
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.Black{
+    color: #0B5A8B;
+    border-color: #0B5A8B;
+    font-size: 1.4rem;
+    vertical-align: middle;
+}
+.value{
+    font-size: 1rem;
+    color: #212121;
+    font-weight: 500;
+}
+@media only screen and (max-width: 768px){
+    .imgHeading{
+     margin-top: 2rem;
+    }
+    .container{
+        padding-bottom: 0rem;
+    }
+    .container h2{
+        font-size: 1.6rem;
+    }
+    .GraphBox{
+        padding-bottom: 0rem;
+    background-position: 0px 4rem;
+    background-size: 98% auto;
+    }
+}

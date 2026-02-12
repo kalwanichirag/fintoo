@@ -1,0 +1,2345 @@
+<html lang="en">
+<!--  -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintoo - Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="./css/Report.css">
+    <script src="cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="./Progress.js"></script>
+    <script>
+        $(document).ready(function () {
+            // DoRotate(30);
+            AnimateRotate(-40);
+        });
+        function AnimateRotate(d) {
+            var elem = $("#line");
+
+            $({ deg: 0 }).animate({ deg: d }, {
+                // duration: 2000,
+                step: function (now) {
+                    elem.css({
+                        webkitTransform: "rotate(" + now + "deg)"
+                    });
+                }
+            });
+        }
+    </script>
+    <script>
+        new CircleProgress('.progress', {
+            max: 100,
+            value: 75,
+            textFormat: 'percent',
+            startAngle: -90,
+        });
+    </script>
+    <style>
+        .circle-progress-value {
+            stroke-width: 12px;
+            stroke: darkmagenta;
+        }
+
+        .circle-progress-circle {
+            stroke: white;
+            stroke-width: 11px;
+            fill: #666;
+        }
+
+        .circle-progress-text {
+            font-family: "Georgia";
+            font-size: 13px;
+            fill: white;
+        }
+
+        .progress-bar {
+            width: 65px;
+            height: 65px;
+            padding: 3px;
+            border-radius: 50%;
+            background: radial-gradient(closest-side, #60a544 79%, transparent 80% 100%), conic-gradient(#cbe3b7 75%, #ffff 0);
+        }
+
+        .Numval {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .ToolipTop {
+            display: grid;
+            place-items: center;
+        }
+
+        #container {
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+    <style>
+        .Allocation_Types {
+            border: 1px solid #042b62;
+            width: max-content;
+            border-radius: 20px;
+            padding: 5px 2rem;
+        }
+
+        .IdealAllocation {
+            float: right;
+        }
+
+        .Progress {
+            width: 64%;
+            margin: auto;
+            position: relative;
+        }
+
+        .img {
+            position: absolute;
+            left: 45%;
+            top: 0%;
+        }
+
+        .img img {
+            width: 65px
+        }
+
+        .Progress progress {
+            height: 2rem;
+        }
+
+        progress {
+            -webkit-appearance: none;
+            border-radius: 20px;
+            width: 20rem;
+        }
+
+        .Progress progress::-webkit-progress-bar {
+            border: 0;
+            border-radius: 20px;
+            background-color: #e4e4e5;
+        }
+
+        .Progress progress::-webkit-progress-value {
+            background: linear-gradient(to right, #456c8e 15%, #1f3f72 75%);
+            border-radius: 20px;
+        }
+
+        .Progress #file1 {
+            transform: rotate(180deg)
+        }
+
+        .Value {
+            padding: 10px 0px;
+            color: #496384;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .right .Value {
+            text-align: right;
+            padding: 10px 0px;
+            color: #496384;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .ProgressType {
+            color: #aaaaaa;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .Success {
+            color: #448a3c;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .Fail {
+            color: #e93428;
+            font-size: 16px;
+            /* text-align: center; */
+            font-weight: 600;
+        }
+
+        .AssetMatrix table {
+            width: 64%;
+            margin: auto;
+            padding: 2rem 0rem;
+        }
+
+        .AssetMatrix table tr th:first-child {
+            text-align: left;
+        }
+
+        .AssetMatrix table tr th:last-child {
+            text-align: right;
+        }
+
+        .NewAsset {
+            margin-top: 1rem;
+        }
+
+        .DebtAsset .Progress progress::-webkit-progress-value {
+            background: linear-gradient(to Right, #fcb415 15%, #da9a28 75%);
+            border-radius: 20px;
+        }
+
+        .RealEstateAsset .Progress progress::-webkit-progress-value {
+            background: linear-gradient(to right, #f47b39 15%, #f15b22 75%);
+            border-radius: 20px;
+        }
+
+        .LiquidAsset .Progress progress::-webkit-progress-value {
+            background: linear-gradient(to right, #28afcf 15%, #4579b8 75%);
+            border-radius: 20px;
+        }
+
+        .AlternateAsset .Progress progress::-webkit-progress-value {
+            background: linear-gradient(to right, #669e42 15%, #9bb742 75%);
+            border-radius: 20px;
+        }
+
+        .GoldmfAsset .Progress progress::-webkit-progress-value {
+            background: linear-gradient(to right, #ca2a27 15%, #e74c3d 75%);
+            border-radius: 20px;
+        }
+
+        .TotalAllocation,
+        .FirstAll {
+            background-color: #042b62;
+            color: #fff;
+            border-radius: 20px;
+            width: max-content;
+            padding: .7rem 2rem;
+            float: left;
+        }
+
+        .AssetMatrix table .lastAll {
+            float: right;
+        }
+    </style>
+
+    <!-- For Index -->
+    <style>
+        .ReportIndex {
+            width: 90%;
+            margin: auto;
+        }
+
+        .index-title {
+            color: #042b62;
+        }
+
+        .index-title .circle-num {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            padding: 10px;
+            background: #042b62;
+            border: 1px solid #042b62;
+            color: #fff;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .leaders {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .leaders li {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 0fr 8fr 9fr 1fr;
+            grid-gap: 5px;
+            justify-items: start;
+            align-items: center;
+            justify-content: start;
+            line-height: 2rem;
+        }
+        .leaders .MoreText{
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 0fr 17fr 1fr ;
+            grid-gap: 5px;
+            justify-items: start;
+            align-items: center;
+            justify-content: start;
+            line-height: 2rem;
+        }
+        .dots {
+            border-bottom: 1px dashed #042b62;
+            width: 100%;
+        }
+        .BorderRight{
+            border-right: 1px solid #e7e7e7;
+            padding-right: 3rem;
+        }
+        .LeftSpace{
+            padding-left: 3rem;
+            vertical-align: initial;
+        }
+        .HRline{
+            border-bottom: 1px solid #e7e7e7;
+            width: 90%;
+            margin: auto;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="FintooReport">
+        <!-- Report Header -->
+        <header>
+            <section class="">
+                <div class="Header">
+                    <!-- <img src="https://static.fintoo.in/static/userflow/img/logo.svg" /> -->
+                </div>
+            </section>
+        </header>
+        <!-- <section class="FrontPage PageBreak">
+            <div class="pdfMainPage">
+                <div>
+                    <div class="ProductLists">
+                        <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="float: left; vertical-align: middle;">
+                                        <img width="20" src="./Assets/internet.png" />
+                                    </div>
+                                   <div style="float: left; vertical-align: middle;padding-left: .3rem;">fintoo.in</div>
+                                </td>
+                                <td>
+                                   <div style="float: left; vertical-align: middle;">
+                                        <img width="20" src="./Assets/facebook.png" />
+                                    </div>
+                                       <div style="float: left; vertical-align: middle;padding-left: .3rem;">fintooapp</div>
+                                </td>
+                                <td>
+                                   <div style="float: left; vertical-align: middle;">
+                                        <img width="20" src="./Assets/instagram.png" />
+                                    </div>
+                                   <div style="float: left; vertical-align: middle;padding-left: .3rem;">fintooapp</div>
+                                </td>
+                                <td>
+                                    <div style="float: left; vertical-align: middle;">
+                                        <img width="20" src="./Assets/twitter.png" />
+                                    </div>
+                                   <div style="float: left; vertical-align: middle;padding-left: .3rem;">fintooapp</div>
+                                </td>
+                                <td>
+                                   <div style="float: left; vertical-align: middle;">
+                                        <img width="20" src="./Assets/linkedin.png" />
+                                    </div>
+                                   <div style="float: left; vertical-align: middle;padding-left: .3rem;">fintooapp</div>
+                                </td>
+                                <td>
+                                    <div style="float: left; vertical-align: middle;">
+                                        <img width="20" src="./Assets/youtube.png" />
+                                    </div>
+                                    <div style="float: left; vertical-align: middle;padding-left: .3rem;">fintooapp</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- Profile Section -->
+
+        <div>
+
+        </div>
+        <div class="Profile PageBreak">
+            <div class="ReportSection">
+                <div>Index</div>
+            </div>
+            <!-- Index Section -->
+            <section class="RPSection">
+                <div class="ReportIndex" style="margin-top: 2rem;">
+                    <table style="width: 100%;margin: auto;">
+                        <tr>
+                            <td class="BorderRight">
+                                <div>
+                                    <div class="index-title">
+                                        <div class="circle-num">1</div>
+                                        <span
+                                            style="float: left;left: 3rem; position: relative;top: -2rem;font-weight: 700;">Introduction</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: left;">
+                                    <ul class="leaders">
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>1.1</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Profile</span>
+                                            <span class="dots"></span>
+                                            <span>01</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>1.2</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Risk Appetite</span>
+                                            <span class="dots"></span>
+                                            <span>02</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>1.3</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Your Scorecard</span>
+                                            <span class="dots"></span>
+                                            <span>03</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>1.4</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Fintoo Recommends</span>
+                                            <span class="dots"></span>
+                                            <span>04</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="LeftSpace">
+                                <div>
+                                    <div class="index-title">
+                                        <div class="circle-num">2</div>
+                                        <span
+                                            style="float: left;left: 3rem; position: relative;top: -2rem;font-weight: 700;">Asset
+                                            & Liablities</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: left;">
+                                    <ul class="leaders">
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>2.1</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Networth Analysis </span>
+                                            <span class="dots"></span>
+                                            <span>01</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>2.2</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Fintoo Recommendss</span>
+                                            <span class="dots"></span>
+                                            <span>02</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="HRline"></div>
+                <div class="ReportIndex" style="margin-top: 2rem;">
+                    <table style="width: 100%;margin: auto;">
+                        <tr>
+                            <td class="BorderRight">
+                                <div>
+                                    <div class="index-title">
+                                        <div class="circle-num">3</div>
+                                        <span
+                                            style="float: left;left: 3rem; position: relative;top: -2rem;font-weight: 700;">Goal Analysis</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: left;">
+                                    <ul class="leaders">
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>3.1</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Goal Summary</span>
+                                            <span class="dots"></span>
+                                            <span>08</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>3.2</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Goal Asset Mapping</span>
+                                            <span class="dots"></span>
+                                            <span>02</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>3.3</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Your Scorecard</span>
+                                            <span class="dots"></span>
+                                            <span>03</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>3.4</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Fintoo Recommends</span>
+                                            <span class="dots"></span>
+                                            <span>04</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="LeftSpace">
+                                <div>
+                                    <div class="index-title">
+                                        <div class="circle-num">4</div>
+                                        <span
+                                            style="float: left;left: 3rem; position: relative;top: -2rem;font-weight: 700;">Contingency & Risk Management</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: left;">
+                                    <ul class="leaders">
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>4.1</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Emergency Corpus</span>
+                                            <span class="dots"></span>
+                                            <span>01</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>4.2</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Life Insurance</span>
+                                            <span class="dots"></span>
+                                            <span>02</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>4.3</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Medical Insurance</span>
+                                            <span class="dots"></span>
+                                            <span>03</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>4.4</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Fintoo Recommends</span>
+                                            <span class="dots"></span>
+                                            <span>04</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="HRline"></div>
+                <div class="ReportIndex" style="margin-top: 2rem;">
+                    <table style="width: 100%;margin: auto;">
+                        <tr>
+                            <td class="BorderRight">
+                                <div>
+                                    <div class="index-title">
+                                        <div class="circle-num">5</div>
+                                        <span
+                                            style="float: left;left: 3rem; position: relative;top: -2rem;font-weight: 700;">Cashflow Analysis</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: left;">
+                                    <ul class="leaders">
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>5.1</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Pre Retirement Cashflow</span>
+                                            <span class="dots"></span>
+                                            <span>08</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>5.2</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Retirement Corpus</span>
+                                            <span class="dots"></span>
+                                            <span>02</span>
+                                        </li>
+                                        <li class="MoreText">
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>5.3</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span style="width: 100%;">Projected Cost - Retirement Cashflow</span>
+                                            <!-- <span class=""></span> -->
+                                            <span>03</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>5.4</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Fintoo Recommends</span>
+                                            <span class="dots"></span>
+                                            <span>04</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="LeftSpace">
+                                <div>
+                                    <div class="index-title">
+                                        <div class="circle-num">6</div>
+                                        <span
+                                            style="float: left;left: 3rem; position: relative;top: -2rem;font-weight: 700;">Closing Notes</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: left;">
+                                    <ul class="leaders">
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>6.1</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Thank You</span>
+                                            <span class="dots"></span>
+                                            <span>01</span>
+                                        </li>
+                                        <li>
+                                            <span><img width="16" src="./Assets/next.svg" /></span>
+                                            <span>6.2</span>
+                                            <span style="border-right: 1px solid #1f3f72; height: .7rem; "></span>
+                                            <span>Disclaimer</span>
+                                            <span class="dots"></span>
+                                            <span>02</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
+        <div class="Profile PageBreak">
+            <div class="ReportSection">
+                <div>Profile</div>
+            </div>
+            <!-- About Section -->
+            <section class="RPSection">
+                <div>
+                    <div class="RightSide">
+                        <div>
+                            <img class="bannerImg" src="./Assets/03_01_Introduction_banner.png" />
+                        </div>
+                        <div class="borderDv"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="profileType">
+                        <div class="TypeBox">
+                            <div>
+                                <span class="bgWHite">
+                                    <span class="icons">
+                                        <img width="40" src='./Assets/03_02_Introduction_About_me_Male.png' />
+                                    </span>
+                                </span>
+                                <span class="Heading">About Me</span>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="ProfileSection">
+                        <table className="">
+                            <tbody>
+                                <tr className="mb-md-2">
+                                    <td>
+                                        <div class="DataImg">
+                                            <img width="25" src='./Assets/03_02_01_Introduction_name.png' />
+                                        </div>
+                                        <div class="DataInfo">
+                                            <div>Name</div>
+                                            <div class="Datalabel">
+                                                Gokul Sharma
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="DataImg">
+                                            <img width="25" src="./Assets/03_02_02_Introduction_age.png" />
+                                        </div>
+                                        <div class="DataInfo">
+                                            <div>Age</div>
+                                            <div class="Datalabel">42</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="DataImg">
+                                            <img width="25" src="./Assets/03_02_03_introduction_age.png" />
+                                        </div>
+                                        <div class="DataInfo">
+                                            <div>Gender</div>
+                                            <div class="Datalabel">
+                                                Male
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="display: flex;">
+                                        <div class="DataImg">
+                                            <img width="25" src="Assets/03_02_04_introduction_Retirement_Age.png" />
+                                        </div>
+                                        <div class="DataInfo">
+                                            <div>Retirement Age</div>
+                                            <div class="Datalabel">
+                                                66
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="DataImg">
+                                            <img width="25" src="Assets/03_02_05_introduction_Life_Expectancy.png" />
+                                        </div>
+                                        <div class="DataInfo">
+                                            <div>Life Expectency</div>
+                                            <div class="Datalabel">
+                                                6
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="DataImg">
+                                            <img width="25" src="./Assets/03_08_introduction_email.png" />
+                                        </div>
+                                        <div class="DataInfo">
+                                            <div>Email</div>
+                                            <div class="Datalabel">gokulsharma298@yopmail.com</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <!-- My Family -->
+                <div class="SectionGap">
+                    <div class="borderDv"></div>
+                    <div>
+                        <div class="profileType">
+                            <div class="TypeBox">
+                                <div>
+                                    <span class="bgWHite">
+                                        <span class="icons">
+                                            <img width="40" src='./Assets/03_03_Introduction_my_family.png' />
+                                        </span>
+                                    </span>
+                                    <span class="Heading">My Family</span>
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="ProfileSection">
+                            <table className="">
+                                <tbody>
+                                    <tr className="mb-md-2">
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src='./Assets/03_02_01_Introduction_name.png' />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Name</div>
+                                                <div class="Datalabel">
+                                                    Radha Sharma
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src="./Assets/03_02_02_Introduction_age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Age</div>
+                                                <div class="Datalabel">38</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src="./Assets/03_02_03_introduction_age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Gender</div>
+                                                <div class="Datalabel">
+                                                    Female
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="display: flex;">
+                                            <div class="DataImg">
+                                                <img width="25" src="Assets/03_02_04_introduction_Retirement_Age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Retirement Age</div>
+                                                <div class="Datalabel">
+                                                    58
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25"
+                                                    src="Assets/03_02_05_introduction_Life_Expectancy.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Life Expectency</div>
+                                                <div class="Datalabel">
+                                                    60
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Spouse -->
+                <div class="SectionGap">
+                    <div class="borderDv"></div>
+                    <div>
+                        <div class="profileType profilemember">
+                            <div class="TypeBox">
+                                <div>
+                                    <span class="bgWHite">
+                                        <span class="icons">
+                                            <img width="40" src='./Assets/03_03_01_Introduction_spouse.png' />
+                                        </span>
+                                    </span>
+                                    <span class="Heading">Spouse</span>
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="ProfileSection ">
+                            <table className="">
+                                <tbody>
+                                    <tr className="mb-md-2">
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src='./Assets/03_02_01_Introduction_name.png' />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Name</div>
+                                                <div class="Datalabel">
+                                                    Radha Sharma
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src="./Assets/03_02_02_Introduction_age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Age</div>
+                                                <div class="Datalabel">38</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src="./Assets/03_02_03_introduction_age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Gender</div>
+                                                <div class="Datalabel">
+                                                    Female
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="display: flex;">
+                                            <div class="DataImg">
+                                                <img width="25" src="Assets/03_02_04_introduction_Retirement_Age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Retirement Age</div>
+                                                <div class="Datalabel">
+                                                    58
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25"
+                                                    src="Assets/03_02_05_introduction_Life_Expectancy.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Life Expectency</div>
+                                                <div class="Datalabel">
+                                                    60
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Son -->
+                <div class="SectionGap">
+                    <div class="borderDv"></div>
+                    <div>
+                        <div class="profileType profilemember">
+                            <div class="TypeBox">
+                                <div>
+                                    <span class="bgWHite">
+                                        <span class="icons">
+                                            <img width="40" src='./Assets/03_04_Introduction_son.png' />
+                                        </span>
+                                    </span>
+                                    <span class="Heading">Son</span>
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="ProfileSection profilesctionMember">
+                            <table className="">
+                                <tbody>
+                                    <tr className="mb-md-2">
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src='./Assets/03_02_01_Introduction_name.png' />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Name</div>
+                                                <div class="Datalabel">
+                                                    Kunal Sharma
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src="./Assets/03_02_02_Introduction_age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Age</div>
+                                                <div class="Datalabel">12</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src="./Assets/03_02_03_introduction_age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Gender</div>
+                                                <div class="Datalabel">
+                                                    Male
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Daughter -->
+                <div class="SectionGap">
+                    <div class="borderDv"></div>
+                    <div>
+                        <div class="profileType profilemember">
+                            <div class="TypeBox ">
+                                <div>
+                                    <span class="bgWHite">
+                                        <span class="icons">
+                                            <img width="40" src='./Assets/03_05_Introduction_son.svg' />
+                                        </span>
+                                    </span>
+                                    <span class="Heading">Daughter</span>
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="ProfileSection profilesctionMember">
+                            <table className="">
+                                <tbody>
+                                    <tr className="mb-md-2">
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src='./Assets/03_02_01_Introduction_name.png' />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Name</div>
+                                                <div class="Datalabel">
+                                                    Richa Sharma
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src="./Assets/03_02_02_Introduction_age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Age</div>
+                                                <div class="Datalabel">8</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="DataImg">
+                                                <img width="25" src="./Assets/03_02_03_introduction_age.png" />
+                                            </div>
+                                            <div class="DataInfo">
+                                                <div>Gender</div>
+                                                <div class="Datalabel">
+                                                    Female
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Risk Appetite -->
+        <div class=" PageBreak">
+            <section class="RPSection">
+                <table class="RiskSection">
+                    <tr>
+                        <td class="RiskImg">
+                            <div><img width="30" src="./Assets/02_01_Risk_meter_small_icon.png"></div>
+                        </td>
+                        <td>
+                            <div class="ms-md-4 riskConetnt">
+                                <div class="riskTitle">Risk Appetite </div>
+                                <div class="RiskPara">
+                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus error libero
+                                        incidunt cum necessitatibus in eligendi impedit consectetur.</div>
+                                    <div class="RiskBarSection">
+                                        <div class="barText">Risk Profile : <span>Moderate</span> </div>
+                                        <div class="">
+                                            <div class="riskappetitebar">
+                                                <ul class="riskbar">
+                                                    <li class="level1"></li>
+                                                    <li class="level2"></li>
+                                                    <li class="level3"></li>
+                                                    <li class="level4"></li>
+                                                    <li class="level5"></li>
+                                                </ul><span class="riskindicator" style="left: 47%;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class=" RightSection">
+                                <p class="">Your Avatar</p>
+                                <div><img width="200" src="./Assets/02_03_Risk_Appetite_Male.png"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="RiskSection">
+                    <div class="Investment-Data">
+                        <table>
+                            <tbody>
+                                <tr>vg
+                                    <td class="RiskImg">
+                                        <div><img width="30" src="./Assets/02_04_investment_Philosophy.svg"></div>
+                                    </td>
+                                    <td>
+                                        <div class="riskConetnt">
+                                            <div class="riskTitle">Investment Philosophy </div>
+                                            <div class="barBox Dotimg">
+                                                <p class="barBoxtype">Highly Aggresive</p>
+                                                <div class="FullLine">
+                                                    <img src="./Assets/full_line_dot.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="InvestBox">
+                                            <div>
+                                                <div class="InvestTxt">
+                                                    Equity Assets Class
+                                                </div>
+                                                <div class="InvestPara">
+                                                    Derivatives, F&O, Stocks, IPO, Sector Mutual Fund, Small
+                                                    Cap Mutual Fund, PMS, Venture capital, Unlisted Stocks,
+                                                    Etc.
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="InvestTxt">
+                                                    Others Assets Class
+                                                </div>
+                                                <div class="InvestPara">
+                                                    AIF, Crypto Currency Etc.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="RightSection ">
+                                            <div><img class="investment_pyramid"
+                                                    src="./Assets/02_05_investment_pyramid.png"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Your Scorecard -->
+        <div class=" PageBreak">
+            <section class="RPSection">
+                <div class="ScorecardSection">
+                    <div class="risk-Data">
+                        <table class="riskLeft">
+                            <tr>
+                                <td class="RiskImg">
+                                    <div><img width="30" src="./Assets/05_01_top_icon_scorecard.png"></div>
+                                </td>
+                                <td>
+                                    <div class="riskConetnt">
+                                        <div class="riskTitle">Your Scorecard</div>
+                                        <div class="RiskPara">
+                                            <div>We know that you are committed to improving your money
+                                                management skills and strengthening your financial health.
+                                                However, before you make any decisions, it's a good idea to
+                                                analyse where you stand currently and get an idea about your
+                                                strengths and weaknesses. You can learn this through financial
+                                                ratios. We have evaluated your performance with the help of
+                                                <b>5 </b>
+                                                such ratios and scored you on a scale of <b>1 to 100</b>. Once
+                                                you know where you stand you can chart your next steps
+                                                accordingly.
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- Scorecard -->
+                    <!-- Saving Ratio -->
+                    <div class="Ratiotable">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="ScoreCircle">
+                                        <div class="Saving_Ratio">
+                                            <div class="card ">
+                                                <div class="progress-bar" style="background: -webkit-radial-gradient(closest-side, #60a544 79%, transparent 80% 100%),
+                                                conic-gradient(#cbe3b7 80%, transparent 0);">
+                                                    <progress value="65" min="0" max="100"
+                                                        style="visibility:visible;height:0;width:0;">
+                                                    </progress>
+                                                    <span class="Numval">5 | 20</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="ScoreData">
+                                        <div class="labelTxt">
+                                            Saving Ratio
+                                        </div>
+                                        <div>
+                                            <table class="boderLay">
+                                                <tbody class="tbody">
+                                                    <tr>
+                                                        <th>Savings</th>
+                                                        <th>Total Income</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="centerCircle"> &#8377; 7.90 Lac
+                                                            <span class="Circle">
+                                                                <span> &#247;</span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="centerCircle"> &#8377; 12.40 Lac
+                                                            <span class="Circle">
+                                                                <span> = </span>
+                                                            </span>
+                                                        </td>
+                                                        <td> <b>64 %</b> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="RatioTxt">Your Ideal Saving Should Be 40% of Your Income</div>
+                                        </div>
+                                    </td>
+                                    <td class="ScorePara">
+                                        <div>
+                                            With increasing inflation and a longer lifespan, it is incredibly important
+                                            for you to be a smart saver! We are not saying that you shouldn't enjoy your
+                                            life, but remember that the more you save, the more you can grow your
+                                            wealth. Currently, you are saving over <b>51%</b> of your income.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Expense Ratio -->
+                    <div class="Ratiotable">
+                        <table>
+                            <tbody>
+                                <tr class="expenceRatio">
+                                    <td class="ScoreCircle ">
+                                        <div class="">
+                                            <div class="card">
+                                                <div class="progress-bar" style="
+                                                      background: radial-gradient(closest-side, #81a53e 79%, transparent 80% 100%),
+    conic-gradient(#dfebc1 55%, transparent 0);">
+                                                    <progress value="25" min="0" max="100"
+                                                        style="visibility:visible;height:0;width:0;">
+                                                    </progress>
+                                                    <span class="Numval">10 | 20</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="ScoreData">
+                                        <div class="labelTxt">
+                                            Expese Ratio
+                                        </div>
+                                        <div>
+                                            <table class="boderLay">
+                                                <tbody class="tbody">
+                                                    <tr>
+                                                        <th>Expence</th>
+                                                        <th>Total Income</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="centerCircle"> &#8377; 7.90 Lac
+                                                            <span class="Circle">
+                                                                <span> &#247;</span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="centerCircle"> &#8377; 12.40 Lac
+                                                            <span class="Circle">
+                                                                <span> = </span>
+                                                            </span>
+                                                        </td>
+                                                        <td> <b>64 %</b> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="RatioTxt">Your Ideal Expence Should Be 40% of Your Income</div>
+                                        </div>
+                                    </td>
+                                    <td class="ScorePara">
+                                        <div>
+                                            In addition to maximising your income, you must also focus on limiting your
+                                            expenses for smart money management. It is wise to keep track of how much
+                                            you are spending and what you are spending on. You are currently spending
+                                            around <b>31-40%</b> of your income.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Nertworth Ratio -->
+                    <div class="Ratiotable">
+                        <table>
+                            <tbody>
+                                <tr class="NertworthRatio">
+                                    <td class="ScoreCircle">
+                                        <div class="">
+                                            <div class="">
+                                                <div class="card">
+                                                    <div class="progress-bar progress">
+
+                                                        <span class="Numval">10 | 20</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="ScoreData">
+                                        <div class="labelTxt">
+                                            Nertworth Ratio
+                                        </div>
+                                        <div>
+                                            <table class="boderLay">
+                                                <tbody class="tbody">
+                                                    <tr>
+                                                        <th>Total Assets</th>
+                                                        <th>Total Liabilities</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="centerCircle"> &#8377; 7.90 Cr
+                                                            <span class="Circle">
+                                                                <span> - </span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="centerCircle"> &#8377; 85 Lac
+                                                            <span class="Circle">
+                                                                <span> = </span>
+                                                            </span>
+                                                        </td>
+                                                        <td> <b>&#8377; 6.30 Cr</b> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="RatioTxt">Your Ideal Nertworth Should Be &#8377;6.69 Cr </div>
+                                        </div>
+                                    </td>
+                                    <td class="ScorePara">
+                                        <div>
+                                            Net worth is an accurate measure of your financial health. It is the amount
+                                            that's leftover (remaining, surplus, extra, that you get after) when you
+                                            subtract your total liabilities from your total assets.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Liquidity Ratio -->
+                    <div class="Ratiotable">
+                        <table>
+                            <tbody>
+                                <tr class="LiquidityRatio">
+                                    <td class="ScoreCircle">
+                                        <div class="">
+                                            <div class="card">
+                                                <div class="progress-bar" style="
+                                                      background: radial-gradient(closest-side, #f8ac1a 79%, transparent 80% 100%),
+    conic-gradient(#dfebc1 55%, transparent 0);">
+                                                    <progress value="25" min="0" max="100"
+                                                        style="visibility:visible;height:0;width:0;">
+                                                    </progress>
+                                                    <span class="Numval">10 | 20</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="ScoreData">
+                                        <div class="labelTxt">
+                                            Liquidity Ratio
+                                        </div>
+                                        <div>
+                                            <table class="boderLay">
+                                                <tbody class="tbody">
+                                                    <tr>
+                                                        <th>Liquid Assets</th>
+                                                        <th>Monthly Expences</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="centerCircle"> &#8377; 4.90 Lac
+                                                            <span class="Circle">
+                                                                <span> &#247;</span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="centerCircle"> &#8377; 15 Lac
+                                                            <span class="Circle">
+                                                                <span> = </span>
+                                                            </span>
+                                                        </td>
+                                                        <td> <b>3 Mth</b> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="RatioTxt">Your Ideal Liquid Fund Should Be Sufficient For Your 4
+                                                Months of Expence</div>
+                                        </div>
+                                    </td>
+                                    <td class="ScorePara">
+                                        <div>
+                                            This ratio indicates your ability to encash liquid assets to meet house-hold
+                                            expenses, pay rent, EMIs and education fees when faced with an unpleasant
+                                            situation such as a medical emergency, job loss, etc. At pre-sent, you only
+                                            have <b>50%</b> of the liquid assets that you are ideally suppo-sed to have.
+                                            This
+                                            means that in an emergency, you can manage essen-tial expenses for only <b>2
+                                                months.</b>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Solvancy Ratio -->
+                    <div class="Ratiotable">
+                        <table>
+                            <tbody>
+                                <tr class="SolvancyRatio">
+                                    <td class="ScoreCircle">
+                                        <div class="">
+                                            <div class="card">
+                                                <div class="progress-bar" style="
+                                                background: radial-gradient(closest-side, #b04840 79%, transparent 80% 100%),
+conic-gradient(#dfebc1 2%, transparent 0);">
+                                                    <progress value="25" min="0" max="100"
+                                                        style="visibility:visible;height:0;width:0;">
+                                                    </progress>
+                                                    <span class="Numval">2 | 20</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="ScoreData">
+                                        <div class="labelTxt">
+                                            Solvancy Ratio
+                                        </div>
+                                        <div>
+                                            <table class="boderLay">
+                                                <tbody class="tbody">
+                                                    <tr>
+                                                        <th>Nertworth</th>
+                                                        <th>Total Assests</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="centerCircle"> &#8377; 6.13 Cr
+                                                            <span class="Circle">
+                                                                <span> &#247;</span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="centerCircle"> &#8377; 7.15 Cr
+                                                            <span class="Circle">
+                                                                <span> = </span>
+                                                            </span>
+                                                        </td>
+                                                        <td> <b>88 %</b> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="RatioTxt">Your Ideal Solvancy Ratio Should Be Not Be Less Than
+                                                50%</div>
+                                        </div>
+                                    </td>
+                                    <td class="ScorePara">
+                                        <div>
+                                            Your solvency ratio indicates your ability to repay existing debts using
+                                            your existing assets. Being solvent is key to achieving long-term finan-cial
+                                            success. Currently, your score is very good, which indicates you are adept
+                                            at balancing your assets and liabilities !
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="RiskMeterSection PageBreak">
+                    <table>
+                        <tr>
+                            <td>
+                                <p class="scorePara">Your Scorecard is <b>88 out of 100</b> <br />
+                                    which is <span class="Result">Excellcent</span>.
+                                </p>
+                            </td>
+                            <td>
+                                <div id="meter-box">
+                                    <img src="./Assets/05_02_Report_card_half_circle.png" />
+                                    <div id="line">
+                                        <!-- <img class="Indicator" src="./Assets/05_03_Report_card_half_circle.png" /> -->
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- Fintoo Recommands -->
+        <div class=" PageBreak">
+            <section class="RPSection">
+                <div class=" FintooAllocation FintooRecommands">
+                    <table>
+                        <tr>
+                            <td>
+                                <div><img width="30" src="./Assets/06_01_risk_appetite_fintoo_recommended.svg">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="riskTitle">Fintoo Recommends</div>
+                            </td>
+                            <td style="float: right;">
+                                <div class="light-img" style="float: right;"><img width="340"
+                                        src="./Assets/06_07_top_fintoo_recommended.png"></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <div>
+                        <div style="float: left; margin-top: 5rem;">
+                            <table>
+                                <tr>
+                                    <td class="RiskImg">
+                                      
+                                    </td>
+                                    <td>
+                                        <div class="riskTitle">Fintoo Recommends</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                    </div> -->
+                    <div class="FintooRecommandData">
+                        <div class="RatioInfo">
+                            <table>
+                                <tr>
+                                    <td class="RiskImg">
+                                        <div><img width="30" src="./Assets/06_02_saving_ratio_fintoo_recommended.svg">
+                                        </div>
+                                    </td>
+                                    <td class="Ratio_content">
+                                        <div class="riskTitle">Saving Ratio</div>
+                                        <div class="Ratioinfo-conetent">
+                                            Your current saving ratio is <b>64%</b> of your total income. Your ideal
+                                            saving
+                                            ratio
+                                            is <b>40%</b>. As you are saving more than the basic requirement, you can
+                                            either
+                                            continue to save more or invest the surplus for your future goals.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="RatioInfo">
+                            <table>
+                                <tr>
+                                    <td class="RiskImg">
+                                        <div><img width="30" src="./Assets/06_03_expense_ratio_fintoo_recommended.png">
+                                        </div>
+                                    </td>
+                                    <td class="Ratio_content">
+                                        <div class="riskTitle">Expence Ratio</div>
+                                        <div class="Ratioinfo-conetent">
+                                            Your expense ratio is <b>36%</b> of your total income. The ideal expense
+                                            ratio
+                                            is <b>60%</b>.
+                                            As your expenses are lesser than the base limit, we recommend you to
+                                            maintain
+                                            your lower expense ratio in the future too. If you wish, you can invest the
+                                            surplus amount for your future goals.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="RatioInfo">
+                            <table>
+                                <tr>
+                                    <td class="RiskImg">
+                                        <div><img width="30"
+                                                src="./Assets/06_04_net_worth_ratio_fintoo_recommended.png">
+                                        </div>
+                                    </td>
+                                    <td class="Ratio_content">
+                                        <div class="riskTitle">Nertworth Ratio</div>
+                                        <div class="Ratioinfo-conetent">
+                                            As your current net worth is more than the base limit (baseline, ideal
+                                            requirement) we recommend you to maintain your current net worth in the
+                                            future
+                                            too. As your net worth score is excellent, it means that you are building
+                                            your
+                                            assets through disciplined savings and smart investments.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="RatioInfo">
+                            <table>
+                                <tr>
+                                    <td class="RiskImg">
+                                        <div><img width="30"
+                                                src="./Assets/06_05_liquidity_ratio_fintoo_recommended.png">
+                                        </div>
+                                    </td>
+                                    <td class="Ratio_content">
+                                        <div class="riskTitle">Liquidity Ratio</div>
+                                        <div class="Ratioinfo-conetent">
+                                            At present, you only have <b>50%</b> of the liquid assets that you are
+                                            ideally
+                                            supposed
+                                            to have. This means that in an emergency, you can manage essential expenses
+                                            for
+                                            only 2 months. Therefore, we recommend that you must build your liquid
+                                            assets to
+                                            accommodate emergency expenses.lf you are two people earning in your family,
+                                            you
+                                            must maintain an emergency corpus worth at least 4 months of your expenses.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="RatioInfo">
+                            <table>
+                                <tr>
+                                    <td class="RiskImg">
+                                        <div><img width="30" src="./Assets/06_06_solvency_ratio_fintoo_recommended.png">
+                                        </div>
+                                    </td>
+                                    <td class="Ratio_content">
+                                        <div class="riskTitle">Solvancy Ratio</div>
+                                        <div class="Ratioinfo-conetent borderNone">
+                                            Way to go! The amount of your liabilities is <b>12%</b> which is fairly
+                                            lower
+                                            than the
+                                            amount of your assets. We are happy that you are maintaining a healthy
+                                            solvency
+                                            ratio and we recommend you keep maintaining it to achieve a financially
+                                            stable
+                                            future. However, we would also recommend you to go a step further and reduce
+                                            your liabilities even more to achieve an excellent solvency ratio.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Fintoo Recommands Fpallocation-->
+        <div class=" PageBreak">
+            <section class="RPSection Fpallocation">
+                <div class=" FintooRecommands">
+                    <table>
+                        <tr>
+                            <td>
+                                <div><img width="30" src="./Assets/06_01_risk_appetite_fintoo_recommended.svg">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="riskTitle">Fintoo Recommends</div>
+                            </td>
+                            <td style="float: right;">
+                                <div class="light-img" style="float: right;"><img width="340"
+                                        src="./Assets/06_07_top_fintoo_recommended.png"></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="FintooRecommandData">
+                        <p class="recommeds_title">Asset Allocation Analysis</p>
+                        <div class="AssetMatrix">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>
+                                            <div class="Allocation_Types">
+                                                Current Allocation
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="Allocation_Types IdealAllocation">
+                                                Ideal Allocation
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <div class="Progress">
+                                    <div style="float: left">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file1" value="50" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                    <div class="img">
+                                        <div class="Success"> ₹ 22.71 L</div>
+                                        <div>
+                                            <span><img
+                                                    src="http://127.0.0.1:5500/src/components/HTML/FintooSummaryReport/Html/Assets/01_equity_color.png" />
+                                            </span>
+                                        </div>
+                                        <div class="ProgressType">
+                                            Debt
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file" value="82" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="NewAsset DebtAsset">
+                                <div class="Progress">
+                                    <div style="float: left">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file1" value="50" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                    <div class="img">
+                                        <div class="Success"> ₹ 22.71 L</div>
+                                        <div>
+                                            <span><img
+                                                    src="https://images.minty.co.in/static/assets/summary_report/images/02_debt_color.png" />
+                                            </span>
+                                        </div>
+                                        <div class="ProgressType">
+                                            Equity
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file" value="82" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="NewAsset RealEstateAsset">
+                                <div class="Progress">
+                                    <div style="float: left">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file1" value="20" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                    <div class="img">
+                                        <div class="Fail"> ₹ -22.71 L</div>
+                                        <div>
+                                            <span><img
+                                                    src="https://images.minty.co.in/static/assets/summary_report/images/03_real_estate.png" />
+                                            </span>
+                                        </div>
+                                        <div class="ProgressType">
+                                            Real Estate
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file" value="52" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="NewAsset LiquidAsset">
+                                <div class="Progress">
+                                    <div style="float: left">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file1" value="20" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                    <div class="img">
+                                        <div class="Fail"> ₹ -22.71 L</div>
+                                        <div>
+                                            <span><img
+                                                    src="https://images.minty.co.in/static/assets/summary_report/images/04_liquid.png" />
+                                            </span>
+                                        </div>
+                                        <div class="ProgressType">
+                                            Liquid
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file" value="52" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="NewAsset AlternateAsset">
+                                <div class="Progress">
+                                    <div style="float: left">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file1" value="90" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                    <div class="img">
+                                        <div class="Fail"> ₹ -22.71 L</div>
+                                        <div>
+                                            <span><img
+                                                    src="https://images.minty.co.in/static/assets/summary_report/images/05_alternate.png" />
+                                            </span>
+                                        </div>
+                                        <div class="ProgressType">
+                                            Alternate
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file" value="68" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="NewAsset GoldmfAsset">
+                                <div class="Progress">
+                                    <div style="float: left">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file1" value="40" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                    <div class="img">
+                                        <div class="Fail"> ₹ -22.71 L</div>
+                                        <div>
+                                            <span><img
+                                                    src="https://images.minty.co.in/static/assets/summary_report/images/06_gold_mf.png" />
+                                            </span>
+                                        </div>
+                                        <div class="ProgressType">
+                                            Gold MF/ETF/SGB
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="Value">
+                                            27%
+                                        </div>
+                                        <progress id="file" value="52" max="100"> 32% </progress>
+                                        <div class="Value">
+                                            ₹ 22.71 L
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>
+                                            <div class="TotalAllocation FirstAll">
+                                                Total <span class="SmallVr">|</span> ₹ 2,00,289 <span
+                                                    class="SmallVr">|</span> 100%
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="TotalAllocation LastAll">
+                                                Total <span class="SmallVr">|</span> ₹ 2,00,289 <span
+                                                    class="SmallVr">|</span> 100%
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" PageBreak">
+                    <table class="RecommPoints">
+                        <tr>
+                            <td>
+                                <div><img width="30" src="./Assets/07_02_net_worth_analysis_Points.png">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="riskTitle">Points to Remember</div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="FintooRecommandsPoints">
+                        <table>
+                            <tr>
+                                <td class="RiskImg">
+                                    <div><img width="15" src="./Assets/next.svg">
+                                    </div>
+                                </td>
+                                <td>It's important to note that self-occupied property and physical gold are not taken
+                                    into
+                                    account when carrying out this exercise. </td>
+                            </tr>
+                            <tr>
+                                <td class="RiskImg">
+                                    <div><img width="15" src="./Assets/next.svg">
+                                    </div>
+                                </td>
+                                <td style="padding-top: 10px;">The goal value of all the goals under two years and
+                                    emergency
+                                    corpus is considered in
+                                    the liquid fund while calculating ideal asset allocation. </td>
+                            </tr>
+                            <tr>
+                                <td class="RiskImg">
+                                    <div><img width="15" src="./Assets/next.svg">
+                                    </div>
+                                </td>
+                                <td style="padding-top: 12px;"> If the actual percentage of your existing asset class
+                                    allocation is more than the ideal
+                                    asset class allocation percentage, then you need to sell the extra (percentage,
+                                    asset
+                                    class, additional allocations, portion, amount) to maintain the ideal asset class
+                                    allocation percentage. </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Policy Details -->
+        <div class="PageBreak">
+            <section class="RPSection ClosingNotes">
+                <div class="ReportSection">
+                    <div>Closing Notes</div>
+                </div>
+                <div class="risk-Data">
+                    <table style="width:100%; margin-top: 2rem;">
+                        <tbody>
+                            <tr>
+                                <td class="RiskImg" style="width:30px">
+                                    <div><img width="30" src="./Assets/thumbs-up.png"></div>
+                                </td>
+                                <td>
+                                    <div class="riskConetnt">
+                                        <div class="ThankYouTitle">Thank You</div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="Thankyou-para">
+                                        <div>
+                                            <div>The Client hereby agrees and understands that this report and services
+                                                are provided on the basis of the
+                                                information provided by the Client to us strictly on an “as is”, “where
+                                                is” and “as available” basis with no
+                                                representations or warranties of any kind, express or implied from us
+                                                with regard to accuracy or effect of the
+                                                contents herein.</div>
+                                            <div>
+                                                The Client agrees that they would take prudent decisions based on the
+                                                report herein, whilst exercising caution and
+                                                with the complete understanding that Fintoo Wealth Private Limited or any
+                                                of its associates are not liable for any
+                                                damages of any kind arising from the use of the contents of this report,
+                                                including, but not limited to direct, indirect,
+                                                incidental, punitive and consequential damages.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="Services ">
+                    <table>
+                        <tr>
+                            <th colspan="2"> Our Services</th>
+                        </tr>
+                        <tr>
+                            <td class="brBottom">
+                                <span>
+                                    <img style="vertical-align: middle;" width="40"
+                                        src="./Assets/06_02_our_service_financial_planning.png">
+                                </span>
+                                <span style="padding-left: 6px;">Financial Planning</span>
+                            </td>
+                            <td class="brBottom">
+                                <span>
+                                    <img style="vertical-align: middle;" width="40"
+                                        src="./Assets/06_03_our_service_tax_planning.png">
+                                </span>
+                                <span style="padding-left: 6px;">Tax Planning</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span>
+                                    <img style="vertical-align: middle;" width="40"
+                                        src="./Assets/06_04_our_service_retirement_planning.png">
+                                </span>
+                                <span style="padding-left: 6px;">Retirement Planning</span>
+                            </td>
+                            <td>
+                                <span>
+                                    <img style="vertical-align: middle;" width="40"
+                                        src="./Assets/06_05_our_service_investment_planning.png">
+
+                                </span>
+                                <span style="padding-left: 6px;">Investment Planning</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="ContactUs">
+                        <tr>
+                            <th colspan="2">Contact Us</th>
+                        </tr>
+                        <tr>
+                            <td class="brBottom">
+                                <span>
+                                    <img style="vertical-align: middle;" width="40"
+                                        src="./Assets/06_06_our_service_contact_us.png">
+                                </span>
+                                <span> <a style="text-decoration: none;" href="tel:+919699800600">+91-9699 800 600</a>
+                                </span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="">
+                                <span>
+                                    <img style="vertical-align: middle;" width="40"
+                                        src="./Assets/06_07_our_service_email.png">
+                                </span>
+                                <span> <a href="mailto:support@fintoo.in">support@fintoo.in</a> </span>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="risk-Data Disclaimer">
+                    <table style="width:100%; margin-top: 2rem;">
+                        <tbody>
+                            <tr>
+                                <td class="RiskImg" style="width:30px">
+                                    <div><img width="30" src="./Assets/06_08_our_service_disclaimer.png"></div>
+                                </td>
+                                <td>
+                                    <div class="riskConetnt">
+                                        <div class="ThankYouTitle">Disclaimer</div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="Thankyou-para">
+                                        <div>
+                                            <div>The Client hereby agrees and understands that this report and services
+                                                are provided on the basis of the
+                                                information provided by the Client to us strictly on an “as is”, “where
+                                                is” and “as available” basis with no
+                                                representations or warranties of any kind, express or implied from us
+                                                with regard to accuracy or effect of the
+                                                contents herein.</div>
+                                            <div>
+                                                The Client agrees that they would take prudent decisions based on the
+                                                report herein, whilst exercising caution and
+                                                with the complete understanding that Fintoo Wealth Private Limited or any
+                                                of its associates are not liable for any
+                                                damages of any kind arising from the use of the contents of this report,
+                                                including, but not limited to direct, indirect,
+                                                incidental, punitive and consequential damages.
+                                            </div>
+                                            <div>
+                                                The Client acknowledges that investment advice are subject to market
+                                                status and risks and that past performances
+                                                are not reliable basis for future returns.
+                                            </div>
+                                            <div>
+                                                Actions taken by the Client on the basis of this report with third
+                                                parties are fully based on the Client’s personal
+                                                judgement and Fintoo Wealth Private Limited or any of its associates are
+                                                not party to or in any way be responsible for
+                                                any transaction between user and such party provider. The Client
+                                                expressly agrees and acknowledges to hold
+                                                Fintoo Wealth Private Limited or any of its associates harmless in respect
+                                                of any cost, claims, damage, loss or
+                                                expenses accrued, suffered, incurred by Fintoo Wealth Private Limited or
+                                                any of its associates arising out of or in
+                                                connection with any such communication, interaction, dealings and
+                                                transactions between the user and third-party
+                                                providers. The Client’s foregoing assurance is based on the
+                                                understanding that Fintoo Wealth Private Limited or any
+                                                of its associates do not have any control over such dealings and
+                                                transactions and plays no determinative role in the
+                                                performance in respect of the same and Fintoo Wealth Private Limited or
+                                                any of its associates shall not be liable for
+                                                the outcomes of such communication, interaction, dealings and
+                                                transactions between the users and the third-party
+                                                providers.All calculation are done on the basis of pre tax value which
+                                                is subjected to change according to the local
+                                                taxation.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+        </div>
+        <div class="PageBreak" style="margin-top: 9rem;">
+            <script>
+                $(function () {
+                    var options = {
+                        chart: {
+                            plotBorderWidth: 0
+                        },
+
+                        title: {
+                            text: '',
+                        },
+                        xAxis: {
+                            type: 'category',
+
+                        },
+                        //
+                        yAxis: {
+
+                            title: {
+                                margin: 10,
+                                text: ''
+                            },
+                        },
+                        tooltip: {
+                            useHTML: true,
+                            headerFormat: '<div class="ToolipTop"> <div><img src="./Assets/03_real_estate.png" width="30px" alt=""> </div>  </div>',
+                            // pointFormat: '<span style="color:{series.color}">► {series.name} : </span> {point.y:, .0f} <br />',
+                            split: false,
+                            // shared: true
+                        },
+                        //
+                        legend: {
+                            enabled: true,
+                        },
+                        colors: ["#69a843", '#fbaf26', '#009bd4'],
+                        //
+                        plotOptions: {
+                            series: {
+                                pointPadding: 0.2,
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true
+                                }
+                            },
+                            bar: {
+                                stacking: 'percent'
+                            },
+                            pie: {
+                                plotBorderWidth: 0,
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                size: '100%',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.name}: <b>{point.y}</b>'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            gridLineDashStyle: 'longdash',
+                            title: {
+                                text: "",
+                            },
+                            labels: {
+                                style: {
+                                    fontSize: '15px'
+                                },
+                                formatter: function () {
+                                    return this.value + "&nbsp; M";
+
+                                },
+
+                            },
+                        },
+                        legend: {
+                            verticalAlign: 'top',
+                            align: 'right',
+                            layout: 'grid',
+                            padding: 3,
+                            itemMarginTop: 5,
+                            itemMarginBottom: 5,
+                            itemStyle: {
+                                lineHeight: '14px'
+                            }
+
+
+                        },
+                        credits: {
+                            enabled: false,
+                        },
+                        //
+                        series: [
+                            {
+                                name: "Ideal Cover",
+                                data: [50],
+                                dashStyle: 'dash'
+                            },
+                            {
+                                name: "Existing Cover",
+                                data: [180],
+                                dashStyle: 'dash'
+                            },
+                            {
+                                name: "Additional Insurance",
+                                data: [30],
+                                dashStyle: 'dash'
+                            },
+
+                        ],
+                        exporting: {
+                            enabled: false,
+                        }
+                    };
+
+                    // Column chart
+                    options.chart.renderTo = 'container';
+                    options.chart.type = 'column';
+                    var chart1 = new Highcharts.Chart(options);
+
+                    chartfunc = function () {
+                        // var column = document.getElementById('column');
+                        // var bar = document.getElementById('bar');
+                        // var pie = document.getElementById('pie');
+                        // var line = document.getElementById('line');
+
+
+                        // if (column.checked) {
+
+                        //     options.chart.renderTo = 'container';
+                        //     options.chart.type = 'column';
+                        //     var chart1 = new Highcharts.Chart(options);
+                        // }
+                        // else if (bar.checked) {
+                        //     options.chart.renderTo = 'container';
+                        //     options.chart.type = 'bar';
+                        //     var chart1 = new Highcharts.Chart(options);
+                        // }
+                        // else if (pie.checked) {
+                        //     options.chart.renderTo = 'container';
+                        //     options.chart.type = 'pie';
+                        //     var chart1 = new Highcharts.Chart(options);
+                        // }
+                        // else {
+                        //     options.chart.renderTo = 'container';
+                        //     options.chart.type = 'line';
+                        //     var chart1 = new Highcharts.Chart(options);
+                        // }
+
+                    }
+
+                    // $('#change_chart_title').click(function () {
+                    //     var new_title = $('#chart_title').val();
+                    //     var chart = $('#container').highcharts();
+                    //     chart.setTitle({ text: new_title });
+
+                    //     alert('Chart title changed to ' + new_title + ' !');
+
+                    // });
+                });
+
+
+            </script>
+            <section class=" Graph">
+                <p style="text-align: center;font-size: 1.2rem;font-weight: 600;">Life Insurance</p>
+                <div id="container"></div>
+            </section>
+        </div>
+
+
+
+        <p style="height: 7rem;"></p>
+        <footer>
+            <section class="">
+                <div class="Footer">
+                    <div class="FooterContent">
+                        <p>Page 1 of 18</p>
+                        <p>
+                            @ <span id="year"></span> Fintoo, All Rights Reserved
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </footer>
+    </section>
+
+
+    <script>
+        var date = new Date();
+        var current_date = date.getFullYear();
+        document.getElementById("year").innerHTML = current_date;
+    </script>
+    <link rel="stylesheet" type="text/css" media="print" href="./css/Print.css">
+</body>
+
+</html>

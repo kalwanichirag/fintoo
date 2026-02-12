@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 3 Copy 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-107.876496%" y1="50%" x2="148.223091%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons" transform="translate(-201.000000, -231.000000)">
+            <g id="Group-3-Copy-3" transform="translate(201.000000, 231.000000)">
+                <g id="Group-3-Copy-2">
+                    <g id="Group-2-Copy">
+                        <g id="Group-47">
+                            <circle id="Oval" fill="#EF305E" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                            <circle id="Oval" fill="#EF305E" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                            <g id="Group-13" transform="translate(9.000000, 7.000000)">
+                                <circle id="Oval" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="12" cy="1" r="1"></circle>
+                                <circle id="Oval-Copy-2" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="1" cy="5" r="1"></circle>
+                                <circle id="Oval-Copy-5" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="18.5" cy="5.5" r="1"></circle>
+                                <circle id="Oval-Copy-4" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="3.5" cy="0.5" r="1"></circle>
+                                <g id="fire" transform="translate(3.000000, 3.000000)" fill="url(#linearGradient-1)">
+                                    <g id="noun_Fire_866872">
+                                        <g id="Group" fill-rule="nonzero">
+                                            <path d="M14.82,10.295 C14.5125,7.62 13.485,5.5075 11.68,3.8375 C11.5975,3.76 11.4725,3.75 11.3775,3.8075 C11.2825,3.8675 11.2375,3.9825 11.27,4.09 C11.7225,5.6825 11.3225,6.455 10.32,7.2275 C9.7025,3.7775 8.9025,2.7825 7.065,0.4925 L6.745,0.095 C6.675,0.0075 6.555,-0.0225 6.4525,0.02 C6.35,0.0625 6.2875,0.17 6.3025,0.28 C6.66,3.1175 5.855,4.305 5.005,5.56 C4.51,6.2875 4.0025,7.04 3.715,8.12 C3.1375,7.58 2.7075,6.58 2.51,5.3025 C2.4925,5.1975 2.415,5.115 2.31,5.095 C2.2075,5.075 2.1025,5.1225 2.0475,5.2125 C0.335,8.0675 -1.1075,12.22 1.745,15.785 C1.7525,15.7925 1.7575,15.8 1.765,15.8075 C3.2,17.2425 5.0925,18 7.2425,18 C8.2775,18 9.335,17.8225 10.38,17.475 C12.88,16.64 14.68,14.2825 14.855,11.6075 C14.8825,11.18 14.87,10.74 14.82,10.295 Z" id="Shape"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

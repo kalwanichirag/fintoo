@@ -1,0 +1,76 @@
+.planingsection {
+  display: grid;
+  width: 90%;
+  margin: auto;
+  /* place-items: center; */
+}
+.Text {
+    color: #042b62;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.PlanningBox {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  box-shadow: 1px 2px 5px 0 rgb(0 0 0 / 8%);
+}
+.PlanningBox {
+  display: flex;
+  justify-content: space-between;
+}
+.planType{
+    color: #042b62;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.PickUP button{
+    border: 1px solid #8bc53f;
+    color: #8bc53f;
+    outline: none;
+    padding: .3rem 2rem;
+    background-color: #fff;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.PickUP button:hover{
+    background-color: #8bc53f;
+    color: #fff;
+}
+.modalHead{
+    text-align: center;
+    color: #f0806d;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.TextBox{
+    text-align: center;
+    padding: .5rem 2rem;
+}
+.PickUP {
+    justify-content: center;
+}
+.modalcontent{
+    padding: 2rem 2rem;
+}
+@media only screen and (max-width: 768px) {
+    .planingsection {
+        width: 100%;
+    }
+    .PlanningBox{
+        padding: 2rem 1rem;
+    }
+    .planType{
+        font-size: 1rem;
+    }
+    .PickUP button{
+        padding: 0.2rem 1rem;
+        font-size: .9rem;   
+    }
+    .TextBox{
+        padding: .5rem 0rem;
+    }
+
+}

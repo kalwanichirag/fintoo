@@ -1,0 +1,56 @@
+#meter-box {
+  display: inline-block;
+  /* border: 1px solid; */
+  position: relative;
+  overflow: hidden;
+}
+#meter {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 0;
+}
+#pin {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 0;
+  transition: transform 0.7s ease-in-out;
+}
+
+.mobile-nav_ {
+}
+.row {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: bold;
+  background-color: #eee;
+  margin-bottom: 10px;
+}
+.outlineBtn {
+  background: transparent;
+  border: 1px solid #042b62;
+  color: #353535;
+  padding: 6px 28px;
+  margin-left: 10px;
+  font-weight: 700;
+  margin-right: 10px;
+  border-radius: 20px;
+}
+.outlineBtn:hover {
+  color: #fff;
+  background: #042b62;
+}
+
+.outlineBtn a{
+  background: transparent;
+  color: #353535;
+  text-decoration: none;
+}
+
+.outlineBtn:hover a{
+  color: #fff;
+  background: #042b62;
+}

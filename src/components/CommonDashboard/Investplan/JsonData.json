@@ -1,0 +1,28 @@
+[
+
+    {
+        "id":1,
+        "CATEGORY":"Large Cap Equity",
+        "LUMPSUMAMOUNT":"23,49,733",
+        "SIPAMOUNT" : "52,587"
+    },
+    {
+        "id":2,
+        "CATEGORY":"Mid Cap Equity",
+        "LUMPSUMAMOUNT":"71,49,622",
+        "SIPAMOUNT" : "1,15,811"
+    },
+    {
+        "id":3,
+        "CATEGORY":"Small Cap Equity",
+        "LUMPSUMAMOUNT":"43,35,358",
+        "SIPAMOUNT" : "63,573"
+    },
+    {
+        "id":4,
+        "CATEGORY":"Hybrid",
+        "LUMPSUMAMOUNT":"82,18,055",
+        "SIPAMOUNT" : "1,39,178"
+    }
+
+]

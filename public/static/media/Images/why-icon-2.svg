@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="59px" viewBox="0 0 70 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 32 Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="7.29621186%" y1="56.1849032%" x2="184.463759%" y2="56.1849032%" id="linearGradient-1">
+            <stop stop-color="#8DC63F" offset="0%"></stop>
+            <stop stop-color="#6AAA13" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-Page-1.1" transform="translate(-1362.000000, -3207.000000)">
+            <g id="Group-32-Copy" transform="translate(1362.000000, 3207.000000)">
+                <g id="Group-39">
+                    <g id="Group-40">
+                        <g id="cart" transform="translate(10.370370, 12.826087)">
+                            <g id="Group-22">
+                                <path d="M38.2726667,34.7272941 C35.8953974,34.7251048 33.7509345,36.0910357 32.839604,38.1879222 C31.9282735,40.2848086 32.429628,42.699517 34.1098009,44.30566 C35.7899738,45.9118031 38.3179336,46.3929347 40.5144646,45.5246218 C42.7109957,44.6563089 44.1433322,42.6096285 44.1433333,40.3392941 C44.1402161,37.243218 41.5145679,34.7332582 38.2726667,34.7272941 L38.2726667,34.7272941 Z" id="Path" fill="#8DC63F" fill-rule="nonzero"></path>
+                                <path d="M48.2686667,7.81458824 L12.4893333,7.81458824 L11.9226667,4.19411765 C11.5695591,1.78963763 9.41604181,0.000747772463 6.87366667,3.19744231e-14 L2.26666667,3.19744231e-14 C1.01482123,3.24550844e-14 -6.1817218e-13,0.969171836 -6.1817218e-13,2.16470588 C-6.1817218e-13,3.36023993 1.01482123,4.32941176 2.26666667,4.32941176 L6.87933333,4.32941176 C7.16755455,4.32742355 7.41142007,4.53237185 7.446,4.80564706 L10.9366667,27.6541176 C11.4152448,30.5573994 14.0302123,32.6992863 17.1076667,32.7087059 L40.6866667,32.7087059 C43.649565,32.7123816 46.2057288,30.7236905 46.801,27.9517647 L50.49,10.3905882 C50.6184216,9.75685286 50.4440049,9.10144765 50.014332,8.60317144 C49.584659,8.10489524 48.9445631,7.81573966 48.2686667,7.81458824 Z" id="Path" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                                <path d="M17.986,34.7327059 C14.809119,34.8553262 12.3105553,37.3688465 12.347363,40.4050962 C12.3841707,43.441346 14.9429979,45.8989485 18.122,45.9512941 L18.2636667,45.9512941 C21.4598683,45.8175693 23.9567682,43.2665592 23.8811675,40.2120567 C23.8055668,37.1575542 21.1852479,34.72206 17.986,34.7327059 L17.986,34.7327059 Z" id="Path" fill="#8DC63F" fill-rule="nonzero"></path>
+                            </g>
+                        </g>
+                        <ellipse id="Oval-Copy" fill="#8DC63F" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="2.59259259" cy="25.6521739" rx="2.59259259" ry="2.56521739"></ellipse>
+                        <ellipse id="Oval-Copy-9" fill="#8DC63F" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="67.4074074" cy="39.7608696" rx="2.59259259" ry="2.56521739"></ellipse>
+                        <ellipse id="Oval-Copy-10" fill="#8DC63F" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="46.6666667" cy="14.1086957" rx="2.59259259" ry="2.56521739"></ellipse>
+                        <ellipse id="Oval-Copy-7" fill="#8DC63F" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="28.5185185" cy="1.2826087" rx="1.2962963" ry="1.2826087"></ellipse>
+                        <ellipse id="Oval-Copy-8" fill="#8DC63F" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="68.7037037" cy="17.9565217" rx="1.2962963" ry="1.2826087"></ellipse>
+                        <ellipse id="Oval-Copy-11" fill="#8DC63F" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="11.6666667" cy="43.6086957" rx="1.2962963" ry="1.2826087"></ellipse>
+                    </g>
+                    <g id="Group-22" transform="translate(27.222222, 29.500000)" stroke="#FFFFFF" stroke-linecap="round" stroke-width="2">
+                        <path d="M0.648148148,0.641304348 L23.8475078,0.641304348" id="Line-2"></path>
+                        <path d="M0.648148148,7.05434783 L23.8475078,7.05434783" id="Line-2-Copy"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

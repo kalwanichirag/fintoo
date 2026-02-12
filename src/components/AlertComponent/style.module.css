@@ -1,0 +1,46 @@
+/* CustomAlert.module.css */
+
+/* Base styles */
+.customAlert {
+    border: none;
+    border-radius: 30px;
+    /* Updated border radius */
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    color: #042b62;
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.apertTxt {
+    color: #042b62;
+}
+
+/* Styles for success variant */
+.success {
+    composes: customAlert;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+/* Styles for warning variant */
+.warning {
+    composes: customAlert;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+}
+
+/* Styles for error variant */
+.error {
+    composes: customAlert;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}

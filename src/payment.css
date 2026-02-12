@@ -1,0 +1,1212 @@
+.Paymentpage footer {
+  display: none;
+}
+
+.payment-section .form-row {
+  justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.Paymentpage {
+  position: absolute;
+  /* top: 10%; */
+  font-size: 1.2rem;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+}
+
+.custom-switch {
+  display: flex;
+  align-items: center;
+}
+
+.custom-switch .switch-label:first-child {
+  margin-left: 0;
+}
+
+.custom-switch .switch-label {
+  margin: 0 14px;
+}
+
+.material-radio {
+  border: none;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+  margin-bottom: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.checked_radio {
+  background-color: #042b62;
+}
+
+.material-radio .radio {
+  margin: 8px 0px 8px 0 !important;
+}
+
+.subs_radio {
+  display: block !important;
+  text-align: left;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding-left: 15px;
+  font-size: 13px;
+  font-weight: 500;
+  padding-right: 15px;
+  background-color: #042b62 !important;
+}
+
+.subs_radio label {
+  font-size: 13px !important;
+  font-weight: 500;
+  color: #000;
+}
+
+.paymt {
+  width: 900px;
+  margin-left: -14.4rem;
+}
+
+.popup1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 200px;
+  text-align: center;
+  background-color: #e8eae6;
+  box-sizing: border-box;
+  padding: 10px;
+  z-index: 100;
+  display: none;
+  /*to hide popup initially*/
+}
+
+.apply-coupon-code {
+  float: left;
+  color: #042b62;
+  border: 1px solid transparent;
+  background-color: #fff;
+  font-size: 12px;
+  padding: 0px;
+  margin-left: 5px;
+  margin-top: -1px;
+  font-weight: 500;
+}
+
+.applyoffer_div {
+  padding: 5px 5px 5px 10px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.login-block {
+  margin-top: -4rem;
+}
+
+#razorPay {
+  padding: 7px 50px;
+}
+
+.checkbox-label {
+  font-size: 12px !important;
+}
+
+.popup.active {
+  display: flex;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1500;
+  display: none;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.bill-details-popup .popup-container {
+  min-width: 400px;
+}
+
+.popup .popup-container {
+  background: #fff;
+  position: relative;
+  border-radius: 12px;
+  max-width: 850px;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.popup .popup-container .popup-body,
+.popup .popup-container .popup-header {
+  padding: 10px 40px;
+}
+
+.apply-popup .popup-header {
+  background: #042b62;
+  color: #fff;
+}
+
+.bill-details-popup .popup-container .popup-body {
+  padding: 0;
+}
+
+.two-col-list {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.bill-details-popup .bill-details-list li {
+  margin-bottom: 0;
+}
+
+.f-bold {
+  font-weight: 500;
+}
+
+.bill-details-popup .bill-details-list li.outline {
+  border-bottom: 1px solid #f5ebe9;
+  border-top: 1px solid #f5ebe9;
+}
+
+.bill-details-popup .bill-details-list li.fill-row {
+  background: #f5ebe9;
+}
+
+.apply-popup .popup-header .page-header {
+  margin: 4px auto;
+  color: #fff;
+}
+
+.popup .popup-container .page-header {
+  font-size: 22px;
+  text-align: left;
+}
+
+.page-header,
+h2 {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.popup .popup-container .popup-closebtn {
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  position: absolute;
+  right: 30px;
+}
+
+.coupon-list li {
+  padding: 20px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.coupon-list li .coupon-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coupon-list li .coupon-name .coupon {
+  border: 1px dashed #042b62;
+  border-radius: 20px;
+  padding: 8px 30px;
+  font-weight: 500;
+  color: #042b62;
+}
+
+.coupon {
+  color: #9cd155;
+  font-weight: bold !important;
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+
+.checkbox-container .custom-checkbox {
+  display: block;
+  position: absolute;
+  opacity: 0;
+  left: 4px;
+  top: 5px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.checkbox-container .custom-checkbox+label {
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  padding-left: 30px;
+  display: block;
+  line-height: 20px;
+}
+
+.checkbox-container .custom-checkbox:checked+label:before {
+  background: #042b62;
+}
+
+.checkbox-container .custom-checkbox+label:before {
+  content: "";
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: text-top;
+  width: 18px;
+  height: 18px;
+  background: 0 0;
+  border: 1px solid #042b62;
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
+.checkbox-container .custom-checkbox:checked+label:after {
+  content: "";
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  width: 12px;
+  height: 6px;
+  position: absolute;
+  top: 6px;
+  left: 3px;
+  transform: rotate(-45deg);
+}
+
+.checkbox-label a {
+  display: inline-block;
+  color: #042b62 !important;
+  border-bottom: 1px solid #042b62 !important;
+}
+
+.applyoffer_div .right_arrow {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #404040;
+  border-radius: 50%;
+  margin-left: 6px;
+
+  background-color: #404040;
+  margin-top: 2px;
+  padding: 3px;
+}
+
+.applyoffer_div .right_arrow:after {
+  content: "";
+  display: inline-block;
+  margin-bottom: 15px;
+  margin-left: -2px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  border-color: #fff;
+}
+
+.payment-section .invoice-block li p {
+  padding: 8px 12px;
+  font-weight: 500;
+}
+
+.pay-block {
+  margin: 8px 8px 8px 0;
+}
+
+.pay-block p {
+  font-size: 13px !important;
+  font-weight: 500;
+  padding-top: 10px;
+}
+
+.net_payable {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+  padding-top: 7px;
+  margin-top: 8px;
+}
+
+.info_tooltip {
+  position: relative;
+}
+
+.info_tooltip .tooltiptext {
+  visibility: hidden;
+  background: #ccd5e0;
+  border: solid 1px #042b62;
+  border-radius: 15px;
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  width: 250px;
+  padding: 15px;
+  transform: translateY(-100%);
+  font-size: 12px;
+  z-index: 1;
+  color: #042b62;
+}
+
+.info_tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.info_tooltip .tooltiptext::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #042b62;
+  position: absolute;
+  bottom: -8px;
+  left: 20px;
+}
+
+input[type="checkbox"][disabled] {
+  cursor: default;
+}
+
+Details {
+  margin-left: 15rem;
+  margin-top: 10rem;
+}
+
+.Details h2 {
+  font-family: "Red Hat Text", sans-serif;
+}
+
+.card_det {
+  width: 440px;
+  /* padding: 10px; */
+  margin-top: 0.5rem;
+  height: 173px;
+  border-radius: 20px !important;
+  border: 2.4px solid #042b62;
+  overflow: hidden;
+}
+
+.Profile_Details {
+  display: flex;
+  justify-content: space-between;
+  background-color: #042b62;
+  color: white;
+  padding: 10px;
+  height: 87px;
+}
+
+.Sub_Details {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.Price {
+  font-size: 20px;
+  font-weight: 900 !important;
+  font-family: "Red Hat Display", sans-serif !important;
+}
+
+.customer_Details {
+  margin-right: 0rem;
+  display: flex;
+  padding: 5px;
+}
+
+.Plan_Details {
+  margin-top: 0;
+}
+
+.Cust_NM {
+  margin-top: -1rem;
+}
+
+.customer_Details h4 {
+  color: #9cd155;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.Bill_Details {
+  background-color: white;
+  width: 100%;
+  padding-top: 10px;
+  padding-left: 19px;
+  padding-right: 19px;
+}
+
+.Quater_Details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Quater_Details div {
+  padding-top: 9px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #808080;
+}
+
+.Quater_Details span {
+  border-right: 0.1px solid #90a4aa;
+  height: 10px;
+  margin: 15px;
+}
+
+.Offer_Details button {
+  border: 1px solid #9cd155;
+  border-radius: 10px;
+  width: 17.7rem;
+  color: #9cd155;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #fff;
+  outline: none !important;
+}
+
+.Offer_Details button span:first-child {
+  padding-right: 7px;
+}
+
+.Offer_Details button span:last-child {
+  padding-left: 10px;
+  padding-top: 4px !important;
+}
+
+.Offer_Details button span {
+  position: relative;
+  top: -2px;
+}
+
+.Amout_Details {
+  width: 539px;
+  margin-top: 30px;
+}
+
+.Amout_Details .Amt_info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-bold {
+  font-weight: bold;
+  font-size: 20px;
+  color: #042b62;
+}
+
+.text-bold sup {
+  font-size: 14px;
+  color: #9cd155;
+  font-weight: bold;
+}
+
+.coupon1 {
+  margin: 0 auto !important;
+}
+
+.coupon {
+  color: #9cd155;
+  font-weight: bold !important;
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+
+.total_Pay {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.Terms_Conditions {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 4rem;
+  margin-left: 10px;
+}
+
+.Terms_Conditions .Input_check {
+  width: 18px;
+  height: 18px;
+  padding-top: 10px !important;
+  border-radius: 90px !important;
+  border: 1px solid #a9a9a9 !important;
+}
+
+.bill-details-popup .bill-details-list li p:first-child {
+  max-width: 60%;
+  flex: 0 0 60%;
+  text-align: left;
+  border-right: 1px solid #f5ebe9;
+}
+
+.bill-details-popup .bill-details-list li p:last-child {
+  max-width: 40%;
+  flex: 0 0 40%;
+  text-align: left;
+}
+
+.bill-details-popup .bill-details-list li p {
+  padding: 12px 30px;
+}
+
+.popup .popup-container p {
+  font-size: 14px;
+}
+
+.overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.Terms_Conditions input[type="checkbox"]:checked {
+  width: 18px;
+  height: 18px;
+  border-radius: 10px;
+  border: 0.7px solid #90a4aa !important;
+  background-color: #9cd155 !important;
+  color: #9cd155 !important;
+}
+
+.Terms_Conditions a {
+  color: #9cd155;
+  font-weight: bold;
+  border-bottom: 1px solid #9cd155 !important;
+}
+
+.Terms_Conditions a:hover {
+  text-decoration: none !important;
+}
+
+.Pay_Btn {
+  margin-top: 3rem;
+}
+
+.Pay_Btn button {
+  border: 1px solid #042b62;
+  border-radius: 26px;
+  width: 17rem;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 10px;
+  background-color: #042b62;
+}
+
+.Pay_Btn button:hover {
+  color: white;
+  outline: none;
+}
+
+.Amout_Details p {
+  padding: 10px;
+}
+
+.Extra_info {
+  margin-left: 12rem !important;
+}
+
+.Extra_info a {
+  color: #042b62;
+  font-size: 14px;
+  font-weight: bold !important;
+  border-bottom: 1px solid #042b62;
+}
+
+.Extra_info a:hover {
+  text-decoration: none;
+}
+
+.right_Section {
+  right: 0;
+  /* background-color: rgba(231, 221, 221, 0.911); */
+}
+
+.p_close img {
+  width: 40px;
+  height: 40px;
+  margin-left: 22px;
+  z-index: 1000;
+  position: fixed;
+  margin-top: -40px;
+}
+
+.right_Section img {
+  float: right;
+  width: 93%;
+}
+
+.Appt_Des {
+  text-align: center;
+  font-size: 20px;
+  color: #042b62;
+  padding: 10px;
+}
+
+.payment-section iframe {
+  width: 498px;
+  height: 80%;
+  border-radius: 15px;
+}
+
+#pop-up-content a {
+  text-decoration: none;
+}
+
+.popup1 {
+  position: fixed;
+  z-index: 2;
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  width: 35%;
+  height: auto;
+  background: #fff;
+  /* border-radius: 15px; */
+  -moz-box-shadow: 4px 4px 30px #130507;
+  -webkit-box-shadow: 4px 4px 30px #130507;
+  box-shadow: 4px 4px 30px #130507;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.top {
+  -moz-transition: top 800ms;
+  -o-transition: top 800ms;
+  -webkit-transition: top 800ms;
+  transition: top 800ms;
+}
+
+.right {
+  -moz-transition: right 1800ms;
+  -o-transition: right 1800ms;
+  -webkit-transition: right 1800ms;
+  transition: right 1800ms;
+  -webkit-transform: translate(50%, -50%);
+  -ms-transform: translate(50%, -50%);
+  -o-transform: translate(50%, -50%);
+  transform: translate(50%, -50%);
+}
+
+.bottom {
+  -moz-transition: bottom 800ms;
+  -o-transition: bottom 800ms;
+  -webkit-transition: bottom 800ms;
+  transition: bottom 800ms;
+  -webkit-transform: translate(-50%, 50%);
+  -ms-transform: translate(-50%, 50%);
+  -o-transform: translate(-50%, 50%);
+  transform: translate(-50%, 50%);
+}
+
+.left {
+  -moz-transition: left 1800ms;
+  -o-transition: left 1800ms;
+  -webkit-transition: left 1800ms;
+  transition: left 1800ms;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.p_body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #042b62;
+  opacity: 0.7;
+  -moz-transition: opacity 800ms;
+  -o-transition: opacity 800ms;
+  -webkit-transition: opacity 800ms;
+  transition: opacity 800ms;
+}
+
+.popup__header {
+  padding: 10px 20px;
+}
+
+.p_content {
+  width: 100%;
+  background: #eee;
+  text-align: justify;
+  font-size: 14px;
+  padding: 20px;
+}
+
+.popup__footer {
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.p_close {
+  position: absolute;
+  top: 7px;
+  right: 33px;
+  width: 16px;
+  height: 12px;
+  padding: 15px 11px 0 0;
+}
+
+.p_close span {
+  display: block;
+  width: 18px;
+  height: 5px;
+  background: #333;
+}
+
+.p_close span:first-child {
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.p_close span:last-child {
+  margin: -5px 0 0;
+  -ms-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+
+.js__slide_top {
+  height: 32rem;
+  /* overflow: hidden; */
+  top: 20rem;
+  width: 40%;
+  /* right: 47rem; */
+  bottom: 0;
+  left: 45rem;
+}
+
+.js__fadeout {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.Appt_Title {
+  text-align: center;
+  color: #9cd155;
+  font-weight: bold;
+  font-size: 24px !important;
+  /* padding-top: 10px; */
+}
+
+.Role {
+  margin-top: -1.5em;
+  color: #b8c3c6;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.gift {
+  width: 21px;
+  height: 21px;
+  font-weight: 900;
+}
+
+.Next_Arrow {
+  width: 17px;
+  height: 17px;
+}
+
+.I_Info {
+  width: 22px;
+  height: 22px;
+}
+
+.imgBx {
+  border-radius: 50%;
+  /* border: 2px solid #fff; */
+}
+
+.imgBx img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.vertical {
+  border-left: 0.7px solid #90a4aa;
+  height: 50px;
+  /* width: 10px !important;  */
+  position: relative;
+  left: 8%;
+  margin-top: 2.5%;
+}
+
+.Horizontal {
+  border-bottom: 0.7px solid red;
+  /* transform: rotate(180deg); */
+  height: 70px;
+  /* width: 10px !important;  */
+  position: absolute;
+  bottom: 34%;
+}
+
+p {
+  margin: 0 0 px;
+}
+
+.plan_type {
+  color: #b8c3c6;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.Plan_Dur {
+  color: #b8c3c6;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.Cust_Name {
+  font-weight: 900 !important;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 19px;
+}
+
+/* media query for responsive */
+@media (max-width: 991px) {
+  .popup1 {
+    width: 92%;
+  }
+
+  .popup1 iframe {
+    margin-left: 2rem;
+  }
+
+  .TaxPaymentSection {
+    padding-top: 7rem;
+  }
+
+  .TaxPaymentSectionIllustration {
+    display: none;
+  }
+}
+
+@media (max-height: 392px) {
+  .subspay {
+    margin-top: 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  .TaxPaymentSection {
+    padding-top:5rem;
+  }
+
+  .sub_Data {
+    display: block;
+  }
+
+  .Subsciption_Sec {
+    margin-top: 15px !important;
+  }
+
+  .sub_Data .right_Section {
+    display: none;
+  }
+
+  .Details {
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+
+  /* #pop-up-content {
+            display: none;
+            z-index: 500;
+            position: fixed;
+            width: 67%;
+            left: 14%;
+            top: 10%;
+            padding: 20px 2%;
+            font-family: Calibri, Arial, sans-serif;
+            background: #FFF;
+            border-radius: 15px;
+          } */
+  .Details h2 {
+    font-size: 19px;
+  }
+
+  .vertical {
+    border-left: 0.7px solid #90a4aa;
+    height: 70px;
+    width: 10px !important;
+    position: relative;
+    left: 8%;
+  }
+
+
+
+  .card_det {
+    width: 355px;
+    /* padding: 10px; */
+    height: 176px;
+    border-radius: 20px !important;
+    border: 4px solid #042b62;
+    overflow: hidden;
+  }
+
+  .Role {
+    margin-top: -15px !important;
+  }
+
+  .Bill_Plans {
+    font-size: 13px !important;
+  }
+
+  .subsc_Details p {
+    margin: 0px 0 6px;
+    font-size: 10px;
+  }
+
+  .Terms_Conditions .Input_check {
+    width: 14px;
+    padding-top: 17px;
+    height: 14px;
+    padding-top: 10px !important;
+    border-radius: 90px !important;
+    border: 1px solid #a9a9a9 !important;
+  }
+
+  .Price {
+    font-size: 13px;
+  }
+
+  .paymt {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .Extra_info {
+    margin-left: 0rem !important;
+  }
+
+  .vertical {
+    border-left: 0.7px solid #90a4aa;
+    height: 50px;
+    width: 10px !important;
+    position: relative;
+    left: 8%;
+  }
+
+  .Quater_Details div {
+    padding-top: 9px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #808080;
+  }
+
+  .Quater_Details span {
+    border-right: 0.1px solid #90a4aa;
+    height: 10px;
+    margin: 9px;
+  }
+
+  .Profile_Details {
+    display: flex;
+    justify-content: space-between;
+    background-color: #042b62;
+    color: white;
+    /* padding: 10px; */
+    height: 87px;
+  }
+
+  .imgBx img {
+    width: 50px;
+    border-radius: 50%;
+  }
+
+  .Plan_Dur {
+    color: #b8c3c6;
+    font-size: 7px;
+    line-height: 5px !important;
+    font-weight: 600;
+  }
+
+  .customer_Details {
+    margin-right: 0rem;
+  }
+
+  .customer_Details h4 {
+    color: #9cd155;
+    font-weight: bold;
+  }
+
+  .customer_Details p {
+    margin-top: -1px;
+  }
+
+  .Quater_Details {
+    font-size: 10px !important;
+  }
+
+  .Bill_Details {
+    background-color: white;
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 9px;
+    padding-right: 19px;
+  }
+
+  .text-bold {
+    font-weight: bold;
+    font-size: 14px;
+    color: #042b62;
+  }
+
+  .Amout_Details {
+    width: 353px;
+    margin-top: 30px;
+  }
+
+  .coupon {
+    color: #9cd155;
+    font-weight: bold !important;
+    font-size: 15px;
+  }
+
+  .Terms_Conditions {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 4rem;
+    margin-left: 10px;
+  }
+
+  /* .popup {
+            width: 87% !important;
+            height: 66vh !important;
+           
+          } */
+  .popup1 {
+    width: 85%;
+    height: 74vh;
+    top: 50% !important;
+    left: 47% !important;
+  }
+
+  .popup1>body {
+    background-color: #042b62;
+  }
+
+  .p_close img {
+    width: 40px;
+    height: 40px;
+    margin-right: 8rem;
+    margin-left: 20px;
+    z-index: 1000;
+    position: fixed;
+    margin-top: -37px;
+  }
+
+  /* .p_close img {
+            width: 40px;
+            height: 40px;
+            margin-top: 0em;
+            margin-left: 0rem;
+            margin-right: 8rem;
+        } */
+  .js__slide_top {
+    height: 60%;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .Appt_Title {
+    text-align: center;
+    color: #9cd155;
+    font-weight: bold;
+    font-size: 15px !important;
+    padding-top: 10px;
+  }
+
+  .Appt_Des {
+    text-align: center;
+    font-size: 12px;
+    color: #042b62;
+    padding: 10px;
+  }
+
+  iframe {
+    width: 320px;
+    height: fit-content;
+  }
+
+  /* iframe {
+            width: 400px;
+            height: 500px;
+        } */
+}
+
+@media only screen and (max-width: 600px) {
+
+  .Paymentpage {
+    position: absolute;
+    font-size: 1.2rem;
+    height: 125%;
+    width: 100%;
+  }
+
+  .popup .popup-container .popup-body,
+  .popup .popup-container .popup-header {
+    padding: 15px 15px;
+  }
+
+  li,
+  p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .coupon {
+    color: #9cd155;
+    font-weight: bold !important;
+    font-size: 15px;
+  }
+}

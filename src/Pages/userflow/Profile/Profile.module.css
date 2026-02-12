@@ -1,0 +1,46 @@
+.welcomebanner{
+    background: #fce7e3;
+    border-radius: 30px;
+    overflow: hidden;
+    margin: 0 10px;
+}
+.whitecontainer{
+    background: #fff url(https://images.minty.co.in/static/userflow/img/dashboard/basic-details.svg) no-repeat bottom right;
+    background-size: 350px;
+    padding: 20px 25px;
+    min-height: 280px;
+    box-shadow: 1px 2px 5px 0 rgb(0 0 0 / 8%);
+    border-radius: 20px;
+    overflow: hidden;
+}
+.pageheader{
+    color: #f0806d;
+    font-weight: 500;
+    font-size: 2rem;
+}
+.TextPara{
+    font-size: 1.2rem;
+}
+.titleheader{
+    justify-content: space-between;
+    align-items: center;
+}
+.addnew{
+    width: 40px;
+    height: 40px;
+}
+@media only screen and (max-width: 768px) {
+    .welcomebanner{
+        margin: 0rem 2rem;
+        padding: 1rem;
+    }
+    .whitecontainer{
+        margin: 0rem 2rem;
+    }
+    .pageheader{
+        margin-top: 2rem;
+    }
+    .titleheader h3{
+        padding-bottom: 0rem;
+    }
+}

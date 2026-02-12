@@ -1,0 +1,82 @@
+.Texttitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #042b62;
+    margin-top: 1rem;
+}
+
+.creditmeter {
+    border-radius: 15px;
+    /* background-color: gba(229.19, 248.21, 255, 0.20); */
+    width: max-content;
+    align-items: center;
+    padding: .6rem 0;
+    /* box-shadow: inset 0px 1px 3px 1px rgba(185, 64, 64, 0.06); */
+}
+
+.creditmeter-box {
+    position: relative;
+}
+
+.creditperformancetxt {
+    /* color: #042b62; */
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.valueBoxcircle {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 16px;
+    font-weight: bold;
+   }
+
+.refreshbtn button {
+    background-color: #042b62;
+    color: #fff;
+    outline: 0;
+    border: 0;
+    padding: .4rem 2rem;
+    font-size: .8rem;
+    font-weight: 700;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+    /* margin-top: .6rem; */
+    margin-left: 2.2rem;
+    cursor: pointer;
+}
+.ReportStatus{
+    width: 240px;
+}
+/* .indicatorRoatate{
+    animation: rotateAnimation 5s linear infinite;
+}
+@keyframes rotateAnimation {
+    0% , 100% {
+      transform: rotate(360deg);
+    }
+  } */
+  .tooltipDataa{
+    width: 500px;
+  }
+  .creditscoremetertitle{
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #285C82;
+  }
+  .creditscoremetertitle span{
+    color: #042b62;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+@media only screen and (max-width: 600px) {
+    .ReportStatus{
+        width: 167px;
+    }
+    .tooltipDataa{
+        width: 300px;
+      }
+}

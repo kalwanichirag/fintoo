@@ -1,0 +1,171 @@
+.Howitsworks {
+  /* margin: 0 3rem; */
+  margin-top: 3rem;
+  border-radius: 15px;
+  background: #0a181e;
+  overflow: hidden;
+}
+
+.Howitsworks .timelineData {
+  padding: 2rem 4rem;
+}
+
+.Howitsworks .title {
+  text-align: center;
+  font-size: 2.625rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.Howitsworks .planPriceSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  place-items: center;
+  /* padding: 2rem 0; */
+  /* margin-left: 20rem; */
+  padding: 3rem 4rem;
+}
+.planPriceSection::after {
+  content: "";
+  background-color: gray;
+  position: absolute;
+  width: 1px;
+  height: 210px;
+  /* bottom: 0; */
+  left: 50%;
+  display: block;
+}
+.planPriceSection .planName {
+  font-size: 1.875rem;;
+  color: #fff;
+  font-weight: 500;
+}
+
+.planPriceSection .planPrice {
+  padding: 1rem 0;
+}
+
+.planPriceSection .planPrice span:first-child {
+  color: #042b62;
+  font-weight: 500;
+  font-size: 1.875rem;;
+}
+
+.planPriceSection .planPrice sub {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  padding-left: 3px;
+}
+
+.planPriceSection .planPrice span:nth-child(2) {
+  color: #fff;
+  font-weight: bold;
+  font-size: 2.625rem;
+  letter-spacing: -0.03rem;
+}
+
+.Howitsworks .subscribeBtn button {
+  background-color: #042b62;
+  color: #fff;
+  padding: 0.7rem 8rem;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  filter: drop-shadow(5px 9px 15.7px rgba(255, 255, 255, 0.3));
+}
+
+.Howitsworks .planinfo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 3rem;
+  grid-row-gap: .3rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.Howitsworks .planinfo div {
+  display: inline-flex;
+}
+
+.Howitsworks .planinfo .listStart {
+  padding-top: 7px;
+  padding-right: 10px;
+  color: #042b62;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-shadow: 0px 0px 4.5px rgba(255, 255, 255, 0.5);
+}
+
+.Howitsworks {
+  max-width: 100%;
+}
+.boxId {
+  width: 25px;
+  height: 25px;
+  color: #042b62;
+  margin-top: 10px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  text-align: center;
+  background: #fff;
+  border-radius: 50%;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+  font-weight: 500;
+  padding: 14px;
+}
+@media only screen and (max-width: 600px) {
+  .Howitsworks .title{
+    font-size: 1.5rem;
+    top: 0 !important;
+  }
+  .Howitsworks .timelineData {
+    padding: 2rem;
+  }
+  .Howitsworks .planPriceSection{
+    display: block;
+    padding: 1.4rem;
+  }
+  .Howitsworks .planinfo{
+    display: block;
+  }
+  .Howitsworks .planinfo div{
+    display: block;
+  }
+  .planPriceSection .planName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  .planPriceSection .planPrice span:first-child{
+    font-size: 1.475rem;
+  }
+  .planPriceSection .planPrice span:nth-child(2){
+    font-size: 2rem;
+    letter-spacing: 0;
+  }
+  .planPriceSection .planPrice sub{
+    font-size: 0.7375rem;
+  }
+  .subscribeBtn{
+    display: flex;
+    justify-content: center;
+  }
+  .Howitsworks .subscribeBtn button{
+    padding: 0.7rem 5rem;
+    font-size: .9rem;
+    margin-bottom: 1rem;
+  }
+  .planPriceSection::after{
+    display: none;
+  }
+}

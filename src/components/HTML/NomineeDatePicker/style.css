@@ -1,0 +1,4 @@
+
+.fn-date .react-date-picker__clear-button {
+    visibility: hidden!important;
+}

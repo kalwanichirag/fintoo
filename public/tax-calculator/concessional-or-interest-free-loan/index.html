@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/tax-calc/css/concessional_or_interest_free_loan.css">
+    <!-- <link rel="stylesheet" href="./interest_free_concessional_interest_charges.css" /> -->
+    <title>Concessional or interest-free loan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        /* display: none; */
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                    * Nothing would be charged to tax if the amount of loans in aggregate not exceeding Rs. 20,000.
+                </span>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                <button type="button" class="btn-close" aria-label="Close"
+                    onclick="hideAlert(); LogoShiftUp();"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button">TAXABILITY OF INTEREST FREE/CONCESSIONAL LOAN PERQUISITE</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <form class="incom-and-tax-calculator-form">
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Assessment Year</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="ddlAssessmentYear">
+                                        <!-- <option selected value="2023-2024">2023-2024</option>
+                                        <option value="2022-2023">2022-2023</option>
+                                        <option value="2021-2022">2021-2022</option>
+                                        <option value="2020-2021">2020-2021</option>
+                                        <option value="2019-2020">2019-2020</option>
+                                        <option value="2018-2019">2018-2019</option>
+                                        <option value="2017-2018">2017-2018</option>
+                                        <option value="2016-2017">2016-2017</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <div class="form-check-class">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="rbtnLoanForMedicalTreatment">
+                                    <label class="form-check-label label-fw-class" for="flexRadioDefault1">
+                                        Loan for medical treatment of specified diseases
+                                    </label>
+                                </div>
+                                <div class="form-check-class">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="rbtnAnyOtherLoan" checked>
+                                    <label class="form-check-label label-fw-class" for="flexRadioDefault2">
+                                        Any other loan
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="divOtherLoanSalary32">
+                                <br><br>
+                                <div class="row justify-content-between align-content-center income-from-salary">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="basic_salary_label">SBI interest rate as on 1st day of previous year</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 input-data" id="txtSBIInterestRate"
+                                            type="text" maxlength="15" pattern="[0-9]"
+                                            onkeypress="javascript:return NumericOnly(this);" />
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row justify-content-between align-content-center income-from-salary">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="basic_salary_label">Interest recovered from employee (%)</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 input-data" id="txtInterestRecovered"
+                                            type="text" maxlength="15" pattern="[0-9]"
+                                            onkeypress="javascript:return NumericOnly(this);" />
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="month-table-coontainer">
+                                    <div class="month-table">
+                                        <div class="div-row theader">
+                                            <div class="div-cell header-cell">
+                                                Month
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Maximum monthly outstanding
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Monthly interest
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Interest recovered from employee (%)
+                                            </div>
+                                            <div class="div-cell header-cell">
+                                                Taxable value of perquisite
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                APRIL
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                MAY
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                JUNE
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                JULY
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                AUGUST
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                SEPTEMBER
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                OCTOBER
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                NOVEMBER
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                DECEMBER
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                JANUARY
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                FEBRUARY
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                MARCH
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="form-control rounded-0 calc-data" type="text">
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-calc"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row total-row">
+                                            <div class="div-cell month-cell">
+                                                Total
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch calc-result"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch first-result"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch second-result"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch third-result"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="div-row">
+                                            <div class="div-cell month-cell">
+                                                Taxable value of perquisite
+                                            </div>
+                                            <div class="div-cell">
+                                                <span style="cursor: not-allowed;">
+                                                    <input
+                                                        class="form-control bg-body-secondary rounded-0 no-touch perquisite-value"
+                                                        type="text" readonly>
+                                                </span>
+                                            </div>
+                                            <div class="div-cell">
+                                            </div>
+                                            <div class="div-cell">
+                                            </div>
+                                            <div class="div-cell">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </section>
+                <form>
+                </form>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onClick="window.location.href=window.location.href">Reset</button>
+                <!-- <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button> -->
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <br /><br />
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../../static/tax-calc/js/concessional_or_interest_free_loan.js"></script>
+<!-- <script src="./interest_free_concessional_interest_charges.js"></script> -->
+
+</html>
+<script>
+$( document ).ready(function() {
+    // current_date=new Date('4 1 2023');
+    current_date=new Date();
+    var year1= current_date.getFullYear();
+    var apr=new Date('4 1 '+year1.toString());
+    if (current_date < apr){
+        year1-=1;
+    }
+    var year2=year1+1;
+    $('#ddlAssessmentYear').append(`<option selected value="${year1.toString()+"-"+year2.toString()}">${year1.toString()+"-"+year2.toString()}</option>`)
+    year1-=1;
+    for( i=0; i<7; i++ ){
+        year2=year1+1;
+        $('#ddlAssessmentYear').append(`<option value="${year1.toString()+"-"+year2.toString()}">${year1.toString()+"-"+year2.toString()}</option>`)
+        year1-=1;
+    }
+});
+</script>

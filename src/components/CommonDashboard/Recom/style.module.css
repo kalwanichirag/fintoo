@@ -1,0 +1,65 @@
+.recommedateDetails{
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: .8rem;
+    /* height: 188px; */
+    min-height: 234px;
+}
+.recommHead{
+    color: #042b62;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-left: 1.2rem;
+}
+.RecommendationItemBox {
+    display: grid;
+    /* grid-template-columns: repeat(2, 1fr); */
+    grid-template-rows: auto;
+    grid-column-gap: .5rem;
+    grid-row-gap: 0px;
+    height: max-content;
+    overflow: scroll;
+}
+.RecommendationEmpty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    height: 187px;
+    color: #1A3263;
+    /* font-family: Arial; */
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.btn1 {
+    background-color: #042b62;
+    color: #fff;
+    padding: 3px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    width: fit-content;
+    border-radius: 15px;
+    padding: 0.4rem 1.4rem;
+    text-decoration: none !important;
+    /* display: flex; */
+    /* justify-content: center; */
+    margin: .8rem 0;
+
+}
+
+.transactionType {
+    padding: 2px 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.transactionType_green {
+    background: #009259;
+}
+
+.transactionType_red {
+    background: #dd1c1c;
+}

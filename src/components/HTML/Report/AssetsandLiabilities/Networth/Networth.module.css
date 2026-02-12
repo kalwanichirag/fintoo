@@ -1,0 +1,351 @@
+.netwBox {
+    /* width: 100%; */
+    border: 1px solid #f4f8f9;
+    border-radius: 10px;
+    -webkit-box-shadow: 5px 9px 22px -3px rgba(238, 238, 238, 1);
+    -moz-box-shadow: 5px 9px 22px -3px rgba(238, 238, 238, 1);
+    box-shadow: 5px 9px 22px -3px rgba(238, 238, 238, 1);
+    padding-bottom: 1.5rem;
+}
+
+.NetworthAssLib {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    width: 90%;
+    margin: auto;
+}
+
+.selectBg {
+    background-color: #f8f8f8;
+    padding: 2rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.CurrentNw {
+    padding: 1rem 2rem;
+}
+
+.currnwamt {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.networthfamilysection {
+    margin: 0rem 5rem;
+}
+
+.NwBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.NwBtn button {
+    background-color: #042b62;
+    color: #fff;
+    padding: .6rem 2rem;
+    border: 1px solid #042b62;
+    border-radius: 25px;
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+.assetLibval {
+    border: 1px solid #f4f8f9;
+    padding: .6rem 4rem;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+}
+
+.assetLibval .amt {
+    font-size: 1rem;
+    font-weight: bold;
+    padding-top: .3rem
+}
+
+.AssetlibPie {
+    border: 1px solid #e9ecee;
+    border-radius: 10px;
+    /* -webkit-box-shadow: 5px 9px 22px -3px rgba(238, 238, 238, 1);
+    -moz-box-shadow: 5px 9px 22px -3px rgba(238, 238, 238, 1); */
+    box-shadow: 5px 0px 10px 0px rgba(238, 238, 238, 1);
+    padding: 1rem;
+}
+
+.AssetlibPie .label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.AssetlibPie .Assetlist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 0px;
+}
+.AssetlibPie .Assetlist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows:auto;
+    grid-column-gap: 1rem;
+    grid-row-gap: 0px;
+}
+
+.AssetlibPie .Assetlist > *:nth-last-child(2):empty::after {
+    content: "";
+    grid-column: span 2;
+}
+.AssetlibPie .Liblist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 1rem;
+    grid-row-gap: 0px;
+}
+
+.AssetlibPie .Liblist > *:nth-last-child(2):empty::after {
+    content: "";
+    grid-column: span 2;
+}
+.AssetLIbsVal {
+    font-weight: bold;
+}
+
+.Assetlist,
+.Liblist {
+    line-height: 2rem;
+    margin-left: 1rem;
+}
+
+.colorCircle {
+    display: inline-block;
+    width: 10px;
+    /* Adjust the width and height as needed */
+    height: 10px;
+    border-radius: 50%;
+    /* Creates a circle */
+    margin-right: 5px;
+    /* Adjust spacing between the circle and text */
+    vertical-align: middle;
+    /* Vertically align the circle with the text */
+}
+
+.Nwassetlist li {
+    margin: 0 30px 0px 0px !important;
+}
+
+.customselectbox {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    /* Add border-radius */
+    padding: 10px;
+}
+
+.customselectbox label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.customselectbox input[type="radio"] {
+    margin-right: 5px;
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.dropdown-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.customselectbox {
+    /* width: 100%; */
+    border: 1px solid #042b62;
+    padding: .2rem .6rem;
+    border-radius: 0px;
+    font-weight: bold;
+    position: relative;
+    cursor: pointer;
+}
+
+.customselectbox .dropdown {
+    position: absolute;
+    top: 2.4rem;
+    width: 243px;
+    right: 0rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+    z-index: 10000;
+    padding: 1rem 1rem;
+    cursor: pointer;
+    box-shadow: 5px 9px 22px -3px rgb(202, 201, 201);
+}
+
+.customCalendar {
+    border: none;
+}
+
+.customCalendarTile.react-calendar__tile--active {
+    background: #042b62;
+    color: white;
+}
+
+.NetworthProjection {
+    margin: 3rem;
+    margin-top: 2rem;
+}
+
+.backArrow {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: #042b62;
+}
+
+.ProjectTitle {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.ProjectTitle .label {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.assetList .seprateLine {
+    border-left: 1px solid black;
+    /* Border on the left side */
+    margin: 0 10px;
+    /* Adjust the margin to control the space on both sides */
+}
+
+.assetList .spaceBetween {
+    margin-left: 10px;
+    /* Add space on the left side */
+    margin-right: 10px;
+    /* Add space on the right side */
+}
+
+.assetamt .amt {
+    font-size: 1rem;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.AssetLibSection {
+    margin: 0 1.5rem;
+}
+
+.networthcustomSelectbox {
+    right: 0;
+    position: absolute;
+    top: -1.7rem;
+}
+
+@media screen and (max-width: 600px) {
+    .NetworthAssLib {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+
+    .AssetLibSection {
+        margin: 0 0rem;
+    }
+
+    .NetworthAssLib .CurrentNw {
+        padding: 1rem 0;
+        text-align: center;
+        width: 100%;
+        margin: auto;
+    }
+
+    .NetworthAssLib .NwBtn {
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
+    .pieGraph {
+        display: flex;
+        justify-content: center;
+    }
+
+    .assetLibval {
+        margin: 0 2rem;
+    }
+
+    .AssetlibPie {
+        margin-top: 1rem;
+    }
+
+    .AssetlibPie .Assetlist {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-column-gap: 0rem;
+        grid-row-gap: 0px;
+        font-size: .7rem;
+    }
+
+    .AssetlibPie .Liblist {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 0rem;
+        grid-row-gap: 0rem;
+        font-size: .7rem;
+    }
+
+    .customselectbox {
+        margin-top: 1rem;
+    }
+
+    .customselectbox .dropdown {
+        position: static;
+    }
+
+    .projectionDetails {
+        margin: 1rem 0;
+    }
+
+    .NetworthProjection {
+        margin: 1rem 0;
+    }
+
+    .assetList .seprateLine {
+        display: none;
+    }
+
+    .assetList {
+        display: grid;
+    }
+
+    .assetList span {
+        padding: 4px 0;
+        white-space: nowrap;
+    }
+}

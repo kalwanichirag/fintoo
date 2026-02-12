@@ -1,0 +1,45 @@
+
+.section_title{
+    
+    font-weight: 700;
+}
+.Accordian_Box {
+    /* border: 1px solid #ececec; */
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.acc_section {
+    border: 1px solid #ececec;
+    border-radius: 12px;
+}
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 12px;
+    /* border: 1px solid #ececec; */
+}
+.acc-body {
+    
+    border-radius: 12px;
+    /* border: 1px solid #ececec; */
+    padding: 1rem;
+    padding-top: 2rem;
+    border-top: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    /* margin-top: -1rem; */
+    /* clip-path: inset(0px -10px -10px -10px); */
+    position: relative;
+}
+
+.noti-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+.noti-icon img {
+    width: 2em;
+}

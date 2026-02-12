@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 51</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-99.8191951%" y1="50%" x2="128.909084%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-Invest-Tab" transform="translate(-766.000000, -349.000000)">
+            <g id="Group-51" transform="translate(766.000000, 349.000000)">
+                <g id="Group-35" fill="#EF305E">
+                    <circle id="Oval" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                    <circle id="Oval" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                    <circle id="Oval" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="30" cy="18" r="1"></circle>
+                    <circle id="Oval-Copy-2" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="11" cy="10" r="1"></circle>
+                    <circle id="Oval-Copy-3" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="23.5" cy="8.5" r="1"></circle>
+                    <circle id="Oval-Copy-4" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="8.5" cy="19.5" r="1"></circle>
+                </g>
+                <g id="noun_goal_2480156" transform="translate(10.000000, 10.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+                    <path d="M9.42,11.4115385 C8.05072615,10.6946962 6.54738312,10.2703338 5.00538462,10.1653846 C6.01384615,9.08538462 7.10076923,8.24769231 8.19230769,7.95692308 L8.19230769,0.461538462 C8.19230769,0.206637808 8.3989455,5.12410627e-17 8.65384615,0 C8.90874681,-5.12410627e-17 9.11538462,0.206637808 9.11538462,0.461538462 L9.11538462,7.84615385 C10.9338462,7.92 12.7846154,9.69230769 14.3215385,11.7553846 C13.2276923,12.3761538 11.6538462,12.5284615 9.42,11.4115385 Z M10.0384615,0.692307692 L10.0384615,5.30769231 L15.1153846,3 L10.0384615,0.692307692 Z M14.8523077,12.4961538 C14.1115469,12.9329042 13.2660589,13.1602288 12.4061538,13.1538462 C11.4507692,13.1538462 10.3292308,12.9046154 9.00692308,12.2446154 C7.11461538,11.2984615 5.50615385,11.0330769 4.20692308,11.0907692 C1.79307692,14.0538462 0,18 0,18 L18,18 C17.0989403,16.0845256 16.0463643,14.2440611 14.8523077,12.4961538 L14.8523077,12.4961538 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

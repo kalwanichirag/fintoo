@@ -1,0 +1,367 @@
+.elemContainer {
+    border-radius: 15px;
+    padding: 2rem 0;
+    border: 1px solid #d8d8d8;
+}
+
+.elemContainerWidth {
+    width: 90%;
+    margin: 3rem auto;
+}
+
+.optionsHeaderContainer {
+    display: flex;
+    padding: 0rem 2rem 1.3rem 2rem;
+    align-items: center;
+    gap: 0.8125rem;
+    align-self: stretch;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.optionsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    row-gap: 6rem;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.optionsContainer a {
+    text-decoration: none !important;
+}
+
+.titleTxt {
+    color: #071437;
+    font-family: Red Hat Text;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.chip {
+    display: flex;
+    width: max-content;
+    padding: 0.3125rem 0.9375rem;
+    align-items: center;
+    border-radius: 0.3125rem;
+    background: #E8FFF3;
+    color: #50CD89;
+    text-align: center;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 0.6875rem;
+}
+
+.titleTxtSub {
+    color: #78829D;
+    font-family: Red Hat Text;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+    margin-bottom: 0.5rem;
+    /* 133.333% */
+}
+
+.addMemberBtn {
+    width: fit-content;
+    display: flex;
+    padding: 0.72825rem 2.74656rem 0.746rem 2.76019rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.5625rem;
+    background: rgba(82, 175, 222, 0.12);
+    color: #042b62;
+    font-family: Red Hat Text;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5rem;
+    cursor: pointer;
+}
+
+.nextBtn {
+    margin-left: auto;
+    width: fit-content;
+    padding: 0.6rem 2rem;
+    gap: 0.625rem;
+    border-radius: 30px;
+    background: #042b62;
+    color: #FFF;
+    font-family: Red Hat Text;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 2rem;
+    cursor: pointer;
+}
+
+.AddMinorViewContainer {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.addMinorSectionView {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem;
+}
+
+.welcomeName {
+    color: #042b62;
+    text-align: center;
+    font-family: Red Hat Text;
+    font-size: 2.2rem;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.addMinorSectionViewImg {
+    width: 65%;
+    margin: 0 auto;
+}
+
+.addMinorFormTitleContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.addMinorFormTitle {
+    color: #585858;
+    font-family: Red Hat Text;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.875rem;
+    /* 136.364% */
+}
+
+.addMinorFormTitlebackBtn {
+    width: 25px;
+    height: 25px;
+    color: #042b62;
+    cursor: pointer;
+}
+
+.uploadContentContainer {
+    padding: 0 0 0 2.5rem;
+}
+
+.uploadElemContainer {
+    padding: 0 0 0 2.5rem;
+}
+
+.uploadContainer {
+    display: 'flex';
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 0.3125rem;
+    border: 2px solid #DEE0E0;
+    padding: 4rem 0
+}
+
+.uploadText {
+    color: #585858;
+    text-align: center;
+    font-family: Red Hat Text;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.375rem;
+    letter-spacing: -0.011rem;
+}
+
+.noteText {
+    color: #042b62;
+    font-family: Red Hat Text;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.43063rem;
+}
+
+.noteTextContent {
+    color: #4B5675;
+    font-family: Red Hat Text;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.43063rem;
+}
+
+/* --------------------------------------- */
+.formInputContainer {
+    margin-top: 1.5rem;
+}
+
+.formInputWithAgeContainer {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 35% 65%;
+}
+
+.formLabel {
+    color: #575757;
+    font-family: Red Hat Text;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.375rem;
+}
+
+.formInput {
+    border-radius: 8px;
+    padding: 0.6rem;
+    outline: none;
+    box-shadow: none !important;
+}
+
+.genderInputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-right: 1rem;
+}
+
+.genderInput {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.disabledElem {
+    filter: grayscale(1);
+}
+
+.genderInput img {
+    width: 40px;
+}
+
+@media only screen and (max-width: 850px) {
+    .elemContainerWidth {
+        width: 95%;
+    }
+
+    .formInputWithAgeContainer {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .elemContainerWidth {
+        width: 100%;
+        padding: 0 0.5rem;
+        border: none !important;
+        margin: unset;
+    }
+
+    .optionsHeaderContainer {
+        padding: 0.5rem;
+    }
+
+    .optionsContainer {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin: 0 auto;
+        padding: 0.5rem;
+    }
+
+    .addMemberBtn {
+        padding: 0.5rem 2rem;
+    }
+
+    .titleTxt {
+        font-size: 1rem;
+    }
+
+    .titleTxtSub {
+        font-size: 0.875rem;
+    }
+
+    /* --------------------------------------- */
+    .nextBtn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .welcomeName {
+        display: none;
+    }
+
+    .AddMinorViewContainer {
+        width: 100%;
+    }
+
+    .AddMinorViewProgress {
+        position: fixed;
+        margin-top: 35px;
+        top: 0;
+    }
+
+    .addMinorSectionView {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 0.5rem 1rem;
+        margin-top: 3rem;
+    }
+
+    .addMinorSectionViewImg {
+        display: none;
+    }
+
+    .addMinorFormTitle {
+        color: #071437;
+        font-family: Red Hat Text;
+        font-size: 1.3rem;
+        font-style: normal;
+        font-weight: 600;
+    }
+
+    .uploadContentContainer {
+        padding: unset;
+    }
+
+    .uploadElemContainer {
+        padding: unset;
+    }
+
+}
+
+/* .ttip [data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+
+.ttip [data-title]:after {
+    content: attr(data-title);
+    background-color: #00FF00;
+    color: #111;
+    font-size: 150%;
+    position: absolute;
+    padding: 1px 5px 2px 5px;
+    bottom: -1.6em;
+    left: 100%;
+    white-space: nowrap;
+    box-shadow: 1px 1px 3px #222222;
+    opacity: 0;
+    border: 1px solid #111111;
+    z-index: 99999;
+    visibility: hidden;
+}
+
+.ttip [data-title] {
+    position: relative;
+} */

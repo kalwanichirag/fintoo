@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/presumptive_income_under_section_44AE.css">
+    <title>Presumptive Income under section 44AE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button">PRESUMPTIVE INCOME - 44AE</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <div class="incom-and-tax-calculator-form">
+                        <div class="ToolsCalculatorContainer">
+                            <div id="basecntnr">
+                                <div class="calculator-content form-horizontal" id="basecntnrChild">
+                                    <div class="row justify-content-between align-content-center element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">Use
+                                            actual
+                                            profit for computation</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <label class="control-label fw-bold">
+                                                <input class="form-check-input" id="actulaComputition"
+                                                    type="checkbox" />&nbsp;&nbsp;&nbsp;(Tick
+                                                if Yes)</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Assessment year</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <select class="form-select rounded-0" id="ayear">
+                                                <option value="0">
+                                                    Select</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="table-coontainer">
+                            <div class="div-table pre_data">
+                                <div class="div-row thead theader">
+                                    <div class="div-cell header-cell">
+                                        S.No.
+                                    </div>
+                                    <div class="div-cell header-cell">
+                                        Description
+                                    </div>
+                                    <div class="div-cell large-vehicles header-cell" style="display: none;">
+                                        Whether Heavy Goods Vehicle
+                                        <span class="linkText"><span class="tooltipIcon">i</span><span
+                                                class="stcgDescOther">Goods vehicle
+                                                having more than 12000
+                                                kg. of gross vehicle weight
+                                            </span></span>
+                                    </div>
+
+                                    <div class="div-cell large-vehicles header-cell" style="display: none;">
+                                        Gross Vehicle Weight (in ton)
+                                    </div>
+
+                                    <div class="div-cell header-cell">
+                                        No. of months owned
+                                        <span class="linkText"> <span class="tooltipIcon">i</span><span
+                                                class="stcgDescOther">1. In case
+                                                vehicle is used for part
+                                                of month, kindly select complete
+                                                month i.e. 1 month 1 day should be
+                                                treated as 2 months
+                                            </span></span>
+                                    </div>
+                                    <div class="div-cell header-cell">
+                                        Profit as per Sec. 44AE
+                                    </div>
+                                    <div class="div-cell header-cell">
+                                        Actual profit
+                                    </div>
+                                </div>
+
+                                <div id="myDiv" class="div-row">
+                                    <div class="div-cell">1 </div>
+                                    <div class="div-cell">
+                                        <input class="particular form-control rounded-0" type="text">
+                                    </div>
+                                    <div class="div-cell row-large-vehicle" style="display: none;">
+                                        <input type="checkbox" class="chk-large-vehicles form-check-input">
+                                    </div>
+
+                                    <div class="div-cell row-large-vehicle" style="display: none;">
+                                        <input type="text" maxlength="4"
+                                            class="txt-large-vehicles form-control rounded-0"
+                                            onkeypress="return isNumberKey(event)" disabled="disabled" title="">
+                                    </div>
+
+                                    <div class="div-cell">
+                                        <input class="monthOwned" type="range" min="0" max="12" value="0"
+                                            onkeypress="return isNumberKey(event)">
+                                        <span id="slider_value">0</span>
+                                    </div>
+                                    <div class="div-cell">
+                                        <input class="profit44AE number-only form-control rounded-0" type="text"
+                                            onkeypress="return isNumberKey(event)" readonly="readonly">
+                                    </div>
+                                    <div class="div-cell">
+                                        <input class="actualProfit44AE number-only form-control rounded-0"
+                                            onkeypress="return isNumberKey(event)" maxlength="15" type="text" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="div-row total-row">
+                                    <div class="div-cell">
+                                    </div>
+                                    <div class="div-cell" collspan="2">
+                                    </div>
+                                    <div class="div-cell">
+                                    </div>
+                                    <div class="div-cell large-vehicles" style="display: none;">
+                                    </div>
+                                    <div class="div-cell large-vehicles" style="display: none;">
+                                    </div>
+                                    <div class="div-cell fw-bold">
+                                        Total
+                                        presumptive
+                                        income
+                                        u/s
+                                    <span class="toolTipLink">44AE
+                                    <span class="link44AE">Section 44AE of Income tax act states that small business engaged in the business of plying, hiring or leasing goods carriages having not more than ten goods carriage vehicles, can adopt the Presumptive taxation scheme for ascertaining the taxable income for a particular financial year. The provisions of section 44AE are applicable to all sort of assessees which include individuals, Hindu Undivided Families (HUFs) and partnership firms.</span></span>
+                                    </div>
+                                    <div class="div-cell">
+                                        <input type="text" class="total44AE number-only form-control rounded-0"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="input_fields_wrap action-buttons-container">
+                            <button class="add_field_button calculate-badge">
+                                Add
+                                More</button>
+                            <a style="text-decoration: none;" href="javascript:void(0)"
+                                class="remove_field reset-badge">
+                                Remove
+                            </a>
+                        </div>
+                        <div id="MSOZoneCell_WebPartWPQ2"
+                            class="s4-wpcell-plain ms-webpartzone-cell ms-webpart-cell-vertical ms-fullWidth ">
+                            <div class="ms-webpart-chrome ms-webpart-chrome-vertical ms-webpart-chrome-fullWidth ">
+                                <div webpartid="a549b0e5-d683-46b1-ab3e-384c329cc9e5" haspers="false" id="WebPartWPQ2"
+                                    width="100%" class="ms-WPBody " allowdelete="false">
+                                    <div class="ms-rtestate-field">
+                                    </div>
+                                    <div class="ms-clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <br /><br />
+                <div class="action-buttons-container2 padding-div">
+                    <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                    <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+                </div>
+            </secction>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br><br><br>
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/presumptive_income_under_section_44AE.js"></script>
+<script>
+    $(document).ready(function () {
+        var year1 = new Date().getFullYear();
+        for (i = 0; i < 7; i++) {
+            get_year2 = year1 + 1;
+            var year2 = get_year2.toString().substr(-2);
+            $('#ayear').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1
+        }
+    });
+
+    const parentDiv = document.querySelector('.pre_data');
+
+    const getPayload = () => {
+        const mydivs = parentDiv.querySelectorAll('#myDiv');
+        var data = [];
+        mydivs.forEach(function (mydiv) {
+
+            var description = mydiv.querySelector(".particular").value ? mydiv.querySelector(".particular").value : "";
+            var check_heavy_goods = mydiv.querySelector(".chk-large-vehicles").checked ? '1' : '0';
+            var vehicle_weight = mydiv.querySelector(".txt-large-vehicles").value ? parseFloat(mydiv.querySelector(".txt-large-vehicles").value.replace(/,/g, '') || "") : "";
+            var months_owned = mydiv.querySelector(".monthOwned").value ? parseInt(mydiv.querySelector(".monthOwned").value) : "";
+            var actual_profit = mydiv.querySelector(".actualProfit44AE").value ? parseFloat(mydiv.querySelector(".actualProfit44AE").value.replace(/,/g, '') || "") : "";
+
+            if (description || check_heavy_goods || vehicle_weight || months_owned || actual_profit) {
+                data.push({
+                    "description": description,
+                    "check_heavy_goods": check_heavy_goods,
+                    "vehicle_weight": vehicle_weight,
+                    "months_owned": months_owned,
+                    "actual_profit": actual_profit
+                });
+            }
+        })
+        return {
+            assessment_year: document.getElementById("ayear").value ? parseInt(document.getElementById("ayear").value) : "",
+            profit_check: document.getElementById("actulaComputition").checked ? '1' : '0',
+            presumptive_data: data,
+        }
+
+    }
+    function Calculate() {
+        hideAlert(); LogoShiftUp();
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: " https://auto-v2.fintoo.in/tax_calc_bots/presumptive_income_44ae/",
+            type: "POST",
+            data: JSON.stringify(getPayload()),
+            dataType: "json",
+            success: function (res) {
+                //console.log(res)
+                $(".action-buttons-container").show();
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    if (res.message != "success") {
+                        showAlert(); LogoShiftDown();
+                        document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.data.error_msg;
+                    }
+                    const parentDiv = document.querySelector('.pre_data');
+                    const mydivs = parentDiv.querySelectorAll('#myDiv');
+                    for (let i = 0; i < mydivs.length; i++) {
+                        let element = mydivs[i].querySelector(".profit44AE")
+                        element.value = res.data.profit_as_per_44ae[`profit_as_per_44ae_${i + 1}`]
+                    }
+                    res.data.total_presumptive_income === "" ? document.getElementsByClassName("total44AE")[0].value = "0" : document.getElementsByClassName("total44AE")[0].value = res.data.total_presumptive_income;
+
+                    res.data.notification_msg === "" ? document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "" : showAlert(); LogoShiftDown(); document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.data.notification_msg;
+
+                    for (let i = 0; i < mydivs.length; i++) {
+                        console.log('kdksdkdklmdlkkdsldlsalksmckdscm')
+                        let elementVal = mydivs[i].querySelector(".profit44AE").value
+                        let elementVal2 = mydivs[i].querySelector(".actualProfit44AE").value
+                        console.log(elementVal2, elementVal)
+                        if (parseInt(elementVal2) < parseInt(elementVal)) {
+                            console.log(elementVal2)
+                            mydivs[i].querySelector(".actualProfit44AE").value = ''
+                        }
+                    }
+                }
+                else if (res.error_code == "102") {
+                    showAlert(); LogoShiftDown();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert(); LogoShiftDown();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+        return
+    };
+</script>
+
+</html>

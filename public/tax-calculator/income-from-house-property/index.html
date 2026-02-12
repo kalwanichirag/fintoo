@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/income_from_house_property.css">
+    <title>Income from House Property</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button fw-normal active">
+                INCOME FROM HOUSE PROPERTY</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <div>
+                        <div class="padding-div">
+
+                            <div class="calculator-content form-horizontal" id="basecntnrChild">
+                                <div
+                                    class="row justify-content-between align-content-center tax-payer element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                        Assessment year
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <select class="form-select rounded-0" id="ddlAssessmentYearP"
+                                            onchange="setAYIncombo();" required>
+                                            <option value="">Select </option>
+                                        </select>
+                                        <p class="required-msg">This field is required</p>
+                                    </div>
+                                </div>
+
+                                <div id="divddlbac115" style="display: none;">
+                                    <div
+                                        class="row justify-content-between align-content-center tax-payer element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Whether opting for taxation under section &nbsp;<span
+                                                class="linkText">115BAC<span class="link115Desc">New income tax
+                                                    regime where you can avail benefit of lower tax slabs. However, to
+                                                    avail
+                                                    this lower tax rate, the taxpayer must forgo certain deductions and
+                                                    exemptions.</span></span>?</span>
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <select class="form-select rounded-0" id="ddlbac115"
+                                                onchange="setAYIncombo();" required>
+                                                <option value="0">
+                                                    Select</option>
+                                                <option value="1">Yes</option>
+                                                <option value="2">No</option>
+                                            </select>
+                                            <p class="required-msg">This field is required</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="divhide202122">
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label fs-6 fw-bold"
+                                        id="income-from-salary-label">Income from self-occupied property</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Interest paid/payable on housing loan for
+                                        current financial year</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="txtIntPaidHousingLoan" maxlength="14"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Total interest for pre-construction
+                                        period</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="txtIntHousingLoan" maxlength="14"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Income from self-occupied house
+                                        property</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0 bg-body-secondary"
+                                            id="txtIncomeHousingProperty" disabled maxlength="14" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label fs-6 fw-bold"
+                                    id="income-from-salary-label">Income from let-out property</label>
+                                <div class="col-sm-4 col-xs-12">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class input-label-class">1.
+                                    Annual letable value or rent received or receivable
+                                    <span class="show-hide-details-btn" onclick="toggleDiv('collapse1')">
+                                        Calculate
+                                    </span>
+                                </label>
+
+                                <div class="col-sm-4 col-xs-12 show-hide-details-input-container">
+                                    <input class="form-control rounded-0 bg-body-secondary" id="txtAnnualLetableValue" maxlength="14"
+                                        type="text" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="collapse1" style="display: none;">
+                            <div class="border border-secondary rounded-4  details-container">
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Annual rent</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="txtAnnualRent" maxlength="14"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Market rent of similar property in similar
+                                        area
+                                        (fair rent)</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="txtMarketRent" maxlength="14"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Standard rent of the property</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="txtStandardRent" maxlength="14"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Municipal valuation of the property</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="txtMunicipalValue" maxlength="14"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Unrealized rent</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="txtUnrealisedRent" maxlength="14"
+                                            type="text" />
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                        id="income-from-salary-label">Loss of rent due to vacancy</label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <input class="form-control rounded-0" id="txtVacancyLoss" maxlength="14"
+                                            type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">2. Less: municipal taxes paid during the
+                                    Year</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="txtMunicipalTaxes" maxlength="14"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">3. Less:unrealized rent</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="txtLessUnrealisedRent" maxlength="14"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">4. Net annual value (1-(2+3))</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="txtNetAnnualValue"
+                                        maxlength="14" type="text" disabled />
+                                </div>
+                            </div>
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label fs-6 fw-bold"
+                                    id="income-from-salary-label">Less: deductions from net annual value</label>
+                                <div class="col-sm-4 col-xs-12">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">i. Standard deduction @ 30% of net annual
+                                    Value</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="txtStandardDeduction"
+                                        maxlength="14" type="text" disabled />
+                                </div>
+                            </div>
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">ii. Interest on housing loan</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="txtInterestHousingLoan" maxlength="14"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Income from let-out house property</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="txtIncomeLetOutProperty"
+                                        maxlength="14" type="text" disabled />
+                                </div>
+                            </div>
+                            <div class="row justify-content-between align-content-center element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Total income from house property</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0"
+                                        id="txtTotalIncomeHouseProperty" maxlength="14" type="text" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                </section>
+                <form>
+                </form>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/income_from_house_property.js"></script>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        var year1 = current_date.getFullYear();
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 7; i++) {
+            var year2 = (year1 + 1).toString().substr(-2);
+            $('#ddlAssessmentYearP').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1;
+        }
+    });
+
+    const getIsOpting = (strValue) => {
+        switch (strValue) {
+            case '1':
+                return '1'
+            case '2':
+                return '0'
+            default:
+                return "";
+        }
+    }
+
+    function getFormattedValue(strValue){
+        if (strValue !="") {
+            if (strValue % 1 != 0) {
+                round_off_val=parseFloat(strValue).toFixed(2)
+                before_decimal=(round_off_val).toString().split(".")[0]
+                after_decimal=(round_off_val).toString().split(".")[1]
+                return (parseInt(before_decimal)).toLocaleString('en-IN')+"."+after_decimal;
+            }
+            else{
+                return (parseInt(strValue)).toLocaleString('en-IN');
+            }
+        }
+        else{
+            return "0";
+        }
+    }
+
+    function Calculate() {
+        hideAlert();
+        const assessmentYear = +$("#ddlAssessmentYearP").val()||"";
+        const is_opting = getIsOpting($("#ddlbac115").val());
+        const interest_paid = +$("#txtIntPaidHousingLoan").val().replace(/,/g, '')||"";
+        const total_interest = +$("#txtIntHousingLoan").val().replace(/,/g, '')||"";
+        const annual_rent = +$("#txtAnnualRent").val().replace(/,/g, '')||"";
+        const market_rent = +$("#txtMarketRent").val().replace(/,/g, '')||"";
+        const standard_rent = +$("#txtStandardRent").val().replace(/,/g, '')||"";
+        const municipal_valuation = +$("#txtMunicipalValue").val().replace(/,/g, '')||"";
+        const unrealized_rent = +$("#txtUnrealisedRent").val().replace(/,/g, '')||"";
+        const loss_of_rent = +$("#txtVacancyLoss").val().replace(/,/g, '')||"";
+        const less_municipal = +$("#txtMunicipalTaxes").val().replace(/,/g, '')||"";
+        const less_unrealized = +$("#txtLessUnrealisedRent").val().replace(/,/g, '')||"";
+        const interest_on_housing = +$("#txtInterestHousingLoan").val().replace(/,/g, '')||"";
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/income_from_house_property/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/income_from_house_property/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/income_from_house_property/",
+            type: "POST",
+            data: JSON.stringify({
+                    "assessment_year":assessmentYear,
+                    "is_opting":is_opting,
+                    "interest_paid":interest_paid,
+                    "total_interest":total_interest,
+                    "annual_rent":annual_rent,
+                    "market_rent":market_rent,
+                    "standard_rent":standard_rent,
+                    "municipal_valuation":municipal_valuation,
+                    "unrealized_rent":unrealized_rent,
+                    "loss_of_rent":loss_of_rent,
+                    "less_municipal":less_municipal,
+                    "less_unrealized":less_unrealized,
+                    "interest_on_housing":interest_on_housing
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#txtIncomeHousingProperty").val(getFormattedValue(res.data.Income_from_self_occupied));
+                    $("#txtAnnualLetableValue").val(getFormattedValue(res.data.annual_letable));
+                    $("#txtNetAnnualValue").val(getFormattedValue(res.data.net_annual));
+                    $("#txtStandardDeduction").val(getFormattedValue(res.data.standard_deduction));
+                    $("#txtIncomeLetOutProperty").val(getFormattedValue(res.data.income_from_let_out));
+                    $("#txtTotalIncomeHouseProperty").val(getFormattedValue(res.data.total_income));
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

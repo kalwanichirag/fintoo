@@ -1,0 +1,53 @@
+
+.TpBx {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.DataItem {
+    border: 1px solid #f0f0f0;
+    /* width: 250px; */
+    /* margin: 1.5rem; */
+    /* margin-left: 0rem; */
+    border-radius: 20px;
+    padding: 1rem;
+}
+.DataItem:hover {
+    background: #f0f0f0;
+}
+.imgBox {
+    display: inline-block;
+    width: 100%;
+}
+.imgBox div {
+    padding: 2px;
+    border: 1px solid gray;
+    float: left;
+    border-radius: 50%;
+}
+.Funds {
+    padding-left: 0.7em;
+    padding-right: 0.7em;
+    max-width: 315px;
+    text-overflow: ellipsis;
+}
+.FundText {
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    font-weight: 600;
+}
+.itemLink {
+    color: inherit;
+    text-decoration: none;
+}
+.navbx {
+    flex-direction: column;
+}
+@media (min-width: 768px) {
+    .navbx {
+        flex-direction: row;
+    }
+}

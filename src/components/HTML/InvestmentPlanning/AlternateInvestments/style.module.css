@@ -1,0 +1,77 @@
+.TextLabel{
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    color: #86898b;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+.tabSection{
+   width: 80%;
+   margin: auto;
+}
+.tabSectionContent{
+    width: 100%;
+    padding: 2rem;
+}
+.subTxt{
+    text-align: center;
+    font-size: 1.2rem;
+    padding-top:2rem ;
+}
+.tabData{
+    border: 1px solid #042b62;
+}
+.links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: auto;
+    width: 100%;
+    /* white-space: nowrap; */
+    background-color: #042b62;
+    /* padding: 0 2rem; */
+}
+.links .tabName{
+    width: 50%;
+}
+.tabName div{
+    padding: 1rem 1rem;
+    color: #ffff;
+    font-size: 1.1rem;   
+    font-weight: 700; 
+}
+.links  .tabName:hover{
+    background-color: #ffff;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+.links  .tabName:hover ~ div{
+    color: #0000;
+}
+.tabSection{
+    padding: 2rem;
+    color: #181717;
+    font-size: 1.3rem;
+    font-weight: 400;
+    transition: .2s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+    .tabSection{
+        width: 100%;
+    }
+    .tabName{
+        white-space: nowrap;
+        padding: 0rem;
+    }
+    .tabName div{
+        padding: .7rem;
+        font-size: .8rem;
+    }
+    .links{
+        overflow: auto;
+    }
+
+}

@@ -1,0 +1,67 @@
+.CalendlySection {
+    background: 
+    linear-gradient(to right, rgba(22, 28, 45, 0.8) 40%, rgba(22, 28, 45, 0) 60%),  
+    url(./calendy.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 7rem 0;
+}
+
+.CalendlySectionText {
+    display: grid;
+    gap: 3rem;
+    padding: 0 2rem;
+    width: 70%;
+    margin: auto;
+}
+
+.CalendlySectionText h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    text-align: left;
+    ;
+}
+
+.CalendlySectionCalendly {
+    /* display: flex;
+    justify-content: center;
+    align-self: center; */
+}
+
+.CalendlyVerificationSection {
+    width: 75%;
+}
+
+.CalendlySectionCalendlyContainer {
+    width: 50%;
+}
+
+@media only screen and (max-width: 850px) {
+    .CalendlySection {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .CalendlySectionText h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+    }
+    .CalendlySectionText{
+        width: 100%;
+    }
+
+    .CalendlySectionCalendlyContainer {
+        width: 90%;
+    }
+
+    .CalendlyVerificationSection {
+        width: 95%;
+    }
+}

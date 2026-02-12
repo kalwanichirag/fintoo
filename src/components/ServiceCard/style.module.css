@@ -1,0 +1,40 @@
+.card {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+.cardBody {
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+
+    display: block;
+    font-weight: 500;
+    color: #042b62;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.cardBox {
+    max-width: 340px;
+    max-height: 250px;
+    margin: auto;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.cardHover {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 2;
+    padding: 30px 20px;
+}
+.cardBox:hover .cardHover {
+    display: block;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 9</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-105.641756%" y1="49.0009217%" x2="125.287991%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-107.643964%" y1="50%" x2="114.61221%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons" transform="translate(-201.000000, -134.000000)">
+            <g id="Group-9" transform="translate(201.000000, 134.000000)">
+                <g id="Group-3-Copy" fill="#EF305E">
+                    <g id="Group-2-Copy">
+                        <g id="Group-47">
+                            <circle id="Oval" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                            <circle id="Oval" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                            <g id="Group-13" transform="translate(7.000000, 10.000000)" opacity="0.502673921">
+                                <circle id="Oval" style="mix-blend-mode: multiply;" cx="21" cy="2" r="1"></circle>
+                                <circle id="Oval-Copy-2" style="mix-blend-mode: multiply;" cx="1" cy="6" r="1"></circle>
+                                <circle id="Oval-Copy-3" style="mix-blend-mode: multiply;" cx="24.5" cy="10.5" r="1"></circle>
+                                <circle id="Oval-Copy-4" style="mix-blend-mode: multiply;" cx="5.5" cy="0.5" r="1"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g id="noun_government-building_1101454" transform="translate(12.000000, 10.000000)" fill-rule="nonzero">
+                    <g id="Group">
+                        <path d="M1.74375,8.6625 L13.25625,8.6625 C13.33125,8.6625 13.3875,8.60625 13.3875,8.53125 L13.3875,7.7625 C13.3875,7.6875 13.33125,7.63125 13.25625,7.63125 L12.2625,7.63125 C11.925,5.8125 10.55625,4.35 8.79375,3.8625 L8.79375,3.61875 C8.79375,3.54375 8.7375,3.4875 8.6625,3.4875 L7.95,3.4875 L7.95,3.20625 C7.95,3.13125 7.89375,3.075 7.81875,3.075 L7.65,3.075 L7.65,1.70625 L9.1125,1.70625 C9.225,1.70625 9.3,1.63125 9.3,1.51875 L9.3,0.58125 C9.3,0.46875 9.225,0.39375 9.1125,0.39375 L7.65,0.39375 L7.65,0.20625 C7.65,0.15 7.59375,0.09375 7.5375,0.09375 L7.425,0.09375 C7.36875,0.09375 7.3125,0.15 7.3125,0.20625 L7.3125,3.075 L7.125,3.075 C7.05,3.075 6.99375,3.13125 6.99375,3.20625 L6.99375,3.4875 L6.28125,3.4875 C6.20625,3.4875 6.15,3.54375 6.15,3.61875 L6.15,3.8625 C4.3875,4.35 3.0375,5.8125 2.68125,7.63125 L1.6875,7.63125 C1.6125,7.63125 1.55625,7.6875 1.55625,7.7625 L1.55625,8.53125 C1.6125,8.60625 1.66875,8.6625 1.74375,8.6625 Z" id="Path" fill="url(#linearGradient-1)"></path>
+                        <path d="M14.7375,16.89375 L14.1375,16.89375 L14.1375,15.99375 C14.1375,15.91875 14.08125,15.8625 14.00625,15.8625 L13.3875,15.8625 L13.3875,9.24375 C13.3875,9.16875 13.33125,9.1125 13.25625,9.1125 L1.74375,9.1125 C1.66875,9.1125 1.6125,9.16875 1.6125,9.24375 L1.6125,15.8625 L0.99375,15.8625 C0.91875,15.8625 0.8625,15.91875 0.8625,15.99375 L0.8625,16.89375 L0.2625,16.89375 C0.1875,16.89375 0.13125,16.95 0.13125,17.025 L0.13125,17.79375 C0.13125,17.86875 0.1875,17.925 0.2625,17.925 L14.7375,17.925 C14.8125,17.925 14.86875,17.86875 14.86875,17.79375 L14.86875,17.025 C14.86875,16.95 14.8125,16.89375 14.7375,16.89375 Z M10.14375,10.125 L11.325,10.125 L11.325,15.8625 L10.14375,15.8625 L10.14375,10.125 Z M8.1,15.8625 L6.91875,15.8625 L6.91875,10.125 L8.1,10.125 L8.1,15.8625 Z M3.675,10.125 L4.85625,10.125 L4.85625,15.8625 L3.675,15.8625 L3.675,10.125 Z" id="Shape" fill="url(#linearGradient-2)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

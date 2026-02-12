@@ -1,0 +1,115 @@
+.personalfinancePage {
+    padding: 4rem;
+    background-color: #042b62;
+}
+
+.personalfinancePage .fhlogo {
+    display: flex;
+    justify-content: center;
+}
+
+.personalfinancePage .fhlogo img {
+    width: 250px;
+}
+.disclaimerWrapper {
+  opacity: 0.65;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #dedede;
+  margin: 0 auto;
+}
+
+.disclaimerTitle {
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.disclaimerText {
+  margin-bottom: 8px;
+}
+
+.disclaimerDetails summary {
+  cursor: pointer;
+  font-size: 11px;
+  text-decoration: underline;
+  margin-top: 4px;
+}
+
+.disclaimerExpanded {
+  margin-top: 8px;
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+
+.PFdivider {
+    padding-top: 3rem;
+    
+}
+.PFdivider .leftSection{
+    color: #fff;
+}
+.pfInfo {
+    border-bottom: 1px solid #fff;
+    padding-bottom: 1rem;
+}
+
+.PFdivider .pfHeader {
+    font-size: 2.5rem;
+    font-weight: 700;
+    padding: .8rem 0;
+    margin-top: 3rem;
+}
+
+.pfsubHeader {
+    font-size: 1.3rem;
+}
+
+.pfpoints {
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 2rem;
+}
+.pflistbox{
+    display: flex;
+    align-items: center;
+}
+.pflist{
+    padding-left: 1rem;
+}
+.pflistbox:hover{
+    color: #DD7300;
+}
+.pfpoints .pflist{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+@media only screen and (max-width: 600px) {
+    .pfpoints {
+   
+    grid-row-gap: 1rem;
+}
+    .personalfinancePage .fhlogo{
+        margin-top: 1rem;
+    }
+    .personalfinancePage{
+        padding: 0 2rem;
+    }
+    .PFdivider{
+        padding-top: 0rem;
+    }
+    .PFdivider .pfHeader{
+        font-size: 1.2rem;
+    }
+    .pfsubHeader{
+        font-size: 1rem;
+    }
+    .pfpoints .pflist{
+        font-size: 1rem;
+    }
+}

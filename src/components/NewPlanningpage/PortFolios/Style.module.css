@@ -1,0 +1,51 @@
+.PortFolios{
+    padding: 4rem 0;
+    background: #EFF6FF;
+}
+.PortFoliostitle{
+    font-size: 2.5rem;
+    font-weight: 600;
+    width: 100%;
+    margin: auto;
+    color: #4B5675;
+}
+.PortFolios .Plantype{
+    width: 50%;
+    margin: auto;
+}
+.PortFolios .plantitle{
+    font-size: 1.3125rem;
+    font-weight: 700;
+    padding-bottom: .5rem;
+    color: #161C2D;
+}
+.PortFolios .plansubtitle{
+    font-size: 1.0625rem;
+    color: #161C2D;
+    opacity: 0.7;
+}
+.PortFolios .Plantype{
+    margin-top: 3rem;
+    display: grid;
+    margin: auto;
+    gap: 3rem;
+}
+
+@media only screen and (max-width: 800px) {
+    .PortFolios{
+        padding: 4rem 2rem;
+    }
+    .PortFoliostitle{
+        width: 100%;
+        font-size: 1.4rem;
+    }
+    .PortFolios .Plantype{
+        width: 100%;
+    }
+    .PortFolios .plantitle{
+        font-size: 1rem;
+    }
+    .PortFolios .plansubtitle{
+        font-size: .8rem;
+    }
+}

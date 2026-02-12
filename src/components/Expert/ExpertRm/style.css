@@ -1,0 +1,10 @@
+.RM-Data-ildfX.active{
+    position: fixed;
+    overflow-y: auto;
+    background-color: #ffff;
+    bottom: -2rem;
+    top: 7rem;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 1rem;
+}

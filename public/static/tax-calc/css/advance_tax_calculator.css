@@ -1,0 +1,1913 @@
+.desc-icon {
+    display: inline-block;
+    position: relative;
+    margin-left: 7px;
+}
+
+.desc-icon-container {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: #042b62;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.linkText {
+    display: inline-block;
+    position: relative;
+    margin-left: 7px;
+    color: blue;
+    cursor: pointer;
+}
+
+.link115BAC {
+    visibility: hidden;
+    width: 500%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 118%;
+    left: -180%;
+}
+
+.linkText:hover .link115BAC {
+    visibility: visible;
+}
+
+.linkText .link115BAC::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 50%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.iconIncomeFrom {
+    visibility: hidden;
+    width: 281px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -142%;
+    left: 147%;
+    z-index: 2;
+}
+
+.desc-icon:hover .iconIncomeFrom {
+    visibility: visible;
+}
+
+.desc-icon .iconIncomeFrom::after {
+    content: " ";
+    position: absolute;
+    bottom: 65%;
+    right: 100%;
+    /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.Link115BAD {
+    visibility: hidden;
+    width: 500%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 118%;
+    left: -180%;
+}
+
+.linkText:hover .Link115BAD {
+    visibility: visible;
+}
+
+.linkText .Link115BAD::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 50%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.stcgDescOther {
+    visibility: hidden;
+    width: 873%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 125%;
+    left: -369%;
+}
+
+.linkText:hover .stcgDescOther {
+    visibility: visible;
+}
+
+.linkText .stcgDescOther::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 50%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.stcgDescCovered {
+    visibility: hidden;
+    width: 873%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 125%;
+    left: -331%;
+}
+
+.linkText:hover .stcgDescCovered {
+    visibility: visible;
+}
+
+.linkText .stcgDescCovered::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 53%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.ltcgCharged20Desc1 {
+    visibility: hidden;
+    width: 281px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -176%;
+    left: 147%;
+}
+
+.desc-icon:hover .ltcgCharged20Desc1 {
+    visibility: visible;
+}
+
+.desc-icon .ltcgCharged20Desc1::after {
+    content: " ";
+    position: absolute;
+    bottom: 65%;
+    right: 100%;
+    /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.ltcgCharged10Desc1 {
+    visibility: hidden;
+    width: 281px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -41%;
+    left: 147%;
+}
+
+.desc-icon:hover .ltcgCharged10Desc1 {
+    visibility: visible;
+}
+
+.desc-icon .ltcgCharged10Desc1::after {
+    content: " ";
+    position: absolute;
+    bottom: 34%;
+    right: 100%;
+    /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.ltcgCovered1 {
+    visibility: hidden;
+    width: 873%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 28px;
+    left: -11%;
+}
+
+.linkText:hover .ltcgCovered1 {
+    visibility: visible;
+}
+
+.linkText .ltcgCovered1::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 90%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.icon80CCD1 {
+    visibility: hidden;
+    width: 317px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -59px;
+    left: 66px;
+    z-index: 24;
+}
+
+.linkText:hover .icon80CCD1 {
+    visibility: visible;
+}
+
+.linkText .icon80CCD1::after {
+    content: " ";
+    position: absolute;
+    bottom: 49%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80CCD {
+    visibility: hidden;
+    width: 265px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -33px;
+    left: 117%;
+    z-index: 24;
+}
+
+.linkText:hover .link80CCD {
+    visibility: visible;
+}
+
+.linkText .link80CCD::after {
+    content: " ";
+    position: absolute;
+    bottom: 74%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.icon80CCD2 {
+    visibility: hidden;
+    width: 265px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -140%;
+    left: 130%;
+    z-index: 24;
+}
+
+.linkText:hover .icon80CCD2 {
+    visibility: visible;
+}
+
+.linkText .icon80CCD2::after {
+    content: " ";
+    position: absolute;
+    bottom: 65%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80C {
+    visibility: hidden;
+    width: 465px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -36px;
+    left: 44px;
+    z-index: 24;
+}
+
+.linkText:hover .link80C {
+    visibility: visible;
+}
+
+.linkText .link80C::after {
+    content: " ";
+    position: absolute;
+    bottom: 83%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80D {
+    visibility: hidden;
+    width: 452px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -158px;
+    left: 46px;
+    z-index: 24;
+}
+
+.linkText:hover .link80D {
+    visibility: visible;
+}
+
+.linkText .link80D::after {
+    content: " ";
+    position: absolute;
+    bottom: 19%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80DDB {
+    visibility: hidden;
+    width: 353px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -64px;
+    left: 70px;
+    z-index: 24;
+}
+
+.linkText:hover .link80DDB {
+    visibility: visible;
+}
+
+.linkText .link80DDB::after {
+    content: " ";
+    position: absolute;
+    bottom: 46%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80EEA {
+    visibility: hidden;
+    width: 353px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -85px;
+    left: 70px;
+    z-index: 24;
+}
+
+.linkText:hover .link80EEA {
+    visibility: visible;
+}
+
+.linkText .link80EEA::after {
+    content: " ";
+    position: absolute;
+    bottom: 46%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80EEB {
+    visibility: hidden;
+    width: 353px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -85px;
+    left: 67px;
+    z-index: 24;
+}
+
+.linkText:hover .link80EEB {
+    visibility: visible;
+}
+
+.linkText .link80EEB::after {
+    content: " ";
+    position: absolute;
+    bottom: 46%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80G {
+    visibility: hidden;
+    width: 298px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -51px;
+    left: 44px;
+    z-index: 24;
+}
+
+.linkText:hover .link80G {
+    visibility: visible;
+}
+
+.linkText .link80G::after {
+    content: " ";
+    position: absolute;
+    bottom: 46%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80DD1 {
+    visibility: hidden;
+    width: 298px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 30px;
+    left: -116px;
+    z-index: 24;
+}
+
+.linkText:hover .link80DD1 {
+    visibility: visible;
+}
+
+.linkText .link80DD1::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 52%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.link80DD2 {
+    visibility: hidden;
+    width: 298px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 30px;
+    left: -117px;
+    z-index: 24;
+}
+
+.linkText:hover .link80DD2 {
+    visibility: visible;
+}
+
+.linkText .link80DD2::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 52%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.link80E {
+    visibility: hidden;
+    width: 256px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -67px;
+    left: 43px;
+    z-index: 24;
+}
+
+.linkText:hover .link80E {
+    visibility: visible;
+}
+
+.linkText .link80E::after {
+    content: " ";
+    position: absolute;
+    bottom: 33%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80EE {
+    visibility: hidden;
+    width: 317px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -67px;
+    left: 52px;
+    z-index: 24;
+}
+
+.linkText:hover .link80EE {
+    visibility: visible;
+}
+
+.linkText .link80EE::after {
+    content: " ";
+    position: absolute;
+    bottom: 60%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80U1 {
+    visibility: hidden;
+    width: 317px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -47px;
+    left: 47px;
+    z-index: 24;
+}
+
+.linkText:hover .link80U1 {
+    visibility: visible;
+}
+
+.linkText .link80U1::after {
+    content: " ";
+    position: absolute;
+    bottom: 49%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.link80U2 {
+    visibility: hidden;
+    width: 317px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 29px;
+    left: -12px;
+    z-index: 24;
+}
+
+.linkText:hover .link80U2 {
+    visibility: visible;
+}
+
+.linkText .link80U2::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 90%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.link80TTA {
+    visibility: hidden;
+    width: 317px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -46px;
+    left: 63px;
+    z-index: 24;
+}
+
+.linkText:hover .link80TTA {
+    visibility: visible;
+}
+
+.linkText .link80TTA::after {
+    content: " ";
+    position: absolute;
+    bottom: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.stcgDesc {
+    z-index: 2;
+    visibility: hidden;
+    width: 873%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 31px;
+    left: -11%;
+}
+
+/* .stcgDesc {
+    z-index: 2;
+    width: 24%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 140%;
+    display: none;
+}  */
+.linkText:hover #temp {
+    visibility: visible;
+}
+
+.linkText #temp::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 91%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.linkText:hover .stcgDesc {
+    visibility: visible;
+}
+
+.linkText .stcgDesc::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 91%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.ltcgCovered2 {
+    visibility: hidden;
+    width: 873%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 33px;
+    left: -11%;
+    z-index: 2;
+}
+
+/* .ltcgCovered2 {
+    width: 25%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 148%;
+    z-index: 2;
+    display: none;
+}      */
+.linkText:hover .ltcgCovered2 {
+    visibility: visible;
+}
+
+.linkText .ltcgCovered2::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    right: 91%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #cacfd5 transparent;
+}
+
+.ltcgCharged20Desc2 {
+    visibility: hidden;
+    width: 281px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -176%;
+    left: 147%;
+    z-index: 2;
+}
+
+.desc-icon:hover .ltcgCharged20Desc2 {
+    visibility: visible;
+}
+
+.desc-icon .ltcgCharged20Desc2::after {
+    content: " ";
+    position: absolute;
+    bottom: 65%;
+    right: 100%;
+    /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.ltcgCharged10Desc2 {
+    visibility: hidden;
+    width: 281px;
+    background-color: #cacfd5;
+    color: black;
+    padding: 11px 13px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -43%;
+    left: 147%;
+}
+
+.desc-icon:hover .ltcgCharged10Desc2 {
+    visibility: visible;
+}
+
+.desc-icon .ltcgCharged10Desc2::after {
+    content: " ";
+    position: absolute;
+    bottom: 35%;
+    right: 100%;
+    /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.desc87_1 {
+    visibility: hidden;
+    width: 1233%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -143%;
+    left: 134%;
+}
+
+.linkText:hover .desc87_1 {
+    visibility: visible;
+}
+
+.linkText .desc87_1::after {
+    content: " ";
+    position: absolute;
+    bottom: 66%;
+    right: 100%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.desc87_2 {
+    visibility: hidden;
+    width: 1102%;
+    background-color: #cacfd5;
+    color: black;
+    padding: 13px 15px;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: absolute;
+    top: -46%;
+    left: 134%;
+}
+
+.linkText:hover .desc87_2 {
+    visibility: visible;
+}
+
+.linkText .desc87_2::after {
+    content: " ";
+    position: absolute;
+    bottom: 37%;
+    right: 100%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #cacfd5 transparent transparent;
+}
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    background: rgba(255, 255, 255, 1);
+}
+
+.dashboard-loader {
+    display: none !important;
+}
+
+.loader {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.loader:after {
+    background: url(../../assets/img/fintoo_loader_Green.gif) center center no-repeat;
+    background-size: cover;
+    height: 75px;
+    content: '';
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.dashboard-loader.active {
+    display: flex !important;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.incom-and-tax-calculator-body {
+    padding: 0 6rem;
+    background-color: rgba(0, 0, 0, 0.096)
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type=text]::-webkit-inner-spin-button,
+input[type=text]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type=text] {
+    text-align: right;
+}
+
+input[type=number] {
+    text-align: right;
+}
+
+input[type=checkbox] {
+    transform: scale(0.8)
+}
+
+button {
+    border: none;
+}
+
+.form-control,
+.form-select:focus {
+    box-shadow: none !important;
+}
+
+.form-container {
+    background-color: #fff;
+    border-radius: 15px;
+    margin: 5rem 0;
+}
+
+.form-content-container {
+    padding: 0 3.5rem;
+}
+
+.form-check-input {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.label-fw-class {
+    font-weight: 600;
+}
+
+.details-container {
+    padding: 2rem 2.5rem;
+    margin-top: 2rem;
+}
+
+.whole {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.623);
+    z-index: 10;
+}
+
+.padding-div {
+    padding: 0 2.3rem;
+}
+
+.form-heading {
+    display: flex;
+    justify-content: start;
+    height: 60px;
+    width: 100%;
+    border-bottom: 1.5px solid rgb(175, 175, 175);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.heading {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-top-left-radius: 15px;
+    background-color: #042b62;
+    font-size: 1.3rem;
+    padding: 0 5px;
+}
+
+#taxation-opting-dropDown-div {
+    display: none;
+}
+
+.show-hide-details-input-container {
+    position: relative;
+}
+
+/* .show-hide-details-btn {
+    position: absolute;
+    top: 25%;
+    left: -5%;
+    display: block;
+    float: right;
+    border-radius: 4px;
+    padding: 1px 10px;
+    margin-left: -4rem;
+    color: #fff;
+    font-weight: normal;
+    background: #042b62;
+    cursor: pointer;
+    font-size: 11px;
+} */
+
+.input-label-class {
+    text-align: left;
+    /* font-weight: normal; */
+}
+
+.show-hide-details-btn {
+    display: block;
+    float: right;
+    border-radius: 4px;
+    padding: 1px 4px;
+    color: #fff;
+    font-weight: normal;
+    background: #042b62;
+    cursor: pointer;
+    font-size: 11px;
+    margin-top: 0.5rem;
+}
+
+/* .tooltip-icon {
+    position: relative;
+    z-index: 23;
+} */
+
+.tooltip-icon {
+    display: inline-block;
+    position: relative;
+    margin-left: 7px;
+    z-index: 23;
+}
+
+.tooltip-icon-container {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: #042b62;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.tooltip-content {
+    display: none;
+    z-index: 22;
+    position: absolute;
+    width: 300px;
+    top: 0;
+    left: 0;
+    border: 1px solid #ececec;
+    padding: 15px;
+    margin-top: 2rem;
+    border-radius: 6px;
+    color: #333;
+    background: #fff;
+    font-size: 13px;
+    text-align: left;
+}
+
+.tooltip-icon:hover .tooltip-content {
+    display: block;
+}
+
+.two-inputs-row.col-sm {
+    padding: 0;
+}
+
+#IncomeFromHouseProperty,
+#CapitalGians,
+#IncomeFromOtherSources,
+#Deductions {
+    display: none;
+}
+
+.deleteRowOption {
+    cursor: pointer;
+}
+
+.add-row-option {
+    cursor: pointer;
+    background-color: #042b62;
+}
+
+.thead-row {
+    background-color: #042b62;
+    color: white;
+}
+
+.action-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.calculate-badge {
+    cursor: pointer;
+    background-color: #042b62;
+    color: #ffffff;
+    border-radius: 50rem;
+    padding: 0.2rem 1rem;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+.reset-badge {
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 1px solid #042b62;
+    color: #042b62;
+    border-radius: 50rem;
+    padding: 0.2rem 1rem;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+.note-container {
+    background-color: antiquewhite;
+    width: 93%;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.note-container-note {
+    background-color: #fdf4f4;
+}
+
+.note-container-advisory {
+    background-color: #f4fbfd;
+}
+
+#income_tax_calculator,
+#StermCGainsOtherThan111A1,
+#StermCGainsCovered111A1,
+#LtermCGains201,
+#LtermCGains101,
+#LtermCGains112A1,
+#DeductionsConditionalInput21,
+#DeductionsConditionalInput22,
+#health-education-cess-container,
+#long-term-capital-gains-112A-container {
+    display: none;
+}
+
+/* ---------------------------------------------------------advanced tax----------------------------------------------- */
+
+#domestic_company_checkboxes_element,
+#cop_sch_115BAD_element,
+#gender_select_element,
+#residential_status_select_element,
+#income_form_salary_element,
+#income_fomr_house_property_element,
+#capital_gains_element,
+#income_form_other_sources_element,
+#profits_or_gains_from_business_or_other_profession_element,
+#agricultural_income_element,
+#deductions_element,
+#income_liable_to_tax_at_normal_rate_element,
+#short_term_capital_gains_111A_15_element,
+#long_term_capital_gains_112A_10_element,
+#long_term_capital_gains_20_element,
+#long_term_capital_gains_10_element,
+#lottery_crossword_puzzle_30_element,
+#health_and_education_cess_element,
+#DeductionsConditionalInput14,
+#DeductionsConditionalInput15 {
+    display: none
+}
+
+#html_table table,
+th,
+td {
+    border: 1px solid black !important;
+    border-collapse: collapse !important
+}
+
+
+/* ---------------------------------------------------------media query----------------------------------------------- */
+@media only screen and (max-width: 1400px) {
+    .heading {
+        width: 70%;
+
+    }
+
+    .heading {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .link115BAC {
+        left: -14px;
+    }
+
+    .linkText .link115BAC::after {
+        right: 84%;
+    }
+
+    .form-content-container {
+        padding: 0 2rem;
+    }
+
+    .iconIncomeFrom {
+        width: 281px;
+        top: 34px;
+        left: -198px;
+    }
+
+    .desc-icon .iconIncomeFrom::after {
+        content: " ";
+        position: absolute;
+        bottom: 100%;
+        right: 24%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .Link115BAD {
+        visibility: hidden;
+        width: 250px;
+        background-color: #cacfd5;
+        color: black;
+        padding: 13px 15px;
+        border-radius: 6px;
+        font-weight: 400;
+        font-size: 0.9rem;
+        position: absolute;
+        top: 118%;
+        left: -50px;
+    }
+
+    .linkText .Link115BAD::after {
+        content: " ";
+        position: absolute;
+        bottom: 100%;
+        right: 66%;
+        margin-left: -5px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .stcgDescOther {
+        width: 300px;
+        top: 125%;
+        left: -175px;
+    }
+
+    .linkText .stcgDescOther::after {
+        content: " ";
+        position: absolute;
+        bottom: 100%;
+        right: 32%;
+        margin-left: -5px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .stcgDescCovered {
+        width: 300px;
+    }
+
+    .linkText .stcgDescCovered::after {
+        right: 48%;
+    }
+
+    .incom-and-tax-calculator-body {
+        padding: 0 2rem;
+    }
+
+    .heading {
+        width: 70%;
+
+    }
+
+    .heading {
+        font-size: 1rem;
+    }
+
+    .ltcgCharged20Desc1 {
+        top: 32px;
+        left: -31px;
+    }
+
+    .desc-icon .ltcgCharged20Desc1::after {
+        bottom: 100%;
+        right: 83%;
+        border-color: transparent transparent #cacfd5 transparent;
+
+    }
+
+    .ltcgCharged10Desc1 {
+        top: 37px;
+        left: -74px;
+    }
+
+    .desc-icon .ltcgCharged10Desc1::after {
+        bottom: 100%;
+        right: 68%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .ltcgCovered1 {
+        width: 300px;
+        top: 32px;
+        left: -74px;
+    }
+
+    .linkText .ltcgCovered1::after {
+        right: 66%;
+    }
+
+    .icon80CCD1 {
+        left: -15px;
+        top: 30px;
+    }
+
+    .linkText .icon80CCD1::after {
+        right: 85%;
+        bottom: 100%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80CCD {
+        left: -9px;
+        top: 29px;
+    }
+
+    .linkText .link80CCD::after {
+        bottom: 100%;
+        right: 84%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .icon80CCD2 {
+        top: 128%;
+        left: -6px;
+    }
+
+    .linkText .icon80CCD2::after {
+        bottom: 100%;
+        right: 84%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80C {
+        width: 358px;
+    }
+
+    .linkText .link80C::after {
+        bottom: 86%;
+    }
+
+    .link80D {
+        width: 381px;
+    }
+
+    .linkText .link80D::after {
+        bottom: 32%;
+    }
+
+    .link80DDB {
+        width: 315px;
+        top: 27px;
+        left: -28px;
+    }
+
+    .linkText .link80DDB::after {
+        bottom: 100%;
+        right: 81%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80EEA {
+        width: 353px;
+        top: 30px;
+        left: -67px;
+    }
+
+    .linkText .link80EEA::after {
+        bottom: 100%;
+        right: 72%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80EEB {
+        width: 328px;
+        top: 28px;
+        left: -125px;
+    }
+
+    .linkText .link80EEB::after {
+        bottom: 100%;
+        right: 52%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80EE {
+        width: 300px;
+        top: 30px;
+        left: -18px;
+    }
+
+    .linkText .link80EE::after {
+        bottom: 100%;
+        right: 85%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80U1 {
+        top: 30px;
+        left: -28px;
+    }
+
+    .linkText .link80U1::after {
+        bottom: 100%;
+        right: 85%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80TTA {
+        width: 289px;
+        top: 30px;
+        left: -4px;
+    }
+
+    .linkText .link80TTA::after {
+        right: 65%;
+        bottom: 100%;
+        right: 88%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .stcgDesc {
+        width: 250px;
+    }
+
+    /* .stcgDesc{
+        width: 44%;
+        top: 93%;
+    } */
+    .ltcgCovered2 {
+        width: 300px;
+    }
+
+    /* .ltcgCovered2 {
+        width: 44%;
+        top: 99%;
+    }    */
+    .ltcgCharged20Desc2 {
+        top: 34px;
+        left: -35px;
+    }
+
+    .desc-icon .ltcgCharged20Desc2::after {
+        right: 82%;
+        bottom: 100%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .ltcgCharged10Desc2 {
+        width: 281px;
+        top: 34px;
+        left: -64px;
+    }
+
+    .desc-icon .ltcgCharged10Desc2::after {
+        bottom: 100%;
+        right: 72%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .desc87_1 {
+        width: 300px;
+        top: -170%;
+        left: 134%;
+    }
+
+    .desc87_2 {
+        width: 250px;
+        top: 29px;
+        left: -169px;
+    }
+
+    .linkText .desc87_2::after {
+        bottom: 100%;
+        right: 24%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+}
+
+@media only screen and (max-width: 550px) {
+
+    .link115BAC {
+        left: -14px;
+        width: 200px;
+    }
+
+    .linkText .link115BAC::after {
+        right: 84%;
+    }
+
+    .stcgDescOther {
+        width: 220px;
+        left: -123px;
+    }
+
+    .stcgDescCovered {
+        width: 210px;
+        left: -45px;
+    }
+
+    .linkText .stcgDescCovered::after {
+        right: 64%;
+    }
+
+    .ltcgCharged10Desc1 {
+        left: -38px;
+    }
+
+    .desc-icon .ltcgCharged10Desc1::after {
+        right: 81%;
+    }
+
+    .ltcgCovered1 {
+        width: 257px;
+        left: -57px;
+    }
+
+    .icon80CCD1 {
+        left: -221px;
+    }
+
+    .linkText .icon80CCD1::after {
+        right: 20%;
+    }
+
+    .link80C {
+        width: 314px;
+        top: 29px;
+        left: -206px;
+    }
+
+    .linkText .link80C::after {
+        bottom: 100%;
+        right: 29%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80D {
+        width: 324px;
+        left: -196px;
+        top: 29px;
+    }
+
+    .linkText .link80D::after {
+        bottom: 100%;
+        right: 33%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80DDB {
+        width: 315px;
+        top: 27px;
+        left: -28px;
+    }
+
+    .linkText .link80DDB::after {
+        bottom: 100%;
+        right: 81%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80EEA {
+        width: 300px;
+        top: 31px;
+        left: -152px;
+    }
+
+    .linkText .link80EEA::after {
+        bottom: 100%;
+        right: 39%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80EEB {
+        width: 300px;
+        top: 31px;
+        left: -152px;
+    }
+
+    .linkText .link80EEB::after {
+        bottom: 100%;
+        right: 39%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80G {
+        width: 298px;
+        top: 28px;
+        left: -123px;
+    }
+
+    .linkText .link80G::after {
+        bottom: 100%;
+        right: 51%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80DD1 {
+        left: -204px;
+    }
+
+    .linkText .link80DD1::after {
+        right: 22%;
+    }
+
+    .link80DD2 {
+        left: -87px;
+    }
+
+    .linkText .link80DD2::after {
+        right: 61%;
+    }
+
+    .link80E {
+        left: -10px;
+        top: 28px;
+    }
+
+    .linkText .link80E::after {
+        right: 88%;
+        bottom: 100%;
+        border-color: transparent transparent #cacfd5 transparent;
+
+    }
+
+    .link80EE {
+        width: 300px;
+        top: 30px;
+        left: -18px;
+    }
+
+    .linkText .link80EE::after {
+        bottom: 100%;
+        right: 85%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80U1 {
+        top: 30px;
+        left: -28px;
+    }
+
+    .linkText .link80U1::after {
+        bottom: 100%;
+        right: 85%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .link80U2 {
+        width: 289px;
+        top: 30px;
+        left: -79px;
+    }
+
+    .linkText .link80U2::after {
+        right: 65%;
+    }
+
+    .link80TTA {
+        width: 289px;
+        top: 30px;
+        left: -4px;
+    }
+
+    .linkText .link80TTA::after {
+        right: 65%;
+        bottom: 100%;
+        right: 88%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+
+    .stcgDesc {
+        left: -13rem;
+    }
+
+    .linkText .stcgDesc::after {
+        right: 6%;
+    }
+
+    /* .stcgDesc{
+        width: 80%;
+        top: 179%;
+    } */
+    .ltcgCovered2 {
+        width: 290px;
+        left: -15rem;
+    }
+
+    .linkText .ltcgCovered2::after {
+        right: 7%;
+    }
+
+    /* .ltcgCovered2 {
+        width: 70%;
+        top: 192%;
+    } */
+    .desc87_1 {
+        width: 216px;
+        top: 122%;
+        left: -116px;
+    }
+
+    .linkText .desc87_1::after {
+        bottom: 100%;
+        right: 35%;
+        border-color: transparent transparent #cacfd5 transparent;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+
+    .form-content-container {
+        padding: 0 0.5rem;
+    }
+
+    .incom-and-tax-calculator-body {
+        padding: 0 0.5rem;
+
+    }
+
+    .heading {
+        width: 95%;
+
+    }
+
+    .input-label-class {
+
+        margin-bottom: 0.5rem;
+    }
+
+    .details-container {
+        padding: 1rem 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .padding-div {
+        /* padding: 0 1rem; */
+        padding: 0 .6rem;
+
+    }
+
+    .heading {
+        font-size: 0.8rem;
+    }
+
+    .tooltip-content_1 {
+        margin-left: -200px;
+    }
+}

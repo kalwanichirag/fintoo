@@ -1,0 +1,72 @@
+.dg-layout .sc_needle_container {
+  position: relative;
+}
+.dg-layout .sc_needle_container .sc_needle_area {
+  width: 100%;
+  height: 50%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.dg-layout .sc_needle_container .sc_needle_area .sc_needle {
+  background: url(https://www.fintoo.in/static/assets/img/reports/needle.svg) center bottom no-repeat;
+  background-size: contain;
+  height: 100%;
+  display: block;
+  width: 20px;
+  left: 0rem;
+  right: 0;
+  margin: auto;
+  bottom: -12px;
+  position: relative;
+  transform-origin: bottom center;
+  transform: rotate(323deg);
+}
+.grossOutflowContainer .top-left .active {
+  background: #fafafa url(https://static.fintoo.in/static/assets/img/reports/cashflow-top-left.svg) top right no-repeat;
+  background-size: 100%;
+}
+.grossOutflowContainer .expander .closeExpander {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  right: 0px;
+  font-size: 50px;
+  display: none;
+  line-height: 23px;
+  z-index: 5;
+  height: 30px;
+  color: #333;
+  cursor: pointer;
+  width: 30px;
+  margin-left: auto;
+}
+.grossOutflowContainer .expandedContent {
+  width: 60%;
+}
+.grossOutflowContainer .expander.active .closeExpander {
+  display: block;
+}
+.invertment-goal-mapping {
+  background: #fafafa;
+  padding: 18px;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 30px;
+  position: relative;
+}
+.goal-name-cls {
+  /* position: static !important; */
+  /* bottom: -8px !important; */
+  width: 100% !important;
+}
+.goal-name-cls .circle-cls {
+  padding: 0px !important;
+}
+.goal-name-cls .goal-text-cls {
+  background: #f2f3f3;
+  border-radius: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+}

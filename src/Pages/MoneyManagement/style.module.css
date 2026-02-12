@@ -1,0 +1,1171 @@
+.ScheduleAndAccountContainer {
+    display: flex;
+    gap: 1rem;
+    /* margin: 0 2rem; */
+    padding: 0 1rem;
+}
+
+.desktopView {
+    display: unset !important;
+}
+
+.mobileView {
+    display: none !important;
+}
+
+.dashboardHeader {
+    color: #1A3263;
+    font-family: Arial;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.29769rem;
+    letter-spacing: -0.05675rem;
+}
+
+.headerText {
+    color: #000000;
+    font-family: Arial;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 2.29769rem;
+    letter-spacing: -0.05675rem;
+}
+
+
+.headerText2 {
+    color: #170F49;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.headerText3 {
+    color: #042b62;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.secondaryText1 {
+    color: rgba(26, 50, 99, 0.50);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    /* margin: 0.7rem 0; */
+}
+
+.secondaryText2 {
+    color: #1A3263;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.secondaryText2_Black {
+    color: #000000;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.secondaryText3 {
+    color: #1E1E1E;
+    font-family: Red Hat Text;
+    font-size: 1.3rem;
+    font-style: normal;
+}
+
+.secondaryText4 {
+    color: #6F6C90;
+    font-family: Red Hat Text;
+    font-size: 1.2rem;
+    font-style: normal;
+}
+
+.label1 {
+    color: #757779;
+    font-family: Red Hat Text;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.labelValue1 {
+    color: #042b62;
+    font-family: Red Hat Text;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 700;
+    /* 111.111% */
+}
+
+.btn1 {
+    background-color: #042b62;
+    color: #fff;
+    padding: 3px;
+    width: 8rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 20px;
+    font-size: .8rem;
+    cursor: pointer;
+    width: fit-content;
+    padding: 0.4rem 1.4rem;
+    text-decoration: none !important;
+}
+
+.btn2 {
+    background-color: #042b62;
+    color: #fff;
+    width: fit-content;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    width: fit-content;
+    padding: 0.7rem 1rem;
+    text-decoration: none !important;
+}
+
+.btn3 {
+    background-color: #042b62;
+    color: #fff;
+    width: fit-content;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 25px;
+    cursor: pointer;
+    width: fit-content;
+    padding: 0.7rem 2rem;
+    text-decoration: none !important;
+}
+
+.btnOutline {
+    border: 2px solid #042b62;
+    color: #042b62;
+    width: fit-content;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 0.7rem 2rem;
+    text-decoration: none !important;
+}
+
+.chip1 {
+    padding: 0.2rem 0.4rem;
+    border-radius: 5px;
+    background: #042b62;
+    color: white;
+    width: fit-content;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.chip2 {
+    padding: 0.4rem 0.4rem;
+    border-radius: 5px;
+    background: #E8F8FF;
+    color: #042b62;
+    width: max-content;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.borderedContainer {
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 1rem;
+
+}
+
+.savingAccCampeignContainer {
+    display: flex;
+    align-items: center;
+}
+
+.savingAccCampeignContainerGap {
+    gap: 10rem;
+}
+
+.exploreNowOptionContainer {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: .2rem 0;
+}
+
+.savingAccCampeignImg {
+    width: 150px;
+}
+
+.closeOption {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0.5rem;
+}
+
+.moneyManagementModal {
+    background-color: #000000ab !important;
+}
+
+.moneyManagementModal .modal-dialog .modal-content {
+    padding: 1.5rem !important;
+}
+
+.ScheduleDetailSectionContainer {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 0;
+}
+
+.ScheduleDetailSectionInnerContainer {
+    width: 100%;
+    padding: 2rem 1rem 1rem 1rem;
+    border-radius: 5px;
+    border: 1px solid #EEEEEEEE;
+}
+
+.AccountInfoSectionContainer {
+    width: 70%;
+    margin: 0;
+}
+
+.savingAccountInfoSectionContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.savingAccountInfoSectionContainer2 {
+    padding: 3rem 0.5rem 0.5rem 0.5rem !important
+}
+
+.savingAccountInfoSectionContainer2 .ScheduleDetailSectionInnerContainer {
+    border: none !important
+}
+
+.ScheduleDetailSectionHeader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #CCEFFE;
+    padding: 0.3rem 1.5rem;
+}
+
+.ScheduleDetailSectionHeaderTxt {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #042b62;
+}
+
+.savingAccountInfoSectionContainerRelative {
+    position: relative;
+    padding-bottom: 4.5rem;
+}
+
+.addAccountBtnContainerAbsolute {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 2rem;
+}
+
+.SavingAccountInfoSectionAmountsContainer {
+    display: flex;
+    align-items: center;
+}
+
+.SavingAccountInfoSectionTotalAmountContainer {
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+    gap: 1.5rem;
+    padding-right: 1rem;
+    border-right: 1px solid #d7d7d7;
+}
+
+.showOverviewContainer {
+    /* width: 100%; */
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.1rem 0.5rem;
+    border-radius: 25px;
+    background-color: #042b62;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.SavingAccountInfoSectionBanksListOuterContainer {
+    flex: 1;
+    display: flex;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.SavingAccountInfoSectionBanksListContainer {
+    flex: 1;
+    display: flex;
+    overflow-x: scroll;
+    gap: 1rem;
+    padding: 1rem;
+    -ms-overflow-style: none;
+    /* scrollbar-width: none; */
+}
+
+.SavingAccountInfoSectionBanksListContainerGradElem {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(to right, #ffffff00, #ffffff);
+}
+
+
+
+/* .SavingAccountInfoSectionBanksListContainer::-webkit-scrollbar {
+    display: none;
+} */
+
+.bannerContainerDesktop {
+    position: relative;
+    border: 1px solid #d8d8d8;
+    border-radius: 10px;
+    background-color: #EEF9FF;
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.bannerContainerMobile {
+    display: none;
+}
+
+.SavingAccountInfoSectionBanksListItem {
+    /* max-width: 300px; */
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    color: #042b62;
+    font-family: 'Red Hat Text';
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5rem;
+    padding: .8rem 1rem 1.7rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.SavingAccountInfoSectionBanksListItemActive {
+    border: 1.5px solid #28A6DF;
+    transform: scaleY(1.1);
+}
+
+.SavingAccountInfoSectionBanksListItemDataContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.SavingAccountInfoSectionBanksListItemDataBankImg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+
+/* -------------------------------------------------------------- bank tracking overview ----------------------------------------------------------- */
+.bankTrackingOverViewContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+
+.bankTrackingOverViewItemContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4rem;
+}
+
+.backOption1,
+.backOption2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 2rem;
+}
+
+.backOption2 {
+    display: none;
+}
+
+.trackingStepsOverviewContainer {
+    width: 60%;
+    padding: 2rem 0 4rem 0;
+}
+
+.stepItemContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.stepItemContentContainer {
+    padding: 0.7rem;
+    border-radius: 13px;
+    border: 1px solid #042b62;
+    background: white;
+    width: 100%;
+}
+
+.stepItemArrow {
+    height: 50px;
+    margin-top: -1px;
+}
+
+.trackingStepsOptionContainer {
+    width: 70%;
+    padding: 2rem 0;
+    text-align: center;
+    /* margin-bottom: 3rem; */
+}
+
+.noteContainer {
+    width: 70%;
+    margin: 0 auto;
+    padding: 1rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+}
+
+.trackingStepsOptionImg {
+    width: 80%;
+}
+
+.trackingOptionSelectionContainer {
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #042b62;
+    background: #F2FDFF;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.trackingOptionSelection {
+    display: flex;
+    align-items: center;
+}
+
+.trackBtn {
+    margin: 0 auto;
+    margin-top: -1rem;
+}
+
+.popuiContainer {
+    padding: 1rem;
+}
+
+.popuiHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.labelGrid3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.popupNoteContainer {
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid #D9D9D9;
+    display: flex;
+    justify-content: center;
+}
+
+.popupNoteContentContainer {
+    display: flex;
+    align-items: center;
+}
+
+.poweredByContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0.5rem;
+}
+
+/* ------------------------------------------------------------------ Bank account data view ------------------------------------------------------------ */
+.bankAccountDataViewMainContainer {
+    position: relative;
+    padding-bottom: 5rem;
+}
+
+.bankAccountDataViewContainer1 {
+    width: 100%;
+    padding: 1rem;
+    background: #F1F1F2;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-right: 25rem;
+}
+
+.bankAccountDataViewContainer2 {
+    width: 100%;
+    padding: 1rem;
+    background: #F1F1F2;
+    /* border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; */
+    border-radius: 10px;
+
+}
+
+.bankAccountDataHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.bankAccountDataTransactionTableFilterContainer {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bankAccountDataTransactionTable {
+    width: 100%;
+    margin-top: 1rem;
+    background: #F5F5F5;
+    border-radius: 10px;
+    box-shadow: 0px 4.22px 12.659px 0px rgba(0, 0, 0, 0.03);
+    background-color: white;
+}
+
+.bankAccountDataTransactionTableHead th {
+    padding: 1rem;
+    color: rgba(0, 0, 0, 0.80);
+    font-family: 'Red Hat Text';
+    font-size: 1.1rem;
+    font-style: normal;
+    /* font-weight: 600; */
+    font-weight: bold !important;
+    width: fit-content;
+    white-space: nowrap;
+    background-color: #F5F5F5;
+}
+
+.bankAccountDataTransactionTableRow {
+    color: rgba(0, 0, 0, 0.80);
+    font-family: 'Red Hat Text';
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 500;
+    background: white;
+}
+
+.bankAccountDataTransactionTableRow:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.bankAccountDataTransactionTableRow:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.bankAccountDataTransactionTableRow td {
+    padding: 1rem;
+}
+
+.bankAccountDataTransactionTableActiveRow {
+    font-family: 'Red Hat Text';
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.bankAccountDataTransactionTableActiveRow:hover {
+    color: #00759D;
+    background: #DCF9FF;
+}
+
+.bankAccountDataTransactionTableActiveRow td {
+    padding: 1rem;
+}
+
+.expertDetailImgContainer {
+    width: 17%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.expertDetailImg {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: red;
+    border-radius: 50%;
+    border: 3px solid #042b62;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.expertName {
+    color: #000000;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.expertDetails {
+    color: #8f9aad;
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.expertCallDetailName {
+    position: relative;
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 1rem;
+    width: 100%;
+}
+
+.expertCallDetailMeetingOption {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    cursor: pointer;
+}
+
+.expertCallDetailTiming {
+    display: flex;
+    padding-top: 1rem;
+    border-top: 2px solid #EEEEEEEE;
+    justify-content: center;
+    /* gap: 1.8rem; */
+}
+
+.expertCallDetailSchedule {
+    /* padding: 1rem 0; */
+    border-top: 2px solid #EEEEEEEE;
+}
+
+.expertCallDetailTxt {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.expertCallDetailTxtThankYou {
+    color: #3B3F5C;
+    text-align: center;
+    font-family: 'Red Hat Text';
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 160%;
+    /* or '2rem' */
+    letter-spacing: 0.00875rem;
+    text-decoration-line: underline;
+}
+
+.expertCallDetailTxtPara {
+    opacity: 0.8;
+    color: #3B3F5C;
+    font-family: 'Red Hat Text';
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    letter-spacing: 0.00875rem;
+}
+
+.expertCallDetailBtn {
+    padding: 0.5rem 1rem;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    background-color: #042b62;
+    border: none;
+}
+
+.expertDetailTimingText {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #000000;
+    font-weight: 600;
+    font-size: 12px;
+    /* font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 700; */
+}
+
+.addAccountBtnContainer {
+    padding-left: 1rem;
+}
+
+.savingAccCampeignMainContainer {
+    height: fit-content !important;
+    padding: 2.5rem 1rem !important;
+}
+
+.shareElemContainer {
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.shareElem {
+    position: absolute;
+    display: none;
+    align-items: center;
+    /* gap: 0.3rem;
+    left: -170%;
+    top: 70% */
+    gap: 0.7rem;
+    left: -240%;
+    top: 70%;
+    background: #CCEFFE;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+}
+
+.shareElemContainer:hover .shareElem {
+    display: flex;
+}
+
+.BtnStyle {
+    padding: 0.5rem 1rem;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    background-color: #042b62;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.BtnStyle2 {
+    padding: 0.5rem 1rem;
+    color: #042b62;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    background-color: white;
+    border: 1px solid #042b62;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* -------------------------------------------------------------------------------------------------- */
+.topBanner {
+    position: relative;
+    border-radius: 10px;
+    background: #EDFCFF;
+    padding: 1rem 1rem 1rem 5rem;
+    margin-left: 3rem;
+}
+
+.topBannerImg {
+    position: absolute;
+    bottom: -3px;
+    left: -45px;
+    width: 95px;
+}
+
+.topBannerHeading {
+    color: #042b62;
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.topBannerTxt {
+    color: #042b62;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.FilterOptionsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.FilterOptionsBtns {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.FilterOptionsBtn {
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: #FFF;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.FilterOptionsActiveBtn {
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: #042b62;
+    color: #FFF;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media (max-width: 850px) {
+    .savingAccountInfoSectionContainerRelative {
+        position: unset;
+        padding-bottom: unset;
+    }
+
+    .addAccountBtnContainerAbsolute {
+        position: unset;
+        bottom: 0;
+        right: 0;
+        margin: unset;
+    }
+
+    .savingAccCampeignContainer {
+        gap: 0;
+    }
+
+    .BankTransactionTable {
+        overflow-x: auto;
+    }
+
+    .moneyManagementModal .react-responsive-modal-modal {
+        width: unset !important;
+        height: unset !important;
+    }
+
+    .savingAccountInfoSectionContainer {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem ;
+    }
+
+    .SavingAccountInfoSectionBanksListOuterContainer {
+        width: 100%;
+    }
+
+    /* -------------------------------------------------------------- bank tracking overview ----------------------------------------------------------- */
+    .trackingStepsOverviewContainer {
+        width: 90%;
+        padding: 5rem 0 6rem 0;
+    }
+
+    .trackingStepsOptionContainer {
+        width: 90%;
+    }
+
+    /* ------------------------------------------------------------------ Bank account data view ------------------------------------------------------------ */
+
+    .bankAccountDataViewContainer1 {
+        padding-right: 10rem;
+
+    }
+
+    .expertDetailImgContainer {
+        width: 10%;
+    }
+
+    .ScheduleDetailSectionContainer {
+        width: 100%;
+    }
+
+    .AccountInfoSectionContainer {
+        width: 100%;
+    }
+
+    .addAccountBtnContainerAbsolute {
+        margin-bottom: 1rem;
+    }
+
+    .ScheduleAndAccountContainer {
+        flex-direction: column;
+        margin: 2rem 0;
+        padding: 0;
+    }
+}
+
+@media (max-width: 550px) {
+    .bankTrackingOverViewItemContainer {
+        padding-bottom: 2.5rem;
+    }
+
+    .bannerContainerDesktop {
+        display: none;
+    }
+
+    .bannerContainerMobile {
+        display: block;
+    }
+
+    .expertDetailImgContainer {
+        width: 25%;
+    }
+
+    .desktopView {
+        display: none !important;
+    }
+
+    .mobileView {
+        display: unset !important;
+    }
+
+    .btnContainer {
+        justify-content: center;
+    }
+
+    .headerText {
+        font-size: 1.4rem;
+    }
+
+    .secondaryText3 {
+        font-size: 1.15rem;
+    }
+
+    .secondaryText2_Black {
+        font-size: 1.14rem;
+    }
+
+    .dashboardHeader {
+        font-size: 1.6rem;
+    }
+
+    .secondaryText1 {
+        font-size: 0.8rem;
+    }
+
+    .secondaryText2 {
+        font-size: 0.9rem;
+    }
+
+    .savingAccCampeignMainContainer {
+        padding: 1rem 0.5rem !important;
+    }
+
+    .savingAccCampeignContainer {
+        gap: 0;
+    }
+
+    .exploreNowOptionContainer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .savingAccCampeignImg {
+        width: 100px;
+    }
+
+    .SavingAccountInfoSectionAmountsContainer {
+        width: 100%;
+        justify-content: center;
+        /* flex-direction: column; */
+        gap: 1rem;
+        /* align-items: flex-start; */
+    }
+
+    /* .SavingAccountInfoSectionAmountsContainer .ms-4 {
+        margin-left: 0 !important;
+    } */
+
+    .SavingAccountInfoSectionTotalAmountContainer {
+        border-right: none;
+        border-right: 1px solid #d7d7d7;
+        /* width: 100%; */
+        padding-bottom: 1rem;
+    }
+
+    .SavingAccountInfoSectionAmountsMainContainer {
+        width: 100%;
+    }
+
+    .addAccountBtnContainer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding-left: 0;
+    }
+
+    .SavingAccountInfoSectionBanksListItem {
+        /* width: 90%; */
+        padding: 1rem;
+    }
+
+    /* -------------------------------------------------------------- bank tracking overview ----------------------------------------------------------- */
+    .trackingStepsOverviewContainer {
+        width: 95%;
+        padding: 5rem 0 6rem 0;
+    }
+
+    .trackingStepsOptionContainer {
+        width: 95%;
+        /* margin-bottom: 5rem; */
+    }
+
+    .bankTrackingOverViewContainer {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .trackingOptionSelectionContainer {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .trackingOptionSelection {
+        justify-content: center;
+    }
+
+    .backOption2 {
+        display: block;
+    }
+
+    .backOption1 {
+        display: none;
+    }
+
+    .labelGrid3 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .popupNoteContentContainer {
+        flex-direction: column;
+    }
+
+    .poweredByContainer {
+        /* bottom: 4%;
+        right: 22%; */
+    }
+
+    /* ------------------------------------------------------------------ Bank account data view ------------------------------------------------------------ */
+    .bankAccountDataTransactionTableFilterContainer {
+        flex-direction: column;
+    }
+
+    .bankAccountDataViewMainContainer {
+        position: relative;
+        padding-bottom: unset;
+    }
+
+    .bankAccountDataViewContainer1 {
+        width: 100%;
+        padding: 0;
+        background: #ffffff;
+        padding-right: 0;
+    }
+
+    .bankAccountDataViewContainer2 {
+        background: #F1F1F2;
+        padding: 1rem 0.5rem;
+        border-radius: 10px;
+    }
+
+    /*-----------------------------------------------------------------Popup UI Responsive ------------------------------------------------------------------------*/
+    .headerText2 {
+        font-size: 1rem;
+    }
+
+    .secondaryText4 {
+        font-size: 1rem;
+    }
+
+    .label1 {
+        font-size: .9rem;
+    }
+
+    .labelValue1 {
+        font-size: .9rem;
+    }
+
+    .btn3 {
+        font-size: 1rem;
+    }
+
+    /* ------------------------------------------------------------------------------------------------------------------- */
+    .topBanner {
+        padding: 1rem;
+        margin-left: 0;
+        margin-top: 5rem;
+    }
+
+    .topBannerImg {
+        position: absolute;
+        top: -30%;
+        left: -5px;
+    }
+}

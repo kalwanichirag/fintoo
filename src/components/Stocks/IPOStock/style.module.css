@@ -1,0 +1,369 @@
+.ipoNameOptions {
+  display: flex;
+  align-items: center;
+}
+.ipoNameOptions img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.ipoNameOptions .iponame {
+  padding: 0rem 0.8rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+.ipopricerange {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.ipopricerange span {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.ipotabs {
+  display: flex;
+  border-bottom: 1px solid #e1dbdb;
+  margin-bottom: 4rem;
+}
+.ipotabs .tab {
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: gray;
+  margin: 0rem 4rem 0rem 0;
+  padding-bottom: 0.4rem;
+}
+.ScrollIpoHead {
+  position: sticky;
+  top: 83px;
+  padding: 1rem;
+  padding-bottom: 0;
+  background-color: #fff;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  z-index: 100;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.ScrollIpoHead .ipotabs {
+  margin-bottom: 0rem;
+  border: 0;
+}
+/* .ipotabs .tab:first-child{
+    margin: 0;
+} */
+.ipotabs .ActiveTab {
+  border-bottom: 4px solid #042b62;
+}
+.ipotabs .Active {
+  color: #042b62;
+  border-bottom: 4px solid #042b62;
+}
+.iposectionbox {
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 1.2rem;
+  margin-bottom: 2rem;
+}
+.iposectionbox .sectionName {
+  color: #909090;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.iposectionDetails {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  margin-left: 1rem;
+}
+.ipolabel {
+  font-size: 0.8rem;
+  color: #b5b5b5;
+  font-weight: 500;
+  position: relative;
+}
+.ipoval {
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding-top: 2px;
+  color: #042b62;
+}
+.sectionName span {
+  color: #b5b5b5;
+  font-size: 0.7rem;
+}
+.iposecBoxeslist {
+  z-index: 999;
+}
+.iposecBoxeslist .infoIcon {
+  position: absolute;
+  top: -10px;
+  font-size: 1rem;
+  color: #b3b3b3;
+  cursor: pointer;
+  /* z-index: 100 */
+}
+.popupBx {
+  position: relative;
+}
+.iposecBoxeslist .popupElem {
+  position: absolute;
+  right: 0%;
+  background: white;
+  border: 1px solid #e3e3e3;
+  border-radius: 15px;
+  width: max-content;
+  padding: 1rem;
+  z-index: 100;
+}
+.iposectionbox .ipotooltip {
+  color: #042b62 !important;
+  background: #fff !important;
+  border: 1px solid #e3e3e3 !important;
+  border-radius: 5px !important;
+  padding: 10px !important;
+}
+.iposectionbox .ipotooltip::after {
+  border: 1px solid #e3e3e3 !important;
+  background-color: #fff !important;
+}
+.iposectionbox .ipotooltip p {
+  margin: 0 !important;
+  font-weight: 400;
+}
+.ipoOther {
+  margin-left: 1rem;
+}
+.ipoHr {
+  color: #e1dbdb;
+  margin: 10px 0;
+}
+.ipoOther .ipoLabel {
+  color: #042b62;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.Nexticon {
+  color: #042b62;
+  transform: rotate(180deg);
+  /* font-size: 1rem; */
+}
+.ipoOther .objTxt {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-left: 0.7rem;
+}
+.IpoInvestbox {
+  margin: 0rem 1rem;
+  border: 1px solid #fff;
+  text-align: center;
+  border-radius: 15px;
+  margin-top: 0.7rem;
+  background: linear-gradient(to top right, #e3e3e3 18%, #ffffff 99%);
+  position: sticky;
+  top: 110px;
+}
+.IpoInvestbox .label {
+  color: gray;
+  font-weight: 500;
+  padding: 2rem 0;
+}
+.IpoInvestbox .InvestBtn {
+  width: 100%;
+  background-color: #042b62;
+  padding: 0.7rem 0px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  border: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  outline: none;
+}
+.shareIpoicon{
+  font-size: 20px;
+}
+.ipomodal {
+  padding: 2rem 7rem;
+}
+.ipomodal .popupTxt {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+.ipomodal .poplabel {
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  color: #b5b5b5;
+  font-weight: 500;
+}
+.iporeqdetails hr {
+  color: #e3e3e3;
+  margin: 0.6rem 0;
+}
+.ipomodal .iporeqdetails {
+  margin: 1rem 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+}
+.iporeqdetails .ipoName {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.iporeqdetails .ipodate {
+  font-size: 0.8rem;
+  color: #042b62;
+  font-weight: 500;
+  text-align: right !important;
+}
+.ipoOkbtn button {
+  background-color: #042b62;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 0;
+  padding: 0.5rem 3rem;
+  border-radius: 30px;
+  margin-top: 1rem;
+}
+.ipomodal .Popupclose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.ipomodal .Popupclose svg {
+  color: #042b62;
+  font-size: 1.7rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.ipotabsScroll {
+  background-color: white;
+  padding: 10px 2rem;
+  border: none;
+  border-radius: 11px;
+  margin-bottom: 2rem;
+  z-index: 1000;
+}
+.ipotabsScroll .ipotabs .tab {
+  padding-bottom: 0.3rem;
+}
+
+.icon {
+  color: white;
+  display: table-cell;
+  font-size: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.outericons {
+  position: relative;
+  opacity: 0;
+  /* z-index: 999; */
+}
+
+.outericons i {
+  color: white;
+  border-radius: 50%;
+  font-size: 30px;
+  line-height: 50px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.one {
+  background-color: #55acee;
+  left: -120px;
+}
+
+.two {
+  background-color: #3b5998;
+  left: -60px;
+  bottom: -150px;
+}
+
+.three {
+  background-color: #dc4e41;
+  left: 60px;
+  bottom: -150px;
+}
+
+.four {
+  background-color: #0077b5;
+  left: 120px;
+}
+.visible {
+  opacity: 1;
+}
+.outericons .Sharebox{
+  right: -1rem !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .ScrollIpoHead {
+    top: 83px;
+  }
+  .ipoNameOptions .iponame {
+    font-size: 1rem;
+    padding: 0rem 0.4rem;
+    width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .ipoNameOptions img {
+    width: 29px;
+    height: 29px;
+  }
+  .iposectionDetails {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+  .ipotabs .tab {
+    font-size: 0.9rem;
+    white-space: nowrap;
+    font-weight: 500;
+    margin: 0rem 2rem 0rem 0;
+  }
+  .ipopricerange {
+    font-size: 1rem;
+  }
+  .ipomodal {
+    padding: 5rem 0rem;
+  }
+  .ipomodal .Popupclose {
+    top: 1rem;
+  }
+  .Ipomodal .react-responsive-modal-modal {
+    height: 68%;
+  }
+  .iposhareoptions {
+    float: right;
+    margin-top: .3rem;
+  }
+  .shareIpoicon{
+    font-size: 16px;
+  }
+  .InvestBtn {
+    /* width: 100%; */
+    width: 200px;
+    background-color: #042b62;
+    padding: 0.7rem 0px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    
+  }
+}

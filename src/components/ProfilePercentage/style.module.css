@@ -1,0 +1,46 @@
+.mpc-1 {
+    padding-left: 2.2rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    background: #eee;
+    line-height: 1rem;
+    padding-right: 1rem;
+    border: 2px solid #eee;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.mpc-2 {
+    line-height: 1rem;
+    padding-top: .4rem;
+    padding-bottom: .4rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border: 2px solid #eee;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-weight: 600;
+    display: none;
+}
+.mpc-2 p {
+    /* padding-right: 1rem; */
+    /* padding-left: 6rem; */
+}
+.my-profile-complete {
+    position: relative;
+    margin-left: 2rem;
+}
+.my-profile-complete:before {
+    content: '';
+    width: 3rem;
+    height: 3rem;
+    background-image: url('./images/kyc.png');
+    background-size: cover;
+    position: absolute;
+    left: -2rem;
+}
+
+@media (min-width: 768px) {
+    .mpc-2 {
+        display: flex;
+    }
+}

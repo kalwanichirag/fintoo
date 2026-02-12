@@ -1,0 +1,1343 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/leave_salary.css">
+    <title>Taxable Leave Salary alculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading fw-normal active">
+            <div class="tab_button active">TAXABLE LEAVE SALARY CALCULATOR</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section class="tabcontent">
+                    <!-- ================================================================================================================================================================================== -->
+                    <div class="col-sm-12" id="basecntnr">
+                        <div class="padding-div">
+
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Assessment year
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select class="form-select rounded-0" id="ayear">
+                                        <option value="">
+                                            Select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Type of employer *
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" class="
+                                        form-select rounded-0" id="emplrType" required>
+                                        <option value="">
+                                            Select</option>
+                                        <option value="central_state_govt">
+                                            Central / state govt</option>
+                                        <option value="statutory_corp">
+                                            Statutory Corp</option>
+                                        <option value="local_authority">
+                                            Local Authority</option>
+                                        <option value="other">
+                                            Other</option>
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+
+                            <div id="divCentralGovInfo" style="display: none;">
+                                <div class="g-headings">
+                                    <div class="grid-inputs-container">
+                                        <label class="label-fw-class" id="income-from-salary-label"> Description
+                                        </label>
+                                        <label class="label-fw-class" id="income-from-salary-label">Total leave
+                                            salary</label>
+                                        <label class="label-fw-class" id="income-from-salary-label">
+                                            Exempted leave salary
+                                        </label>
+                                        <label class="label-fw-class" id="income-from-salary-label">Taxable leave
+                                            salary</label>
+                                    </div>
+                                    <hr>
+                                </div>
+
+                                <div class="grid-inputs-container">
+                                    <label class="label-fw-class" id="income-from-salary-label">Leave salary
+                                        received at the time of retirement/ leaving job</label>
+                                    <span>
+                                        <label class="label-fw-class g-label" id="income-from-salary-label">Total leave
+                                            salary</label>
+                                        <input class="form-control number-only rounded-0" type="text" id="totalLeaveSal"
+                                            value="" onkeypress="return isNumberKey(event)" maxlength="15">
+                                    </span>
+
+                                    <span>
+                                        <label class="label-fw-class g-label" id="income-from-salary-label">
+                                            Exempted leave salary
+                                        </label>
+                                        <input type="text" id="exemptLeaveSal"
+                                            class="input-disabled bg-body-secondary form-control number-only rounded-0"
+                                            value="" onkeypress="return isNumberKey(event)" maxlength="15"
+                                            readonly="readonly">
+                                    </span>
+
+                                    <span>
+                                        <label class="label-fw-class g-label" id="income-from-salary-label">Taxable
+                                            leave
+                                            salary</label>
+                                        <input type="text" id="taxableLeaveSal"
+                                            class="input-disabled bg-body-secondary form-control number-only rounded-0"
+                                            value="" onkeypress="return isNumberKey(event)" maxlength="15"
+                                            readonly="readonly">
+                                    </span>
+
+                                </div>
+                                <br>
+                                <div class="grid-inputs-container">
+                                    <label class="label-fw-class" id="income-from-salary-label">Leave salary
+                                        received during previous year (before retirement)</label>
+                                    <span>
+                                        <label class="label-fw-class g-label" id="income-from-salary-label">Total leave
+                                            salary</label> <input class="form-control rounded-0 number-only rounded-0"
+                                            type="text" id="preLeaveSal" value="" onkeypress="return isNumberKey(event)"
+                                            maxlength="15">
+                                    </span>
+                                    <div></div>
+                                    <span>
+                                        <label class="label-fw-class g-label" id="income-from-salary-label">Taxable
+                                            leave
+                                            salary</label>
+                                        <input class="form-control rounded-0 number-only rounded-0 bg-body-secondary"
+                                            type="text" id="preTaxableLeaveSal" value=""
+                                            onkeypress="return isNumberKey(event)" maxlength="15" readonly="readonly">
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div id="ls_second_window" class="label-font-normal" style="display: block;">
+                                <div>
+                                    <div class="form-group alternative-g-grey-row even-bg-color">
+                                        <div class="col-sm-8" id="infoUser1" style="float: right; color: red;">
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Leave salary received during previous year (before retirement)
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" id="prevYearLSal" value=""
+                                                class="form-control rounded-0 number-only rounded-0"
+                                                onkeypress="return isNumberKey(event)" maxlength="15">
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Duration of service period ( in complete years)</label>
+                                        <div class="col-sm-4 col-xs-12 input_with_compute">
+                                            <input type="text" class="form-control rounded-0 number-only rounded-0"
+                                                id="durationYear" value="" onkeypress="return isNumberKey(event)"
+                                                maxlength="15">
+
+                                            <button type="button" class="compute_btn" id="computeYear">compute</button>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"> 10 months
+                                            total salary</label>
+                                        <div class="col-sm-4 col-xs-12 input_with_compute">
+                                            <input type="text" class="form-control rounded-0 number-only rounded-0"
+                                                id="salary10Month" value="" onkeypress="return isNumberKey(event)"
+                                                maxlength="15">
+
+                                            <button type="button" class="comp10MonthSal compute_btn">compute</button>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"> 10 months
+                                            average salary </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" id="avgSal10Month" value=""
+                                                class="form-control rounded-0 number-only rounded-0"
+                                                onkeypress="return isNumberKey(event)" maxlength="15">
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            leave entitled during the service period (in days) *
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12 input_with_compute">
+                                            <input type="text" class="form-control rounded-0 number-only rounded-0"
+                                                oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                                id="leaveDuringServ" value="" onkeypress="return isNumberKey(event)"
+                                                required maxlength="15">
+                                            <p class="required-msg" style="bottom: -35px;">This field is required</p>
+                                            <button type="button" class="compute_btn"
+                                                id="computeDuringServL">compute</button>
+
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Leave availed or encashment during the service period (in days)
+
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" class="form-control rounded-0 number-only rounded-0"
+                                                id="lEncashmentDays" value="" onkeypress="return isNumberKey(event)"
+                                                maxlength="15">
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Balance leave credit available at the time of retirement (in months)
+
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" id="lBalCrMonth"
+                                                class="form-control rounded-0 number-only rounded-0 bg-body-secondary"
+                                                value="" readonly="readonly" onkeypress="return isNumberKey(event)"
+                                                maxlength="15">
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container even-bg-color">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Exempted Leave salary received earlier from previous employer
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" id="prevExemptLSal"
+                                                class="form-control rounded-0 number-only rounded-0" value=""
+                                                onkeypress="return isNumberKey(event)" maxlength="15">
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Leave salary received at the time of retirement/ leaving job
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" id="retirementLSal"
+                                                class="form-control rounded-0 number-only rounded-0" value=""
+                                                onkeypress="return isNumberKey(event)" maxlength="15">
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container even-bg-color">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"> Exempted
+                                            leave salary</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" id="exemptLSal"
+                                                class="form-control rounded-0 number-only rounded-0 bg-body-secondary"
+                                                value="" readonly="readonly" onkeypress="return isNumberKey(event)"
+                                                maxlength="15">
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"> Taxable
+                                            leave salary</label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" id="taxableLSal"
+                                                class="form-control rounded-0 number-only rounded-0 bg-body-secondary"
+                                                value="" readonly="readonly" onkeypress="return isNumberKey(event)"
+                                                maxlength="15">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="dit-modal-popup-overlay" id="ditover"></div>
+                            <!-- ==================================================================================================================================== -->
+                            <div class="dit-modal-popup" id="ls_sw_dialogYear" style="display:none">
+                                <div class="dit-modal-popup-heading">
+                                    <div class="modal_popup_heading">
+                                        <span>Computation of duration service period</span>
+                                        <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                                    </div>
+                                </div>
+                                <div class="modal_popup_content">
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"> Date of
+                                            joining</label>
+                                        <div class="col-sm-4 col-xs-12 date_input_view">
+                                            <!-- <input class="form-control rounded-0 rounded-0 actualDate" type="date"
+                                                placeholder="" onchange="mydate1(this);" hidden
+                                                onclick="console.log('clickeeeddd')" />
+                                            <input class="form-control rounded-0 rounded-0 placeHolderDate" type="text"
+                                                id="joiningDt" readonly onclick="mydate(this)"
+                                                placeholder="dd/mm/yyyy" /> -->
+                                            <input class="form-control rounded-0 rounded-0 actualDate" type="date"
+                                                id="joiningDt" />
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                            Date of retirement (mandatory field)
+                                        </label>
+                                        <div class="col-sm-4 col-xs-12 date_input_view">
+                                            <!-- <input class="form-control rounded-0 rounded-0 actualDate" type="date"
+                                                placeholder="" onchange="mydate1(this);" hidden
+                                                onclick="console.log('clickeeeddd')" />
+                                            <input class="form-control rounded-0 rounded-0 placeHolderDate" type="text"
+                                                id="retireDt" readonly onclick="mydate(this)"
+                                                placeholder="dd/mm/yyyy" /> -->
+                                            <input class="form-control rounded-0 rounded-0 actualDate" type="date"
+                                                id="retireDt" />
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="row justify-content-between align-content-center income-from-salary element-container">
+                                        <label class="col-sm-8 col-xs-12 control-label label-fw-class"> Length of
+                                            service period </label>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <input type="text" id="comYear"
+                                                class="form-control rounded-0 rounded-0 bg-body-secondary" value=""
+                                                placeholder="year" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ==================================================================================================================================== -->
+                            <div class="dit-modal-popup" id="ls_sw_dialogAvgSalary" style="display: none;">
+                                <div class="dit-modal-popup-heading">
+                                    <div class="modal_popup_heading">
+                                        <span>Inputs Parameter computation Average
+                                            salary for 10 months </span>
+                                        <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                                    </div>
+                                </div>
+
+                                <div class="modal_popup_content_container">
+                                    <div class="modal_popup_content WindowMaxHeightdiv div-label-font-normal">
+                                        <div>
+                                            <div>
+                                                <div class="row justify-content-between align-content-center element-container2"
+                                                    style="background-color: #24a7df;">
+                                                    <div class="col-sm-2 popup_table_header"></div>
+                                                    <div class="col-sm-2 popup_table_header"><strong> Basic salary
+                                                        </strong>
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_header"><strong> Dearness
+                                                            allowance
+                                                            (forming part of salary) </strong></div>
+                                                    <div class="col-sm-2 popup_table_header"><strong> Percentage
+                                                            commission
+                                                            based on turnover</strong></div>
+                                                    <div class="col-sm-4 popup_table_header"><strong> Total salary
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell"> Month1
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month2
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month3
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month 4
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month 5
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month 6
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month 7
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month 8
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month 9
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="row justify-content-between align-content-center element-container2">
+                                                    <div class="col-sm-2 popup_table_cell popup_table_cell"> Month
+                                                        10</div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="basicSal number-only form-control rounded-0" value=""
+                                                            onkeypress="return isNumberKey(event)" maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="allowance number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-2 popup_table_cell">
+                                                        <input type="text"
+                                                            class="commission number-only form-control rounded-0"
+                                                            value="" onkeypress="return isNumberKey(event)"
+                                                            maxlength="15">
+                                                    </div>
+                                                    <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                        <input type="text"
+                                                            class="sumSalary number-only form-control rounded-0"
+                                                            value="" readonly="readonly" maxlength="15">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-between align-content-center popup_bottom_imputs"
+                                            style="background-color: #e4f6ff;">
+                                            <label class="label-control col-sm-8 row align-content-center"> Total
+                                                salary for 10 months
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <input type="text"
+                                                    class="total10Sal input-disabled number-only form-control rounded-0"
+                                                    readonly="readonly" value="">
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-between align-content-center element-container2 popup_bottom_imputs"
+                                            style="background-color: #e4f6ff;">
+                                            <label class="label-control col-sm-8 row align-content-center">
+                                                Average salary of last 10 months
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <input type="text" id="avg10Sal"
+                                                    class="input-disabled number-only form-control rounded-0" value=""
+                                                    readonly="readonly">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ==================================================================================================================================== -->
+                            <div class="dit-modal-popup" id="ls_sw_dialogLeaveSal" style="display: none;">
+                                <div class="dit-modal-popup-heading">
+                                    <div class="modal_popup_heading">
+                                        <span>Leave entitled during the service
+                                            period</span>
+                                        <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                                    </div>
+                                </div>
+                                <div class="modal_popup_content_container">
+                                    <div class="table-coontainer div-table">
+                                        <div class="div-row thead theader">
+                                            <div class="div-cell header-cell sno"> S.no.</div>
+                                            <div class="div-cell header-cell"> No. of years</div>
+                                            <div class="div-cell header-cell"> No. of leave entitlement per year
+                                            </div>
+                                            <div class="div-cell header-cell"> Eligible entitlement of leave</div>
+                                            <div class="div-cell header-cell"> Total no.of leave</div>
+                                        </div>
+                                        <div id="myDiv" class="div-row">
+                                            <div class="div-cell s-no">1</div>
+                                            <div class="div-cell">
+                                                <input class="noYears form-control rounded-0 rounded-0" type="text"
+                                                    onkeypress="return isNumberKey(event)" maxlength="15">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="noLeave form-control rounded-0 rounded-0" type="text"
+                                                    onkeypress="return isNumberKey(event)" maxlength="15">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="noEleLeave form-control rounded-0 rounded-0" type="text"
+                                                    onkeypress="return isNumberKey(event)" maxlength="15">
+                                            </div>
+                                            <div class="div-cell">
+                                                <input class="totalNoLeave form-control rounded-0 rounded-0"
+                                                    onkeypress="return isNumberKey(event)" readonly="readonly"
+                                                    type="text" maxlength="15">
+                                            </div>
+                                        </div>
+                                        <div class="div-row total-row">
+                                            <div class="div-cell s-no"></div>
+                                            <div class="div-cell">
+                                                <input type="text"
+                                                    class="sumYears input-disabled form-control rounded-0"
+                                                    readonly="readonly">
+                                            </div>
+                                            <div class="div-cell"></div>
+                                            <div class="div-cell"> Total no.of leave</div>
+                                            <div class="div-cell">
+                                                <input type="text"
+                                                    class="sumTLeave input-disabled form-control rounded-0"
+                                                    readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <br> <br>
+                                        <div class="popup-btns">
+                                            <button class="add_field_button_ls btn btn-primary pull-left margin-left-0">
+                                                Add more</button>
+                                            <button class="remove_field_ls btn btn-link pull-left">
+                                                Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="dit-modal-popup-overlay" id="ditover"></div>
+                    <div class="dit-modal-popup" id="gra-dialogYearGra">
+                        <div class="modal_popup_heading">
+                            <span>Computation of length of service period</span>
+                            <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                        </div>
+                        <div class="modal_popup_content div-label-font-normal">
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-3 col-xs-12 control-label label-fw-class">
+                                    Length of service period
+                                </label>
+                                <div class="row justify-content-between align-content-center col-sm-9 col-xs-12">
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control number-only input-disabled rounded-0"
+                                            id="comYearGra" value="" placeholder="year" readonly="readonly">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control number-only input-disabled rounded-0"
+                                            id="comMonthGra" value="" placeholder="month" readonly="readonly">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control number-only input-disabled rounded-0"
+                                            id="comDayGra" value="" placeholder="date" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Date of joining</label>
+                                <div class="col-sm-4 col-xs-12 date_input_view">
+                                    <input class="form-control rounded-0 actualDate" type="date" placeholder=""
+                                        onchange="mydate1(this);" hidden onclick="console.log('clickeeeddd')" />
+                                    <input class="form-control rounded-0 placeHolderDate" type="text" id="joiningDtGra"
+                                        readonly onclick="mydate(this)" placeholder="dd/mm/yyyy" />
+                                    <!-- <button type="button" onclick="mydate(this);">Date</button> -->
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Date of retirement
+                                    (mandatory field)</label>
+                                <div class="col-sm-4 col-xs-12 date_input_view">
+                                    <input class="form-control rounded-0 actualDate" type="date" placeholder=""
+                                        onchange="mydate1(this);" hidden />
+                                    <input class="form-control rounded-0 placeHolderDate" type="text" id="retireDtGra"
+                                        readonly onclick="mydate(this)" placeholder="dd/mm/yyyy" />
+                                    <!-- <button type="button" onclick="mydate(this);">Date</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dit-modal-popup" id="gra-dialog3MonthGra">
+                        <div class="dit-modal-popup-heading">
+                            <div class="modal_popup_heading">
+                                <span>Computation of One month</span>
+                                <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                            </div>
+                        </div>
+                        <div class="modal_popup_content">
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"> Wages of 3 months ending
+                                    on date of retirement (excluding OT)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" id="wages3monthGra" class="number-only form-control rounded-0"
+                                        value="" onkeypress="return isNumberKey(event)" placeholder="wages">
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Last drawn salary / Last
+                                    drawn three month salary (excluding OT)</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" id="3monthSalGra"
+                                        class="number-only form-control bg-body-secondary rounded-0" value=""
+                                        onkeypress="return isNumberKey(event)" readonly>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="dit-modal-popup-footer" style="display: none">
+                            <a href="javascript:void(0)" class="btn-blue-popup btn-popup" id="save3MonthGra">Save </a>
+                            <a href="javascript:void(0)" class="btn-grey-popup btn-popup" id="close3MonthGra">Close </a>
+                        </div>
+                    </div>
+
+                    <div class="dit-modal-popup" id="gra-dialogAvgSalaryGra">
+                        <div class="dit-modal-popup-heading">
+                            <div class="modal_popup_heading">
+                                <span>Leave entitled during the service period</span>
+                                <span href="#" class="popup_close" onclick="closeClick()">X </span>
+                            </div>
+                        </div>
+                        <div class="modal_popup_content_container">
+                            <div class="modal_popup_content WindowMaxHeightdiv div-label-font-normal">
+                                <div>
+                                    <div>
+                                        <div class="row justify-content-between align-content-center element-container2"
+                                            style="background-color: #24a7df;">
+                                            <div class="col-sm-2 popup_table_header"><strong>
+                                                    Month
+                                                </strong></div>
+                                            <div class="col-sm-2 popup_table_header"><strong>
+                                                    Basic Salary
+                                                </strong></div>
+                                            <div class="col-sm-2 popup_table_header"><strong>
+                                                    Dearness Allowance (forming part of salary)
+                                                </strong></div>
+                                            <div class="col-sm-2 popup_table_header"><strong>
+                                                    Percentage commission based on turnover
+                                                </strong></div>
+                                            <div class="col-sm-4 popup_table_header"><strong>
+                                                    Total Salary</strong></div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell popup_table_cell">
+                                                Month
+                                                1</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                2</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                3</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                4</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                5</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                6</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                7</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                8</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                9</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="row justify-content-between align-content-center element-container2">
+                                            <div class="col-sm-2 popup_table_cell">
+                                                Month
+                                                10</div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="basicSalGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="allowanceGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-2 popup_table_cell">
+                                                <input type="text"
+                                                    class="commissionGra number-only form-control rounded-0" value=""
+                                                    maxlength="15">
+                                            </div>
+                                            <div class="col-sm-4 popup_table_cell popup_table_cell_last">
+                                                <input type="text"
+                                                    class="sumSalaryGra number-only form-control bg-body-secondary rounded-0"
+                                                    value="" readonly="readonly" size="12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center popup_bottom_imputs"
+                                    style="background-color: #e4f6ff;">
+                                    <label class="label-control col-sm-8 row align-content-center">
+                                        Total salary for 10 months</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="total10SalGra number-only form-control rounded-0"
+                                            readonly="readonly" value="">
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between align-content-center element-container2 popup_bottom_imputs"
+                                    style="background-color: #e4f6ff;">
+                                    <label class="label-control col-sm-8 row align-content-center">
+                                        10 months average salary</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="avg10SalGra" class="form-control rounded-0" value=""
+                                            readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ================================================================================================================================================================================== -->
+                </section>
+
+                <br /><br />
+                <div class="action-buttons-container padding-div">
+                    <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                    <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+                </div>
+            </secction>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br><br><br>
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/leave_salary.js"></script>
+<script>
+    $(document).ready(function () {
+        // current_date=new Date('4 1 2023');
+        current_date = new Date();
+        var year1 = current_date.getFullYear();
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 7; i++) {
+            var year2 = (year1 + 1).toString().substr(-2);
+            $('#ayear').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1;
+        }
+    });
+
+    const getFormValidationState = () => {
+        const formElement1 = document.getElementById('emplrType').checkValidity();
+        const formElement2 = document.getElementById('leaveDuringServ').checkValidity();
+        return formElement1 && formElement2;
+    }
+
+
+    function getFormattedValue(strValue){
+        if (strValue !="") {
+            if (strValue % 1 != 0) {
+                round_off_val=parseFloat(strValue).toFixed(2)
+                before_decimal=(round_off_val).toString().split(".")[0]
+                after_decimal=(round_off_val).toString().split(".")[1]
+                return (parseInt(before_decimal)).toLocaleString('en-IN')+"."+after_decimal;
+            }
+            else{
+                return (parseInt(strValue)).toLocaleString('en-IN');
+            }
+        }
+        else{
+            return "0";
+        }
+    }
+
+    function Calculate() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        } 
+        hideAlert();
+        const assessment_year = +$("#ayear").val().replace(/,/g, '')||"";
+        const employer_type = $("#emplrType").val().replace(/,/g, '')||"";
+        const retirement_leave_salary_central = +$("#totalLeaveSal").val().replace(/,/g, '')||"";
+        const previous_leave_salary_central = +$("#preLeaveSal").val().replace(/,/g, '')||"";
+        const before_ret_leave_salary = +$("#prevYearLSal").val().replace(/,/g, '')||"";
+        const service_duration = +$("#durationYear").val().replace(/,/g, '')||"";
+        const total_10_months = +$("#salary10Month").val().replace(/,/g, '')||"";
+        const average_10_salary = +$("#avgSal10Month").val().replace(/,/g, '')||"";
+        const leave_entitled = +$("#leaveDuringServ").val().replace(/,/g, '')||"";
+        const leave_encash = +$("#lEncashmentDays").val().replace(/,/g, '')||"";
+        const prev_exempt_leave_salary = +$("#prevExemptLSal").val().replace(/,/g, '')||"";
+        const ret_leave_salary_recieved = +$("#retirementLSal").val().replace(/,/g, '')||"";
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/taxable_leave_salary/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/taxable_leave_salary/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/taxable_leave_salary/",
+            type: "POST",
+            data: JSON.stringify({   
+                "assessment_year":assessment_year,
+                "employer_type":employer_type,
+                "retirement_leave_salary_central":retirement_leave_salary_central,
+                "previous_leave_salary_central":previous_leave_salary_central,
+                "before_ret_leave_salary":before_ret_leave_salary,
+                "service_duration":service_duration,
+                "total_10_months":total_10_months,
+                "average_10_salary":average_10_salary,
+                "leave_entitled":leave_entitled,
+                "leave_encash":leave_encash,
+                "prev_exempt_leave_salary":prev_exempt_leave_salary,
+                "ret_leave_salary_recieved":ret_leave_salary_recieved
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    if (employer_type=="central_state_govt") {                        
+                        $("#exemptLeaveSal").val(getFormattedValue(res.data.exempted_leave_salary));
+                        $("#taxableLeaveSal").val(getFormattedValue(res.data.ret_taxable_leave_salary));
+                        $("#preTaxableLeaveSal").val(getFormattedValue(res.data.prev_taxable_leave_salary));
+                    }
+                    else{
+                        $("#lBalCrMonth").val(getFormattedValue(res.data.balance_leave_credit));
+                        $("#exemptLSal").val(getFormattedValue(res.data.exempted_leave_salary));
+                        $("#taxableLSal").val(getFormattedValue(res.data.taxable_leave_salary));
+                    }
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>
+
+</html>

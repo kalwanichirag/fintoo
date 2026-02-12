@@ -1,0 +1,114 @@
+.ReportPdf {
+  width: 70%;
+  margin: auto;
+  height: 100%;
+
+  /* border-left: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+    border-bottom: 1px solid #c6c6c6; */
+}
+.ReportProfile {
+  width: 65%;
+  margin: auto;
+  height: 100vh;
+  margin-top: 3rem;
+}
+.RightSection {
+  position: relative;
+}
+.riskTitle {
+  color: #24a7de;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.RatioType {
+  color: #24a7de;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.riskPara {
+  /* width: 62%; */
+  font-size: 1.1rem;
+  text-align: justify;
+  margin-top: 1rem;
+}
+.ScorecardDetails {
+  margin: 2rem 1rem;
+}
+.ScoreRound {
+  background-color: green;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  padding: .6rem;
+}
+.innerBox {
+  border: 5px solid #fff;
+  border-radius: 50%;
+  width: 62px;
+  height: 62px;
+  padding:1rem .7rem;
+}
+.ScoreVal{
+  font-size: .7rem;
+  color: #fff;
+  font-weight: 600;
+}
+.ScorecardDetails tr td{
+  margin: 1rem;
+}
+.RatioTable{
+  margin: 2rem;
+  width: 40%;
+}
+.RatioType{
+  margin-left: 2rem;
+}
+.RatioTData{
+  display: flex;
+  border: 1px solid #e7d7e7;
+  border-radius: 12px;
+
+  margin: 0rem 1rem;
+}
+.RatioTData table tr td{
+   padding: 6px 2px;
+   padding-right: 2rem;
+}
+.RatioTData table tr th{
+  background-color: #e6e6e5;
+  padding: 10px;
+  text-align: center;
+}
+.RatioTData table tr th:first-child{
+  border-top-left-radius: 12px;
+}
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    page-break-inside: auto;
+  }
+  .ReportPdf {
+    width: 100%;
+    margin: auto;
+    height: 100%;
+  }
+  .ReportProfile {
+    width: 90%;
+  }
+
+  .PageBreak {
+    page-break-before: always;
+  }
+  .riskPara {
+    padding: 1rem 0rem;
+  }
+}
+@page {
+  size: A4 portrait;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin: 0;
+}

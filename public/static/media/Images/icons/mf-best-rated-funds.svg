@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 10</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-74.653144%" y1="50%" x2="169.797767%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05-Mutual-funds---more-options-Copy" transform="translate(-766.000000, -459.000000)">
+            <g id="Group-10" transform="translate(766.000000, 459.000000)">
+                <g id="Group-35" fill="#EF305E">
+                    <circle id="Oval" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                    <circle id="Oval" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                    <circle id="Oval" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="31" cy="21" r="1"></circle>
+                    <circle id="Oval-Copy-2" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="11" cy="11" r="1"></circle>
+                    <circle id="Oval-Copy-3" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="23.5" cy="8.5" r="1"></circle>
+                    <circle id="Oval-Copy-4" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="9.5" cy="25.5" r="1"></circle>
+                </g>
+                <g id="noun_Star_1354329" transform="translate(10.000000, 11.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+                    <path d="M0.473781636,7.67100123 L3.98278983,10.1858838 C4.38372824,10.4730911 4.55171586,10.9822403 4.39887303,11.4471584 L3.05776195,15.5174034 C2.71560924,16.5571293 3.92181212,17.4218966 4.81894171,16.7794644 L8.3279499,14.2641886 C8.72888832,13.9765881 9.27131096,13.9765881 9.67224937,14.2641886 L13.1812576,16.7794644 C14.0779886,17.4218966 15.28459,16.5571293 14.9424373,15.5174034 L13.6019241,11.4471584 C13.4482841,10.9822403 13.6162718,10.4730911 14.0176087,10.1858838 L17.5262184,7.67100123 C18.4225509,7.02817578 17.9624282,5.62909666 16.8540686,5.62909666 L12.5166802,5.62909666 C12.0212861,5.62909666 11.5810908,5.31417116 11.4284473,4.84925306 L10.0883326,0.780384199 C9.74578131,-0.260128066 8.25481651,-0.260128066 7.9118667,0.780384199 L6.57095489,4.84944964 C6.41831134,5.31436774 5.97971022,5.62929324 5.48351905,5.62929324 L1.14593137,5.62929324 C0.0375718036,5.62929324 -0.422550857,7.02837236 0.473781636,7.67100123 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

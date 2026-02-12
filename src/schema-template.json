@@ -1,0 +1,249 @@
+{
+  "webPage": {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Fintoo: Your personal financial planning tool",
+    "url": "https://www.fintoo.in",
+    "image": "https://www.fintoo.in/web/static/media/footer/FintooLogo.png",
+    "about": {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "Financial Planning",
+      "description": "Fintoo is an online platform providing solutions for all your Financial planning, Tax planning goals with AI-powered advisory in India",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91- 9699800600",
+        "contactType": "customer service",
+        "email": "support@fintoo.in"
+      }
+    }
+  },
+  "mainEntityOfPage": {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://www.fintoo.in/web/pricing"
+  },
+  "publisher": {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Fintoo",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.fintoo.in/web/static/media/footer/FintooLogo.png",
+      "width": 600,
+      "height": 60
+    },
+    "description": "Fintoo is an online platform providing solutions for all your Financial planning, Tax planning goals with AI-powered advisory in India",
+    "sameAs": [
+      "https://x.com/FintooApp",
+      "https://www.facebook.com/fintooapp/",
+      "https://www.linkedin.com/company/1769616/",
+      "https://www.instagram.com/fintoo.app/",
+      "https://www.youtube.com/channel/UC00AMcwwfUKrV-XD5n6hWyQ/videos"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "B/309, Dynasty Business park, Opp Sangam Cinema, Andheri (East), J B Nagar, Mumbai, Maharashtra 400059",
+      "addressLocality": "Mumbai",
+      "addressRegion": "Maharashtra",
+      "postalCode": "400093",
+      "addressCountry": {
+        "@type": "Country",
+        "name": "India"
+      }
+    },
+    "contactPoint": {
+      "@type": "ContactPoint"
+    }
+  },
+  "Person": {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mihir Shah",
+    "jobTitle": "Financial Advisor",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Fintoo",
+      "url": "https://www.fintoo.in"
+    },
+    "image": "https://media.licdn.com/dms/image/v2/C4D03AQH4-ValRM2zdA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1656664661947?e=1745452800&v=beta&t=XjTRyS0SEjRaCViqId6TYCg1s6rMtrel9rLVu-sq1Xw",
+    "sameAs": [
+      "https://www.linkedin.com/in/mihir-shah-653a74118/"
+    ]
+  },
+  "FAQPage": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a Certified Financial Advisor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Certified Financial Advisor (CFA) is a financial professional who has achieved the highest level of expertise and credentialing in the field. CFAs are rigorously trained and have passed a series of exams administered by the CFA Institute, covering areas such as investment management, ethics, and economics. They provide clients with comprehensive financial planning, investment advice, and strategies to achieve financial goals."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Role of a Financial Advisor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The role of a financial advisor is to guide clients in managing their finances effectively. This includes creating personalized financial plans, managing investments, planning for retirement, optimizing tax strategies, and ensuring adequate risk management through insurance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What Exactly Does a Financial Advisor Do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A financial advisor helps clients decide how to manage their money. They assess their client’s economic health and determine their long- and short-term goals before making recommendations to meet them. They help invest money, recommend products like life insurance, and assist with tax planning."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which is Better, CFA or CFP?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A CFA is a financial professional who analyzes companies' growth, profitability, and creditworthiness, often working in investment management. A CFP, on the other hand, primarily works with individual clients and provides financial planning services like retirement and tax planning."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How to Become a SEBI Certified Financial Advisor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To become a SEBI-certified financial advisor, meet eligibility criteria, including a postgraduate degree in finance-related fields, CFA, or NISM certifications, along with relevant experience. Apply to SEBI with necessary documents and a non-refundable ₹2000 application fee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it Good to Be a Financial Advisor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Becoming a financial advisor can be rewarding if you enjoy assisting people with financial goals and have strong analytical skills. However, the profession is highly competitive and requires continuous learning."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How Do Financial Consultants Earn?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Financial consultants earn through client fees, commissions, and salaries. Fees can be charged hourly, as a fixed amount, or as a percentage of assets under management. Commissions come from selling insurance products or trading securities."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a Personal Financial Planner?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A personal financial planner helps manage money and achieve long-term financial goals, such as saving for retirement or funding education. They advise on investments, taxes, and budgeting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a Certified Financial Planner for a Business?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Certified Financial Planner (CFP) for a business is a professional with expertise in financial planning, providing businesses with specialized guidance on managing their finances, investments, and financial strategies."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a Virtual Financial Advisor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A virtual financial advisor offers personalized financial guidance remotely using digital tools and technology. They use videoconferencing, co-browsing, and online platforms to provide investment and planning advice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What Does a Digital Financial Planner Do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A digital financial planner helps individuals manage their money through online tools, tracking expenses, setting budgets, planning goals, and making smarter investment decisions with real-time insights."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is There an AI Financial Advisor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, AI financial advisors, or robo-advisors, use artificial intelligence to provide financial advice, analyze data, and offer personalized investment strategies and portfolio management."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How Much Does a Certified Financial Planner Cost in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The cost of becoming a Certified Financial Planner (CFP) in India ranges from INR 1.5 to 2 lakhs. Annual fees for CFP services vary between INR 6,000 and INR 40,000, depending on the advisor’s services."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who Needs Financial Planning?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Financial planning is beneficial for everyone, regardless of age or financial situation. Major life events like marriage, having children, or starting a business often prompt the need for financial planning."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Qualification of a Financial Planner?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To become a financial planner, a bachelor’s degree in finance, business, accounting, or economics is typically required. Additional certifications, like the Certified Financial Planner (CFP), are also essential."
+        }
+      }
+    ]
+  },
+  "ServiceSchema": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Financial Advisory Services",
+    "provider": {
+      "@type": "Organization",
+      "name": "FINTOO",
+      "url": "https://www.fintoo.in",
+      "logo": "https://www.fintoo.in/web/static/media/wp/Fintoologo_.svg",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91- 9699800600",
+        "contactType": "customer service",
+        "email": "support@fintoo.in"
+      }
+    },
+    "serviceType": "Financial Planning & Investment Advisory",
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "description": "We provide expert financial advisory services, including financial planning, investments, tax planning, and wealth management for HNI clients.",
+    "offers": {
+      "@type": "Offer",
+      "price": "4998.00",
+      "priceCurrency": "INR",
+      "validFrom": "2024-02-24",
+      "url": "https://www.fintoo.in/web/pricing"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.6",
+      "reviewCount": "225"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Bhagat Singh"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5"
+        },
+        "reviewBody": "It has been a great journey with Fintoo so far. I am consulting them for financial planning and they have not disappointed me in their methods, research and the plan was custom made to fit my needs and goals. Special thanks to Mr. Kosar and Ms. Kiran for their valuable and prompt support on any financial query that I have."
+      }
+    ]
+  }
+}

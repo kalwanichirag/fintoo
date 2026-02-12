@@ -1,0 +1,96 @@
+.popupBackdrop {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: #0000006e;
+    z-index: 99
+}
+
+.infoIcon {
+    position: absolute;
+    right: 0;
+    font-size: 1.7rem;
+    color: #b3b3b3;
+    cursor: pointer;
+    /* z-index: 100 */
+}
+
+.popupElem {
+    position: absolute;
+    right: 17%;
+    background: white;
+    border-radius: 15px;
+    width: 30%;
+    padding: 1rem;
+    z-index: 100
+}
+
+/* Fix for rupee icon visibility when autocomplete is active */
+.rupeeIcon {
+    padding-left: 25px !important;
+    background: url("../../../../components/Assets/rupee-indian.png") no-repeat left !important;
+    background-size: 10px !important;
+    background-position: 8px center !important;
+}
+
+/* Override browser autocomplete styles to keep rupee icon visible */
+.rupeeIcon:-webkit-autofill,
+.rupeeIcon:-webkit-autofill:hover,
+.rupeeIcon:-webkit-autofill:focus,
+.rupeeIcon:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: inherit !important;
+    background: url("../../../../components/Assets/rupee-indian.png") no-repeat left !important;
+    background-size: 10px !important;
+    background-position: 8px center !important;
+    padding-left: 25px !important;
+}
+
+/* For Firefox autocomplete */
+.rupeeIcon:-moz-autofill {
+    background: url("../../../../components/Assets/rupee-indian.png") no-repeat left !important;
+    background-size: 10px !important;
+    background-position: 8px center !important;
+    padding-left: 25px !important;
+}
+
+/* For Edge autocomplete */
+.rupeeIcon:-ms-input-placeholder {
+    background: url("../../../../components/Assets/rupee-indian.png") no-repeat left !important;
+    background-size: 10px !important;
+    background-position: 8px center !important;
+    padding-left: 25px !important;
+}
+
+/* Additional autocomplete overrides for better browser compatibility */
+.rupeeIcon[autocomplete] {
+    background: url("../../../../components/Assets/rupee-indian.png") no-repeat left !important;
+    background-size: 10px !important;
+    background-position: 8px center !important;
+    padding-left: 25px !important;
+}
+
+/* Force rupee icon to stay visible even when browser applies autocomplete styling */
+.rupeeIcon:focus {
+    background: url("../../../../components/Assets/rupee-indian.png") no-repeat left !important;
+    background-size: 10px !important;
+    background-position: 8px center !important;
+    padding-left: 25px !important;
+}
+
+@media only screen and (max-width: 900px) {
+    .popupElem {
+        right: 7%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .recurringFormContainer {
+        display: unset;
+    }
+
+    .popupElem {
+        width: 90%;
+    }
+}

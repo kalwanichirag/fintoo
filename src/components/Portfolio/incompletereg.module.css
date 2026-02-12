@@ -1,0 +1,47 @@
+
+.PaymentSuccess {
+    margin: auto;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 12px;
+    width: 100%;
+}
+.HeaderText{
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 1rem;
+}
+.Resmodal {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+.Resmodal .SucessImg {
+    width: 270px;
+}
+.Textlabel{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.Resmodal .ErrorBtn {
+    display: flex;
+    justify-content: center;
+}
+.Resmodal .continuebtn {
+    padding: .4rem 3rem;
+    /* height: 2.3rem; */
+    border-radius: 30px;
+    margin-left: 1rem;
+    background-color: #042b62;
+    margin-top: 2rem;
+    color: #fff;
+    border: none;
+}
+.Resmodal .continuebtn a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+}

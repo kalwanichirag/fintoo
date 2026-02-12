@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 11</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-200.676017%" y1="50%" x2="197.029928%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-200.676017%" y1="50%" x2="197.029928%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-200.676017%" y1="50%" x2="197.029928%" y2="50%" id="linearGradient-3">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-200.676017%" y1="50%" x2="197.029928%" y2="50%" id="linearGradient-4">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons" transform="translate(-436.000000, -231.000000)">
+            <g id="Group-11" transform="translate(436.000000, 231.000000)">
+                <g id="Group-3-Copy" fill="#EF305E">
+                    <g id="Group-2-Copy">
+                        <g id="Group-47">
+                            <circle id="Oval" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                            <circle id="Oval" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                            <g id="Group-13" transform="translate(7.000000, 8.000000)" opacity="0.502673921">
+                                <circle id="Oval" style="mix-blend-mode: multiply;" cx="1" cy="11" r="1"></circle>
+                                <circle id="Oval-Copy-2" style="mix-blend-mode: multiply;" cx="22" cy="10" r="1"></circle>
+                                <circle id="Oval-Copy-3" style="mix-blend-mode: multiply;" cx="19.5" cy="2.5" r="1"></circle>
+                                <circle id="Oval-Copy-4" style="mix-blend-mode: multiply;" cx="5.5" cy="0.5" r="1"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g id="mediclaim" transform="translate(13.000000, 11.000000)">
+                    <g id="noun_medical_1801800">
+                        <path d="M2.96571429,0.312591837 L2.96571429,2.02161224 L9.03428571,2.02161224 L9.03428571,0.312591837 L7.428,0.312591837 C7.43074286,0.339306122 7.43554286,0.365326531 7.43554286,0.392734694 C7.43554286,0.839938776 7.10022857,1.20353061 6.68845714,1.20353061 L5.3112,1.20353061 C4.89908571,1.20353061 4.56411429,0.839938776 4.56411429,0.392734694 C4.56411429,0.365326531 4.56925714,0.339306122 4.57165714,0.312591837 L2.96571429,0.312591837 Z" id="Path" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+                        <path d="M6,12.8454082 C7.80754286,12.8454082 9.27874286,11.3573878 9.27874286,9.52763265 C9.27874286,7.69857143 7.80788571,6.20985714 6,6.20985714 C4.19211429,6.20985714 2.72125714,7.69822449 2.72125714,9.52763265 C2.7216,11.3573878 4.19211429,12.8454082 6,12.8454082 Z M4.20617143,9.3545102 L5.82857143,9.3545102 L5.82857143,7.71244898 C5.82857143,7.61669388 5.90537143,7.53897959 6,7.53897959 C6.09462857,7.53897959 6.17142857,7.61669388 6.17142857,7.71244898 L6.17142857,9.35416327 L7.79382857,9.35416327 C7.88845714,9.35416327 7.96525714,9.43222449 7.96525714,9.52763265 C7.96525714,9.62373469 7.88845714,9.70110204 7.79382857,9.70110204 L6.17142857,9.70110204 L6.17142857,11.3428163 C6.17142857,11.4389184 6.09462857,11.5162857 6,11.5162857 C5.90537143,11.5162857 5.82857143,11.4389184 5.82857143,11.3428163 L5.82857143,9.70110204 L4.20617143,9.70110204 C4.11154286,9.70110204 4.03474286,9.62373469 4.03474286,9.52763265 C4.03474286,9.43257143 4.1112,9.3545102 4.20617143,9.3545102 Z" id="Shape" stroke="#FFFFFF" stroke-width="0.5" fill="url(#linearGradient-2)" fill-rule="nonzero"></path>
+                        <path d="M5.31154286,0.856591837 L6.6888,0.856591837 C6.91165714,0.856591837 7.09302857,0.648428571 7.09302857,0.392734694 C7.09302857,0.365326531 7.08925714,0.338959184 7.08548571,0.312591837 L4.9152,0.312591837 C4.91142857,0.338959184 4.90765714,0.365326531 4.90765714,0.392734694 C4.90731429,0.64877551 5.08868571,0.856591837 5.31154286,0.856591837 Z" id="Path" fill="url(#linearGradient-3)" fill-rule="nonzero"></path>
+                        <path d="M0.0764571429,16.6877551 L11.9238857,16.6877551 L11.9238857,2.36855102 L0.0764571429,2.36855102 L0.0764571429,16.6877551 Z M6,5.86326531 C7.9968,5.86326531 9.6216,7.50740816 9.6216,9.52797959 C9.6216,11.548551 7.99714286,13.1926939 6,13.1926939 C4.00285714,13.1926939 2.3784,11.548898 2.3784,9.52797959 C2.37874286,7.50740816 4.0032,5.86326531 6,5.86326531 Z" id="Shape" fill="url(#linearGradient-4)" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

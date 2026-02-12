@@ -1,0 +1,36 @@
+.ClientTestimonialtitle{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.clientReviewtxt{
+    color:#12141D;
+    width: 64%;
+    font-size: 1.1rem;
+    margin: auto;
+    text-align: center;
+}
+.totalReview{
+    font-size: 1.2rem;
+    padding-top: 1rem;
+}
+.googleplayreviews{
+    color: #5f6368;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 600px) {
+    .ClientTestimonialsection{
+        padding: 0 2rem;
+    }
+    .ClientTestimonialtitle{
+        font-size: 1.4rem;
+    }
+    .clientReviewtxt{
+        width: 100%;
+        font-size: .9rem;
+    }
+    .googleplayreviews{
+        font-size: 1rem;
+    }
+}

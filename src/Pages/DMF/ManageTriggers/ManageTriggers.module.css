@@ -1,0 +1,141 @@
+.TriggersData{
+    /* margin: 6rem 4rem 4rem 4rem; */
+    padding: 3rem;
+    
+}
+.TriggerHead{
+    border-bottom: 1px solid #bfbfbf;
+    padding-bottom: .5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.TextLabel{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.SmallTxt{
+    color: #a4a4a4;
+    font-size: .8rem;
+}
+.ButtonsOption {
+    position: relative;
+}
+.ButtonsOption:hover .hover-menu-u {
+    display: block;
+}
+.ButtonsOption button{
+    border-radius: 20px;
+    border: 1.5px solid #042b62;
+    background: transparent;
+    outline: none;
+    color: #042b62;
+    font-weight: 500;
+    padding:5px 11px 5px 11px;
+    font-size: 0.8rem;
+}
+.UnSubsButtonsOption{
+    position: relative;
+}
+.UnSubsButtonsOption:hover .hover-menu-u {
+    display: block;
+}
+.UnSubsButtonsOption button{
+    border-radius: 20px;
+    border: transparent;
+    background: #000000;
+    outline: none;
+    color: #ffffff;
+    font-weight: 500;
+    padding:5px 11px 5px 11px;
+    font-size: 0.8rem;
+}
+.hover-menu-u {
+    position: absolute;
+    width: 9rem;
+    margin-top: -.5rem;
+    display: none;
+}
+.hover-menu-bx {
+    border-radius: 10px;
+    border: 1px solid #bfbfbf;
+    margin-top: 1rem;
+    background: #fff;
+    overflow: hidden;
+}
+.hover-menu-bx img {
+    width: 16px;
+    height: 16px;
+}
+.ButtonsOption button img{
+    vertical-align: sub;
+}
+.hover-menu-li {
+    padding: .3rem .5rem;
+    cursor: pointer;
+}
+.hover-menu-li:hover {
+    background: #fafafa;
+}
+.hover-menu-li span {
+    padding-left: 5px;
+}
+
+.buttonList {
+    display: flex;
+}
+.buttonList button {
+    border: solid 1px #042b62;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+/* .box-container {
+    padding-top: 1rem;
+    border: 1px solid 
+} */
+.accd-name {
+    font-size: .9rem;
+    font-weight: bold;
+    padding-right: .4rem;
+}
+.buttonList div button {
+    margin-bottom: 0px;
+    padding: .1rem 1rem;
+    font-size: .8rem;
+}
+.buttonList button:hover {
+    background-color: #042b62;
+    color: #fff;
+}
+.buttonList .active{
+    background-color: #042b62;
+    color: #fff;
+
+}
+.box-inner-con {
+    display: flex;
+    align-items: center;
+}
+.box-inner-head {
+    padding-bottom: 1rem;
+}
+.box-inner-con p {
+    margin-bottom: 0px;
+}
+.para-w {
+    width: 60%;
+}
+/* mobile css ------ important ----- */
+@media only screen and (max-width: 768px) {
+    .TriggersData {
+        padding: 0px!important;
+        padding-top: 3rem!important;
+    }
+    .para-w {
+        width: 100%;
+    }
+}
+.AccordionChange{
+    pointer-events: none;
+    opacity: .4;
+    }

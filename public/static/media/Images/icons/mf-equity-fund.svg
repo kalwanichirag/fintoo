@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 8</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-79.9349505%" y1="50%" x2="114.61221%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-74.653144%" y1="50%" x2="479.923499%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-195.769361%" y1="50%" x2="236.61897%" y2="50%" id="linearGradient-3">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-186.321679%" y1="50%" x2="100%" y2="50%" id="linearGradient-4">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-210.158956%" y1="50%" x2="225.766841%" y2="50%" id="linearGradient-5">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05-Mutual-funds---more-options-Copy" transform="translate(-976.000000, -539.000000)">
+            <g id="Group-8" transform="translate(976.000000, 539.000000)">
+                <circle id="Oval" fill="#EF305E" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                <circle id="Oval" fill="#EF305E" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                <g id="noun_Stock-Exchange_2252364" transform="translate(10.000000, 11.000000)" fill-rule="nonzero">
+                    <g id="Group">
+                        <path d="M9.2739,3.87533091 L7.3891,5.89908364 C7.12791018,5.79948332 6.83452011,5.83104209 6.60074615,5.98388364 L5.64855385,5.32461091 C5.72569338,4.96494648 5.5659299,4.59605536 5.25023513,4.40489982 C4.93454035,4.21374427 4.53191837,4.24210681 4.24642703,4.47561266 C3.96093569,4.70911851 3.85497726,5.09672831 3.98225385,5.44199273 L2.46605385,6.80155636 C2.08972289,6.62388493 1.63964655,6.73684087 1.39297462,7.07086773 C1.1463027,7.40489458 1.17236411,7.86611169 1.45511066,8.17050895 C1.73785722,8.47490621 2.19782095,8.53693057 2.55176356,8.31838842 C2.90570617,8.09984627 3.05414954,7.66216047 2.90568462,7.27485091 L4.41574615,5.92088727 C4.69615383,6.05763694 5.02871622,6.03420633 5.28696923,5.85950545 L6.23097692,6.51300364 C6.14562046,6.88235871 6.31175538,7.26400573 6.6408865,7.45465252 C6.97001762,7.64529931 7.38551506,7.60055859 7.66605553,7.34426241 C7.946596,7.08796624 8.02686273,6.67978671 7.8641,6.33714909 L9.7185,4.34613818 C9.95433202,4.45467815 10.2265846,4.45254384 10.4606692,4.34032 L11.4774615,5.30357818 C11.3319166,5.6673014 11.4499398,6.0829669 11.7652356,6.31708915 C12.0805315,6.5512114 12.5145118,6.54543487 12.8234033,6.30300432 C13.1322948,6.06057377 13.2391056,5.6419156 13.0838385,5.28219636 L16.2347692,2.13269818 C16.6100334,2.31240543 17.0606416,2.20201152 17.3092021,1.86947432 C17.5577625,1.53693712 17.534444,1.07568055 17.2536012,0.769651504 C16.9727584,0.463622461 16.5132921,0.398797597 16.1580471,0.615082728 C15.8028021,0.831367858 15.651582,1.26799924 15.7974769,1.65618909 L12.6247692,4.82738909 C12.4003277,4.73234327 12.1460887,4.73551001 11.9241077,4.83611636 L10.8978154,3.86389818 C11.0339627,3.50277933 10.9134706,3.0955829 10.6023938,2.86553726 C10.291317,2.63549161 9.86479833,2.63816585 9.55665868,2.87209393 C9.24851902,3.10602201 9.13319167,3.51469702 9.2739,3.87408 L9.2739,3.87533091 Z" id="Path" fill="url(#linearGradient-1)"></path>
+                        <polygon id="Path" fill="url(#linearGradient-2)" points="0.7733 10.6316655 0.7733 15.9483636 3.05987692 15.9483636 3.05987692 10.6316655"></polygon>
+                        <polygon id="Path" fill="url(#linearGradient-3)" points="5.5632 9.20437818 5.5632 15.9483636 7.84992308 15.9483636 7.84992308 9.20437818"></polygon>
+                        <polygon id="Path" fill="url(#linearGradient-4)" points="15.5013692 15.9483636 15.5013692 7.64626909 17.7880923 7.64626909 17.7880923 15.9483636"></polygon>
+                        <polygon id="Path" fill="url(#linearGradient-5)" points="10.5284846 15.9483636 10.5284846 7.64626909 12.8152077 7.64626909 12.8152077 15.9483636"></polygon>
+                    </g>
+                </g>
+                <circle id="Oval" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="7" cy="14" r="1"></circle>
+                <circle id="Oval-Copy-2" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="31" cy="20" r="1"></circle>
+                <circle id="Oval-Copy-3" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="13.5" cy="7.5" r="1"></circle>
+                <circle id="Oval-Copy-4" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="28.5" cy="9.5" r="1"></circle>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

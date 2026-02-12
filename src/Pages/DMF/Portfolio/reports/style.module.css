@@ -1,0 +1,178 @@
+.reportTextDate {
+    font-size: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.portfolioHead {
+    margin-top: 1rem;
+}
+.portfolioHead p {
+    margin: 0px;
+    text-align: center;
+}
+.portfolioHead p:nth-child(2) {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.no-results {
+    margin: auto;
+    display: block;
+}
+.assetBoxTableWrapper {
+    border-radius: 20px;
+    overflow: hidden;
+}
+.assetBoxDv {
+    background-color: #F8FCFE;
+    /* background-color: #042b62; */
+    padding: 2rem;
+    margin: 2px;
+}
+.assetBoxTable {
+    width: 100%;
+}
+.assetBoxDv p {
+    margin-top: 0px; 
+    margin-bottom: 0px;
+    white-space: nowrap;
+}
+.assetBoxTitle {
+    
+}
+.assetBoxAmount {
+    font-weight: bold;
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+}
+.assetBoxAmount span {
+    font-weight: 400;
+    font-size: 1rem;
+    vertical-align: top;
+}
+.bottomBtn {
+    background: transparent;
+    border: 0px;
+}
+.emptyLine {
+    background: rgba(0, 0, 0, 0.4);
+    margin-left: 1rem;
+    margin-right: 1rem;
+    height: 10px;
+    width: 1.5px;
+}
+.bottomBtnDv {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.bottomBtnDv p {
+    color: rgba(0, 0, 0, 0.4);
+}
+.showMoreDv {
+    position: absolute;
+    width: 300px;
+    top: 10px;
+    left: -100px;
+    z-index: 14;
+    display: none;
+    padding-top: 25px;
+}
+.showMoreDvInner {
+    border: 1px solid rgba(176, 176, 176, 1);
+    padding: 10px;
+    border-radius: 20px;
+    background: #fff;
+}
+.showMoreDv p {
+    font-size: 0.8rem;
+}
+.borderDvRight {
+    border-right: 1px solid rgba(176, 176, 176, 1);
+}
+.btnIcons {
+    width: 20px;
+    height: 20px;
+}
+.shareNowDv:hover .showMoreDv {
+    display: block;
+}
+.assetInvText {
+    margin: 0px;
+    margin-bottom: 5px;
+}
+.assetInvValue {
+    margin: 0px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.assetBoxColLine {
+    position: relative;
+}
+.assetBoxColLine::after {
+    content: " ";
+    height: 85%;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 3px;
+    right: 38px;
+}
+.assetBoxWrapper {
+    background: #F8FCFE;
+    padding: 15px;
+}
+
+/* Empty State Styles */
+.emptyStateContainer {
+    padding: 2rem 1rem;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+}
+
+.emptyStateTitle {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #042b62;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.emptyStateMessage {
+    font-size: 1rem;
+    color: #333333;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.emptyStateMessage p {
+    margin-bottom: 0.5rem;
+}
+
+.emptyStateButton {
+    display: inline-block;
+    background: #042b62;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin: 1rem 0;
+}
+
+.emptyStateButton:hover {
+    background: #031a3f;
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(4, 43, 98, 0.3);
+}
+
+.emptyStateImage {
+    margin-top: 2rem;
+    max-width: 100%;
+    height: auto;
+}
+

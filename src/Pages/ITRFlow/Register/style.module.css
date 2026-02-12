@@ -1,0 +1,124 @@
+.login_header {
+  position: absolute;
+  top: 0;
+  width: 59%;
+  z-index: 1;
+  padding: 15px;
+}
+.login_header .back_arrow {
+  top: 17px;
+}
+.back_arrow {
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  top: 30px;
+  left: 30px;
+  background-color: rgba(0, 82, 99, 0.14);
+  padding: 14px;
+  border-radius: 12px;
+  z-index: 1;
+}
+.back_arrow img {
+  display: block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+}
+.login_block {
+  margin-top: 1rem;
+}
+.login_header a {
+  color: #042b62;
+  text-decoration: none;
+}
+.login_header .logo img {
+  vertical-align: middle;
+  display: block;
+  margin: 0 auto;
+}
+.page_header {
+  font-size: 28px;
+  font-weight: 550;
+  line-height: 1.5;
+  margin-top: 2rem;
+}
+.material {
+  border: none;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+  margin-bottom: 10px;
+}
+.material input::placeholder {
+  font-size: 1.1rem;
+  font-weight: 400;
+  padding-bottom: 7rem;
+}
+.page_subTxt {
+  color: #383838;
+  font-size: 1.1rem;
+}
+.material input {
+  background: 0 0;
+  padding: 5px 0 10px 0;
+  display: block;
+  resize: none;
+  width: 100%;
+  color: #383838;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0, 82, 99, 0.31);
+  appearance: none;
+  -webkit-appearance: none;
+}
+.refresh_captcha {
+  width: 20%;
+  margin-top: 15px;
+  float: left;
+  cursor: pointer;
+}
+.default_btn {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  background: #042b62;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+  padding: 10px 30px;
+  border-radius: 20px;
+  margin: 15px auto;
+  transition: 0.2s all ease-out;
+}
+.login_illustration {
+  background: url(../images/01_personal_data.svg) no-repeat;
+  background-size: 120%;
+  background-position: right 10%;
+
+  /* margin-right: 2rem; */
+  height: 100vh;
+}
+.placeholder {
+    position: relative;
+}
+.placeholder label {
+  position: absolute;
+  top: 5px;
+  z-index: -1;
+  color: gray;
+}
+.placeholder label span {
+  color: #042b62;
+}
+.placeholder input:invalid + label {
+  display: inline-block;
+}
+
+.placeholder input:valid + label {
+  display: none;
+}

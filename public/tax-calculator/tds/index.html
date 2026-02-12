@@ -1,0 +1,589 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/TDS.css">
+    <title>TDS Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <span class="link206AA">
+        <span class="link206AAArrow"></span>
+        206AA of the income tax act, 1961 is a provision that requires individuals to mandatorily furnish their
+        permanent account number (PAN) to the person responsible for deducting tax at source (TDS) or collecting tax at
+        source (TCS), failing which a higher rate of tax will be deducted or collected.</span>
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="heading fw-normal active">
+                TDS CALCULATOR</div>
+        </div>
+        <div class="form-content-container">
+            <section class="incom-and-tax-calculator-form-section">
+                <br /><br />
+                <form class="incom-and-tax-calculator-form" id="TDSform">
+                    <div class="padding-div">
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Financial year *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                    id="financial_year" class="form-select rounded-0" required>
+                                    <option value="">Select</option>
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Residential status *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                    id="residential_status" class="form-select rounded-0" onchange="" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Resident</option>
+                                    <option value="2">Non-Resident</option>
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Recipient type *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                    id="recipient_type" class="form-select rounded-0" onchange="" required>
+                                    <option value="">Select</option>
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+                        <div id="recipient_category_element" style="display: none;">
+                            <div class="row justify-content-between align-content-center tax-payer element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Recipient category
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select id="recipient_category" class="form-select rounded-0" onchange="">
+                                        <option selected value="1">Individual/HUF</option>
+                                        <option value="2">Firms</option>
+                                        <option value="3">Co-operative Society</option>
+                                        <option value="4">Other non-corporate</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="row justify-content-between align-content-center income-from-salary element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                id="income-from-salary-label">PAN is not available (<span class="linkText"
+                                    onmouseenter="tooltipOn(this,'link206AA','link206AAArrow')"
+                                    onmouseleave="tooltipOff(event,'link206AA','link206AAArrow')">Sec.
+                                    206AA</span>)</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <label class="control-label fw-bold">
+                                    <input class="form-check-input" id="pan" type="checkbox" />&nbsp;&nbsp;&nbsp;(Tick
+                                    if yes)</label>
+                            </div>
+                        </div>
+
+                        <div id="non_filers_it_return_element" style="display: none;">
+                            <div
+                                class="row justify-content-between align-content-center income-from-salary element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Non-filers of IT return and TDS/ TCS more than
+                                    specified limit as per section 206AB?</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <label class="control-label fw-bold">
+                                        <input class="form-check-input" id="non_filers_it_return"
+                                            type="checkbox" />&nbsp;&nbsp;&nbsp;(Tick
+                                        if yes)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Section / Description *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" id="section"
+                                    class="form-select rounded-0" onchange="" required></select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+                        <div class="p-4 mb-4" style="background-color: #d9edf7;display: none;" id="option_info">
+                            <span id="msg1" class="col-sm-12 col-xs-12 control-label label-fw-class"></span>
+                            <br id="br1"><br id="br2">
+                            <span id="msg2"></span>
+                            <!-- <span>a) 2% from amount withdrawn in cash if aggregate amount
+                                withdrawn exceeds Rs. 20 lakhs during the previous year</span> -->
+                            <br>
+                            <span id="msg3"></span>
+                            <!-- <span>b) 5% from amount withdrawn in cash if aggregate amount
+                                withdrawn exceeds Rs. 1 crore during the previous year</span>
+                            <span>Above rates will be applicable if deductee has not filed ITR for 3 previous
+                                years.</span> -->
+                            <br>
+                            <span id="msg4"></span>
+                        </div>
+
+                        <div class="p-4 mb-4" style="background-color: #d9edf7;display: none;" id="194Q_info_element">
+                            <span>a) This section is applicable w.e.f. 1st
+                                July,2021</span>
+                            <br>
+                            <span>b) TDS is deductible under this section if Tax is not
+                                collectible under any other provision of section 206C.</span>
+                        </div>
+
+                        <div id="option_element" style="display: none;">
+                            <div class="row justify-content-between align-content-center tax-payer element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Select Option *
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" id="option"
+                                        class="form-select rounded-0" required>
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-between align-content-center element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Amount of payment *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)" type="text"
+                                    maxlength="15" id="amount_of_payment" class="form-control rounded-0" required />
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                TDS
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input type="text" maxlength="15" id="TDS"
+                                    class="form-control rounded-0 bg-body-secondary" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Surcharge
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input type="text" maxlength="15" id="surcharge"
+                                    class="form-control rounded-0 bg-body-secondary" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center element-container"
+                            id="education_cess_element">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Education cess
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input type="text" maxlength="15" id="education_cess"
+                                    class="form-control rounded-0 bg-body-secondary" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center element-container"
+                            id="secondary_and_higher_education_cess_element">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Secondary and higher education cess
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input type="text" maxlength="15" id="secondary_and_higher_education_cess"
+                                    class="form-control rounded-0 bg-body-secondary" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center element-container"
+                            style="display: none;" id="health_and_education_cess_element">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Health and Education Cess
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input type="text" maxlength="15" id="health_and_education_cess"
+                                    class="form-control rounded-0 bg-body-secondary" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Total TDS to be deducted
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input type="text" maxlength="15" id="total_TDS"
+                                    class="form-control rounded-0 bg-body-secondary" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <div class="action-buttons-container padding-div">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-note">
+                <span class="fw-bold"> Note 1: </span>
+                Consider tax treaties before determining the rate of withholding tax under section 195.​
+                <br>
+                <span class="fw-bold"> Note 2: </span>
+                Monetary limit for TDS applicability should be considered while determining TDS liability.​
+            </div>
+            <br />
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+    <!-- ===================================================================================================================== -->
+    <div id="dropdown-template" hidden="">
+        <select class="form-select rounded-0" name="template-0">
+            <option value="">Select</option>
+            <option value="192A">192A:Payment of taxable accumulated balance of provident fund
+            </option>
+            <option value="193">193:Interest on securities to a resident</option>
+            <option value="194">194:Dividend to a resident</option>
+            <option value="194A">194A:Interest other than interest on securities to a resident
+            </option>
+            <option value="194B">194B:Winning from lottery or crossword puzzle or card game or
+                other game of any sort to a resident</option>
+            <option value="194BB">194BB:Winning from Horse races to a resident</option>
+            <option value="194C">194C:Payment to a resident contractor/sub-contractor</option>
+            <option value="194D">194D:Insurance commission to a resident</option>
+            <option value="194DA">194DA:Payment in respect of life insurance policy</option>
+            <option value="194EE">194EE:Payment in respect of deposits under National Savings
+                Scheme, 1987 to a resident</option>
+            <option value="194F">194F:Payment on account of repurchase of units of MF or UTI to
+                a resident</option>
+            <option value="194G">194G:Commission on sale of lottery tickets to a resident
+            </option>
+            <option value="194H">194H:Commission or brokerage to a resident</option>
+            <option value="194I(a)">194I(a):Rent to a resident (Plant and Machinery)</option>
+            <option value="194I(b)">194I(b):Rent to a resident (Others)</option>
+            <option value="194IA">194IA:Payment/credit of considration to a resident transferor
+                for transfer of any immovable property</option>
+            <option value="194IB">194IB:Payment/credit of rent by Individual/HUF to a resident
+            </option>
+            <option value="194IC">194IC:Payment under joint development agreement to resident
+                Individual/HUF</option>
+            <option value="194J">194J:Fees for professional or technical services to a resident
+            </option>
+            <option value="194K">194K:Payment of Income to specified unit-holders</option>
+            <option value="194LA">194LA:Payment of compensation to a resident on acquisition of
+                certain immovable property</option>
+            <option value="194LBA(1)">194LBA(1):Income from units of a business trust</option>
+            <option value="194LBB">194LBB:Payment in respect of units of investment fund
+                specified in section 115UB</option>
+            <option value="194LBC">194LBC:Income from Investment in specified securitization
+                trust u/s 115TCA</option>
+            <option value="194M">194M:TDS on account of contractual work, brokerage and
+                professional fees etc.</option>
+            <option value="194N">194N:TDS on Cash Withdrawls</option>
+            <option value="194N">194N:Interest on securities to a resident</option>
+            <option value="194O">194O:Purchase of goods (Value exceeding 50 lakhs or more)
+            </option>
+            <option value="194O">194O:Payment by e-commerce operators to e commerce participants
+            </option>
+            <option value="194Q">194Q:Purchase of goods (Value exceeding 50 lakhs or more)
+            </option>
+            <option value="194R">194R:TDS on benefit/perquisite paid to Business/Profession
+            </option>
+            <option value="194S">194S:TDS from payment on transfer of Virtual Digital Asset
+            </option>
+
+        </select>
+
+        <select class="form-select rounded-0" name="template-1">
+            <option value="">Select</option>
+            <option value="193">193:Interest on securities to a resident</option>
+            <option value="194">194:Dividend to a resident</option>
+            <option value="194A">194A:Interest other than interest on securities to a resident</option>
+            <option value="194B">194B:Winning from lottery or crossword puzzle or card game or other game of any
+                sort to
+                a resident</option>
+            <option value="194BB">194BB:Winning from Horse races to a resident</option>
+            <option value="194C">194C:Payment to a resident contractor/sub-contractor</option>
+            <option value="194D">194D:Insurance commission to a resident</option>
+            <option value="194EE">194EE:Payment in respect of deposits under National Savings Scheme, 1987 to a
+                resident
+            </option>
+            <option value="194F">194F:Payment on account of repurchase of units of MF or UTI to a resident</option>
+            <option value="194G">194G:Commission on sale of lottery tickets to a resident</option>
+            <option value="194H">194H:Commission or brokerage to a resident</option>
+            <option value="194I(a)">194I(a):Rent to a resident (Plant and Machinery)</option>
+            <option value="194I(b)">194I(b):Rent to a resident (Others)</option>
+            <option value="194IA">194IA:Payment/credit of considration to a resident transferor for transfer of any
+                immovable property</option>
+            <option value="194J">194J:Fees for professional or technical services to a resident</option>
+            <option value="194LA">194LA:Payment of compensation to a resident on acquisition of certain immovable
+                property</option>
+
+        </select>
+
+        <select class="form-select rounded-0" name="template-2">
+            <option value="">Select</option>
+            <option value="194B">194B:Winning from lottery or crossword puzzle or card game or other game of any
+                sort to
+                a Non-resident</option>
+            <option value="194BB">194BB:Winning from Horse races to a Non-resident</option>
+            <option value="194E">194E:Payment to a non-resident foreign citizen sportsman/enterainer or non-resident
+                sports association</option>
+            <option value="194EE">194EE:Payment in respect of deposits under National Savings Scheme, 1987 to a
+                Non-resident</option>
+            <option value="194F">194F:Payment on account of repurchase of units of MF or UTI to a Non-resident
+            </option>
+            <option value="194G">194G:Commission on sale of lottery tickets to a Non-resident</option>
+            <option value="194LB">194LB:Interest payable to non-resident by an infrastructure debt bond</option>
+            <option value="194LC">194LC:Income by way of interest from Indian company engaged in certain business
+            </option>
+            <option value="194LD">194LD:Interest on a rupee denominated bond of an Indian company or government
+                security
+            </option>
+            <option value="195">195:Payment/credit of other sum to a non-resident</option>
+            <option value="196B">196B:Income from units (including long-term capital gains on transfer of such
+                units) to
+                an offshore fund</option>
+            <option value="196C">196C:Income from foreign currency bonds or GDR (including long-term capital gains
+                on
+                transfer of such bonds) (not being dividend)</option>
+            <option value="196D">196D:Income from Foreign Institutional Investors from securities (not being
+                dividend,
+                short-term or long-term capital gain)</option>
+        </select>
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/TDS.js"></script>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+        current_date = new Date();
+        var year1 = current_date.getFullYear() - 1;
+        var apr = new Date('4 1 ' + year1.toString());
+        if (current_date < apr) {
+            year1 -= 1;
+        }
+        for (i = 0; i < 11; i++) {
+            var year2 = (year1 + 1).toString().substr(-2);
+            $('#financial_year').append(`<option value="${i + 1}">${year1.toString() + "-" + year2.toString()}</option>`)
+            year1 -= 1;
+        }
+    });
+
+    const getFormValidationState = () => {
+        const formElement = document.getElementById('TDSform');
+        const isFormValid = formElement.checkValidity();
+        return isFormValid
+    }
+
+
+    function getFormattedValue(strValue){
+        strValue=strValue.replace(/,/g, '');
+        if (strValue !="") {
+            if (strValue % 1 != 0) {
+                round_off_val=parseFloat(strValue).toFixed(2)
+                before_decimal=(round_off_val).toString().split(".")[0]
+                after_decimal=(round_off_val).toString().split(".")[1]
+                return (parseInt(before_decimal)).toLocaleString('en-IN')+"."+after_decimal;
+            }
+            else{
+                return (parseInt(strValue)).toLocaleString('en-IN');
+            }
+        }
+        else{
+            return "0";
+        }
+    }
+
+    function Calculate() {
+        if (!getFormValidationState()) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            return
+        } 
+        hideAlert();
+        const financial_year = +$("#financial_year").val()||"";
+        const amount_of_payment = +$("#amount_of_payment").val().replace(/,/g, '')||"";
+        const residential_status = $("#residential_status").val();
+        const recipient_type = $("#recipient_type").val();
+        const recipient_category = $("#recipient_category").val();
+        const section = $("#section").val();
+        const option = $("#option").val();
+        const pan = $('#pan')[0].checked == true ? "1" : "";
+        const non_filers_it_return = $('#non_filers_it_return')[0].checked == true ? "1" : "";
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/tds/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/tds/",
+            // url: "http://127.0.0.1:8000/tax_calc_bots/tds/",
+            type: "POST",
+            data: JSON.stringify({   
+                "financial_year":financial_year,
+                "residential_status":residential_status,
+                "recipient_type":recipient_type,
+                "recipient_category":recipient_category,
+                "pan":pan,
+                "non_filers_it_return":non_filers_it_return,
+                "section":section,
+                "option":option,
+                "amount_of_payment":amount_of_payment
+            }),
+            dataType: "json",
+            success: function (res) {
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    $("#TDS").val(getFormattedValue(res.data.TDS));
+                    $("#surcharge").val(getFormattedValue(res.data.surcharge));
+                    $("#total_TDS").val(getFormattedValue(res.data.total_TDS));
+                    if (typeof res.data.alert_msg != 'undefined' || res.data.alert_msg != null) {
+                        showAlert();
+                        document.getElementById("income_and_tax_calculator_alert_text").innerHTML = res.data.alert_msg;
+                    }
+                    document.getElementById("msg1").innerHTML = "";
+                    document.getElementById("msg2").innerHTML = "";
+                    document.getElementById("msg3").innerHTML = "";
+                    document.getElementById("msg4").innerHTML = "";
+                    $('#br1').hide();
+                    $('#br2').hide();
+                    if (typeof res.data.msg1 != 'undefined' || res.data.msg1 != null) {
+                        $('#option_info').show();
+                        document.getElementById("msg1").innerHTML = res.data.msg1;
+                        $('#br1').show();
+                        $('#br2').show();
+                    }
+                    if (typeof res.data.msg2 != 'undefined' || res.data.msg2 != null) {
+                        $('#option_info').show()
+                        document.getElementById("msg2").innerHTML = res.data.msg2;
+                    }
+                    if (typeof res.data.msg3 != 'undefined' || res.data.msg3 != null) {
+                        $('#option_info').show()
+                        document.getElementById("msg3").innerHTML = res.data.msg3;
+                    }
+                    if (typeof res.data.msg4 != 'undefined' || res.data.msg4 != null) {
+                        $('#option_info').show()
+                        document.getElementById("msg4").innerHTML = res.data.msg4;
+                    }
+                    if (typeof res.data.health_and_education_cess != 'undefined' || res.data.health_and_education_cess != null) {
+                        $("#health_and_education_cess").val(getFormattedValue(res.data.health_and_education_cess));
+                    }
+                    else{
+                        $("#education_cess").val(getFormattedValue(res.data.education_cess));
+                        $("#secondary_and_higher_education_cess").val(getFormattedValue(res.data.secondary_and_higher_education_cess));
+                        }
+                }
+                else if (res.error_code == "102") {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 9px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: #042b62;
+      }
+
+      .cls-1, .cls-4, .cls-3, .cls-5, .cls-6 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke-width: 15px;
+      }
+
+      .cls-4, .cls-5, .cls-6 {
+        fill: none;
+      }
+
+      .cls-3 {
+        stroke-width: 4px;
+      }
+
+      .cls-5 {
+        stroke-width: 24px;
+      }
+
+      .cls-6 {
+        stroke-width: 20px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-5" cx="540.5" cy="562.5" r="408.5"/>
+  <g>
+    <rect class="cls-6" x="281" y="408.48" width="510" height="328.52" rx="73.85" ry="73.85"/>
+    <path class="cls-4" d="M463.13,528.73c0,18.74-8.18,35.57-21.16,47.12-11.13,9.9-25.8,15.91-41.87,15.91s-30.67-5.99-41.79-15.84c-13.03-11.55-21.24-28.41-21.24-47.19,0-34.81,28.22-63.04,63.04-63.04s63.04,28.22,63.04,63.04Z"/>
+    <circle class="cls-4" cx="400.14" cy="517.35" r="27.54"/>
+    <path class="cls-4" d="M441.97,575.85c-11.13,9.9-25.8,15.91-41.87,15.91s-30.67-5.99-41.79-15.84c5.43-17.96,22.11-31.03,41.84-31.03s36.37,13.04,41.82,30.96Z"/>
+    <rect class="cls-3" x="582.45" y="462.01" width="155.03" height="73.21" rx="14.01" ry="14.01"/>
+    <line class="cls-1" x1="322.22" y1="623.8" x2="477.96" y2="623.8"/>
+    <line class="cls-1" x1="322.22" y1="651.49" x2="477.96" y2="651.49"/>
+    <line class="cls-1" x1="549.23" y1="585.66" x2="737.48" y2="585.66"/>
+    <line class="cls-1" x1="549.23" y1="560.75" x2="737.48" y2="560.75"/>
+    <line class="cls-1" x1="549.23" y1="613.34" x2="737.48" y2="613.34"/>
+    <line class="cls-1" x1="643.35" y1="641.34" x2="737.48" y2="641.34"/>
+    <circle class="cls-2" cx="598.14" cy="641.34" r="7.69"/>
+    <circle class="cls-2" cx="571.07" cy="641.34" r="7.69"/>
+    <circle class="cls-2" cx="624.59" cy="641.34" r="7.69"/>
+  </g>
+</svg>

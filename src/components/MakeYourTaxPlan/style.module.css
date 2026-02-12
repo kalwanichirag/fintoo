@@ -1,0 +1,31 @@
+.TradeText {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.PlanBox {
+    border: 1px solid #d8d8d8;
+    padding: 0rem;
+    border-radius: 12px;
+    /* margin-top: 2.6rem; */
+}
+.tradebox {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    
+}
+.TradeNextImg {
+    padding-right: 3rem;
+}
+.BigPlanText {
+    color: #005b98;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+.SmallPlanText {
+    color: #042b62;
+    font-size: 1rem;
+}
+.TradeImg {
+    margin-left: -2rem;
+    margin-top: -1rem;
+}

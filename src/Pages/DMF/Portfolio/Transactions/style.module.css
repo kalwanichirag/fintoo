@@ -1,0 +1,362 @@
+.infoHeaderContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.infoContainer {
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.transactionInfoContainer {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  border-bottom: 1px solid #c7c8c9;
+  padding: 1rem 0 1.5rem 0;
+}
+
+.transactionInfoContainerImgTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.transactionInfoContainerImg {
+  width: 10%;
+}
+
+.transactionInfoContainerTitle {
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.transactionInfoContainerAmountContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.transactionInfoContainerAmount {
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+.transactionInfoDataContainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  border-bottom: 1px solid #c7c8c9;
+  padding: 1.5rem 0;
+}
+
+.transactionInfoDataItemLeft {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 1rem;
+  padding: 0.5rem 0;
+}
+
+.transactionInfoDataItemRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 1rem;
+  padding: 0.5rem 0;
+}
+
+.transactionInfoDataItemLabel {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: grey;
+}
+
+.transactionInfoDataItemLabelVal {
+  text-align: right;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.transactionInfoDataFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0 0.5rem 0;
+}
+
+.transactionInfoStepContainer {
+    align-items: center;
+    display: flex;
+    padding: 1rem 1rem 1rem 2.5rem;
+}
+
+/* ============================================================================== Step style =========================================================================== */
+.stepContainer {
+  display: flex;
+  gap: 2rem;
+}
+
+.investmoreBtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.investmoreBtn button {
+  background: #1e40af;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.investmoreBtn button:hover {
+  background: #1d4ed8;
+}
+
+.stepElementsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.stepText {
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.1rem;
+  color: grey;
+  /* padding-bottom: 1rem; */
+}
+
+.stepMessageContainer {
+  width: 100%;
+  color: #042b62;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 2rem;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+
+.line {
+  width: 100%;
+  height: 0%;
+  transition: height;
+  animation-name: animateHeight;
+  animation-duration: 2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.bubble {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 999;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #d3d3d3;
+  animation-duration: 1.5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.bubble:last-child {
+  animation-iteration-count: infinite;
+}
+
+.bubble_content {
+  position: absolute;
+  font-size: 0.9rem;
+  top: 8px;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 99;
+  color: white;
+  font-weight: normal;
+}
+
+.bubble_success_key_frame {
+  animation-name: animateDot;
+}
+
+.bubble_pending_key_frame {
+  /* animation-name: animateDotPending; */
+  --box-shadow-color-from: 0 0 0 0 rgba(255, 166, 0, 0.4);
+  --box-shadow-color-to: 0 0 0 10px rgba(255, 170, 0, 0.481);
+  background: orange;
+}
+
+.bubble_failed_key_frame {
+  animation-name: animateDotFailed;
+}
+.stepBankname {
+  color: rgba(0, 0, 0, 0.5);
+}
+.investmoreBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+.investmoreBtn button {
+  background-color: #042b62;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  padding: 0.5rem 1.4rem;
+  font-weight: 500;
+  border-radius: 20px;
+}
+
+:root {
+  --box-shadow-color-from: rgba(0, 0, 0, 0.5);
+  --box-shadow-color-to: rgba(255, 255, 255, 0.5);
+}
+
+.bubble_pending_key {
+  --box-shadow-color-from: 0 0 0 0 rgba(255, 166, 0, 0.4);
+  --box-shadow-color-to: 0 0 0 10px rgba(255, 170, 0, 0.481);
+  background: orange;
+}
+.bubble_success_key {
+  --box-shadow-color-from: 0 0 0 0 rgba(0, 128, 0, 0.616);
+  --box-shadow-color-to: 0 0 0 10px rgba(0, 128, 0, 0.303);
+  background: green;
+}
+.bubble_failed_key {
+  --box-shadow-color-from: 0 0 0 0 rgba(255, 0, 0, 0.4);
+  --box-shadow-color-to: 0 0 0 10px rgba(255, 0, 0, 0.401);
+  background: red;
+}
+.status_found {
+  z-index: 9;
+}
+.status_found_box {
+
+}
+.step-main-container {
+
+}
+.status_found_blink {
+  animation-name: simpleAnimateDot;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+.bubble_success_key_line {
+  background: green;
+}
+.bubble_pending_key_line {
+  background: orange;
+}
+.bubble_failed_key_line {
+  background: red;
+}
+
+@keyframes simpleAnimateDot {
+  0% {
+    box-shadow: var(--box-shadow-color-from);
+  }
+  50% {
+    box-shadow: var(--box-shadow-color-to);
+  }
+  100% {
+    box-shadow: var(--box-shadow-color-from);
+  }
+}
+
+/* ============================================================media queries=================================================================== */
+@media only screen and (max-width: 850px) {
+  .infoContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .transactionInfoContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .transactionInfoDataContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .transactionInfoDataItemLeft {
+    margin-right: 0;
+  }
+
+  .transactionInfoDataItemRight {
+    margin-left: 0;
+  }
+
+  .transactionInfoStepContainer {
+    padding: 1rem;
+  }
+
+  .transactionInfoContainerAmount {
+    font-size: 1.5rem;
+  }
+
+  .transactionInfoContainerTitle {
+    font-size: 1.2rem;
+    text-align: right;
+    margin-bottom: 0.5rem;
+  }
+
+  .transactionInfoContainerImg {
+    width: 40%;
+  }
+}
+
+/* ============================================================================================================================================ */
+
+@keyframes animateHeight {
+  from {
+    height: 0px;
+  }
+
+  to {
+    height: 100%;
+  }
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+  }
+
+  30% {
+    -webkit-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+  }
+
+  30% {
+    -moz-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+
+  100% {
+    -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}

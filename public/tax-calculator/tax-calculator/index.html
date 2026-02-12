@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/tax_calculator.css">
+    <title>Tax Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;  
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <script language="javascript" type="text/javascript">
+        function fillcategorycombo() {
+            fillcategorycombojs(document.getElementById("assessment_year").value, catenew, cateold)
+        }
+        function setStatuscombo() {
+            setStatuscombojs(document.getElementById("tax_payer"), individualpanel)
+        }
+        function calculateData() {
+
+            // let selectedAssYear = document.getElementById("assessment_year").value;
+            let selectedAssYear = $("#assessment_year").find(":selected").text();
+            if (selectedAssYear == "2022-23") selectedAssYear = "2021-22"
+
+            let selectedAssType = document.getElementById("tax_payer").value;
+            let selectedsResiStatus = document.getElementById("res_status").value;
+            let bac115 = document.getElementById("is_opting_115BAC").value;
+            let bad115 = document.getElementById("is_opting_115BAD").value;
+            let bae115 = document.getElementById("is_opting_115BAE").value;
+
+            document.getElementById("divddlbac115").style.display = "none";
+            document.getElementById("divddlbad115").style.display = "none";
+
+            if ((selectedAssYear == "2021-22" || selectedAssYear == "2023-24") && (selectedAssType == "individual" || selectedAssType == "huf")) {
+                document.getElementById("divddlbac115").style.display = "block";
+            }
+            if ((selectedAssYear == "2024-25") && (selectedAssType == "individual" || selectedAssType == "huf" || selectedAssType == "aops_boi")) {
+                document.getElementById("divddlbac115").style.display = "block";
+            }
+            if ((selectedAssYear == "2021-22" || selectedAssYear == "2023-24") && (selectedAssType == "co_operative_society")) {
+                document.getElementById("divddlbad115").style.display = "block";
+            }
+
+            if ((selectedAssYear == "2024-25") && (selectedAssType == "co_operative_society")) {
+                document.getElementById("divddlbad115").style.display = "block";
+                document.getElementById("divddlbae115").style.display = "block";
+                if (bad115 == "1" && bae115 == "1") {
+                    $('#is_opting_115BAE').val('2');
+                    showAlert(); LogoShiftDown();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + "Either section 115BAD or section 115BAE can be selected";
+                }
+            }
+
+            if (selectedAssYear == "2019-20" || selectedAssYear == "2020-21" || selectedAssYear == "2021-22" || selectedAssYear == "2023-24" || selectedAssYear == "2024-25") {
+                $("#divtxtEduCess").hide();
+                $("#divLiteral67").hide();
+                $("#divLiteral82").show();
+            }
+            else {
+                $("#divtxtEduCess").show();
+                $("#divLiteral67").show();
+                $("#divLiteral82").hide();
+            }
+
+            let sAssCategory
+
+            if (selectedAssYear == "2010-11" || selectedAssYear == "2011-12") {
+                sAssCategory = document.getElementById("category_2").value;
+            }
+            else {
+                sAssCategory = document.getElementById("category_1").value;
+            }
+
+            if (selectedAssType == "" || selectedAssYear == "" || (selectedAssType == "individual" && (selectedsResiStatus == "" || sAssCategory == ""))) {
+                document.getElementById("taxvalue_87a").value = "";
+                document.getElementById("surcharge").value = "";
+                document.getElementById("edu_cess").value = "";
+                document.getElementById("health_edu_cess").value = "";
+                document.getElementById("total_tax_liability").value = "";
+                return;
+            }
+
+            let chkDmestcNotExceed5Crtemp;
+            if (selectedAssYear == "2019-20") {
+                chkDmestcNotExceed5Crtemp = document.getElementById("domestic_input_2")
+            }
+            else if (selectedAssYear == "2020-21" || selectedAssYear == "2021-22" || selectedAssYear == "2023-24" || selectedAssYear == "2024-25") {
+                chkDmestcNotExceed5Crtemp = document.getElementById("domestic_input_3")
+            }
+            else {
+                chkDmestcNotExceed5Crtemp = document.getElementById("domestic_input_1")
+            }
+
+            let chkUs115BAA = document.getElementById("domestic_input_5").checked;
+            let chkUs115BAB = document.getElementById("domestic_input_6").checked;
+
+        }
+
+        function checkVisibleIncaseDomesticOptios() {
+            $("#divchkUs115BAA2021").hide();
+            $("#divchkUs115BAB2021").hide()
+            if (document.getElementById("assessment_year").value != "2020-21") {
+                document.getElementById("domestic_input_5").checked = false;
+                document.getElementById("domestic_input_6").checked = false;
+            }
+
+            if (document.getElementById("tax_payer").value == "domestic_company" && document.getElementById("assessment_year").value == "2017-18") {
+                document.getElementById("divInCaseDomestic").style.display = "block";
+                $("#divchkDomesticNotExceed250Cr").hide();
+                $("#divchkDomesticNotExceed250Cr2021").hide();
+                document.getElementById("domestic_input_2").checked = false;
+                document.getElementById("domestic_input_3").checked = false;
+                $("#divchkDomesticNotExceed5Cr").show();
+            }
+            else if (document.getElementById("tax_payer").value == "domestic_company" && document.getElementById("assessment_year").value == "2018-19") {
+                document.getElementById("divInCaseDomestic").style.display = "block";
+                $("#divchkDomesticNotExceed250Cr").hide();
+                $("#divchkDomesticNotExceed250Cr2021").hide();
+                document.getElementById("domestic_input_2").checked = false;
+                document.getElementById("domestic_input_3").checked = false;
+                $("#divchkDomesticNotExceed5Cr").show();
+            }
+            else if (document.getElementById("tax_payer").value == "domestic_company" && document.getElementById("assessment_year").value == "2019-20") {
+                document.getElementById("divInCaseDomestic").style.display = "block";
+                $("#divchkDomesticNotExceed250Cr").show();
+                $("#divchkDomesticNotExceed5Cr").hide();
+                $("#divchkDomesticNotExceed250Cr2021").hide();
+                document.getElementById("domestic_input_1").checked = false;
+                document.getElementById("domestic_input_3").checked = false;
+            }
+            else if (document.getElementById("tax_payer").value == "domestic_company" && (document.getElementById("assessment_year").value == "2020-21" || document.getElementById("assessment_year").value == "2021-22" || document.getElementById("assessment_year").value == "2023-24" || document.getElementById("assessment_year").value == "2024-25")) {
+                document.getElementById("divInCaseDomestic").style.display = "block";
+                $("#divchkDomesticNotExceed250Cr2021").show();
+                $("#divchkDomesticNotExceed250Cr").hide();
+                $("#divchkDomesticNotExceed5Cr").hide();
+                $("#divchkUs115BAA2021").show();
+                $("#divchkUs115BAB2021").show();
+                document.getElementById("domestic_input_1").checked = false;
+                document.getElementById("domestic_input_2").checked = false;
+            }
+            else {
+                document.getElementById("divInCaseDomestic").style.display = "none";
+                $("#divchkDomesticNotExceed250Cr2021").hide();
+                $("#divchkDomesticNotExceed250Cr").hide();
+                $("#divchkDomesticNotExceed5Cr").hide();
+                document.getElementById("domestic_input_1").checked = false;
+                document.getElementById("domestic_input_2").checked = false;
+            }
+        }
+
+        function Tick() {
+            document.getElementById("domestic_input_5").checked = false;
+            document.getElementById("domestic_input_4").checked = false;
+            document.getElementById("domestic_input_6").checked = false;
+        }
+
+        function TickOnlyOne115BA() {
+            document.getElementById("domestic_input_1").checked = false;
+            document.getElementById("domestic_input_3").checked = false;
+            document.getElementById("domestic_input_5").checked = false;
+            document.getElementById("domestic_input_6").checked = false;
+        }
+
+        function TickOnlyOne115BAA() {
+            document.getElementById("domestic_input_3").checked = false;
+            document.getElementById("domestic_input_4").checked = false;
+            document.getElementById("domestic_input_6").checked = false;
+        }
+        function TickOnlyOne115BAB() {
+            document.getElementById("domestic_input_3").checked = false;
+            document.getElementById("domestic_input_4").checked = false;
+            document.getElementById("domestic_input_5").checked = false;
+        }
+
+        function TickOnlyOne() {
+            if (document.getElementById("assessment_year").value == "2019-20") {
+                document.getElementById("domestic_input_2").checked = false;
+            }
+            else if (document.getElementById("assessment_year").value == "2020-21" || document.getElementById("assessment_year").value == "2021-22" || document.getElementById("assessment_year").value == "2023-24" || document.getElementById("assessment_year").value == "2024-25") {
+                document.getElementById("domestic_input_3").checked = false;
+            }
+            else { document.getElementById("domestic_input_2").checked = false; }
+        }
+
+        function resetcontrol() {
+
+            document.getElementById("tax_payer").value = "";
+            document.getElementById("category_1").value = "";
+            document.getElementById("res_status").value = "";
+            document.getElementById("is_opting_115BAC").value = "";
+            document.getElementById("is_opting_115BAD").value = "";
+
+            let labelText = 'Tick if, total turnover or gross receipt of the company in the previous year <year> does not exceed 400 crore rupees';
+            let selectedYear = document.getElementById("assessment_year").value;
+            if (selectedYear == "2024-25")
+                labelText = labelText.replace('<year>', '2021-22');
+            else if (selectedYear == "2023-24")
+                labelText = labelText.replace('<year>', '2020-21');
+            else if (selectedYear == "2022-23")
+                labelText = labelText.replace('<year>', '2019-20');
+            else if (selectedYear == "2021-22")
+                labelText = labelText.replace('<year>', '2018-19');
+            else if (selectedYear == "2020-21")
+                labelText = labelText.replace('<year>', '2017-18');
+
+            $("label[for$='domestic_input_3']").text(labelText);
+        }
+    </script>
+
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close"
+                    onclick="hideAlert(); LogoShiftUp()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="heading fw-normal fs-5"> TAX CALCULATOR</div>
+        </div>
+        <div id="ctl00_SPWebPartManager1_g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e_dInput" class="form-content-container">
+
+            <section class="incom-and-tax-calculator-form-section">
+                <br /><br />
+                <form class="incom-and-tax-calculator-form" id="taxCalcForm">
+                    <div class="padding-div">
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Assessment Year *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$cbassyear"
+                                    id="assessment_year" class="form-select rounded-0"
+                                    oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                    onchange="resetcontrol();fillcategorycombo();checkVisibleIncaseDomesticOptios();calculateData()"
+                                    required>
+                                    <option selected="" value="">Select</option>
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center tax-payer element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Tax Payer *
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <select name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$cbasstype"
+                                    id="tax_payer" class="form-select rounded-0" oninvalid="handleInvalidInput(this)"
+                                    onblur="onBlurChange(this)"
+                                    onchange="setStatuscombo();checkVisibleIncaseDomesticOptios();calculateData();"
+                                    required>
+                                    <option selected="" value="">Select</option>
+                                    <option value="individual">Individual</option>
+                                    <option value="huf">HUF</option>
+                                    <option value="aops_boi">AOPs/BOI</option>
+                                    <option value="domestic_company">Domestic Company</option>
+                                    <option value="foreign_company">Foreign Company</option>
+                                    <option value="firms">Firms</option>
+                                    <option value="llp">LLP</option>
+                                    <option value="co_operative_society">Co-operative Society</option>
+                                </select>
+                                <p class="required-msg">This field is required</p>
+                            </div>
+                        </div>
+
+                        <div id="divddlbac115" style="display: none;" class="element-container">
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Whether opting for taxation under Section <span class="linkText2">115BAC<span
+                                            class="link115Desc">New Income tax Regime where you can avail benefit of
+                                            lower tax slabs. However, to avail this lower tax rate, the taxpayer must
+                                            forgo certain deductions and exemptions.</span></span>?
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select
+                                        name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$ddlbac115"
+                                        id="is_opting_115BAC" class="form-select rounded-0"
+                                        onchange="setStatuscombo();checkVisibleIncaseDomesticOptios();calculateData();">
+                                        <option selected="" value="">Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="divddlbad115" style="display: none;" class="element-container">
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Co-operative society opted and qualify for section <span
+                                        class="linkText2">115BAD<span class="Link115BAD">Section 115BAD is applicable to
+                                            Resident Cooperative Societies and provides them with the benefit of a lower
+                                            tax rate of 22% for any previous year relevant to the assessment year
+                                            beginning on or after 1st April 2021, subject to certain
+                                            conditions.</span></span>
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select
+                                        name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$ddlbad115"
+                                        id="is_opting_115BAD" class="form-select rounded-0"
+                                        onchange="setStatuscombo();checkVisibleIncaseDomesticOptios();calculateData();">
+                                        <option selected="" value="">Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="divddlbae115" style="display: none;" class="element-container">
+                            <div class="row justify-content-between align-content-center">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Co-operative society opted and qualify for section <span
+                                        class="linkText2">115BAE<span class="Link115BAD">115BAE provides for reduced
+                                            rate of tax of
+                                            15% (plus surcharge of 10% and cess) for Manufacturing co-operative
+                                            societies established on
+                                            or after April 1st, 2023, and commencing production on or before March 31st,
+                                            2024 [provided
+                                            that specified incentives or deductions are not availed].</span></span>
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select
+                                        name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$ddlbad115"
+                                        id="is_opting_115BAE" class="form-select rounded-0"
+                                        onchange="setStatuscombo();checkVisibleIncaseDomesticOptios();calculateData();">
+                                        <option selected="" value="">Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="divInCaseDomestic" style="display: none;" class="element-container">
+                        <div class="border border-secondary rounded-4 details-container">
+                            <div class="form-group"
+                                style="display: flex;flex-direction: column;justify-content: center;">
+                                <div class="row justify-content-between align-content-center domestic-checkbox"
+                                    id="divchkDomesticNotExceed5Cr">
+                                    <div onchange="Tick();calculateData();" class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input chb" id="domestic_input_1" type="checkbox"
+                                                name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$chkDomesticNotExceed5Cr" />
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="domestic_input_1"
+                                            id="domestic_checkbox_1">
+                                            Tick
+                                            if, total turnover or gross receipts of the company in the previous year
+                                            2015-16
+                                            does not exeeds 50 crore rupees</label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-content-center domestic-checkbox"
+                                    id="divchkDomesticNotExceed250Cr" style="display: none;">
+                                    <div onchange="Tick();calculateData();" class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input chb" id="domestic_input_2" type="checkbox"
+                                                name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$chkDomesticNotExceed250Cr" />
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="domestic_input_2">
+                                            Tick
+                                            if, total turnover or gross receipt of the company in the previous year
+                                            2016-17
+                                            does
+                                            not exceed 250 crore rupees</label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-content-center domestic-checkbox"
+                                    id="divchkDomesticNotExceed250Cr2021" style="display: none;">
+                                    <div onchange="Tick();calculateData();" class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input chb" id="domestic_input_3" type="checkbox"
+                                                name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$chkDomesticNotExceed250Cr2021" />
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="domestic_input_3">
+                                            Tick
+                                            if, total turnover or gross receipt of the company in the previous year
+                                            2017-18
+                                            does
+                                            not exceed 400 crore rupees</label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-content-center domestic-checkbox">
+                                    <div onchange="TickOnlyOne();TickOnlyOne115BA();calculateData();" class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input chb" id="domestic_input_4" type="checkbox"
+                                                name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$chkUs115BA" />
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="domestic_input_4">
+                                            Tick
+                                            if, company opted and qualify under section 115BA</label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-content-center domestic-checkbox"
+                                    id="divchkUs115BAA2021" style="display: none;">
+                                    <div onchange="TickOnlyOne();TickOnlyOne115BAA();calculateData();" class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input chb" id="domestic_input_5" type="checkbox"
+                                                name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$chkUs115BAA" />
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="domestic_input_5">
+                                            Tick
+                                            if, company opted and qualify for section 115BAA</label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-between align-content-center domestic-checkbox"
+                                    id="divchkUs115BAB2021" style="display: none;">
+                                    <div onchange="TickOnlyOne();TickOnlyOne115BAB() ;calculateData();" class="d-flex">
+                                        <div style="margin-right: 0.5rem;">
+                                            <input class="form-check-input chb" id="domestic_input_6" type="checkbox"
+                                                name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$chkUs115BAB" />
+                                        </div>
+                                        <label class="col-xs-12 control-label fw-bold fs-6" for="domestic_input_6">
+                                            Tick
+                                            if, company opted and qualify for section 115BAB</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="padding-div">
+                        <div id="individualpanel">
+                            <div id="catenew" class="element-container">
+                                <div
+                                    class="row justify-content-between align-content-center Male-Female-Senior-Citizen">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                        Male / Female / Senior Citizen *
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <select
+                                            name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$cmbasscategory"
+                                            id="category_1" class="form-select rounded-0"
+                                            oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                            onchange="calculateData();" required>
+                                            <option selected="" value="">Select</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="senior citizen">Senior Citizen</option>
+                                            <option value="super senior citizen">Super Senior Citizen</option>
+                                        </select>
+                                        <p class="required-msg">This field is required</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="cateold" style="display: none;" class="element-container">
+                                <div
+                                    class="row justify-content-between align-content-center Male-Female-Senior-Citizen">
+                                    <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                        Male / Female / Senior Citizen *
+                                    </label>
+                                    <div class="col-sm-4 col-xs-12">
+                                        <select
+                                            name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$cmbasscategoryold"
+                                            id="category_2" class="form-select rounded-0"
+                                            oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                            onchange="calculateData();" required>
+                                            <option selected="" value="">Select</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="senior citizen">Senior Citizen</option>
+                                        </select>
+                                        <p class="required-msg">This field is required</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="row justify-content-between align-content-center residential-status element-container">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Residential Status *
+                                </label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <select
+                                        name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$cmbresistatus"
+                                        id="res_status" class="form-select rounded-0"
+                                        oninvalid="handleInvalidInput(this)" onblur="onBlurChange(this)"
+                                        onchange="calculateData();" required>
+                                        <option selected="" value="">Select</option>
+                                        <option value="resident">Resident</option>
+                                        <option value="non resident">Non-Resident</option>
+                                        <option value="not ordinary resident">Not Ordinary Resident</option>
+                                    </select>
+                                    <p class="required-msg">This field is required</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row justify-content-between align-content-center element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Total Income
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input
+                                    name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$txtNetIncome"
+                                    type="text" maxlength="18" id="net_income" class="form-control rounded-0"
+                                    onchange="calculateData();" onkeypress="javascript:return chkIntInput(this,event)"
+                                    onblur="javascript:ValidateAndFormatNumber(this,'')" />
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-content-center element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Income Tax after relief <span style="text-transform: lowercase;"> u/s</span> 87A<span
+                                    class="desc-icon">
+                                    <span class="desc-icon-container" style="text-transform: lowercase;">
+                                        i
+                                    </span><span class="desc87" style="text-transform: none;">Section 87A of the Income
+                                        Tax Act, 1961 provides relief
+                                        to individual taxpayers by reducing the amount of tax payable by them. The
+                                        relief is in the form of a tax rebate, which is available to individuals whose
+                                        total income does not exceed a certain limit.</span>
+                                </span>
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$txtTax"
+                                    type="text" id="taxvalue_87a" class="form-control bg-body-secondary rounded-0"
+                                    onkeypress="javascript:return lockcontrol()" readonly />
+                            </div>
+
+                        </div>
+                        <div class="row justify-content-between align-content-center element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Surcharge
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input
+                                    name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$txtsurcharge"
+                                    type="text" id="surcharge" class="form-control bg-body-secondary rounded-0"
+                                    onkeypress="javascript:return lockcontrol()" readonly />
+                            </div>
+                        </div>
+                        <div class="row justify-content-between align-content-center element-container"
+                            id="divtxtEduCess">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Education Cess
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$txtEduCess"
+                                    type="text" id="edu_cess" class="form-control bg-body-secondary rounded-0"
+                                    onkeypress="javascript:return lockcontrol()" readonly />
+                            </div>
+                        </div>
+                        <div class="row justify-content-between align-content-center element-container">
+                            <div id="divLiteral67" class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Secondary And Higher Education Cess
+                                </label>
+                            </div>
+                            <div id="divLiteral82" style="display: none;"
+                                class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                    Health and Education Cess
+                                </label>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <input name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$txtHEduCess"
+                                    type="text" id="health_edu_cess" class="form-control bg-body-secondary rounded-0"
+                                    onkeypress="javascript:return lockcontrol()" readonly />
+                            </div>
+
+                        </div>
+                        <div class="row justify-content-between align-content-center element-container">
+                            <label class="col-sm-8 col-xs-12 control-label label-fw-class">
+                                Total Tax Liability
+                            </label>
+                            <div class="col-sm-4 col-xs-12">
+                                <input name="ctl00$SPWebPartManager1$g_0a7fb9b8_bcbb_4a46_a0d0_fbb3d804d05e$txttotaltax"
+                                    type="text" maxlength="18" id="total_tax_liability"
+                                    class="form-control bg-body-secondary rounded-0" onchange="calculateasstax();"
+                                    onkeypress="javascript:return chkIntInput(this,event)"
+                                    onblur="javascript:ValidateAndFormatNumber(this,'')" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <br>
+        <div id="MSOZoneCell_WebPartWPQ2"
+            class="s4-wpcell-plain ms-webpartzone-cell ms-webpart-cell-vertical ms-fullWidth ">
+            <div class="ms-webpart-chrome ms-webpart-chrome-vertical ms-webpart-chrome-fullWidth ">
+                <div WebPartID="7da27129-a0f4-4703-90f7-1211f15d6474" HasPers="false" id="WebPartWPQ2" width="100%"
+                    class="ms-WPBody " allowDelete="false">
+                    <div class="ms-rtestate-field">
+                        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+                            <div class="note-container note-container-advisory">
+                                <span class="fw-bold"> Advisory: </span>
+                                Information relates to the law prevailing in the year <span class="fst-italic">of
+                                    publication/ as
+                                    indicated</span>. Viewers are advised to ascertain the correct
+                                position/prevailing law before relying upon any document.
+                                <br /><br />
+                                <span class="fw-bold"> Disclaimer: </span>
+                                The
+                                above calculator is only to enable public to have a quick and an easy access to basic
+                                tax
+                                calculation and does not purport to give correct tax calculation in all circumstances.
+                                It is
+                                advised that for filing of returns the exact calculation may be made as per the
+                                provisions
+                                contained in the relevant Acts, Rules etc.
+                            </div>
+                    </div>
+                    </secction>
+                    <script>
+
+                        $(document).ready(function () {
+                            // current_date=new Date('4 1 2023');
+                            current_date = new Date();
+                            current_date.setFullYear(current_date.getFullYear() + 1);
+                            var year1 = current_date.getFullYear();
+                            var apr = new Date('4 1 ' + year1.toString());
+                            if (current_date < apr) {
+                                year1 -= 1;
+                            }
+                            for (i = 0; i < 15; i++) {
+                                var year2 = (year1 + 1).toString().substr(-2);
+                                $('#assessment_year').append(`<option value="${(i + 1).toString()}">${year1.toString() + "-" + year2.toString()}</option>`)
+                                year1 -= 1;
+                            }
+                            $("#assessment_year").change(function () {
+                                if (this.value == "6") {
+                                    $("#domestic_checkbox_1").text("Tick if, total turnover or gross receipts of the company in the previous year 2015-16 does not exeeds 50 crore rupees");
+                                    $("#tax_payer").change(function () {
+                                        if (this.value == "domestic_company") {
+                                            $("#domestic_checkbox_1").text("Tick if, total turnover or gross receipts of the company in the previous year 2015-16 does not exeeds 50 crore rupees");
+
+                                        }
+                                    });
+
+                                } else if (this.value == "7") {
+                                    $("#domestic_checkbox_1").text("Tick if, total turnover or gross receipts of the company in the previous year 2014-15 does not exeeds 5 crore rupees");
+                                    $("#tax_payer").change(function () {
+                                        if (this.value == "domestic_company") {
+                                            $("#domestic_checkbox_1").text("Tick if, total turnover or gross receipts of the company in the previous year 2014-15 does not exeeds 5 crore rupees");
+
+                                        }
+                                    });
+                                }
+                            })
+                        });   </script>​​​​​​
+                </div>
+                <div class="ms-clear"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const getFormValidationState = () => {
+            const formElement = document.getElementById('taxCalcForm');
+            const isFormValid = formElement.checkValidity();
+            return isFormValid
+        }
+
+        const getDomesticCompanyCheckValue = (yearRange) => {
+            if (yearRange === '2023-24To2020-21') {
+                return document.getElementById("domestic_input_3").checked ? '1' :
+                    document.getElementById("domestic_input_4").checked ? '2' :
+                        document.getElementById("domestic_input_5").checked ? '3' :
+                            document.getElementById("domestic_input_6").checked ? '4' : ''
+            } else {
+                if (document.getElementById("assessment_year").value === '5') {
+                    return document.getElementById("domestic_input_2").checked ? '1' :
+                        document.getElementById("domestic_input_4").checked ? '2' : ''
+                } else if (document.getElementById("assessment_year").value === '6' || document.getElementById("assessment_year").value === '7') {
+                    return document.getElementById("domestic_input_1").checked ? '1' :
+                        document.getElementById("domestic_input_4").checked ? '2' : ''
+                }
+            }
+        }
+
+        const getPayload = () => {
+            const payload = {
+                assessment_year: parseInt(document.getElementById("assessment_year").value),
+                tax_payer: document.getElementById("tax_payer").value,
+                net_income: document.getElementById("net_income").value ? parseInt(document.getElementById("net_income").value.replace(/,/g, '')) : ""
+            };
+
+            if (payload.tax_payer === 'individual') {
+                if (payload.assessment_year >= 1 && payload.assessment_year <= 4) {
+                    payload.is_opting_115BAC = document.getElementById("is_opting_115BAC").value;
+                    payload.category = document.getElementById("category_1").value;
+                    payload.res_status = document.getElementById("res_status").value;
+                } else if (payload.assessment_year >= 5 && payload.assessment_year <= 13) {
+                    payload.category = document.getElementById("category_1").value;
+                    payload.res_status = document.getElementById("res_status").value;
+                } else if (payload.assessment_year >= 14 && payload.assessment_year <= 15) {
+                    payload.category = document.getElementById("category_2").value;
+                    payload.res_status = document.getElementById("res_status").value;
+                }
+            } else if (payload.tax_payer === 'huf' && payload.assessment_year >= 1 && payload.assessment_year <= 4) {
+                payload.is_opting_115BAC = document.getElementById("is_opting_115BAC").value;
+            } else if (payload.tax_payer === 'co_operative_society' && payload.assessment_year >= 1 && payload.assessment_year <= 4) {
+                payload.is_opting_115BAD = document.getElementById("is_opting_115BAD").value;
+            } else if (payload.tax_payer === 'domestic_company' && payload.assessment_year >= 1 && payload.assessment_year <= 5) {
+                payload.tax_check = getDomesticCompanyCheckValue('2023-24To2020-21');
+            }
+            else if (payload.tax_payer === 'domestic_company' && payload.assessment_year >= 6 && payload.assessment_year <= 8) {
+                payload.tax_check = getDomesticCompanyCheckValue();
+            }
+
+            return payload;
+        }
+
+        function Calculate() {
+            if (!getFormValidationState()) {
+                console.log('form has errors')
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
+                return
+            } else {
+                hideAlert(); LogoShiftUp();
+                $(".dashboard-loader").addClass('active');
+                $.ajax({
+                    url: "https://auto-v2.fintoo.in/tax_calc_bots/tax_calculator/",
+                    // url: "https://stgbot.minty.co.in/tax_calc_bots/advance_tax/",
+                    //url: "http://127.0.0.1:8000/tax_calc_bots/tax_calculator/",
+                    type: "POST",
+                    data: JSON.stringify(getPayload()),
+                    dataType: "json",
+                    success: function (res) {
+                        $(".action-buttons-container").show();
+                        $(".dashboard-loader").removeClass('active');
+                        if (res.error_code == "100") {
+                            if (res.message != "success") {
+                                showAlert(); LogoShiftDown();
+                                document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.data.error_msg;
+                            }
+                            res.data.taxvalue_87a === "" ? document.getElementById("taxvalue_87a").value = "0" : document.getElementById("taxvalue_87a").value = res.data.taxvalue_87a
+                            res.data.surcharge === "" ? document.getElementById("surcharge").value = "0" : document.getElementById("surcharge").value = res.data.surcharge
+                            res.data.edu_cess === "" ? document.getElementById("edu_cess").value = "0" : document.getElementById("edu_cess").value = res.data.edu_cess
+                            res.data.health_edu_cess === "" ? document.getElementById("health_edu_cess").value = "0" : document.getElementById("health_edu_cess").value = res.data.health_edu_cess
+                            res.data.total_tax_liability === "" ? document.getElementById("total_tax_liability").value = "0" : document.getElementById("total_tax_liability").value = res.data.total_tax_liability
+                        }
+                        else if (res.error_code == "102") {
+                            showAlert(); LogoShiftDown();
+                            document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                        }
+                        else {
+                            showAlert(); LogoShiftDown();
+                            document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                        }
+                    }
+                })
+                return
+            };
+
+        }
+
+    </script>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/tax_calculator.js"></script>
+
+</html>

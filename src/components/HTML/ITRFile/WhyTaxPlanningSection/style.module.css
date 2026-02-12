@@ -1,0 +1,88 @@
+.why-tax-planning-section {
+    background-color: #042b62;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    position: relative;
+    z-index: 999;
+}
+
+.why-tax-planning-section-title {
+    color: #ffffff;
+    font-size: 2.3rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+    text-align: center;
+}
+
+.why-tax-planning-section-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    color: white;
+    margin-top: 3rem;
+}
+
+.why-tax-planning-section-item {
+    padding: 1.5rem;
+}
+
+.borderxy {
+    border-left: 0.5px solid rgb(255, 255, 255);
+}
+
+.border-x-y {
+    border-top: 0.5px solid rgb(255, 255, 255);
+}
+
+.borderx-y {
+    border-top: 0.5px solid rgb(255, 255, 255);
+    border-left: 0.5px solid rgb(255, 255, 255);
+}
+
+.why-tax-planning-section-item-heading {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.2em;
+    margin-bottom: 1.5rem;
+}
+
+.why-tax-planning-section-item-content {
+    font-weight: 400;
+}
+
+/* ------------------------------------------------------------------------media query----------------------------------------------------------------- */
+@media only screen and (max-width: 850px) {}
+
+@media only screen and (max-width: 600px) {
+    .why-tax-planning-section {
+        padding-top: 2rem;
+    }
+
+    .why-tax-planning-section-title {
+        font-size: 1.9rem;
+        font-weight: 600;
+        line-height: 3rem;
+        padding: 0.7rem;
+    }
+
+    .why-tax-planning-section-container {
+        grid-template-columns: 1fr;
+        margin-top: 0;
+    }
+
+    .borderxy {
+        border-left: none;
+    }
+
+    .border-x-y {
+        border-top: none;
+    }
+
+    .borderx-y {
+        border-top: none;
+        border-left: none;
+    }
+
+    .why-tax-planning-section-item-heading {
+        font-size: 1.5rem;
+    }
+}

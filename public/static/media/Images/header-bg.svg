@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1700px" height="725px" viewBox="0 0 1700 725" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 37</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="98.5623036%" y1="47.2455202%" x2="21.6384072%" y2="47.2455202%" id="linearGradient-1">
+            <stop stop-color="#B0E765" offset="0%"></stop>
+            <stop stop-color="#8DC63F" offset="100%"></stop>
+        </linearGradient>
+        <path d="M29.4192917,1011.65946 C125.959208,968.942015 263.625874,963.249958 442.419292,994.583292 C710.609418,1041.58329 773,896.225647 1089,955 C1405,1013.77435 1469.86897,1017.20411 1741.78826,981 C1923.06779,956.863929 1988.46023,878.725026 1937.9656,746.583292 L1976.19173,107.583292 C1811.65857,35.8610973 1712.73443,-2.27373675e-13 1679.41929,-2.27373675e-13 C1629.44659,-2.27373675e-13 854.419292,14.6184649 830.419292,14.6184649 C814.419292,14.6184649 622.085958,9.74564327 253.419292,-2.27373675e-13 L1.25055521e-12,73.3456966 L29.4192917,1011.65946 Z" id="path-2"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-Page-1.1">
+            <g id="Group-37" transform="translate(-138.000000, -280.000000)">
+                <mask id="mask-3" fill="white">
+                    <use xlink:href="#path-2"></use>
+                </mask>
+                <use id="Mask" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                <g mask="url(#mask-3)" fill="#6DAA19" id="Oval">
+                    <g transform="translate(-167.000000, 363.000000)">
+                        <circle style="mix-blend-mode: multiply;" opacity="0.293061756" cx="1792.5" cy="452.5" r="452.5"></circle>
+                        <circle style="mix-blend-mode: multiply;" opacity="0.102632068" cx="288.5" cy="532.5" r="288.5"></circle>
+                        <circle style="mix-blend-mode: multiply;" opacity="0.398135231" cx="322" cy="521" r="97"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,305 @@
+.header-section {
+    position: relative;
+    padding:0rem 6rem 2rem 6rem;
+  background-color: #ffff;
+  }
+
+  .header-section-background-overlay {
+    background-color: #ffffff;
+    opacity: 0.94;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+  }
+  .padding-class .section-title {
+    color: #060606;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 6.5px;
+  }
+  .padding-class .section-sub-title {
+    font-size: 3.4rem;
+    font-weight: 800;
+    line-height: 4rem;
+  }
+  .header-section-image-container img{
+    width: 600px;
+  }
+  .header-section-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 91%;
+    margin: auto;
+    position: relative;
+    z-index: 10;
+  }
+  .header-section-content {
+    width: 49%;
+  }
+  .header-section-content .sectionsubText {
+    color: #060606;
+    font-size: 1.4rem;
+  }
+  .Rightside{
+    display: flex;
+    position: relative;
+  }
+  .Rightside .heroimg {
+    margin-right: 8rem;
+  }
+  .Appbtn{
+    position : absolute;
+    float : right;
+    right : 0;
+    top : 40%;
+  }
+  .header-section-content-btn {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    fill: #ffffff;
+    color: #ffffff;
+    background-color: #042b62;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: #fcfcfc;
+    border-radius: 30px;
+    transition: all 0.3s;
+    padding: 1rem 3rem;
+    cursor: pointer;
+  }
+  
+  .header-section-content-btn:hover {
+    color: #042b62;
+    background-color: rgba(44, 147, 245, 0);
+    border-color: #042b62;
+  }
+  /* / ---------------------------------------------------------------animations------------------------------------------------------------- / */
+  @keyframes fadeInUp {
+    from {
+      transform: translate3d(0, 300px, 0);
+    }
+  
+    to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  
+  @-webkit-keyframes fadeInUp {
+    from {
+      transform: translate3d(0, 100vh, 0);
+    }
+  
+    to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  
+  .animated {
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-fill-mode: both;
+  }
+  
+  .animatedFadeInUp {
+    opacity: 0;
+  }
+  
+  .fadeInUp {
+    opacity: 0;
+    animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+  }
+  
+  /* / -----------------------------------------------------------------------bounceInUp-------------------------------------------------------------- / */
+  .animatedBouncInUp {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+  }
+  
+  @-webkit-keyframes bounceInUp {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(2000px);
+    }
+  
+    60% {
+      opacity: 1;
+      -webkit-transform: translateY(-30px);
+    }
+  
+    80% {
+      -webkit-transform: translateY(10px);
+    }
+  
+    100% {
+      -webkit-transform: translateY(0);
+    }
+  }
+  
+  @-moz-keyframes bounceInUp {
+    0% {
+      opacity: 0;
+      -moz-transform: translateY(2000px);
+    }
+  
+    60% {
+      opacity: 1;
+      -moz-transform: translateY(-30px);
+    }
+  
+    80% {
+      -moz-transform: translateY(10px);
+    }
+  
+    100% {
+      -moz-transform: translateY(0);
+    }
+  }
+  
+  @-ms-keyframes bounceInUp {
+    0% {
+      opacity: 0;
+      -ms-transform: translateY(2000px);
+    }
+  
+    60% {
+      opacity: 1;
+      -ms-transform: translateY(-30px);
+    }
+  
+    80% {
+      -ms-transform: translateY(10px);
+    }
+  
+    100% {
+      -ms-transform: translateY(0);
+    }
+  }
+  
+  @-o-keyframes bounceInUp {
+    0% {
+      opacity: 0;
+      -o-transform: translateY(2000px);
+    }
+  
+    60% {
+      opacity: 1;
+      -o-transform: translateY(-30px);
+    }
+  
+    80% {
+      -o-transform: translateY(10px);
+    }
+  
+    100% {
+      -o-transform: translateY(0);
+    }
+  }
+  
+  @keyframes bounceInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(2000px);
+    }
+  
+    60% {
+      opacity: 1;
+      transform: translateY(-30px);
+    }
+  
+    80% {
+      transform: translateY(10px);
+    }
+  
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .bounceInUp {
+    -webkit-animation-name: bounceInUp;
+    -moz-animation-name: bounceInUp;
+    -ms-animation-name: bounceInUp;
+    -o-animation-name: bounceInUp;
+    animation-name: bounceInUp;
+  }
+  @media only screen and (max-width: 768px) {
+    .header-section{
+      padding: 2rem 1rem;
+    }
+    .Rightside{
+      display: grid;
+      /* place-items: center; */
+    }
+    .Appbtn{
+      position: initial;
+      display: flex;
+    }
+    .Appbtn img{
+      width: 100px;
+      padding: 1rem;
+    }
+    .header-section-container {
+      display: inline-flex;
+      flex-direction: column-reverse;
+      width: 100%;
+    }
+   
+    
+    .header-section-content {
+      width: 100%;
+      margin-top: 2rem;
+      display: grid;
+      place-items: center;
+    }
+    .Rightside .heroimg{
+      margin-right: 0rem;
+    }
+    .padding-class .section-sub-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 2.2rem;
+      text-align: center;
+    }
+    .header-section-content .sectionsubText {
+      color: #060606;
+      font-size: 1rem;
+    }
+    .header-section-content-btn {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      fill: #ffffff;
+      color: #ffffff;
+      background-color: #042b62;
+      border-style: solid;
+      border-width: 2px 2px 2px 2px;
+      border-color: #fcfcfc;
+      border-radius: 30px;
+      transition: all 0.3s;
+      padding: 1rem 3rem;
+      text-align: center;
+    }
+  }
+  
+  @media only screen and (max-width : 850px){
+    .header-section-container{
+      width: 100%;
+    }
+    .header-section-image-container img{
+      width: 381px;
+    }
+  }

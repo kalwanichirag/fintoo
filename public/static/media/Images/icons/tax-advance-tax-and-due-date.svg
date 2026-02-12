@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 60</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-102.464092%" y1="50%" x2="137.384147%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons" transform="translate(-201.000000, -327.000000)">
+            <g id="Group-60" transform="translate(201.000000, 327.000000)">
+                <circle id="Oval" fill="#EF305E" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                <circle id="Oval" fill="#EF305E" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                <circle id="Oval" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="8" cy="23" r="1"></circle>
+                <circle id="Oval-Copy-2" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="31" cy="19" r="1"></circle>
+                <circle id="Oval-Copy-3" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="10.5" cy="10.5" r="1"></circle>
+                <circle id="Oval-Copy-4" fill="#EF305E" style="mix-blend-mode: multiply;" opacity="0.502673921" cx="23.5" cy="8.5" r="1"></circle>
+                <g id="noun_percentage_1340282" transform="translate(11.000000, 11.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+                    <path d="M8.5,0 C3.8131,0 0,3.8131 0,8.5 C0,13.1869 3.8131,17 8.5,17 C13.1869,17 17,13.1869 17,8.5 C17,3.8131 13.1869,0 8.5,0 Z M4.43933913,4.43928264 C5.0250364,3.85357245 5.97478713,3.85357245 6.56066087,4.43928264 C7.14653461,5.02499283 7.14635814,5.97476452 6.56066087,6.56065118 C5.9749636,7.14653784 5.02521287,7.14636137 4.43933913,6.56065118 C3.85346539,5.97494099 3.85364186,5.0251693 4.43933913,4.43928264 Z M4.48241163,12.5176736 L4.48241163,12.5176736 C4.21600659,12.2513157 4.21596842,11.819426 4.48232636,11.5530209 C4.48234057,11.5530067 4.48235478,11.5529925 4.482369,11.5529783 L10.5529783,5.482369 C10.8193598,5.2159875 11.2512495,5.2159875 11.517631,5.482369 C11.5176452,5.48238321 11.5176594,5.48239742 11.5176736,5.48241163 L11.5176736,5.48241163 C11.784062,5.74884712 11.7840429,6.18078032 11.517631,6.44719226 L5.44719226,12.517631 C5.18078032,12.7840429 4.74884712,12.784062 4.48241163,12.5176736 Z M12.5606609,12.5607174 C11.9749636,13.1464275 11.0252129,13.1464275 10.4393391,12.5607174 C9.85346539,11.9750072 9.85364186,11.0252355 10.4393391,10.4393488 C11.0250364,9.85346216 11.9747871,9.85363863 12.5606609,10.4393488 C13.1465346,11.025059 13.1463581,11.9748307 12.5606609,12.5607174 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

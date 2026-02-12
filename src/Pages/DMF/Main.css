@@ -1,0 +1,1031 @@
+body .landPage {
+  background: #fff !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: clip;
+  color: #042b62 !important;
+}
+
+body .landPage .navbar {
+  background: #fff !important;
+  box-shadow: none !important;
+  z-index: 10000000;
+  padding-top: 3rem !important;
+}
+
+body .landPage .navbar .navbar-brand {
+  margin-left: 5rem;
+}
+
+body .landPage .navbar .nav-link {
+  color: #042b62 !important;
+}
+
+body .landPage .navbar .nav-link:hover {
+  background-color: transparent !important;
+  color: #042b62 !important;
+  border-radius: 1rem;
+}
+
+body .landPage .navbar .nav-link:focus {
+  background-color: transparent !important;
+  color: #042b62 !important;
+  border-radius: 1rem;
+}
+
+body .landPage .navbar .LoginNdCart {
+  margin-right: 4rem;
+}
+
+body .landPage .navbar .LoginNdCart .nav-link {
+  margin: 0;
+}
+
+body .landPage .navbar .LoginNdCart .nav-link:last-child {
+  margin-left: 20px;
+}
+
+body .landPage .header-section {
+  margin-top: 8rem;
+  margin-bottom: 6rem;
+  min-height: 700px;
+}
+
+body .landPage .section {
+  z-index: 0;
+  margin-top: 0rem;
+}
+
+body .landPage .section .FirstSection {
+  margin-top: 10rem;
+}
+
+body .landPage .section h4 {
+  z-index: 0;
+  text-align: center;
+}
+
+body .landPage .section .BigText {
+  font-size: 2.1rem;
+  font-weight: bold;
+  text-align: center;
+}
+.section .largetext {
+  font-size: 3rem;
+}
+body .landPage .section .mobileApp {
+  position: relative;
+  margin-top: 4rem;
+  margin-left: 4rem;
+  z-index: 1000;
+}
+
+body .landPage .section .mobileApp img {
+  width: 70%;
+  z-index:950;
+}
+
+body .landPage .section .mobileApp:before {
+  z-index: 1;
+  background-image: linear-gradient(#a0d8f1 0%, #a0d8f1 100%) !important;
+  top: 0px;
+  left: -69px;
+  border-radius: 300px 0 0 300px;
+  overflow: hidden;
+  box-shadow: -30px 0px 0px 0px rgb(255 255 255 / 20%);
+  content: " ";
+  height: 80%;
+  width: 140%;
+  position: absolute;
+  transform: rotate(-35deg);
+}
+
+body .landPage .section .MobileLayOut {
+  margin-left: 0rem;
+}
+
+body .landPage .section .MobileLayOut .BigText {
+  font-size: 2rem;
+  font-weight: bold;
+  width: 475px;
+  text-align: left;
+}
+
+body .landPage .section .SmallText {
+  color: gray;
+  font-size: 1.1em;
+  line-height: 1.7em;
+  margin-top: -1em;
+}
+
+body .landPage .section .downloadBtn {
+  padding: 0.2rem;
+  padding-left: 0em;
+  float: left;
+  width: 14rem;
+  border-radius: 25px;
+  outline: none;
+  background: #1194cc;
+  border: 1px solid #fff;
+}
+
+body .landPage .section .downloadBtn:first-child {
+  margin-left: -1.1em;
+  line-height: 30px;
+}
+
+body .landPage .section .downloadBtn .Icons {
+  font-size: 23px;
+  color: #fff;
+}
+
+body .landPage .section .downloadBtn span {
+  color: #fff;
+  font-size: 1.1em;
+  padding-left: 0.3em;
+  font-weight: 600;
+}
+
+body .landPage .section .circle {
+  background: #042b62;
+  width: 230px;
+  height: 230px;
+  position: relative;
+}
+
+body .landPage .section .SliderInfo .SmallText {
+  color: gray;
+  font-size: 1.1em;
+  line-height: 1.7em;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+}
+
+body .landPage .section .investList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3rem;
+}
+
+body .landPage .section .investList .ImgBorder {
+  border-radius: 50%;
+  background: #ebebeb;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  width: 5rem;
+}
+
+body .landPage .section .investList .ImgBorder .fimage {
+  display: block;
+  padding: 6px;
+}
+
+body .landPage .section .investList .ImgBorder .Simage {
+  display: none;
+  padding: 6px;
+}
+
+body .landPage .section .investList .InvestType {
+  padding: 1em;
+  color: #252b39;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+body .landPage .section .investList .ImgBorder1 {
+  border-radius: 50%;
+  background: #042b62;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  width: 5rem;
+}
+
+body .landPage .section .investList .ImgBorder1 .fimage {
+  display: block;
+  padding: 6px;
+}
+
+body .landPage .section .investList .ImgBorder1 .Simage {
+  display: none;
+  padding: 6px;
+}
+
+body .landPage .section .investList .ImgBorder1 .fimage {
+  display: none;
+}
+
+body .landPage .section .investList .ImgBorder1 .Simage {
+  display: block;
+}
+
+body .landPage .section .investList:hover .ImgBorder {
+  background-color: #042b62;
+}
+
+body .landPage .section .investList:hover .InvestType {
+  display: inline-block;
+  border-bottom: 3px solid #042b62;
+  padding-bottom: 4px;
+}
+
+body .landPage .section .investList:hover .fimage {
+  display: none;
+}
+
+body .landPage .section .investList:hover .Simage {
+  display: block;
+}
+
+body .landPage .section .carousel {
+  display: flex;
+  justify-content: center;
+}
+
+body .landPage .section .outerCircle {
+  position: absolute;
+  border: 1px solid #cecece;
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  display: inline-block;
+  margin: auto;
+  padding: 19em;
+  margin-top: 8em;
+  margin-left: -16em;
+  z-index: 1;
+}
+
+body .landPage .section .outerCircle .outerImg {
+  position: absolute;
+  width: 10%;
+  margin-top: -20.6em;
+  z-index: 1;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 1em;
+  box-shadow: 0 0 50px #ccc;
+}
+
+body .landPage .section .outerCircle .outerImg:hover {
+  background-color: #042b62;
+}
+
+body .landPage .section .innerrCircle {
+  position: relative;
+  border: 1px solid #cecece;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  margin: auto;
+  padding: 12em;
+  margin-top: -12em;
+  margin-left: -13em;
+  z-index: 1;
+}
+
+body .landPage .section .innerrCircle img {
+  position: absolute;
+  width: 15%;
+  margin-top: 9.4em;
+  z-index: 1;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 1em;
+  box-shadow: 0 0 50px #ccc;
+  cursor: pointer;
+}
+
+body .landPage .section .innerrCircle img:hover {
+  background-color: #042b62;
+}
+
+body .landPage .section .categorySlider {
+  padding: 2rem 3rem;
+  background-color: #e5f4fb;
+  width: 80%;
+  margin: auto;
+  border-radius: 220px;
+  margin-top: 1rem;
+  z-index: 30;
+  position: relative;
+}
+
+body .landPage .section .categorySlider .FundTypeSection {
+  width: 80%;
+  margin: auto;
+  transition: all 0.75s ease;
+}
+
+body .landPage .section .categorySlider .ExporeAll {
+  background-color: #042b62;
+  padding: 0.5em;
+  font-size: 1em;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 2rem;
+  border: 1px solid #fff;
+  width: 10rem;
+  border-radius: 20px;
+}
+
+body .landPage .section .categorySlider .TransEffect {
+  transition: all 0.75s ease;
+  opacity: 0.8;
+}
+
+body .landPage .section .categorySlider .FundList {
+  border-bottom: 1px solid #d4dcdf;
+}
+
+body .landPage .section .categorySlider .FundListImg {
+  width: 45px;
+  display: grid;
+  place-items: center;
+}
+
+body .landPage .section .categorySlider .fundText {
+  color: #042b62;
+  font-size: 1.1em;
+  text-align: center;
+  font-weight: 500;
+  width: 65%;
+  margin: auto;
+  padding-top: 1em;
+}
+
+body .landPage .section .SliderNextBtn img {
+  position: relative;
+  float: right;
+  top: 180px;
+  width: 70px;
+  width: 70px;
+  right: 100px;
+  border: 2px solid #042b62;
+  border-radius: 50%;
+  padding: 0.4em;
+  cursor: pointer;
+  z-index: 2000;
+  animation: Ripple 0.6s linear infinite;
+}
+
+@keyframes Ripple {
+  0% {
+    box-shadow: 0 4px 10px rgba(36, 167, 223, 0.1),
+      0 0 0 0 rgba(36, 167, 223, 0.1), 0 0 0 5px rgba(36, 167, 223, 0.1),
+      0 0 0 10px rgba(36, 167, 223, 0.1);
+  }
+
+  100% {
+    box-shadow: 0 4px 10px rgba(36, 167, 223, 0.1),
+      0 0 0 5px rgba(36, 167, 223, 0.1), 0 0 0 10px rgba(36, 167, 223, 0.1),
+      0 0 0 20px rgba(36, 167, 223, 0);
+  }
+}
+
+body .landPage .section .circleAnimate {
+  margin-left: -4em;
+  height: 100%;
+}
+
+body .landPage .section .circleAnimate #container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+body .landPage .section .circleAnimate .CircleBigTxt {
+  font-size: 1em;
+  font-weight: 700;
+  color: #4c4c4c;
+}
+
+body .landPage .section .circleAnimate .CircleBox:hover {
+  background-color: #042b62 !important;
+  color: red;
+}
+
+body .landPage .section .circleAnimate #circle {
+  position: absolute;
+  width: calc(1536px + 10%);
+  height: calc(1536px + 10%);
+  margin-left: 5%;
+  background-color: #f3f8fe;
+  animation: rotate 7s infinite;
+  border-radius: 50%;
+}
+
+body .landPage .section .circleAnimate #circle .LowHighRisk {
+  padding-top: 6em;
+  position: absolute;
+  text-align: center;
+  margin-left: 654px;
+  color: #8a8c90;
+}
+
+body .landPage .section .circleAnimate #circle .LowHighRisk span {
+  padding: 1em;
+}
+
+body .landPage .section .circleAnimate #circle .LowHighRisk .RiskText {
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+body .landPage .section .circleAnimate #circle .LowHighRisk img {
+  width: 40px;
+  height: 40px;
+}
+
+body .landPage .section .circleAnimate .SemiCircle {
+  margin-top: 13%;
+  margin-left: 14%;
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+body .landPage .section .circleAnimate #small-circle:first-child {
+  margin-top: 10%;
+  margin-left: 10%;
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  background-color: #d2e2f2;
+  border-radius: 50%;
+  animation: rotate 7s infinite;
+}
+
+body .landPage .section .circleAnimate #small-circle1 {
+  margin-top: 18%;
+  margin-left: 18%;
+  position: absolute;
+  width: 65%;
+  height: 65%;
+  background-color: #d3edfa;
+  border-radius: 50%;
+  animation: rotate 7s infinite;
+}
+
+body .landPage .section .circleAnimate #small-circle2 {
+  margin-top: 20%;
+  margin-left: 20%;
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: rotate 7s infinite;
+}
+
+body .landPage .section .circleAnimate #small-circle3 {
+  margin-top: 15%;
+  margin-left: 15%;
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  background-color: #b3e0f5;
+  border-radius: 50%;
+}
+
+body .landPage .section .circleAnimate #small-circle4 {
+  margin-top: 20%;
+  margin-left: 20%;
+  position: absolute;
+  width: 60%;
+  display: grid;
+  height: 60%;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+body .landPage .section .FAQ {
+  margin-top: 6rem !important;
+  width: 60%;
+  margin: auto;
+  padding-bottom: 10em;
+}
+
+body .landPage .section .FAQ .row-title-text {
+  padding-top: 1em;
+}
+
+body .landPage .section .FAQ .icon-wrapper {
+  top: 30px !important;
+}
+
+body .landPage .section .FAQ .FaqSearch {
+  border-radius: 20px;
+  border: 1px solid #909090;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 0.7em;
+  padding-left: 1em;
+}
+
+body .landPage .section .FAQ .FaqSearch::placeholder {
+  color: #cecece;
+  font-size: 1.1em;
+  padding-left: 1em;
+  font-weight: 400;
+}
+
+body .landPage .Dashboardad {
+  margin-top: 24rem !important;
+  margin-bottom: 10rem;
+}
+body .landPage .DashboardadDMF{
+  margin-top: 5rem !important;
+  margin-bottom: 10rem;
+}
+body .landPage .Dashboardad .webApp {
+  width: 60%;
+  margin: auto;
+  position: relative;
+  z-index: 1000;
+  background-size: cover;
+  z-index: 999;
+}
+
+body .landPage .Dashboardad .webApp:before {
+  content: " ";
+  z-index: -1;
+  background-image: linear-gradient(#a0d8f1 0%, #a0d8f1 100%);
+  top: 0px;
+  right:19px;
+  border-radius: 300px 0 0 300px;
+  box-shadow: -30px 0px 0px 0px rgba(255, 255, 255, 0.2);
+  height: 93%;
+  width: 129%;
+  position: absolute;
+  transform: rotate(210deg);
+}
+
+body .landPage .Dashboardad .webApp .carousel-control-prev {
+  display: none !important;
+}
+
+body .landPage .Dashboardad .webApp .carousel-control-next {
+  display: none !important;
+}
+
+body .landPage .Dashboardad .webApp .carousel-indicators {
+  margin-bottom: -3rem !important;
+}
+
+body .landPage .Dashboardad .BigText {
+  font-size: 2.5rem;
+  font-weight: bold;
+  width: 368px;
+  color: #4c4c4c;
+  text-align: left;
+}
+
+body .landPage .Dashboardad .PlatformText {
+  padding-top: 1em;
+}
+
+body .landPage .Dashboardad .PlatformText img {
+  border-radius: 50%;
+  width: 33px;
+  margin-top: 0.3em;
+}
+
+body .landPage .Dashboardad .PlatformText.active img {
+  width: 36px;
+  border: 2px solid #042b62;
+  transition: 0.5s ease-out;
+}
+
+body .landPage .Dashboardad .PlatformText.active .MidText {
+  font-size: 1.3em;
+}
+
+body .landPage .Dashboardad .PlatformText.active .SmallText {
+  color: #042b62;
+  font-size: 1em;
+}
+
+body .landPage .Dashboardad .Forwardborder {
+  border: 1px solid #042b62;
+  border-radius: 50%;
+  padding: 0;
+}
+
+body .landPage .Dashboardad .MidText {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #7c7c7c;
+}
+
+body .landPage .Dashboardad .SmallText {
+  font-weight: 450;
+  text-align: start;
+  font-size: 0.9em;
+}
+
+body .Us-stocks .rec.rec-arrow {
+  visibility: hidden;
+}
+
+body .Us-stocks .rec-dot {
+  background-color: #92d3ef;
+  box-shadow: 0 0 1px 3px #92d3ef;
+  height: 6px;
+  width: 6px;
+  margin: 6px;
+}
+
+body .Us-stocks .rec-dot_active {
+  background-color: #042b62;
+  box-shadow: 0 0 1px 3px #042b62;
+  height: 6px;
+  width: 6px;
+  margin: 6px;
+}
+
+body .Us-stocks .rec-pagination {
+  margin-top: 6em;
+}
+
+body .Us-stocks .MobileLayOut .BigText {
+  font-size: 2.5rem;
+  font-weight: bold;
+  width: 294px !important;
+  text-align: left;
+}
+
+body .Us-stocks .MobileLayOut .SmallText {
+  color: gray;
+  font-size: 1.1em;
+  line-height: 1.7em;
+  margin-top: 0em !important;
+}
+
+body .Us-stocks .imgCenter {
+  display: grid;
+  place-items: center;
+  align-items: center;
+}
+
+body .Us-stocks .imgBorderUS {
+  border-radius: 50%;
+  background: #ebebeb;
+  padding: 15px;
+  display: grid;
+  place-items: center;
+}
+
+body .Us-stocks .SliderText {
+  font-size: 1em;
+  font-weight: 600;
+  padding-top: 0.4em;
+  text-align: center;
+  max-width: 185px;
+}
+
+body .Us-stocks .stockVal {
+  color: gray;
+  font-weight: 600;
+  text-align: center;
+}
+
+body .Us-stocks .stockSlider {
+  width: 65%;
+  margin: auto;
+}
+
+body .Us-stocks .stockSlider .imgBorderUS img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+body .Us-stocks .webApp {
+  width: 80%;
+  margin: auto;
+  position: relative;
+  z-index: 1000;
+  background-size: cover;
+  z-index: 10000;
+}
+
+body .Us-stocks .webApp:before {
+  content: " ";
+  z-index: -1;
+  background-image: linear-gradient(#f2fbff 0%, #caf1fe 100%) !important;
+  top: 0px !important;
+  right: 200px !important;
+  border-radius: 300px 0 0 300px;
+  box-shadow: -30px 0px 0px 0px rgba(255, 255, 255, 0.2);
+  height: 145% !important;
+  width: 180%;
+  position: absolute;
+  transform: rotate(210deg);
+}
+
+body .Us-stocks .webApp .SmallText {
+  max-width: 250px !important;
+}
+
+body .Us-stocks .webApp .MidText {
+  font-size: 1.2em !important;
+}
+
+.InvestFundbox .cart-ietm-title.error-b {
+  border-bottom: 1px solid red !important;
+}
+.Toastify__toast-body p {
+  margin-bottom: 0px;
+}
+.landPage .DesktopView .section .investList .img-circle {
+  width: 50px;
+  height: 50px;
+}
+.MobileViewSection {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  .MobileViewSection {
+    display: block;
+  }
+  body .landPage .section .investList {
+    margin-left: 1rem;
+  }
+  .section .largetext {
+    font-size: 3rem;
+  }
+  .landPage .MobileViewSection .section .mobileApp {
+    position: relative;
+    margin-top: -3rem;
+    margin-left: 0rem;
+    z-index: 10000;
+  }
+  .landPage .MobileViewSection .section .mobileApp:before {
+    z-index: -1;
+    background-image: linear-gradient(#a0d8f1 0%, #a0d8f1 100%) !important;
+    top: 0px;
+    left: -47px;
+    border-radius: 300px 0 0 300px;
+    overflow: hidden;
+    box-shadow: -30px 0px 0px 0px rgb(255 255 255 / 20%);
+    content: " ";
+    height: 68%;
+    width: 191%;
+    position: absolute;
+    transform: rotate(-35deg);
+  }
+  .landPage .MobileViewSection .section .mobileApp img {
+    width: 100%;
+  }
+  .landPage .MobileViewSection .section .FirstSection {
+    margin-top: 1rem;
+  }
+  .landPage .MobileViewSection .section .MobileLayOut .BigText {
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 308px;
+    text-align: left;
+  }
+  .landPage .MobileViewSection .section .SmallText {
+    color: gray;
+    font-size: 0.9em;
+    line-height: 1.7em;
+    margin-top: 0em;
+  }
+  .landPage .MobileViewSection .section .MobileLayOut {
+    margin-left: 0rem;
+    z-index: 10000;
+  }
+  .landPage .MobileViewSection .section .downloadBtn {
+    padding: 0.2rem 0.8rem 0.2rem 0.2rem;
+    float: left;
+    border-radius: 25px;
+    width: max-content;
+    outline: none;
+    background: #1194cc;
+    border: 1px solid #fff;
+  }
+  .landPage .MobileViewSection .section .downloadBtn span {
+    color: #fff;
+    font-size: 0.9em;
+    padding-left: 0.3em;
+    font-weight: 600;
+  }
+  .landPage .MobileViewSection .section .BigText {
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  .landPage .MobileViewSection .section .SliderInfo .SmallText {
+    color: gray;
+    font-size: 0.8rem;
+    line-height: 1.7em;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+  }
+  .landPage .MobileViewSection .section .investList .img-circle {
+    width: 44px;
+    height: 44px;
+  }
+  .landPage .MobileViewSection .section .investList .ImgBorder1 {
+    border-radius: 50%;
+    background: #042b62;
+    padding: 10px;
+    display: grid;
+    place-items: center;
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+  .landPage .MobileViewSection .mobileSection {
+    width: 100% !important;
+    margin: auto;
+  }
+  .landPage .MobileViewSection .section .investList .ImgBorder {
+    border-radius: 50%;
+    background: #ebebeb;
+    padding: 10px;
+    display: grid;
+    place-items: center;
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+  .landPage .MobileViewSection .section .investList .InvestType {
+    padding: 1em;
+    color: #252b39;
+    font-size: 0.7em;
+    font-weight: 500;
+  }
+  .landPage .MobileViewSection .section .categorySlider {
+    padding: 2rem;
+    background-color: #e5f4fb;
+    width: 100%;
+    margin: auto;
+    border-radius: 88px;
+    margin-top: 1rem;
+    z-index: 30;
+    position: relative;
+    height: 483px;
+  }
+  .landPage .dekstopNextbtn img {
+    display: none;
+  }
+  .MobileViewSection .DesktopFund {
+    display: none;
+  }
+  .landPage .MobileViewSection .section .categorySlider .FundList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 8px;
+    grid-row-gap: 26px;
+    border: none;
+  }
+  .landPage .MobileViewSection .section .categorySlider .fundText {
+    color: #042b62;
+    font-size: 0.7em;
+    text-align: center;
+    font-weight: 500;
+    width: 100%;
+    margin: auto;
+    padding-top: 1em;
+  }
+  .landPage .MobileViewSection .section .categorySlider .FundTypeSection {
+    width: 100%;
+    margin: auto;
+    transition: all 0.75s ease;
+  }
+  .landPage .MobileViewSection .section .SliderNextBtn {
+    display: flex;
+    justify-content: center;
+  }
+  .landPage .MobileViewSection .section .SliderNextBtn img {
+    width: 50px;
+    height: 50px;
+    position: static;
+  }
+  .landPage .MobileViewSection .section .circleAnimate #circle {
+    position: absolute;
+    width: calc(600px + 10%);
+    height: calc(600px + 10%);
+    margin-left: 21%;
+    background-color: #f1f9fc;
+    animation: rotate 7s infinite;
+    border-radius: 50%;
+  }
+  .landPage .MobileViewSection .section .circleAnimate #small-circle1 {
+    margin-top: 13%;
+    margin-left: 12%;
+    position: absolute;
+    width: 75%;
+    height: 76%;
+    background-color: #f2f5fa;
+    border-radius: 50%;
+    animation: rotate 7s infinite;
+  }
+  .landPage .MobileViewSection .section .circleAnimate #circle .LowHighRisk {
+    padding-top: 2.4em;
+    position: absolute;
+    text-align: center;
+    margin-left: 200px;
+  }
+  .landPage
+    .MobileViewSection
+    .section
+    .circleAnimate
+    #circle
+    .LowHighRisk
+    .RiskText {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .landPage
+    .MobileViewSection
+    .section
+    .circleAnimate
+    #circle
+    .LowHighRisk
+    img {
+    width: 37px;
+    height: 22px;
+  }
+  .landPage .MobileViewSection .section .circleAnimate .CircleBigTxt {
+    font-size: 0.7rem;
+  }
+  .landPage .MobileViewSection .Dashboardad .webApp:before {
+    content: " ";
+    z-index: -1;
+    background-image: linear-gradient(#a0d8f1 0%, #a0d8f1 100%);
+    top: 0px;
+    right: 26px;
+    border-radius: 300px 0 0 300px;
+    box-shadow: -30px 0px 0px 0px rgb(255 255 255 / 20%);
+    height: 116%;
+    width: 120%;
+    position: absolute;
+    transform: rotate(210deg);
+  }
+  .landPage .MobileViewSection .Dashboardad {
+    margin-top: 3rem !important;
+  }
+  .landPage .MobileViewSection .Dashboardad .MidText {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .landPage .MobileViewSection .Dashboardad .PlatformText.active .MidText {
+    font-size: 1rem;
+  }
+  .landPage .MobileViewSection .Dashboardad .PlatformText img {
+    border-radius: 50%;
+    width: 27px;
+    margin-top: 0.3em;
+  }
+  .landPage .MobileViewSection .Dashboardad .PlatformText.active img {
+    border-radius: 50%;
+    width: 27px;
+    margin-top: 0.3em;
+  }
+  .landPage .MobileViewSection .Dashboardad .PlatformText .SmallText {
+    font-size: 0.8rem;
+  }
+  .landPage .MobileViewSection .Dashboardad .PlatformText.active .SmallText {
+    font-size: 0.8rem;
+  }
+  .landPage .MobileViewSection .section .FAQ {
+    margin-top: 0rem !important;
+    width: 100%;
+    margin: 1rem 1rem 1rem 1rem;
+    padding-bottom: 10em;
+  }
+  .landPage .MobileViewSection .section .FAQ .BigText {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  .landPage .MobileViewSection .section .FAQ .FaqSearch {
+    border-radius: 28px;
+    border: 1px solid #909090;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    padding-left: 1em;
+  }
+  .landPage .MobileViewSection .faq-row .row-content-text {
+    padding: 0rem 1rem 1rem 0rem !important;
+  }
+}
+.mediclaim-modal .modal-content{
+  padding: .4rem .8rem;
+}

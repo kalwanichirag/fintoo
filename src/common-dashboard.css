@@ -1,0 +1,22 @@
+@media only screen and (max-width: 600px) {
+  .mobile-nav__sidebar {
+    width: 100vw!important;
+    height: 100vh;
+    display: block!important;
+    background: #00000073!important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    padding: 0px!important;
+    border-right: 0px!important;
+    transition: left .2s ease;
+  }
+  .mobile-nav__sidebar .mobile-nav__sidebar-box {
+    padding: 1rem;
+    background: #fff!important;
+    height: 150vh;
+    width: 60%;
+  }
+ 
+}

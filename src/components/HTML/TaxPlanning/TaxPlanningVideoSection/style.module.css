@@ -1,0 +1,30 @@
+.YoutubevideoSection {
+    background-color: #e8f8ff6b;
+  }
+  .YoutubevideoContent {
+    width: 80%;
+    margin: auto;
+  }
+  .YoutubevideoBox {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .VideoFrame {
+    width: 746px;
+    height: 428px;
+  }
+  /* ------------------------------------------------------------------------media query----------------------------------------------------------------- */
+  
+  @media only screen and (max-width: 600px) {
+    .YoutubevideoContent {
+      width: 100%;
+      padding: 1rem;
+    }
+    .VideoFrame {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  

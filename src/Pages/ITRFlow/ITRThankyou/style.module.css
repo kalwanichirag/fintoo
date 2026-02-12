@@ -1,0 +1,91 @@
+.ITRthankyousection {
+  margin: 2rem;
+}
+.ITRthankyousection .logo {
+  width: 200px;
+}
+.text {
+  margin-top: 2rem;
+  font-size: 3rem;
+  font-weight: 500;
+}
+.thankyoupara {
+  font-size: 1.22rem;
+  font-weight: 400;
+  padding-top: 1.5rem;
+}
+.BottomSection {
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  /* justify-content: center; */
+  /* display: grid;
+  place-items: center; */
+  border-radius: 15px;
+  padding: 1rem 3rem;
+}
+.AskFintoo img{
+    width: 120px;
+}
+.AppSection{
+    margin-left: 5rem;
+}
+.textApp{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+.Hrline{
+    border-right: 1px solid #e7e7e7;
+    padding: 10px;
+    height: 3rem;
+}
+.login_illustration {
+  background: url(../images/05_Thank_you.png) no-repeat;
+  background-size: 80%;
+  background-position: right 10%;
+  height: 100vh;
+  margin-top: 3rem;
+}
+@media (max-width : 768px){
+  .ITRthankyousection {
+    margin: 0rem;
+    margin-bottom: 2rem;
+  }
+  .thankyoupara{
+    padding-top: 0rem;
+  }
+  .login_illustration {
+   display: none;
+  }
+  .text{
+    margin-top: 1rem;
+  }
+  .BottomSection{
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+  .AppSection{
+    margin-left: 0rem;
+    margin-bottom: 2rem;
+  }
+  .AskFintoo img{
+    width: 80px;
+  }
+  .Hrline{
+    display: none;
+  }
+}
+.exploreBtn {
+  background-color: #042b62;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 1px solid #042b62;
+  border-radius: 10px;
+}
+.exploreBtn:hover {
+  background-color: #fff;
+  color: #042b62;
+}

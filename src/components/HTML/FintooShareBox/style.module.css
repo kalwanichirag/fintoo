@@ -1,0 +1,20 @@
+.parent {
+    position: absolute;
+    z-index: 9999;
+    display: flex;
+    top: 27px;
+    /* left: -85px; */
+    right: 0;
+}
+/* .parent::before {
+    content: ' ';
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+} */
+.link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

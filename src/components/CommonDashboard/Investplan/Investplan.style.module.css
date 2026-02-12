@@ -1,0 +1,185 @@
+.AccordianBox{
+    background-color: #fff;
+    width: 90%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 18px 0 rgb(0 0 0 / 20%);
+    margin: auto;
+}
+.icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icons svg{
+     font-size: 1.7rem;
+}
+.accsection{
+    padding: 0rem;
+}
+.titlecontainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 2rem 3rem;
+}
+.sectiontitle{
+    color:#042b62 ;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.AccordianCommingSoonImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+.AccordianCommingSoonImg img{
+    width: 30rem;
+}
+.InvestmentIcon{
+    text-align: center;
+    padding-right: 3rem;
+}
+.InvestmentIcon img{
+    width: 2.3rem;
+}
+.Textlabel{
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #042b62;
+}
+.TableBox{
+    width: 100%;
+    height: 100%;
+}
+.TableBox thead th{
+    background-color: #042b62a8;
+    color: #ffff;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding: 2rem;
+}
+.TableBox tfoot th{
+    background-color: #042b62a8;
+    color: #ffff;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding: 2rem;
+}
+.TableBox  td{
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.4rem;
+    color: #042b62;
+}
+.TableBox input[type="checkbox"]{
+    width: 16px;
+    height: 16px;
+}
+.TableBox th input[type="checkbox"]{
+    box-shadow: 0 2px 18px 0 rgb(0 0 0 / 30%);
+}
+tfoot tr th{
+    text-transform: uppercase;
+}
+.TableBox input[type="checkbox"]:checked{
+    background: #8bc53f;
+    border: 1px solid #8bc53f;
+}
+.modalPopup{
+    display: grid;
+    place-items: center;
+}
+.Content{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    font-size: 1.2rem;
+    width: 80%;
+    margin: auto;
+}
+.Buttons {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+.Buttons button{
+    border: none;
+    background-color: #042b62;
+    border-radius: 26px;
+    color: #fff;
+    outline: none;
+    font-weight: 500;
+    margin-top: 2rem;
+    padding: .7rem 4rem;
+}
+.InvestmentCompBox{
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    padding: 1rem;
+}
+.InvestmentCompBox img{
+    width: 30rem;
+}
+@media only screen and (max-width: 768px){
+    .titlecontainer{
+        padding: 1.4rem 1rem;
+    }
+    .sectiontitle{
+        font-size: .8rem;
+       display: grid;
+       text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .Textlabel{
+        font-size: .9rem;
+        text-overflow: ellipsis;
+        max-width: 72px;
+        overflow: hidden;
+    }
+    .InvestmentIcon img{
+        width: 2rem;
+    }
+    .TableBox thead th{
+        font-size: 1rem;
+        padding: 2rem;
+        white-space: nowrap;
+    }
+    
+    .TableBox tfoot th{
+        font-size: 1rem;
+        padding: 2rem;
+    }
+    .TableBox td{
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .InvestmentIcon{
+        padding-right: 1rem;
+    }
+    .AccordianCommingSoonImg img{
+        width: 16rem;
+    }
+    .Content{
+        font-size: 1rem;
+    }
+    .Buttons{
+        padding: 0rem;
+        display: flex;
+        justify-content: center;
+    }
+    .Buttons button{
+        padding: 0.7rem 3rem;
+        margin-left: 1rem;
+        font-size: .8rem;
+        outline: none;
+    }
+}

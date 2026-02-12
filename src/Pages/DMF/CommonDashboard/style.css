@@ -1,0 +1,11 @@
+.top-picks-slick-dots li.slick-active button:before {
+    color: #042b62!important;
+}
+
+.top-picks-slick-dots li button:before, .categories-slick-dots li button:before {
+    font-size: 10px;
+}
+
+.categories-slick-dots li.slick-active button:before {
+    color: #042b62!important;
+}

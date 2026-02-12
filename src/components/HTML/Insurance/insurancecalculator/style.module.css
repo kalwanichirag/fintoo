@@ -1,0 +1,330 @@
+.Insurancecalculator {
+  padding: 5rem;
+}
+
+.Insurancecalculator .Insurancecalculatortitle {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  color: #042b62;
+}
+.Insurancecalculatordescription{
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 400;
+  padding: 1rem 0;
+  color: #042b62;
+}
+.calculatorContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.Insurancecalculator .switcher {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+}
+
+.Insurancecalculator .Divider {
+  border-right: 1px solid #f3f3f3;
+  width: 0;
+  /* padding: 0 1rem; */
+  /* height: 100px; */
+}
+
+.Insurancecalculator label {
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 2rem;
+  position: relative;
+  font-weight: 500;
+}
+
+.Insurancecalculator input[type="radio"] {
+  appearance: none;
+  background-color: #fff;
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #042b62;
+  outline: none;
+  cursor: pointer;
+}
+
+.Insurancecalculator input[type="radio"]:checked {
+  background-color: #042b62;
+}
+
+.Insurancecalculator label::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: -0.5rem;
+  left: -0.8rem;
+}
+
+.Insurancecalculator .sliderContainer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  /* margin-bottom: 2rem; */
+}
+
+.Insurancecalculator .labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.Insurancecalculator .labelRow span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #808080;
+}
+
+.Insurancecalculator .inputWithUnit {
+  /* background-color: #042b629c; */
+  border: 1px solid #042b62;
+  border-radius: 6px;
+  width: 200px;
+  padding: .5rem 0;
+  /* height: 35px; */
+  font-size: 1rem;
+  color: #424242;
+  text-align: center
+}
+
+.Insurancecalculator .inputNumber {
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #042b62;
+  font-weight: bold;
+  text-align: center
+}
+
+.Insurancecalculator .inputNumber:focus {
+  outline: none;
+}
+
+.Insurancecalculator .value {
+  background-color: #e0f7ff;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  color: #042b62;
+}
+
+.Insurancecalculator .slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #e0e0e0;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.15s ease-in-out;
+  margin-top: 2rem;
+}
+
+.Insurancecalculator .slider:hover {
+  opacity: 1;
+}
+
+.Insurancecalculator .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #042b62;
+  cursor: pointer;
+   margin-top: -8px;
+}
+
+.Insurancecalculator .slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #042b62;
+  cursor: pointer;
+   margin-top: -8px;
+}
+
+.Insurancecalculator .rangeLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  color: #b0b0b0;
+  font-size: 1rem;
+}
+
+.Insurancecalculator .summaryContainer {
+  background-color: #fff;
+  /* padding: 2rem; */
+  display: grid;
+  gap: 1rem;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.Insurancecalculator .summaryContainer h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.Insurancecalculator .totalValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #042b62;
+  margin-top: 1rem;
+}
+
+.Insurancecalculator .donutChartPlaceholder {
+  height: 150px;
+  width: 150px;
+  margin: 2rem auto;
+  border-radius: 50%;
+  background-image: conic-gradient(#042b62 60%, #e0f0f8 0);
+}
+
+.Insurancecalculator .valueBreakdown {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.Insurancecalculator .valueBreakdown h4 {
+  font-size: 2rem;
+  color: #042b62;
+  margin-bottom: 0.5rem;
+}
+
+.Insurancecalculator .valueBreakdown p {
+  color: #042b62;
+}
+
+.summaryContainer p {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.Insurancecalculator .investNowButton {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid #042b62;
+  font-size: 1rem;
+  background: transparent;
+  font-weight: 500;
+  color: #042b62;
+  border-radius: 10px;
+  margin: auto;
+  padding: 10px 30px;
+}
+
+.Insurancecalculator .investedValue {
+  border-radius: 4px;
+  background: #042b629c;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: .7rem 2rem;
+  color: #fff;
+  width: 200px;
+}
+
+.Insurancecalculator .estimatedReturns {
+  border-radius: 4px;
+  background: #042b62;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  width: 200px;
+  padding: .7rem 2rem;
+}
+.Insurancecalculator .notelifeInsurance{
+  background-color: #042b62;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+}
+.Insurancecalculator .donutContainer {
+  margin: 0 auto;
+  max-width: 280px;
+}
+.notelifeInsurance .dot{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.notelifeInsurance .note{
+  padding: 14px 0;
+}
+.sliderContainer {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.sliderTrack {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: lightgray;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sliderProgress {
+  position: absolute;
+  height: 100%;
+  background-color: #042b62; 
+  border-radius: 5px 0 0 5px;
+}
+
+.sliderThumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #042b62; 
+  border-radius: 50%;
+  cursor: pointer;
+}
+@media only screen and (max-width: 600px) {
+  .Insurancecalculator {
+    padding: 2rem;
+  }
+  .Insurancecalculator .Insurancecalculatortitle{
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  .Insurancecalculator .valueBreakdown {
+    display: grid;
+  }
+.Insurancecalculator .labelRow span{
+  font-size: .9rem;
+}
+  .Insurancecalculator .summaryContainer h2 {
+    font-size: 1.5rem;
+  }
+
+  .Insurancecalculator .totalValue {
+    font-size: 1.6rem;
+  }
+
+  .Insurancecalculator .valueBreakdown p {
+    padding-top: .6rem;
+  }
+  .Insurancecalculator .notelifeInsurance{
+    padding: 1rem;
+  }
+}

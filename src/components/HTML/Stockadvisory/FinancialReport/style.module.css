@@ -1,0 +1,15 @@
+.FinancialReport {
+  background-color: #E6EAEF;
+  padding: 1rem;
+  display: grid;
+ place-items: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .FinancialReport {
+    background-color: #E6EAEF;
+    padding: 1rem;
+    display: block;
+  }
+}

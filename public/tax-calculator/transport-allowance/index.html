@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./transport_allowance.css" /> -->
+    <link rel="stylesheet" href="../../static/tax-calc/css/transport_allowance.css">
+    <title>Transport Allowance Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<style>
+    .messageclass {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 222;
+    }
+
+    .alert {
+        border-radius: 0;
+        display: none;
+    }
+
+    .place_middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .form-container {
+        margin: 3rem 0 !important;
+    }
+</style>
+
+<body class="incom-and-tax-calculator-body">
+    <div class="messageclass" id="income_and_tax_calculator_alert_element">
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span id="income_and_tax_calculator_alert_text">
+                </span>
+                <button type="button" class="btn-close" aria-label="Close" onclick="hideAlert()"></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="branding" style="padding-bottom: 0px;">
+            <div class="container-fluid position-relative" style="padding-top:1rem">
+                <div class="logo-wrapper">
+                    <div class="site-logo text-center"><a href="https://www.fintoo.in" class="navbar-brand"><img
+                                class="logo-icon mr-2" src="../../static/media/wp/Fintoologo_.svg"" alt="Fintoo logo"
+                                style="width: 120%"></a></div>
+                </div><!--//docs-logo-wrapper-->
+
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+    <div class="whole" id="uuuu"></div>
+    <div class="form-container">
+        <div class="form-heading">
+            <div class="tab_button">TRANSPORT ALLOWANCE</div>
+        </div>
+        <div class="form-content-container">
+            <secction>
+                <br /><br />
+                <section id="medical_facility_india" class="tabcontent">
+                    <form class="incom-and-tax-calculator-form" id="form_elem">
+                        <div class="padding-div">
+                            <div class="row justify-content-between align-content-center assessment-year">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class">Assessment Year *</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <span class="input-container">
+                                        <select class="form-select rounded-0" id="AssessmentYearSelect"
+                                            onblur="onBlurChange(this)" oninvalid="handleInvalidInput(this)"
+                                            onchange="onSelectChange(event)" required>
+                                            <option selected="" value="">Select</option>
+                                            <!-- <option value="2023-24">2023-24</option>
+                                            <option value="2022-23">2022-23</option>
+                                            <option value="2021-22">2021-22</option>
+                                            <option value="2020-21">2020-21</option>
+                                            <option value="2019-20">2019-20</option>
+                                            <option value="2018-19">2018-19</option> -->
+                                        </select>
+                                        <p class="required-msg">This field is required</p>
+                                    </span>
+
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Total transport allowance</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control rounded-0" id="total_transport_allowance" type="text"
+                                        maxlength="15" onblur="ValidateAndFormatNumber(this,'')"
+                                        onkeypress="javascript:return ValidateNumberKeyPress(this,event,false)" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Whether the assessee is handicapped ?</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <label class="control-label fw-bold">
+                                        <input class="form-check-input" id="is_handicapped"
+                                            type="checkbox" />&nbsp;&nbsp;&nbsp;(Tick
+                                        if Yes)</label>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="row justify-content-between align-content-center income-from-salary">
+                                <label class="col-sm-8 col-xs-12 control-label label-fw-class"
+                                    id="income-from-salary-label">Taxable Transport Allowance</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control bg-body-secondary rounded-0" id="taxable_value"
+                                        type="text" maxlength="15" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <form>
+                </form>
+                <br /><br />
+            </secction>
+            <div class="action-buttons-container">
+                <button class="calculate-badge" onclick="Calculate()">Calculate</button>
+                <button class="reset-badge" onClick="window.location.href=window.location.href">Reset</button>
+            </div>
+            <div class="loader-container dashboard-loader ">
+                <div class="loader" id="loader-6"></div>
+            </div>
+            <br /><br />
+        </div>
+        <secction class="incom-and-tax-calculator-form-bottom-note-section">
+            <div class="note-container note-container-advisory">
+                <span class="fw-bold"> Advisory: </span>
+                Information relates to the law prevailing in the year of <span class="fst-italic">publication/ as
+                    indicated</span>. Viewers are advised
+                to ascertain the correct position/prevailing law before relying upon any document.​
+                <br /><br />
+                ​​​<span class="fw-bold"> Disclaimer: </span>
+                The above calculator is only to enable public to have a quick and an easy access to basic tax
+                calculation and does not purport to give correct tax calculation in all circumstances. It is advised
+                that for filing of returns the exact calculation may be made as per the provisions contained in the
+                relevant Acts, Rules etc.
+            </div>
+        </secction>
+        <br /><br /><br />
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="./transport_allowance.js"></script> -->
+<script src="../../static/tax-calc/js/transport_allowance.js"></script>
+
+</html>
+
+<script>
+    $( document ).ready(function() {
+        // current_date=new Date('4 1 2023');
+        current_date=new Date();
+        var year1= current_date.getFullYear();
+        var apr=new Date('4 1 '+year1.toString());
+        if (current_date < apr){
+            year1-=1;
+        }
+        for( i=0; i<6; i++ ){
+            var year2=(year1+1).toString().substr(-2);
+            $('#AssessmentYearSelect').append(`<option value="${year1.toString()+"-"+year2.toString()}">${year1.toString()+"-"+year2.toString()}</option>`)
+            year1-=1;
+        }
+    });
+    const getPayload = () => {
+
+        return {
+            assessment_year: document.getElementById("AssessmentYearSelect").value,
+            total_transport_allowance: +document.getElementById("total_transport_allowance").value.replace(/,/g, '') || "",
+            is_handicapped: document.getElementById("is_handicapped").checked ? '1' : '0'
+        }
+
+    }
+
+    const getFormValidationState = () => {
+
+        const formElement = document.getElementById('form_elem');
+        const isFormValid = formElement.checkValidity();
+
+        return isFormValid
+
+    }
+
+    function Calculate() {
+        if (!getFormValidationState()) return;
+        hideAlert(); LogoShiftUp();
+        $(".dashboard-loader").addClass('active');
+        $.ajax({
+            url: "https://auto-v2.fintoo.in/tax_calc_bots/transport_allowance/",
+            // url: "https://stgbot.minty.co.in/tax_calc_bots/advance_tax/",
+            // url: "http://127.0.0.1:8080/tax_calc_bots/advance_tax/",
+            type: "POST",
+            data: JSON.stringify(getPayload()),
+            dataType: "json",
+            success: function (res) {
+                $(".action-buttons-container").show();
+                $(".dashboard-loader").removeClass('active');
+                if (res.error_code == "100") {
+                    console.log(res)
+                    if (res.message != "success") {
+                        showAlert(); LogoShiftDown();
+                        document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.data.error_msg;
+                    }
+                    document.getElementById("taxable_value").value = res.data.taxable_value
+                }
+                else if (res.error_code == "102") {
+                    showAlert(); LogoShiftDown();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  Due to high traffic, the calculation of your result is experiencing delays. We appreciate your patience and understanding during this time. Please try again!!";
+                }
+                else {
+                    showAlert(); LogoShiftDown();
+                    document.getElementById("income_and_tax_calculator_alert_text").innerHTML = "<strong>Error ! !</strong>  " + res.message;
+                }
+            }
+        })
+    }
+</script>

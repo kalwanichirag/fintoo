@@ -1,0 +1,23 @@
+
+.scrolltopdiv {
+    position: fixed;
+    z-index: 99999999;
+    bottom: 160px;
+    right: 30px;
+    cursor: pointer;
+}
+.scrolltopdiv1{
+    bottom: 55px;
+    right: 30px;
+    cursor: pointer;
+    position: fixed;
+    z-index: 99999;
+}
+.scrolltopdiv1 img {
+    width: 40px;
+    height: 40px;
+}
+.scrolltopdiv img {
+    width: 40px;
+    height: 40px;
+}

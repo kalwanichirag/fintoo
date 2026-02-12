@@ -1,0 +1,46 @@
+
+.imgCenter {
+    text-align: center;
+    position: relative;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.imgCenter:after {
+    position: absolute;
+    content: ' ';
+    height: 40%;
+    width: .5px;
+    right: 0px;
+    top: 30%;
+    background: #ddd;
+}
+.sliderBox {
+    position: relative;
+}
+.sliderBox:after {
+    position: absolute;
+    content: ' ';
+    height: 100%;
+    width: 5px;
+    right: 0px;
+    top: 0;
+    background: #fff;
+    z-index: 99;
+}
+.sliderBox::before {
+    position: absolute;
+    content: ' ';
+    height: 100%;
+    width: 15px;
+    left: -5px;
+    top: 0;
+    background: #fff;
+    z-index: 99;
+}
+.SliderText {
+    font-weight: 600;
+}
+.itemLink {
+    color: inherit;
+    text-decoration: none;
+}

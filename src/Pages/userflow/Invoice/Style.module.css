@@ -1,0 +1,48 @@
+.InvoiceBox{
+   width: 80%;
+   margin: auto;
+}
+.TableBox{
+    margin: 2rem 0rem;
+    overflow-x: auto;
+}
+.TableBox::-webkit-scrollbar{
+    display: none;
+}
+.defaulttable{
+    text-align: left;
+    background: #fff;
+    width: 100.1%;
+    border-radius: 5px;
+    border:  none;
+}
+.defaulttable table thead{
+    border:  none;
+}
+.defaulttable  tr{
+    border-bottom: #f0f4f3 3px solid !important;
+}
+.defaulttable th{
+    color: #042b62;
+    font-weight: 500;
+    padding: 1.5rem 2rem;
+    font-size: 1.1rem;
+    border: none !important
+    /* width: 34%; */
+}
+
+.defaulttable td{
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
+    border:  none !important;
+}
+.defaulttable thead tr:hover{
+    background: #e6eded;
+    border-bottom: #e6eded 3px solid;
+    transition: .2s all ease;
+}
+.defaulttable tbody tr:hover{
+    background: #e6eded;
+    border-bottom: #e6eded 3px solid;
+    transition: .2s all ease;
+}

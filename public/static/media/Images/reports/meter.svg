@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="184px" height="184px" viewBox="0 0 184 184" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group 16</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="100%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#597E36" offset="0%"></stop>
+            <stop stop-color="#4EAD36" offset="21.4025549%"></stop>
+            <stop stop-color="#DDBB25" offset="45.5104519%"></stop>
+            <stop stop-color="#F89321" offset="74.7149493%"></stop>
+            <stop stop-color="#F9411F" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="reports" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="9.-Report-(risk-appetite)-Copy-3" transform="translate(-751.000000, -424.000000)">
+            <g id="Group-16" transform="translate(752.000000, 425.000000)">
+                <g id="Group-14">
+                    <circle id="Oval" stroke="#D9D9D9" fill="#FFFFFF" cx="91.0484386" cy="91" r="91"></circle>
+                    <path d="M176,91 C176,44.0557963 137.944204,6 91,6 C44.0557963,6 6,44.0557963 6,91" id="Oval-Copy-11" stroke="url(#linearGradient-1)" stroke-width="13"></path>
+                    <path d="M12.3624993,91.3145142 C12.3624993,87.4829711 12.5906244,83.7070998 13.0249992,80 C12.5828121,83.102895 12.3187493,86.245088 12.2437493,89.4069298 C12.2187493,90.4712472 11.3812493,91.3145142 10.367187,91.3145142 L3.83693077e-13,91.3145142 C3.83693077e-13,137.877587 34.1140604,176.084949 77.579683,180 C40.0484352,169.674483 12.3624993,133.883941 12.3624993,91.3145142 Z" id="Path" fill="#F2F2F2" fill-rule="nonzero"></path>
+                </g>
+                <g id="Group-15" transform="translate(55.103122, 62.000000)">
+                    <circle id="Oval" fill="#FAFAFA" cx="33.3968779" cy="32.5" r="32.5"></circle>
+                    <path d="M12.3624993,32.5015561 C12.3624993,21.098432 18.3765613,11.062495 27.3187484,5.17499534 L28.0109355,0.0781204442 C12.3656241,2.59062029 -3.83693077e-13,16.1468699 -3.83693077e-13,32.5015561 C-3.83693077e-13,50.6406174 14.7046867,65.346867 32.8453104,65.346867 C34.9593727,65.346867 37.023435,65.1390542 39.0265601,64.7578042 C23.8421862,61.8656168 12.3624993,48.5265552 12.3624993,32.5015561 L12.3624993,32.5015561 Z" id="Path" fill="#EBEBEB" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

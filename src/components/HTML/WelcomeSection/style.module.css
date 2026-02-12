@@ -1,0 +1,169 @@
+.right {
+  width: 100%;
+  height: 700px;
+}
+.BannerTitle {
+  font-weight: 500;
+  font-size: 48px;
+  /* line-height: 120%; */
+  letter-spacing: -0.02em;
+  color: #111;
+  /* padding: 1rem 0; */
+}
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0px, 200px, 300px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 100vh, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+
+@keyframes fadeInUptxt {
+  from {
+    transform: translate3d(-500px, 200px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeInUptxt {
+  from {
+    transform: translate3d(0, 100vh, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animatedtxt {
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-fill-mode: both;
+}
+
+.animatedtxtFadeInUp {
+  opacity: 0;
+}
+
+.fadeInUptxt {
+  opacity: 0;
+  animation-name: fadeInUptxt;
+  -webkit-animation-name: fadeInUptxt;
+}
+.h2 {
+  font-size: 64px;
+  color: #042b62;
+  font-weight: 900;
+}
+.inleftside {
+  padding-top: 0px;
+}
+@media (min-width: 900px) {
+  .container {
+    /* display: grid; */
+    place-items: center;
+    /* width: 1140px!important;
+        padding: 2rem 0rem;
+        margin: auto; */
+    padding: 13rem 0;
+  }
+}
+.animateBox {
+  background: #f5f7f9;
+  border: 1px solid #f3f3f3;
+  height: 60px;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  border-radius: 45px;
+  width: 50%;
+  color: #41424d;
+  margin: auto;
+  margin-top: 2.4rem;
+  cursor: pointer;
+}
+.BannerText {
+  font-size: 1.4rem;
+  color: #41424d;
+  /* padding: 1rem 0; */
+}
+.animateBox span {
+  font-size: 24px;
+  color: #042b62;
+  position: relative;
+  text-align: center;
+  left: 2rem;
+  vertical-align: middle;
+}
+.lottie img {
+  width: 600px;
+  height: 650px;
+  margin: auto;
+}
+
+@media (max-width: 767px) {
+  .h2 {
+    font-size: 40px;
+  }
+  .container{
+    padding: 7rem 1rem;
+  }
+  .lottie {
+    width: 179px !important;
+    height: 179px !important;
+  }
+  .custom-col-1 {
+    display: none;
+  }
+  .animateBox {
+    height: 50px;
+    width: 100%;
+  }
+  .BannerTitle{
+    font-size: 23px;
+  }
+  .BannerText{
+    font-size: 1rem;
+  }
+ 
+  
+}
+
+.custom-col-2 {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .chatview {
+    padding: 0rem 7rem !important;
+  }
+}
+@media (min-width: 992px) {
+  .custom-col-1 {
+    width: 46.52% !important;
+  }
+  .custom-col-2 {
+    width: 53.48% !important;
+  }
+}

@@ -1,0 +1,256 @@
+.ReportPdf {
+  width: 70%;
+  margin: auto;
+  height: 100%;
+
+  /* border-left: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+    border-bottom: 1px solid #c6c6c6; */
+}
+.Header {
+  padding: 3rem;
+  background-color: #f7f8f8;
+  background-image: url(../Html/css/Fintoologo_.svg);
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  /* background-size: 200px 200px; */
+}
+.Header img {
+  width: 100px;
+  float: right;
+}
+.Footer {
+  position: fixed;
+  width: 70%;
+  bottom: 0;
+  border-top: 1px solid #e7e7e7;
+}
+.FooterContent {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0rem;
+  color: #332e7f;
+  font-size: 1rem;
+  font-weight: 500;
+  /* font-size: 1.2rem;
+    color: #4f138700; */
+}
+.ProfileSection {
+  padding: 0rem 0rem 0rem 2.4rem;
+  width: 100%;
+}
+.ReportProfile {
+  width: 65%;
+  margin: auto;
+  height: 100vh;
+  margin-top: 3rem;
+}
+
+.riskappetitebar {
+  width: 400px;
+  position: relative;
+  padding: 10px 0;
+}
+.riskappetitebar .riskbar {
+  display: flex;
+  width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.RightSection{
+  position: relative;
+}
+.FullLine img{
+  position: absolute;
+  width: 29rem;
+  clear: both;
+  top: 4.7rem;
+  right: 20.86rem;
+}
+.FullLine img{
+  height: 1rem;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.riskAppetiteBox ul li,
+.appendix li {
+  text-align: left !important;
+  line-height: 26px !important;
+}
+.riskappetitebar .riskbar li {
+  height: 15px;
+  width: 100%;
+  padding: 0;
+  margin-left: 1.6px;
+}
+.riskAppetiteBox ul li:before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 18px;
+  width: 5px;
+  height: 5px;
+  background: #042b62;
+  border-radius: 50%;
+}
+.riskappetitebar .riskbar .level1 {
+  background: #07a500;
+}
+.riskappetitebar .riskbar .level2 {
+  background: #85e503;
+}
+.riskappetitebar .riskbar .level3 {
+  background: #f8d700;
+}
+.riskappetitebar .riskbar .level4 {
+  background: #fe7900;
+}
+.riskappetitebar .riskbar .level5 {
+  background: #f60400;
+}
+
+.riskappetitebar .riskindicator {
+  position: absolute;
+  width: 0px;
+	height: 0px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid #042b62;
+}
+.riskTitle{
+  color: #24a7de;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.riskPara{
+  width: 62%;
+  font-size: 1.1rem;
+}
+.RiskBarSection{
+  margin-top: 2rem;
+}
+.barText{
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.barText span{
+  font-size: 1.1rem;
+  font-weight: 400;
+  color:#938c8c;
+}
+.RightSection p{
+  color: #042b62;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.InvestmentPhilosophy{
+  margin-top: 3rem;
+}
+.InvestBox{
+  width: 50%;
+}
+.InvestTxt{
+  color: #042b62;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.InvestPara{
+  color: #042b62;
+  font-size: 1rem;
+  font-weight: 400;
+  padding-top: .4rem;
+}
+.barBox{
+ width: 100%;
+}
+.barBoxtype{
+  background-color: #e32000;
+  padding: .4rem 2rem;
+  width: 36%;
+  /* width: 28%; */
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 500;
+}
+.RightSection .InvestPyramid{
+  margin-top: 1rem;
+}
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    page-break-inside: auto;
+  }
+  .ReportPdf {
+    width: 100%;
+    margin: auto;
+    height: 100%;
+  }
+  .ReportProfile {
+    width: 90%;
+  }
+  .ProfileSection tr td {
+    min-width: 177px;
+    padding-left: 1rem;
+  }
+  .PageBreak {
+    page-break-before: always;
+  }
+  .Footer {
+    width: 100%;
+  }
+  .Footer p {
+    margin: 0rem 2rem;
+  }
+  .RiskData{
+    margin-left: 1rem;
+  }
+  .riskPara{
+    padding: 1rem 0rem;
+  }
+  .InvestmentPhilosophy{
+    margin-top: 8rem;
+  }
+  .barBox{
+    width: 100%;
+   }
+   .barBoxtype{
+     background-color: #e32000;
+     padding: .4rem 2rem;
+     width: 60%;
+     /* width: 28%; */
+     border-radius: 30px;
+     color: #fff;
+     font-weight: 500;
+   }
+   .RightSection .InvestPyramid{
+     margin-top: 1rem;
+   }
+   .InvestBox{
+    width: 80%;
+  }
+  .RightSection{
+    position: relative;
+  }
+  .FullLine img{
+    position: absolute;
+    /* width: 5rem; */
+    clear: both;
+    top: 4.7rem;
+    right: 18rem;
+  }
+  .FullLine img{
+    /* height: 1rem; */
+    width: 61%;
+  }
+}
+@page {
+  size: A4 portrait;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin: 0;
+}

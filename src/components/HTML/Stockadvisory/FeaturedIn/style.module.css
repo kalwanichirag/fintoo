@@ -1,0 +1,20 @@
+.SectionSubtext{
+    color: #86898b;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+@media (min-width: 1400px) {
+    .container {
+        width: 1140px!important;
+    }
+}
+
+.card-item img {
+    margin: auto;
+}
+@media (max-width: 767px) {
+    .featured-in-xu {
+        width: 80%;
+        margin: auto;
+    }
+}

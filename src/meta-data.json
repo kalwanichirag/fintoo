@@ -1,0 +1,265 @@
+{
+    "/": {
+        "title": "Fintoo - Financial, Tax and Investment planning platform",
+        "description": "Fintoo is an online platform providing  solutions for all your Financial planning, Tax planning goals with AI-powered advisory in India"
+    },
+    "/web": {
+        "title": "Fintoo - Financial, Tax and Investment planning platform",
+        "description": "Fintoo is an online platform providing  solutions for all your Financial planning, Tax planning goals with AI-powered advisory in India"
+    },
+    "/web/itr-file": {
+        "title": "File ITR Online In Just 60 mins | ITR Filing",
+        "description": "Simplify your ITR e-filing with the help of our tax expert over a live 60-minute video call. Trusted by 1,40,000+ individuals."
+    },
+    "/web/financial-planning-page": {
+        "title": "Fintoo: India’s Best Certified Financial Advisor & Planner",
+        "description": "Fintoo is India’s top financial planner and advisor, offering expert financial guidance to help you achieve your goals. Get personalized financial advice today!",
+        "keywords": "Certified Financial Planner, Certified Financial Planner in India, Certified Financial Planner in Mumbai, Financial Planning, Financial Advisor, online financial advisor, financial consultant, certified financial planner india, best financial advisor in india, financial,online financial advisor, personal financial advisor, best financial advisors, financial advisory companies in India, online investment advisor india, online financial advisor india, best financial planners in india, certified financial planner in mumbai, top financial consultants, financial advisor website",
+        "faq" : {
+            "@context": "https://schema.org/",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is a Certified Financial Advisor?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A Certified Financial Advisor (CFA) is a financial professional who has achieved the highest level of expertise and credentialing in the field. CFAs are rigorously trained and have passed a series of exams administered by the CFA Institute, covering areas such as investment management, ethics, and economics. They provide clients with comprehensive financial planning, investment advice, and strategies to achieve financial goals."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the Role of a Financial Advisor?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The role of a financial advisor is to guide clients in managing their finances effectively. This includes creating personalized financial plans, managing investments, planning for retirement, optimizing tax strategies, and ensuring adequate risk management through insurance."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What Exactly Does a Financial Advisor Do?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A financial advisor helps clients decide how to manage their money. They assess their client’s economic health and determine their long- and short-term goals before making recommendations to meet them. They help invest money, recommend products like life insurance, and assist with tax planning."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which is Better, CFA or CFP?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A CFA is a financial professional who analyzes companies' growth, profitability, and creditworthiness, often working in investment management. A CFP, on the other hand, primarily works with individual clients and provides financial planning services like retirement and tax planning."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How to Become a SEBI Certified Financial Advisor?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "To become a SEBI-certified financial advisor, meet eligibility criteria, including a postgraduate degree in finance-related fields, CFA, or NISM certifications, along with relevant experience. Apply to SEBI with necessary documents and a non-refundable ₹2000 application fee."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is it Good to Be a Financial Advisor?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Becoming a financial advisor can be rewarding if you enjoy assisting people with financial goals and have strong analytical skills. However, the profession is highly competitive and requires continuous learning."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How Do Financial Consultants Earn?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Financial consultants earn through client fees, commissions, and salaries. Fees can be charged hourly, as a fixed amount, or as a percentage of assets under management. Commissions come from selling insurance products or trading securities."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is a Personal Financial Planner?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A personal financial planner helps manage money and achieve long-term financial goals, such as saving for retirement or funding education. They advise on investments, taxes, and budgeting."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is a Certified Financial Planner for a Business?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A Certified Financial Planner (CFP) for a business is a professional with expertise in financial planning, providing businesses with specialized guidance on managing their finances, investments, and financial strategies."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is a Virtual Financial Advisor?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A virtual financial advisor offers personalized financial guidance remotely using digital tools and technology. They use videoconferencing, co-browsing, and online platforms to provide investment and planning advice."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What Does a Digital Financial Planner Do?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A digital financial planner helps individuals manage their money through online tools, tracking expenses, setting budgets, planning goals, and making smarter investment decisions with real-time insights."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is There an AI Financial Advisor?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, AI financial advisors, or robo-advisors, use artificial intelligence to provide financial advice, analyze data, and offer personalized investment strategies and portfolio management."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How Much Does a Certified Financial Planner Cost in India?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The cost of becoming a Certified Financial Planner (CFP) in India ranges from INR 1.5 to 2 lakhs. Annual fees for CFP services vary between INR 6,000 and INR 40,000, depending on the advisor’s services."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Who Needs Financial Planning?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Financial planning is beneficial for everyone, regardless of age or financial situation. Major life events like marriage, having children, or starting a business often prompt the need for financial planning."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the Qualification of a Financial Planner?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "To become a financial planner, a bachelor’s degree in finance, business, accounting, or economics is typically required. Additional certifications, like the Certified Financial Planner (CFP), are also essential."
+                }
+              }
+            ]
+          },
+          "Person" :     {
+            "@context": "http://schema.org",
+            "@type": "Person",
+            "familyName": "Mihir Shah",
+            "givenName": "Mihir Shah",
+            "worksFor": "https://www.fintoo.in/",
+            "jobTitle": "",
+            "image": "https://media.licdn.com/dms/image/v2/C4D03AQH4-ValRM2zdA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1656664661947?e=1745452800&v=beta&t=XjTRyS0SEjRaCViqId6TYCg1s6rMtrel9rLVu-sq1Xw",
+            "sameAs": ["https://www.linkedin.com/in/mihir-shah-653a74118/"]
+        }
+          
+    },
+    "/web/retirement-planning-page": {
+        "title": "Make the best investments for your retirement",
+        "description": "Personalised Retirement planning strategies and recommendations to invest for a debt free retirement with Fintoo"
+    },
+    "/web/tax-planning-page": {
+        "title": "Get Tax saving advice and ITR filing assistance online",
+        "description": "Fintoo provides various tax planning services including ITR filing, Tax savings, reduced Tax liability, Advance Tax planning, etc, on one platform."
+    },
+    "/web/investment-planning-page": {
+        "title": "Risk-adjusted investment planning and portfolio management",
+        "description": "Fintoo provides investment planning services to help you with portfolio management based on your risk appetite and AI-backed analysis."
+    },
+    "/web/privacy-policy": {
+        "title": "Privacy Policy - Fintoo",
+        "description": "Explore our privacy policy that showcases our commitment towards protecting your data, ensuring complete privacy, and maintaining confidentiality."
+    },
+    "/web/terms-conditions": {
+        "title": "Fintoo's Terms and conditions",
+        "description": "By using this website you are choosing Fintoo’s services and are agreeing to the following Terms and conditions of use."
+    },
+    "/web/login": {
+        "title": "Login to your Fintoo account",
+        "description": "Login to your Fintoo account. If you haven't registered yet, register now"
+    },
+    "/web/login-with-otp": {
+        "title": "Login to your fintoo account using otp",
+        "description": "Login to your Fintoo account using the otp"
+    },
+    "/web/our-events": {
+        "title": "Discover upcoming events, seminars, webinars and workshops",
+        "description": "Learn more about Fintoo's upcoming events, seminars, webinars and workshops"
+    },
+    "/web/about-us": {
+        "title": "About Us - Fintoo",
+        "description": "Fintoo is a leading financial advisory platform that provides personalised financial solutions with the help of experienced experts and AI Advisory."
+    },
+    "/web/register": {
+        "title": "Get registered to receive a personal financial plan online.",
+        "description": "Register with Fintoo to start your financial planning journey today and achieve your goals with the help of a simple financial plan."
+    },
+    "/web/notices": {
+        "title": "Reply And Resolve Your Income Tax Notice With Fintoo",
+        "description": "Let our income tax experts assist you in replying to all kinds of income tax notices and resolving all kinds of tax-related concerns."
+    },
+    "/web/ipo": {
+        "title": "Track and Manage All IPO-Related Activities Online WIth Fintoo",
+        "description": "Get updates on all upcoming IPOs, view ongoing IPOs, apply for IPOs, and more. Manage all your IPO-related activities from one place."
+    },
+    "/web/stock-advisory": {
+        "title": "Stock Advisory – Invest and Grow with the Right Advice.",
+        "description": "Experience the effect of informed decisions with a stock advisory service backed by insights, recommendations, and strategies to maximise your returns."
+    },
+    "/web/tax-calculators": {
+        "title": "Tax Calculators – Calculate Your Taxes Easily and Accurately.",
+        "description": "Use our simple and user-friendly tax calculators to compute your tax amount accurately in minutes and just a few clicks."
+    },
+    "/web/risk-management": {
+        "title": "Risk Management – Mitigate All Financial Risks",
+        "description": "Secure your financial future with risk management solutions that will help you minimise all financial risks for a secure and stable future."},
+    
+    "/web/grievance-mechanism": {
+        "title": "Grievance Mechanism At Fintoo",
+        "description": "Learn about our exclusive grievance mechanism that enables us to address all your grievances and offer you a secure and trusted online experience."
+    },
+    "/web/direct-mutual-funds": {
+        "title": "Invest In Mutual Fund With Zero Commission",
+        "description": "Effortlessly search, select, and invest in the best mutual funds using a smart, safe and reliable direct mutual fund service."
+    },
+    "/web/investor-charter": {
+        "title": "Fintoo’s Investor Charter",
+        "description": "Explore our Investor Charter to understand Fintoo’s vision, mission, services, and expectations from the investors."
+    },
+    "/web/international-equity": {
+        "title": "Invest In International Equity From India On Fintoo",
+        "description": "Unlock global opportunities and take your portfolio from national to international with safe and strategic investment opportunities in global equities."
+    },
+    "/web/nri-taxation": {
+        "title": "Best ITR Filing And Tax Management For NRIs",
+        "description": "Ensure complete tax compliance and maximise your tax savings and returns with expert, hassle-free, and reliable tax filing and management solutions."
+    },
+    "/web/contact": {
+        "title": "Contact us - Fintoo",
+        "description": "Connect with us effortlessly – whether you have questions, need assistance, or want to explore opportunities. Contact us now for personalized support and expert guidance."
+    },
+    "/web/compliance-audit-status": {
+        "title": "Check The Compliance Audit Status – Ensure Regulatory Adherence.",
+        "description": "Verify the compliance audit status and stay informed about regulatory adherence to ensure peace of mind."
+    },
+    "/web/pricing": {
+        "title": "Fintoo Pricing | Assisted & Robo Advisory",
+        "description": "Explore tailored financial advisory plans for success. Find budget-friendly options, compare features, and secure your path to prosperity with us."
+    },
+    "/web/income-tax-filing": {
+        "title": "File Your ITR Anywhere, Anytime 30 Minutes Only!",
+        "description": "File Your ITR Anywhere, Anytime 30 Minutes Only!"
+    },
+    "/web/bond-investment" : {
+        "title": "Best Online Bond Investment Platform",
+        "description": "Explore all available bonds, select the ones that match your requirements, and invest for a secure and profitable financial future."
+    },
+    "/web/complaints-status" : {
+        "title": "Complain Status raised and resolved.",
+        "description": "This page give detailed count of number of complaints raised and resolved on our platform through SEBI (Scores) or other sources."
+
+    },
+    "/web/sitemap": {
+        "title": "Sitemap – Learn About Fintoo, Our Expertise And More.",
+        "description": "Access the complete list of website pages and navigate effortlessly to discover all the information you need in minimum time."
+    }
+}

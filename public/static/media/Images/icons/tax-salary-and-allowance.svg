@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 12</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-145.075757%" y1="50%" x2="127.137229%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F67F9C" offset="0%"></stop>
+            <stop stop-color="#EF305E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons" transform="translate(-123.000000, -327.000000)">
+            <g id="Group-12" transform="translate(123.000000, 327.000000)">
+                <g id="Group-3-Copy" fill="#EF305E">
+                    <g id="Group-2-Copy">
+                        <g id="Group-47">
+                            <circle id="Oval" opacity="0.0975864955" cx="19" cy="19" r="19"></circle>
+                            <circle id="Oval" opacity="0.099609375" cx="19" cy="19" r="16"></circle>
+                            <g id="Group-13" transform="translate(7.000000, 9.000000)" opacity="0.502673921">
+                                <circle id="Oval" style="mix-blend-mode: multiply;" cx="22" cy="4" r="1"></circle>
+                                <circle id="Oval-Copy-2" style="mix-blend-mode: multiply;" cx="1" cy="9" r="1"></circle>
+                                <circle id="Oval-Copy-3" style="mix-blend-mode: multiply;" cx="24.5" cy="11.5" r="1"></circle>
+                                <circle id="Oval-Copy-4" style="mix-blend-mode: multiply;" cx="7.5" cy="0.5" r="1"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g id="noun_Wallet_2035493" transform="translate(12.000000, 11.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+                    <path d="M15,13.4 L15,16.28 C15,16.712 14.7,17 14.25,17 L0.75,17 C0.3,17 0,16.712 0,16.28 L0,6.92 C0,6.488 0.3,6.2 0.75,6.2 L14.25,6.2 C14.7,6.2 15,6.488 15,6.92 L15,9.8 L11.625,9.8 C10.575,9.8 9.75,10.592 9.75,11.6 C9.75,12.608 10.575,13.4 11.625,13.4 L15,13.4 Z M11.625,10.88 C11.175,10.88 10.875,11.168 10.875,11.6 C10.875,12.032 11.175,12.32 11.625,12.32 C12.075,12.32 12.375,12.032 12.375,11.6 C12.375,11.168 12.075,10.88 11.625,10.88 Z M10.125,0 C9.075,0 8.25,0.792 8.25,1.8 C8.25,2.808 9.075,3.6 10.125,3.6 C11.175,3.6 12,2.808 12,1.8 C12,0.792 11.175,0 10.125,0 Z M7.275,5.76 C7.425,5.472 7.5,5.184 7.5,4.824 C7.5,3.6 6.525,2.664 5.25,2.664 C3.975,2.664 3,3.6 3,4.824 C3,5.184 3.075,5.472 3.225,5.76 L7.275,5.76 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+        <g id="1st"></g>
+    </g>
+</svg>

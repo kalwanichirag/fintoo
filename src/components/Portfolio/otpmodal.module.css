@@ -1,0 +1,38 @@
+.switch-fund-btn {
+    background: #042b62;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .SIPCloseicon {
+        top: -.3rem;
+    }
+}
+
+.SIPButtons {
+    display: flex;
+}
+
+.SIPButtons button {
+    margin: 0 1rem;
+    border: 1px solid #042b62;
+    outline: 0;
+    background-color: #fff;
+    padding: .3rem 1.7rem;
+    border-radius: 20px;
+    color: #042b62;
+    font-weight: bold;
+    font-size: .8rem;
+}
+
+.SIPButtons button:hover {
+    color: #fff;
+    background-color: #042b62;
+}

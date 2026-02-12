@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="917px" height="869px" viewBox="0 0 917 869" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Path 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="16.9112047%" y1="79.3441257%" x2="111.847416%" y2="2.9882758%" id="linearGradient-1">
+            <stop stop-color="#8DC63F" stop-opacity="0.242788462" offset="0%"></stop>
+            <stop stop-color="#6AAA13" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.397763207">
+        <g id="Services" transform="translate(-783.000000, 0.000000)" fill="url(#linearGradient-1)">
+            <path d="M1688.04929,-66.2514607 C1282.59686,-163.495968 1105.33263,-118.176075 1156.25662,69.7082176 C1189.72064,193.1739 1034.25623,341.798904 868.054513,426.922468 C729.837902,497.712896 773.561571,693.660514 902.674208,795.950271 C1046.2254,909.679005 1246.00398,884.639763 1416.25745,762.194127 C1547.90755,667.511882 1690.22905,517.745518 1756.43659,505.353416 C1872.23413,483.679526 1849.43837,293.144567 1688.04929,-66.2514607 Z" id="Path-7" style="mix-blend-mode: multiply;"></path>
+        </g>
+    </g>
+</svg>

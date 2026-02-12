@@ -1,0 +1,63 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+  background: #fafafa;
+}
+
+.card {
+  width: 90%;
+  max-width: 900px;
+  background: white;
+  text-align: center;
+  padding: 60px 20px;
+  border-radius: 10px;
+}
+
+.logo {
+  width: 170px;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 600;
+  color: #4a8ed8;
+  margin: 0;
+}
+
+.sub {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.desc {
+  margin-top: 30px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+}
+
+.homeButton {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #042b62;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.homeButton:hover {
+  background-color: #042b62;
+}
+
+.timerText {
+  margin-top: 10px;
+  color: #666;
+  font-size: 14px;
+}

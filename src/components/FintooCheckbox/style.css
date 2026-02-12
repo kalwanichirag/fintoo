@@ -1,0 +1,22 @@
+.fintoo-checkbox {
+    display: flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+}
+.fintoo-checkbox img {
+    width: 20px;
+    height: 20px;
+}
+.fintoo-checkbox .fc-title {
+    padding-left: 10px;
+}
+.fintoo-checkbox .fc-title-amc {
+    padding-left: 10px;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 1rem;
+}

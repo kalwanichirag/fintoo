@@ -1,0 +1,102 @@
+.assetlibBox .title {
+    color: #042b62;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.assetlibBox .totalAmount {
+    color: #042b62;
+    padding-top: 4px;
+}
+
+.memberbox {
+    background-color: #DCE6E8;
+    border-radius: 7px;
+    padding: 5px 10px;
+}
+
+.viewallBtn {
+    color: #042b62;
+}
+
+.SelectGoalsbtn button {
+    background-color: #042b62;
+    border-radius: 20px;
+    padding: .5rem 2rem;
+    outline: none;
+    border: 0;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.viewallBtn {
+    color: #042b62;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.membetTxt {
+    color: #042b62;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.GoalsSelected {
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .GoalsSelected div:first-child {
+        font-size: .7rem;
+    }
+
+    .assetlibBox {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .assetlibBox .title {
+        font-size: .8rem;
+    }
+
+    .automatedLinkage {
+        font-size: .7rem;
+    }
+
+    .memberbox {
+        white-space: nowrap;
+    }
+
+    .membetTxt {
+        font-size: .8rem;
+    }
+
+    .viewallBtn {
+        font-size: .8rem;
+    }
+
+    .SelectGoalsbtn button {
+        white-space: nowrap;
+        padding:.3rem .8rem;
+        font-size: .7rem;
+    }
+
+    .GoalsSelected {
+        white-space: nowrap;
+        width: 130px;
+        overflow: scroll;
+    }
+
+    .LinkGoals {
+        font-size: .7rem;
+    }
+
+    .LinkGoals .InfoIcon img {
+        width: 13px;
+    }
+    .automatedLinkage .InfoIcon img {
+        width: 13px;
+    }
+}

@@ -1,0 +1,524 @@
+.my-btn {
+  border: 0;
+  outline: 0;
+  background-color: #042b62;
+  padding: 0.4rem 1.3rem;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 13px;
+}
+
+.mandateHeader {
+  padding: 1rem 2rem;
+}
+
+.BankInvestBox {
+  background-color: #fbfbfb;
+  width: 60%;
+  border-radius: 5px;
+}
+
+.cartText {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 2rem;
+  border-bottom: 2px solid #042b62;
+  width: max-content;
+}
+
+.cartPaytype {
+  margin-top: 1.4rem;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cartmode {
+  color: #042b62;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.grayColortext {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.payamt {
+  font-weight: 500;
+}
+
+.paynowBtn button {
+  border: 0;
+  outline: 0;
+  background-color: #042b62;
+  color: #fff;
+  padding: 0.2rem 1.5rem;
+  font-weight: 500;
+  border-radius: 20px;
+}
+
+.AddBankBtn {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.AddBankBtn button {
+  border: 0;
+  outline: 0;
+  border-radius: 20px;
+  background-color: #042b62;
+  color: #fff;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+}
+
+.cartBankLogo img {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+}
+
+.CartBankName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 21px;
+  padding-top: 0.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.Bottomcarttext {
+  color: rgba(0, 0, 0, 0.6);
+  /* padding-top: .8rem; */
+  line-height: 24px;
+  padding-top: 0.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.Bottomcarttext2 {
+  color: rgba(0, 0, 0, 0.6);
+  /* padding-top: .8rem; */
+  line-height: 24px;
+  padding-top: 0.2rem;
+  white-space: nowrap;
+}
+
+.bankinfohead {
+  color: rgba(0, 0, 0, 0.6);
+  /* padding-top: 1rem; */
+  padding-top: 0.1rem;
+}
+
+.bankinfodata {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 19px;
+  padding-top: 0.78em;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.noteText {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.continueBtn button {
+  border: 0;
+  outline: 0;
+  background-color: #042b62;
+  padding: 0.4rem 1.3rem;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 20px;
+  margin: 3rem 0;
+}
+
+.continueBtn button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.bankHeader {
+  width: 65%;
+}
+
+.smallvrline {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  height: 5px;
+  margin: 0 8px;
+}
+
+.CartmandateBankName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 19px;
+  padding-top: 0.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.CartmandateBankName .cartbanksName {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.autopayheader {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.autopayamountbox {
+  border-radius: 0.3125rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  margin: auto;
+  margin-top: 2rem;
+  /* width: 100%; */
+}
+
+.autopayamountbox input {
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.setamountbuttons {
+  display: flex;
+  justify-content: center;
+}
+
+.setamountbuttons button {
+  border: 1px solid #042b62;
+  outline: 0;
+  border-radius: 20px;
+  padding: 0.3rem 2rem;
+  background-color: #fff;
+  color: #042b62;
+  margin: 1rem 0.4rem;
+}
+
+.setamountbuttons button:hover,
+.setamountbuttons :global(.amt-exact) {
+  background-color: #042b62;
+  color: #fff;
+}
+
+.transactionPartner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.transactionPartner div {
+  margin: 0 0.6rem;
+}
+
+.transactionPartner .emandate {
+  border-radius: 0.228rem;
+  background: #042b62;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+.modalDescription {
+  color: #042b62;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.VerifyButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.VerifyButtons button {
+  border: 0;
+  outline: none;
+  background-color: #042b62;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 0.3rem 2rem;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.cartBankLogo img {
+  width: 40px;
+}
+
+.DataSuccessimg {
+  width: 300px;
+}
+
+.selectedBank {
+  border: 2px solid #042b62;
+}
+
+.disabledlink button {
+  background-color: gray;
+}
+
+.mandateListData {
+  width: 80%;
+}
+
+.mandateHeader {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.manadateList {
+  width: 88%;
+}
+
+.DaysBox {
+  background: rgba(0, 225, 105, 0.09);
+  border-radius: 3px;
+  border: 0.5px dotted rgb(0, 225, 105);
+  width: max-content;
+  padding: 6px;
+  margin-top: 10px;
+  float: right;
+  position: absolute;
+  right: 0px;
+  bottom: -22px;
+  font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .accountNumbersection {
+    display: grid;
+    place-content: end;
+  }
+  .DaysBox {
+    right: 16px;
+    bottom: 2px;
+  }
+  .BankInvestBox {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .manadateList {
+    width: 100%;
+  }
+
+  .mandateHeader {
+    font-size: 0.8rem;
+  }
+
+  .bankHeader {
+    width: 100%;
+  }
+
+  .bankHeader h4 {
+    font-size: 0.9rem;
+    border-bottom: 1px solid #042b62;
+    width: max-content;
+    padding-bottom: 5px;
+  }
+
+  .continueBtn button {
+    padding: 0.6rem 4.3rem;
+    border-radius: 30px;
+  }
+
+  .bankHeader .continueBtn button {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 1rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .cartBankLogo img {
+    width: 30px;
+  }
+
+  .noteText {
+    font-size: 1rem;
+  }
+
+  .CartBankName {
+    font-size: 0.9rem;
+  }
+
+  .Bottomcarttext {
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  .bankinfohead {
+    font-size: 0.8rem;
+    padding-top: 4px;
+  }
+
+  .bankinfodata {
+    font-size: 0.8rem;
+    /* margin-left: 2.4rem; */
+  }
+
+  .mandateHeader {
+    padding: 1rem 1rem;
+  }
+
+  .mobileBranchName {
+    margin-top: 1rem;
+    margin-left: 2.4rem;
+  }
+
+  .autopayheader {
+    font-size: 0.9rem;
+  }
+
+  .autopayamountbox {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.5rem;
+  }
+
+  .setamountbuttons button {
+    padding: 0.2rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .CartmandateBankName .cartbanksName {
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .CartmandateBankName div:nth-child(2) {
+    font-size: 0.8rem !important;
+  }
+
+  .mandatelimitData .bankinfodata {
+    margin-left: 2.4rem;
+  }
+
+  .transactionPartner .emandate {
+    font-size: 0.4rem;
+  }
+
+  .DataSuccessimg {
+    width: 200px;
+  }
+
+  .modalDescription {
+    font-size: 0.8rem;
+  }
+
+  .Bottomcarttext2 {
+    width: 200px;
+    white-space: normal;
+    font-size: 0.8rem;
+    line-height: 23px;
+    margin-left: 1px !important;
+  }
+
+  .smallvrline {
+    display: none;
+  }
+}
+
+/* Cart/Transaction Folio dropdown styles */
+.cartIetmTitle :global(.sortSelect__option--is-focused) {
+  background-color: #007bff !important;
+  color: #fff !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cartIetmTitle :global(.sortSelect__option--is-selected) {
+  background-color: #007bff !important;
+  color: #fff !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cartIetmTitle :global(.sortSelect__option:active) {
+  background-color: #007bff !important;
+  color: #fff !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cartIetmTitle :global(.sortSelect__single-value) {
+  color: #000 !important;
+}
+
+.cartIetmTitle :global(.sortSelect__option:hover) {
+  background-color: #007bff !important;
+  color: #fff !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cartIetmTitle :global(.sortSelect__menu) {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.cartIetmTitle :global(.sortSelect__option) {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cartIetmTitle :global(.sortSelect__menu-list) {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cartIetmTitle :global(.sortSelect__option) {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+}
+
+.cartIetmTitle :global(.sortSelect__value-container) {
+  padding: 0 !important;
+}
+
+.cartIetmTitle :global(.sortSelect__menu) {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.cartIetmTitle :global(.sortSelect__control) {
+  border: none !important;
+  border-bottom: 1px solid #ddd !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin-top: -7px !important;
+  margin-bottom: 0px !important;
+  padding: 0px 0px 0px 0px !important;
+}

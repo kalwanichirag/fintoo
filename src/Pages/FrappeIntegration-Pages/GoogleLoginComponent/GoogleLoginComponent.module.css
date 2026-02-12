@@ -1,0 +1,23 @@
+/* LoginButton.module.css */
+
+.googleLoginBtn {
+    background: white;
+    width: 100%;
+    padding: 1.25rem 1rem;
+    /* py-5 px-4 */
+    border: 1px solid #d1d5db;
+    /* border-gray-300 */
+    color: #4B5675;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    /* rounded-md */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.googleLogo {
+    margin-right: 0.5rem;
+    width: 20px;
+}

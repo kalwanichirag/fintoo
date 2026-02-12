@@ -1,0 +1,73 @@
+
+@media (min-width: 1400px) {
+    .container {
+        width: 1140px!important;
+    }
+}
+.section {
+    background-image: url('./images/event-slider.jpg');
+    position: relative;
+}
+.container {
+    position: relative;
+}
+.cards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+.card-item {
+    width: 25%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.card-item div {
+    background-color: #fff;
+    padding: 30px 30px 30px 30px;
+    border-radius: 15px 15px 15px 15px;
+    height: 100%;
+}
+.card-item p {
+    text-align: center;
+    margin: 0px;
+}
+.card-item .number {
+    color: #042b62;
+    font-size: 35px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-item .label {
+    color: #224b8b;
+    font-family: Roboto, Sans-serif;
+    font-weight: 900;
+}
+.overlay {
+    background-color: #042b62;
+    opacity: 0.69;
+    transition: 0.3s, border-radius 0.3s, opacity 0.3s;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.smallfont {
+    font-size: 1.4rem;
+}
+.GlobalText{
+    padding: 2rem;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+@media (max-width: 767px) {
+    .cards {
+        flex-direction: column;
+    }
+    .card-item {
+        width: 100%;
+    }
+}

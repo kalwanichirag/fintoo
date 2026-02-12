@@ -1,0 +1,38 @@
+.section {
+    padding: 2rem;
+}
+
+
+@media (min-width: 768px) {
+    .cardBox {
+        width: 85%;
+        margin: auto;
+    }
+    .title {
+        font-size: 4rem;
+        font-weight: 600;
+    }
+    .section {
+        padding: 4rem;
+    }
+    .cardBox{
+        display: grid;
+        place-items: center;
+    }
+    .cardBox img{
+        width: 800px;
+    }
+    .subtitle {
+        font-weight: 600;
+        font-size: 2rem;
+    }
+}
+@media (max-width: 480px) {
+    .cardBox{
+        width: 100%;
+    }
+    .cardBox img{
+        width: 100%;
+        height: 100%;
+    }
+}

@@ -1,0 +1,119 @@
+/* 
+.Book_consultation_fixed{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+} */
+
+.Book_consultation {
+    background-color: #F15700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    color: #fff;
+    position: relative;
+    border-radius: 10px;
+    width: 65%;
+    margin: auto;
+    flex-wrap: wrap;
+    /* min-height: 100px; */
+    z-index: 1000000;
+}
+
+.Book_consultation_info {
+    flex: 1;
+    min-width: 300px;
+    padding-left:6rem;
+}
+
+.Book_consultationtitle {
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.Book_consultationsubtitle {
+    font-size: .8rem;
+    font-weight: 400;
+    text-align: left;
+    /* width: 91%; */
+    /* font-size: clamp(1.2rem, 2vw, 1.4rem);  */
+}
+
+.Book_consultation .btn button {
+    padding: .7rem 2rem;
+    border-radius: 0.625rem;
+    font-weight: 700;
+    font-size: .9rem;
+    background: #FFF;
+    border: 0;
+    color: #134994;
+    outline: none;
+    cursor: pointer;
+}
+
+.imgConsult {
+    flex: 0 0 20%;
+    max-width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgConsult img {
+    width: 30%;
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    /* max-height: 100px;
+    object-fit: contain; */
+    height: auto;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fadeIn img {
+    opacity: 1;
+}
+
+.fadeOut img {
+    opacity: 0.6;
+}
+
+@media only screen  and (max-width: 1440px){
+        .Book_consultationtitle{
+            font-size: .8rem;
+        }
+        /* .Book_consultation{
+            max-height:80px;
+        } */
+}
+
+@media only screen and (max-width: 900px) {
+    .Book_consultation{
+        display: grid;
+        width: 100%;
+        place-content: center;
+    }
+    .Book_consultation_info{
+        padding-left: 0;
+        text-align: center;
+    }
+    .imgConsult img{
+        width: 50%;
+        left: 24%;
+        bottom:83%;
+    }
+    .Book_consultationsubtitle{
+        width: 100%;
+        font-size: .7rem;
+    }
+    .Book_consultationtitle{
+        font-size: 1rem;
+    }
+    .btn{
+        text-align: center;
+    }
+}

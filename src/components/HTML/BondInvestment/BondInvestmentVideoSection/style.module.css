@@ -1,0 +1,51 @@
+.YoutubevideoSection {
+  background-color: #e8f8ff6b;
+}
+.YoutubevideoContent {
+  width: 80%;
+  margin: auto;
+}
+.YoutubevideoBox {
+  margin: auto;
+}
+.VideoFrame {
+  /* margin-top: 4rem; */
+  
+  
+  border-radius: 20px;
+}
+.videobackground {
+  
+}
+.videoforeground,
+.videobackground iframe {
+  
+  /* pointer-events: none; */
+  border-radius: 30px;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .video-foreground { height: 300%; top: -100%; }
+}
+@media (max-aspect-ratio: 16/9) {
+  .video-foreground { width: 300%; left: -100%; }
+}
+@media all and (max-width: 600px) {
+.vid-info { width: 50%; padding: .5rem; }
+.vid-info h1 { margin-bottom: .2rem; }
+}
+@media all and (max-width: 500px) {
+.vid-info .acronym { display: none; }
+}
+/* ------------------------------------------------------------------------media query----------------------------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+  .YoutubevideoContent {
+    width: 100%;
+    padding: 1rem;
+  }
+  .VideoFrame {
+    width: 100%;
+    height: 100%;
+  }
+}

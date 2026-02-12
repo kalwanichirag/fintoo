@@ -1,0 +1,93 @@
+.goalsectionBox {
+    border-radius: 10px;
+    background: #FFF;
+    padding: 1rem 3rem;
+    position: relative;
+    margin-top: 2rem;
+}
+
+.GoalUpperdiv {
+    position: absolute;
+    background-color: #F2F3F3;
+    border-radius: 8.852px;
+    display: flex;
+    align-items: center;
+    left: 2rem;
+    top: -1rem;
+    padding: 1rem 5rem;
+}
+
+.GoalUpperdiv .GoalimageBox {
+    background: #fff;
+    border: 2px solid rgba(0, 0, 0, 0.50);
+    border-radius: 50%;
+    padding: 17px;
+    position: absolute;
+    left: -1rem;
+}
+
+.goalsectionBox .goalsectionBoxvalues {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 5rem;
+}
+
+.goalsectionBox .Goaltype div:nth-child(2) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.goalsectionBoxvalues .goalvalue div:first-child {
+    color: #444;
+    font-weight: bold;
+}
+
+.goalsectionBox .fintooRecommands {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    margin-top: 3rem;
+    padding: 1.4rem;
+    position: relative;
+}
+
+.goalsectionBox .fintooImgbox {
+    border-radius: 22.537px;
+    border: 0.704px solid rgba(0, 0, 0, 0.10);
+    background: #F4F4F5;
+    box-shadow: 0px 2.817px 2.817px 0px rgba(0, 0, 0, 0.08);
+    width: max-content;
+    position: absolute;
+    top: -1rem;
+    padding: 0 .5rem;
+    left: 4px;
+}
+
+@media screen and (max-width : 768px) {
+    .goalsectionBox .goalsectionBoxvalues {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap:5.5rem;
+        grid-row-gap: 10px;
+        white-space: nowrap;
+    }
+    .goalsectionBox{
+        padding: 1rem;
+    }
+    .goalsectionBoxvalues .goalvalue:nth-child(3) {
+        grid-column: 1 / 4; 
+    }
+    .goalsectionBoxvalues .goalvalue:nth-child(4) {
+        grid-column: 1 / 4; 
+    }
+    .goalsectionBoxvalues .goalvalue:last-child {
+        grid-column: 1 / 4; 
+    }
+    .goalsectionBoxvalues .goalvalue:nth-child(5) {
+        grid-column: 1 / 4; 
+    }
+ 
+}

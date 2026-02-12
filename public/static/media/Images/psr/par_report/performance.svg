@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="20" height="20" viewBox="0 0 20 20" xml:space="preserve">
+<style type="text/css">
+    .st0{fill:#E2E2E2;stroke:#939393;stroke-width:0.25;stroke-miterlimit:10;}
+    .st1{fill:#042b62;}
+    .st2{fill:#FDFEFF;}
+    .st3{fill:#042b62;}
+</style>
+<rect x="8" y="12" class="st0" width="4" height="6"/>
+<path class="st1" d="M0.6,0h18.8c0.3,0,0.6,0.3,0.6,0.6v13.4c0,0.3-0.3,0.6-0.6,0.6H0.6c-0.3,0-0.6-0.3-0.6-0.6V0.6C0,0.3,0.3,0,0.6,0z"/>
+<path class="st2" d="M1.2,1h17.6c0.1,0,0.3,0.1,0.3,0.3v10.3c0,0.1-0.1,0.3-0.3,0.3H1.2c-0.1,0-0.3-0.1-0.3-0.3V1.3
+	C0.9,1.1,1.1,1,1.2,1z"/>
+<path class="st1" d="M6.5,17h7.2c0.2,0,0.3,0.2,0.3,0.3v0.8c0,0.2-0.2,0.3-0.3,0.3H6.5c-0.2,0-0.3-0.2-0.3-0.3v-0.8
+	C6.2,17.2,6.3,17,6.5,17z"/>
+<polygon class="st1" points="16.8,2.9 12.5,7.2 10.4,5.2 8.3,7.2 6.2,5.3 2.6,8.9 2.3,8.6 6.2,4.7 8.3,6.7 10.4,4.7 12.5,6.7 
+    16.4,2.8 "/>
+<circle class="st3" cx="12.5" cy="6.7" r="0.7"/>
+<circle class="st3" cx="10.4" cy="4.8" r="0.7"/>
+<circle class="st3" cx="6.2" cy="4.9" r="0.7"/>
+<circle class="st3" cx="8.3" cy="6.8" r="0.7"/>
+<circle class="st3" cx="2.6" cy="8.5" r="0.7"/>
+<polygon class="st3" points="17.3,2.1 15,2.5 16.9,4.4 "/>
+<path class="st0" d="M5.2,11v-3.5L3.9,8.7V11H5.2z"/>
+<path class="st0" d="M7.4,11V7.5L6.2,6.3L5.9,6.5V11H7.4z"/>
+<path class="st0" d="M9.6,11V7.3L8.3,8.5L8,8.3V11H9.6z"/>
+<polygon class="st0" points="11.8,11 11.8,7.6 10.4,6.2 10.2,6.3 10.2,11 "/>
+<polygon class="st0" points="14,11 14,7.2 12.5,8.7 12.3,8.5 12.3,11 "/>
+<polygon class="st0" points="16.2,11 16.2,4.9 14.7,6.3 14.7,11 "/>
+<circle class="st0" cx="10.2" cy="13.3" r="0.7"/>
+</svg>

@@ -1,0 +1,36 @@
+.bladegeSetion{
+    background-color: #004FBF;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    color: #fff;
+}
+.BladgeBg{
+    background-color: #FF6F1E;
+    padding: 4px;
+    border-radius: 20px;
+    font-size: .9rem;
+    padding: 2px 16px;
+    color: #fff;
+    font-weight: 600;
+    border: 1px #FF6F1E;
+    outline: 0;
+    text-transform: uppercase;
+}
+
+/* Responsive  */
+
+@media only screen and (max-width: 600px) {
+    .bladegeSetion{
+        padding: 2rem 0rem;
+        display: grid;
+       text-align: center;
+    }
+    .BladgeBg{
+       width: 50%;
+       margin: auto;
+    }
+   
+}

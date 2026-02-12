@@ -1,0 +1,7 @@
+body.no-header header, body.no-header footer, body.no-header .fakeSpace_rn_k9 {
+    display: none;
+}
+
+body.NRI-header .fakeSpace_rn_k9 {
+    display:none;
+}

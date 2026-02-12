@@ -1,0 +1,169 @@
+.bannerSection {
+    position: relative;
+    padding: 2rem 0;
+    background-color: #094762;
+    /* height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("./images/bannerBackground.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.bannerSectionBackgroundOverlay {
+    background-color: #000000;
+    opacity: 0.77;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    /* transition: background 0.3s, border-radius 0.3s, opacity 0.3s; */
+}
+
+.bannerSectionLogo {
+    width: 300px;
+    margin-bottom: 2rem;
+}
+
+.SpaceReduce {
+    color: #ffffff;
+    font-size: 2.75rem;
+    /* font-weight: bold; */
+    /* text-transform: capitalize; */
+    font-weight: 600;
+}
+
+.land-txt {
+    position: relative;
+}
+
+.land-txt p {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0px 0px 10px 0px;
+}
+
+.mouseicon {
+    width: 25px;
+    height: 45px;
+    border-radius: 15px;
+    position: relative;
+    border: 2px solid #dedede;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 4rem;
+}
+
+.mouseicon span {
+    width: 3px;
+    height: 8px;
+    margin: 2px auto 0;
+    display: block;
+    background: #dedede;
+    border-radius: 5px;
+    -webkit-animation: 1.2s ease infinite wheel-up-down;
+    animation: 1.2s ease infinite wheel-up-down;
+}
+
+.BookAppointmentBtn {
+    width: fit-content;
+    background-color: #042b62;
+    border-radius: 9px;
+    padding: 1rem 4rem;
+    margin: 3rem auto 0 auto;
+    font-size: 20px;
+    font-weight: bold;
+    /* Combine the two font-weight properties */
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.BookAppointmentBtn:hover {
+    background-color: white;
+    color: #042b62;
+}
+
+@media only screen and (max-width: 850px) {
+
+    .bannerSection {
+        height: 50vh;
+    }
+
+    .mouseicon {
+        width: 22px;
+        height: 33px;
+    }
+
+    .bannerSectionLogo {
+        width: 200px;
+        margin-bottom: 0;
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .SpaceReduce {
+        font-size: 1.4rem;
+        margin-top: 2rem;
+    }
+
+    .land-txt p {
+        font-size: .9rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+
+    .bannerSection {
+        height: 60vh;
+    }
+
+    .land-txt {
+        /* top: 10rem; */
+        padding: .4rem;
+    }
+
+    .bannerSectionLogo {
+        width: 200px;
+        margin-bottom: 0;
+        margin-top: 3rem;
+    }
+}
+
+@-webkit-keyframes wheel-up-down {
+    0% {
+        margin-top: 2px;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        margin-top: 20px;
+        opacity: 0;
+    }
+}
+
+@keyframes wheel-up-down {
+    0% {
+        margin-top: 2px;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        margin-top: 20px;
+        opacity: 0;
+    }
+}

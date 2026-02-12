@@ -1,0 +1,27 @@
+.navbar{
+    display: flex;
+    overflow-x: scroll;
+}
+.menuitem{
+    display: flex;
+    padding: 1rem;
+    white-space: nowrap;
+}
+.menuitem img{
+    width: 20px;
+}
+.menuitem .menutext{
+    padding-left: .4rem;
+}
+.menu-link-182
+{
+    text-decoration: none;
+}
+.menu-link{
+    text-decoration: none;
+    color: #042b62;
+}
+.menu-link.active .menuitem {
+    border-bottom:2px solid #042b62;
+    padding-bottom: .4rem;
+ }

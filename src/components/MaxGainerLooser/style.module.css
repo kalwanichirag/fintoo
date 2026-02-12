@@ -1,0 +1,56 @@
+
+.table_data {
+    vertical-align: middle;
+}
+.icon {
+    padding-right: .6rem;
+}
+.button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    /* min-width: 7rem; */
+    text-align: center;
+    font-weight: 600;
+    color: darkgrey;
+    user-select: none;
+}
+.active {
+    background: #042b62;
+    color: #fff;
+}
+.btn_con {
+    padding: .5rem;
+}
+.header {
+    color: darkgray;
+    border-bottom: solid 1px lightgray;
+    border-top: solid 1px lightgray;
+}
+.header th {
+    font-weight: 700;
+}
+.boxtitle {
+    font-weight: 600;
+    margin: 0px;
+    padding: 0px;
+}
+.boldText {
+    font-weight: 600;
+    font-size: .9rem;
+    color: #000000
+}
+.greenText {
+    color: green;
+    padding-right: 5px;
+}
+.redText {
+    color: red;
+    padding-right: 5px;
+}
+.grayText {
+    color: darkgray;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="737px" height="622px" viewBox="0 0 737 622" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Oval</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="8.74749449%" y1="28.8482619%" x2="68.9127161%" y2="58.0407753%" id="linearGradient-1">
+            <stop stop-color="#6AAA13" offset="0%"></stop>
+            <stop stop-color="#8DC63F" stop-opacity="0.239592439" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.199986049">
+        <g id="Services" transform="translate(0.000000, -1662.000000)" fill="url(#linearGradient-1)">
+            <path d="M322.589981,2280.217 C549.403233,2286.75062 556.022678,2190.60257 702.224892,2095.56359 C782.089079,2043.64775 666.767353,1887.14378 594.563264,1857.08163 C465.296541,1803.26147 368.29702,1845.34357 281.270539,1743.9971 C194.244057,1642.65064 23.1020221,1613.16391 -11.9842705,1636.47315 C-83.0264299,1683.66932 -32.9273344,1991.31238 -32.9273344,2064.76387 C-32.9273344,2208.03318 95.7767288,2273.68338 322.589981,2280.217 Z" id="Oval" transform="translate(339.606557, 1954.740433) rotate(-6.000000) translate(-339.606557, -1954.740433) "></path>
+        </g>
+    </g>
+</svg>

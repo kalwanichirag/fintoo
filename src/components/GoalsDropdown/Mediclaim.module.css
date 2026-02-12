@@ -1,0 +1,77 @@
+.mediclaim .Headertxt {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.mediclaim .closeImg {
+    width: 25px;
+}
+
+.mediclaimlist .primaryTxt {
+    color: rgba(30, 30, 30, 0.60);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.mediclaimData {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 1.3rem;
+    grid-row-gap: 1.3rem;
+    margin-top: 1.4rem;
+    height: 131px;
+}
+.ScrollData{
+    height: 156px;
+    overflow-y: scroll;
+}
+.mediclaimmemmber{
+    font-size: 1rem;
+    font-weight: bold;
+    color: #042b62;
+    width: 114px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.ResetBtn{
+    border: 1px solid #042b62;
+    background-color: transparent;
+    color: #042b62;
+    font-size: 1.1rem;
+    font-weight: 500;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+}
+.mediclaimBtns{
+    margin-bottom: 1rem;
+}
+.mediclaimBtns button{
+    margin: 0 1rem;
+}
+ .ResetBtn{
+    border: 1px solid #042b62;
+    background-color: transparent;
+    color: #042b62;
+    font-size: 1.1rem;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    padding: .5rem 2rem;
+    border-radius: 20px;
+}
+.SaveBtn{
+    border: 1px solid #042b62;
+    background-color: #042b62;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    padding: .5rem 2rem;
+    border-radius: 20px;
+}

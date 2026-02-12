@@ -1,0 +1,185 @@
+/* PinVerification.module.css */
+
+.container {
+    width: 100%;
+    padding: 2.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.closeIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.heading {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #071437;
+}
+
+.subtext {
+    font-size: 1rem;
+    color: #4b5563;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.signOutBtn {
+    margin-left: 0.25rem;
+    font-weight: 500;
+    color: #134994;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.centerText {
+    font-size: 1rem;
+    color: #4b5563;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.otpWrapper {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.marginBottom {
+    margin-bottom: 1rem;
+}
+
+.errorText {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #ef4444;
+}
+
+.verifyBtn,
+.resetBtn {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 200px;
+}
+
+.disabled {
+    background-color: #f1f1f4;
+    color: #000;
+    pointer-events: none;
+}
+
+.primary {
+    background-color: #134994;
+    color: white;
+}
+
+.forgotText {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.linkBtn {
+    margin-left: 0.5rem;
+    font-weight: 500;
+    color: #134994;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.resendContainer {
+    margin-top: 0.5rem;
+    text-align: end;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.resendText {
+    color: #134994;
+}
+
+.resendDisabled {
+    color: #9ca3af;
+    cursor: default;
+}
+
+.label {
+    display: block;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.resendContainer {
+    margin-top: 0.5rem;
+    text-align: end;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.resendCountdown {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.resendText {
+    color: #134994;
+}
+
+.resendDisabled {
+    color: #9ca3af;
+    cursor: default;
+}
+
+.cardWrapper {
+    position: relative;
+    width: 100%;
+    padding: 2.5rem 0;
+    /* py-10 */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    background-color: white;
+    border-radius: 0.75rem;
+    border: 1px solid #F1F1F4;
+}
+
+/* If you still want the `.card` styling, you can define it too */
+.card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    background-color: white;
+    border-radius: 0.75rem;
+    border: 1px solid #F1F1F4;
+}

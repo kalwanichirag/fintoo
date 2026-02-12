@@ -1,0 +1,10 @@
+.featured-in-xuiisis8 .slick-arrow::before {
+    display: none;
+}
+.featured-in-xuiisis8 .slick-arrow i {
+    font-size: 25px;
+    color:#c7cdd2;
+}
+/* .btnopt::before {
+    display: none;
+} */
