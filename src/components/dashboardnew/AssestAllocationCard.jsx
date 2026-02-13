@@ -36,9 +36,11 @@ const TODAY = new Date().toDateString();
   const chartInstance = useRef(null);
 
   // ---------------- FETCH DATA ----------------
-  const fetchAllocation = async () => {
+  const fetchAllocation = async (silent = false) => {
     try {
-      setLoading(true);
+      if (!silent) {
+        setLoading(true);
+      }
 
       const payload = {
         user_id: getUserId(),
@@ -74,7 +76,9 @@ localStorage.setItem(
         },
       });
     } finally {
-      setLoading(false);
+      if (!silent) {
+        setLoading(false);
+      }
     }
   };
 
@@ -83,17 +87,22 @@ useEffect(() => {
   if (state !== "filled") return;
 
   const cached = localStorage.getItem(ASSET_ALLOC_CACHE_KEY);
+  let hasFreshCache = false;
 
   if (cached) {
-    const { data, date } = JSON.parse(cached);
-
-    if (date === TODAY) {
-      setAllocationData(data);
-      return; 
+    try {
+      const { data, date } = JSON.parse(cached);
+      if (date === TODAY) {
+        setAllocationData(Array.isArray(data) ? data : []);
+        hasFreshCache = true;
+      }
+    } catch {
+      localStorage.removeItem(ASSET_ALLOC_CACHE_KEY);
     }
   }
 
-  fetchAllocation();
+  // Cache-first render, then always refresh from API.
+  fetchAllocation(hasFreshCache);
 }, [state]);
 
 const hasValidAllocation =
@@ -159,10 +168,12 @@ const hasValidAllocation =
       <StateBlock state={state} show="filled">
         <div className="">
           <div className="tw-p-6 tw-border-b tw-border-gray-100">
-            <h3 className="tw-text-xl tw-font-bold tw-text-slate-800 tw-flex tw-items-center tw-gap-2">
-              <i className="fa-solid fa-chart-pie tw-text-fintoo-blue"></i>
+            <h3 className="tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-0 tw-pb-0 ">
               Asset Allocation Overview
             </h3>
+             <p className="tw-text-sm tw-text-slate-500 tw-mb-0" >
+        Track and manage your financial goals
+      </p>
           </div>
 
           <div className="tw-p-6 tw-pt-0">

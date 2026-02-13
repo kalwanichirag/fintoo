@@ -162,10 +162,14 @@ export default function FinancialOverview({ state = "filled" }) {
   const chartContainerRef = useRef(null);
 
   const getMemberIdFn = () => {
-    const member = localStorage.getItem("member");
-    if (!member) return [];
-    if (!localStorage.getItem("family")) return [getUserId()];
-    return JSON.parse(commonEncode.decrypt(member)).map((u) => String(u.id));
+    try {
+      const member = localStorage.getItem("member");
+      if (!member) return [];
+      if (!localStorage.getItem("family")) return [getUserId()];
+      return JSON.parse(commonEncode.decrypt(member)).map((u) => String(u.id));
+    } catch {
+      return [getUserId()];
+    }
   };
 
   /* -------- LOAD DATA (CACHED) -------- */
@@ -175,14 +179,18 @@ export default function FinancialOverview({ state = "filled" }) {
     let hadFreshCache = false;
     const cached = localStorage.getItem(CACHE_KEY);
     if (cached) {
-      const parsed = JSON.parse(cached);
-      if (parsed.date === TODAY) {
-        setDashboardStats(parsed.dashboardStats);
-        setExpenseBreakup(parsed.expenseBreakup);
-        setBankSummary(parsed.bankSummary);
-        setLinkedBanks(parsed.linkedBanks || []);
-        setLoading(false);
-        hadFreshCache = true;
+      try {
+        const parsed = JSON.parse(cached);
+        if (parsed.date === TODAY) {
+          setDashboardStats(parsed.dashboardStats);
+          setExpenseBreakup(parsed.expenseBreakup);
+          setBankSummary(parsed.bankSummary);
+          setLinkedBanks(parsed.linkedBanks || []);
+          setLoading(false);
+          hadFreshCache = true;
+        }
+      } catch {
+        localStorage.removeItem(CACHE_KEY);
       }
     }
 
@@ -193,7 +201,13 @@ export default function FinancialOverview({ state = "filled" }) {
         const userIds = getMemberIdFn();
 
         const bankRes = await fetchTrackedBankDetailsFun({ user_id: userIds });
-        const trackedAccounts = bankRes?.data || [];
+        const trackedAccounts = Array.isArray(bankRes?.data)
+          ? bankRes.data
+          : Array.isArray(bankRes?.data?.accounts)
+            ? bankRes.data.accounts
+            : Array.isArray(bankRes?.data?.results)
+              ? bankRes.data.results
+              : [];
         const bankLogos = trackedAccounts
           .filter((acc) => Boolean(acc?.mm_bank_logo))
           .map((acc) => ({

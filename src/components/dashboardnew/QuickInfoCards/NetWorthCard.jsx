@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaWallet, FaShieldAlt, FaHeartbeat } from "react-icons/fa";
 import { GetNetworthLiabilites } from "../../../FrappeIntegration-Services/services/financial-planning-api/dashboardApi";
 import {
@@ -8,7 +8,7 @@ import {
 } from "../../../common_utilities";
 import { DATA_BELONGS_TO } from "../../../constants";
 import { getMedicalInsurance } from "../../../FrappeIntegration-Services/services/financial-planning-api/insurance";
-const CACHE_TTL = 1000 * 60 * 15; // 15 min (optional safety)
+const LIABILITY_REFRESH_EVENT = "liability-overview-refresh";
 
 const StateBlock = ({ show, children }) =>
   show ? <>{children}</> : null;
@@ -17,47 +17,38 @@ export default function NetWorthCard({ member_selected }) {
   const [networthData, setNetworthData] = useState(null);
   const [insuranceData, setInsuranceData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const parentUserId = getParentUserId();
+  const userId = getUserId();
 
-  const cacheKey = `networth_${member_selected ? "personal" : "family"}`;
-  const insuranceCacheKey = `insurance`;
+  const cacheKey = `networth_${parentUserId}_${userId}_${member_selected ? "personal" : "family"}`;
+  const insuranceCacheKey = `insurance_${parentUserId}_${userId}_${member_selected ? "personal" : "family"}`;
 
   /* -----------------------------
      LOAD CACHE FIRST (FAST UI)
   ----------------------------- */
-  useEffect(() => {
-    const loadCache = () => {
-      try {
-        const cachedNW = JSON.parse(localStorage.getItem(cacheKey));
-        const cachedIns = JSON.parse(
-          localStorage.getItem(insuranceCacheKey)
-        );
+  const loadCache = useCallback(() => {
+    try {
+      const cachedNW = JSON.parse(localStorage.getItem(cacheKey));
+      const cachedIns = JSON.parse(localStorage.getItem(insuranceCacheKey));
 
-        if (cachedNW?.data) {
-          setNetworthData(cachedNW.data);
-        }
-
-        if (cachedIns?.data) {
-          setInsuranceData(cachedIns.data);
-        }
-      } catch (e) {
-        console.log("Cache parse error", e);
-      } finally {
-        setLoading(false);
+      if (cachedNW?.data) {
+        setNetworthData(cachedNW.data);
       }
-    };
 
-    loadCache();
-
-    // ALWAYS fetch fresh in background
-    fetchNetworthAndInsurance();
-  }, [member_selected]);
+      if (cachedIns?.data) {
+        setInsuranceData(cachedIns.data);
+      }
+    } catch (e) {
+      console.log("Cache parse error", e);
+    } finally {
+      setLoading(false);
+    }
+  }, [cacheKey, insuranceCacheKey]);
 
   /* -----------------------------
      BACKGROUND REFRESH
   ----------------------------- */
-          const userId = getUserId();
-
-  const fetchNetworthAndInsurance = async () => {
+  const fetchNetworthAndInsurance = useCallback(async () => {
     try {
       const memberFilter = getItemLocal("family")
         ? "all"
@@ -107,7 +98,23 @@ export default function NetWorthCard({ member_selected }) {
     } catch (err) {
       console.log("Background refresh failed:", err);
     }
-  };
+  }, [cacheKey, insuranceCacheKey, userId]);
+
+  useEffect(() => {
+    loadCache();
+    fetchNetworthAndInsurance();
+  }, [loadCache, fetchNetworthAndInsurance, member_selected]);
+
+  useEffect(() => {
+    const handleRefresh = () => {
+      fetchNetworthAndInsurance();
+    };
+
+    window.addEventListener(LIABILITY_REFRESH_EVENT, handleRefresh);
+    return () => {
+      window.removeEventListener(LIABILITY_REFRESH_EVENT, handleRefresh);
+    };
+  }, [fetchNetworthAndInsurance]);
 
   const formatInsuranceValue = (value, formatted) => {
     if (formatted) return `₹${formatted}`;

@@ -214,7 +214,8 @@ const formatCurrency = (num) => {
     
     {/* Title */}
     <div>
-      <h2 className="tw-text-lg tw-font-bold tw-leading-tight">
+            <h2 className="
+tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1      ">
         Savings Goals
       </h2>
       <p className="tw-text-sm tw-text-slate-500">

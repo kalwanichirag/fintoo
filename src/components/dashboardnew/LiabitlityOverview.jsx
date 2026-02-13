@@ -18,23 +18,30 @@ export default function LiabilityOverview() {
 
 
   const fetchData = useCallback(async (forceRefresh = false) => {
+    let hasValidCache = false;
     try {
-      setState("loading");
-
       if (!forceRefresh) {
         const cached = localStorage.getItem(CACHE_KEY);
 
         if (cached) {
-          const parsed = JSON.parse(cached);
-          if (parsed.date === TODAY) {
-            setLiabilities(parsed.data);
-            setState(parsed.data.length ? "filled" : "empty");
-            return;
+          try {
+            const parsed = JSON.parse(cached);
+            if (parsed.date === TODAY && Array.isArray(parsed.data)) {
+              setLiabilities(parsed.data);
+              setState(parsed.data.length ? "filled" : "empty");
+              hasValidCache = true;
+            }
+          } catch {
+            localStorage.removeItem(CACHE_KEY);
           }
         }
       }
 
-      // ✅ Otherwise fetch fresh data
+      if (!hasValidCache) {
+        setState("loading");
+      }
+
+      // Cache-first render, then always refresh from API.
       const response = await getLiabilityDetails(userId);
 
       const list = Array.isArray(response?.data)
@@ -60,7 +67,9 @@ export default function LiabilityOverview() {
       }
     } catch (error) {
       console.error("Error fetching liabilities:", error);
-      setState("empty");
+      if (!hasValidCache) {
+        setState("empty");
+      }
     }
   }, [CACHE_KEY, TODAY, userId]);
 

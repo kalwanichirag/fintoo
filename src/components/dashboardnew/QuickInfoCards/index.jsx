@@ -16,7 +16,7 @@ export default function QuickInfoCards({
     >
       <NetWorthCard state={networthState} />
       <MutualFundCard state={mfState} />
-      <StockCard state={stockState} />   
+      <StockCard state={stockState} />
       <CibilContainer />
     </section>
   );
