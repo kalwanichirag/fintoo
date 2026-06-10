@@ -369,6 +369,18 @@ export const DeleteCart = async (payload) => {
     }
 };
 
+export const DeactivateCart = async (payload) => {
+    try {
+        const response = await apiClient(investmentEndpoints.DEACTIVATE_CART_FUND, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
 
 export const PlaceOrder = async (payload) => {
     try {
@@ -490,3 +502,28 @@ export const SwitchOrderEntry = async (payload) => {
     }
 };
 
+export const AddStpToCart = async (payload) => {
+    try {
+        const response = await apiClient(investmentEndpoints.ADD_STP_TO_CART_API_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const StpRegistration = async (payload) => {
+    try {
+        const response = await apiClient(investmentEndpoints.STP_REGISTERATION, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

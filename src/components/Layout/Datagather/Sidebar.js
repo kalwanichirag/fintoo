@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styles from "../../MainHeader/style.module.css";
+import "./Sidebar.css";
 import {
   apiCall,
   fetchData,
@@ -20,12 +21,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { Modal } from "react-bootstrap";
 import * as toastr from "toastr";
 import "toastr/build/toastr.css";
+import {
+  FiBriefcase,
+  FiCheck,
+  FiChevronDown,
+  FiDownload,
+  FiFileText,
+  FiFolder,
+  FiGrid,
+  FiHome,
+  FiShield,
+  FiTarget,
+  FiTrendingUp,
+  FiUser,
+  FiX,
+} from "react-icons/fi";
 import KYCPopup from "../../CommonDashboard/KYCPopup";
 import FintooLoader from "../../FintooLoader";
 import { CheckProfileStatus } from "../../../FrappeIntegration-Services/services/master-api/masterApiService";
 import { Getpaymentstatus } from "../../../FrappeIntegration-Services/services/payment-api/paymentapiService";
 import { check_all_status_api } from "../../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import { GetDocumentDetails } from "../../../FrappeIntegration-Services/services/financial-planning-api/document";
+import { downloadFinancialPlanningReport } from "../../../Pages/datagathering/exportFinancialPlanningReport";
 const userid = getParentUserId();
 
 const Sidebar = () => {
@@ -47,9 +64,9 @@ const Sidebar = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [kycModal, setKycModal] = useState(false);
-  const [kycDone, setKycDone] = useState(false);
-  const [fpDone, setFPDone] = useState(false);
+  // const [kycModal, setKycModal] = useState(false);
+  // const [kycDone, setKycDone] = useState(false);
+  // const [fpDone, setFPDone] = useState(false);
   const [sessiondata, setSessionData] = useState({})
   const session_data = useRef();
   const [incomeExpenseCookie, setIncomeExpenseCookie] = useState(false);
@@ -65,6 +82,7 @@ const Sidebar = () => {
   const [isLoad, setIsLoad] = useState(true);
   const [isActive, setIsActive] = useState(false);
   const [incompleteSection, setIncompleteSection] = useState("");
+  const [isDownloadingReport, setIsDownloadingReport] = useState(false);
   useEffect(() => {
     // Simulating data loading or any other async operation
     setTimeout(() => {
@@ -455,6 +473,155 @@ const Sidebar = () => {
     toastr.error('In About You section "' + incompleteTab + '" is Mandatory');
   };
 
+  const handleDownloadReport = async () => {
+    if (isDownloadingReport) return;
+
+    try {
+      setIsDownloadingReport(true);
+      await downloadFinancialPlanningReport();
+      toastr.options.positionClass = "toast-bottom-left";
+      toastr.success("Financial planning report download started.");
+    } catch (error) {
+      console.error("Report download failed", error);
+      toastr.options.positionClass = "toast-bottom-left";
+      toastr.error(
+        error?.message || "Unable to download the report right now."
+      );
+    } finally {
+      setIsDownloadingReport(false);
+    }
+  };
+
+  const colors = {
+    navy: "#0f3b78",
+    black: "#111111",
+    navySoft: "#234f8a",
+    text: "#27364f",
+    muted: "#747474",
+    line: "#d9e2ef",
+    surface: "#f5f8fc",
+    surfaceActive: "#f7f7f7",
+    iconBg: "#eef4fb",
+    danger: "#c66a34",
+  };
+
+  const getNavItemStyle = (active = false, nested = false) => ({
+    display: "flex",
+    alignItems: "center",
+    gap: nested ? "10px" : "12px",
+    width: "100%",
+    fontSize: nested ? "13px" : "14px",
+    padding: nested ? "8px 12px 8px 14px" : "8px 8px 8px 16px",
+    background: active ? colors.surfaceActive : "transparent",
+    borderLeft: nested ? `4px solid ${active ? colors.navy : "transparent"}` : "none",
+    color: active ? colors.black : colors.text,
+    textDecoration: "none",
+    transition: "all 0.2s ease",
+    borderTopRadius: nested&&active ? "10px" : "0",
+        borderRadius: nested&&active ? "10px 0 0 10px" : "0",
+  });
+
+  const getNavIconStyle = (active = false) => ({
+    width: "28px",
+    height: "28px",
+    borderRadius: "10px",
+    color: active ? colors.black : colors.muted,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+  });
+
+  const getNavLabelStyle = (active = false) => ({
+    fontWeight: active ? 700 : 500,
+    letterSpacing: "0.01em",
+    lineHeight: 1.25,
+    color: active ? colors.black : colors.muted,
+    flex: 1,
+  });
+
+  const getStatusPillStyle = (kind) => ({
+    width: "20px",
+    height: "20px",
+    borderRadius: "999px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    background: kind === "complete" ? colors.navy : "#fff4ed",
+    color: kind === "complete" ? "#ffffff" : colors.danger,
+    border: kind === "complete" ? "none" : "1px solid #f3d1bd",
+  });
+
+  const renderStatusIcon = (kind) => {
+    if (!kind) return null;
+
+    return (
+      <span style={getStatusPillStyle(kind)}>
+        {kind === "complete" ? <FiCheck size={12} /> : <FiX size={12} />}
+      </span>
+    );
+  };
+
+  const SidebarLinkItem = ({
+    to,
+    active,
+    icon,
+    label,
+    status,
+    onClick,
+    nested = false,
+    target,
+  }) => (
+    <li className="navigation-icon" onClick={nested ? handleNavigationIconClick : undefined}>
+      <Link
+        to={to}
+        target={target}
+        onClick={onClick}
+        style={getNavItemStyle(active, nested)}
+      >
+        <span style={getNavIconStyle(active)}>{icon}</span>
+        <span style={getNavLabelStyle(active)}>{label}</span>
+        {renderStatusIcon(status)}
+      </Link>
+    </li>
+  );
+
+  const SidebarButtonItem = ({ active, icon, label, onClick, loading = false }) => (
+    <li className="navigation-icon">
+      <button
+        type="button"
+        onClick={onClick}
+        disabled={loading}
+        title="Download CSV report"
+        aria-label="Download CSV report"
+        style={{
+          ...getNavItemStyle(active, false),
+          border: "none",
+          textAlign: "left",
+          cursor: loading ? "not-allowed" : "pointer",
+          opacity: loading ? 0.78 : 1,
+        }}
+      >
+        <span style={getNavIconStyle(active)}>
+          {loading ? (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+              style={{ width: "14px", height: "14px", borderWidth: "2px" }}
+            />
+          ) : (
+            icon
+          )}
+        </span>
+        <span style={getNavLabelStyle(active)}>
+          {loading ? "Preparing CSV..." : label}
+        </span>
+      </button>
+    </li>
+  );
+
 
   const percentageText = () => {
     try {
@@ -464,39 +631,39 @@ const Sidebar = () => {
     }
   };
 
-  const getDocument = async () => {
-    try {
-      const res = await paymentStatus();
-      if (res?.status_code == 200) {
-        const payment_data = res.data
-        let isKycDone = false;
+  // const getDocument = async () => {
+  //   try {
+  //     const res = await paymentStatus();
+  //     if (res?.status_code == 200) {
+  //       const payment_data = res.data
+  //       let isKycDone = false;
 
-        if (
-          payment_data.plan_uuid === "fp_expert" &&
-          payment_data.plan_name !== "Assisted Advisory"
-        ) {
-          const resDoc = await GetDocumentDetails(
-            getParentUserId(),
-            DATA_BELONGS_TO
-          );
+  //       if (
+  //         payment_data.plan_uuid === "fp_expert" &&
+  //         payment_data.plan_name !== "Assisted Advisory"
+  //       ) {
+  //         const resDoc = await GetDocumentDetails(
+  //           getParentUserId(),
+  //           DATA_BELONGS_TO
+  //         );
 
-          if (resDoc?.status_code === 200) {
-            isKycDone = resDoc.data.some(
-              (doc) =>
-                doc.document_cat_uuid === "e_aadhar" ||
-                doc.document_cat_uuid === "panDirect"
-            );
-          }
-        } else {
-          isKycDone = true;
-        }
+  //         if (resDoc?.status_code === 200) {
+  //           isKycDone = resDoc.data.some(
+  //             (doc) =>
+  //               doc.document_cat_uuid === "e_aadhar" ||
+  //               doc.document_cat_uuid === "panDirect"
+  //           );
+  //         }
+  //       } else {
+  //         isKycDone = true;
+  //       }
 
-        setKycDone(isKycDone);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  //       setKycDone(isKycDone);
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   const paymentStatus = async () => {
     const payload = {
@@ -573,7 +740,7 @@ const Sidebar = () => {
     const res = await paymentStatus();
     if (res.status_code == 200) {
       const payment_data = res.data
-      if (payment_data["plan_uuid"] == "fp_expert") {
+      if (payment_data["plan_uuid"] == "fp_expert" || payment_data["plan_name"] == "Platinum") {
         var rm_name = payment_data["rm_data"]["emp_name"]
         window.location.href = process.env.PUBLIC_URL + "/commondashboard?rm=" + commonEncode.encrypt(rm_name)
       }
@@ -646,7 +813,7 @@ const Sidebar = () => {
   }
 
   useEffect(() => {
-    getDocument();
+    // getDocument();
     getprofilestatus();
   }, [])
   // useEffect(()=>{
@@ -724,41 +891,49 @@ const Sidebar = () => {
           >
             ×
           </a>
-          <div className="progress">
-            <svg
-              id="Layer_1"
-              data-name="Layer 1"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 50 50"
-            >
-              <circle
-                className="cls-1"
-                cx={25}
-                cy={25}
-                r="22.44"
-                fill="none"
-                stroke="#042b62"
-                strokeWidth={1}
-                style={{ opacity: "0.1" }}
-              />
-              <circle
-                id="bar"
-                className="cls-1"
-                cx={25}
-                cy={25}
-                r="22.44"
-                fill="transparent"
-                stroke="#042b62"
-                strokeWidth={2}
-                strokeDasharray={141}
-                strokeDashoffset={dgSidebarData?.percentage ? dgSidebarData.percentage : 0}
-                style={{ strokeDashoffset: dgSidebarData?.percentage ? dgSidebarData.percentage : 0 }}
-              />
-            </svg>
-            <span className="value " id="datagatheringhamburger">
-              {percentageText() === 66 ? '67%' : percentageText() + '%'}
-            </span>
-            <span className="status">Profile Completed</span>
+          <div className="dg-profile-summary">
+            <div className="dg-profile-visual">
+              <div className="dg-profile-avatar">
+                <FiUser size={18} />
+              </div>
+              <div className="dg-profile-ring">
+                <svg
+                  id="Layer_1"
+                  data-name="Layer 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 50 50"
+                >
+                  <circle
+                    className="cls-1"
+                    cx={25}
+                    cy={25}
+                    r="22.44"
+                    fill="none"
+                    stroke="#d9e2ef"
+                    strokeWidth={3}
+                  />
+                  <circle
+                    id="bar"
+                    className="cls-1"
+                    cx={25}
+                    cy={25}
+                    r="22.44"
+                    fill="transparent"
+                    stroke="#042b62"
+                    strokeWidth={3}
+                    strokeDasharray={141}
+                    strokeDashoffset={dgSidebarData?.percentage ? dgSidebarData.percentage : 0}
+                    style={{ strokeDashoffset: dgSidebarData?.percentage ? dgSidebarData.percentage : 0 }}
+                  />
+                </svg>
+              </div>
+            </div>
+            <div className="dg-profile-copy">
+              <div className="dg-profile-percent" id="datagatheringhamburger">
+                {percentageText() === 66 ? "67%" : percentageText() + "%"}
+              </div>
+              <div className="dg-profile-label">Profile Completed</div>
+            </div>
           </div>
         </div>
         <div
@@ -768,9 +943,6 @@ const Sidebar = () => {
           }}
           className="download-btn-container mt-2 text-center"
         >
-          {/* <span>Click Here</span> */}
-          {/* <a href="" class="download-btn download-step1">Download</a> */}
-
           {number === "0" ? (
             <button
               className="download-btn download-step-1 default-background-grey"
@@ -781,16 +953,16 @@ const Sidebar = () => {
               Generate Report
             </button>
           )
-            : (!kycDone) ? (
-              <button
-                onClick={() => setKycModal(true)}
-                style={{ textAlign: "center", }}
-                id="viewBotton"
-                className="download-btn download-step-1 default-background-grey"
-              >
-                Generate Report
-              </button>
-            )
+            // : (!kycDone) ? (
+            //   <button
+            //     onClick={() => setKycModal(true)}
+            //     style={{ textAlign: "center", }}
+            //     id="viewBotton"
+            //     className="download-btn download-step-1 default-background-grey"
+            //   >
+            //     Generate Report
+            //   </button>
+            // )
               : (
                 <button
                   className="download-btn download-step-1 default-background-grey"
@@ -802,11 +974,11 @@ const Sidebar = () => {
                 </button>
               )}
         </div>
-        <KYCPopup
+        {/* <KYCPopup
           kycDone={kycDone}
           show={kycModal}
           onHide={() => setKycModal(false)}
-        />
+        /> */}
         {number === "0" && (
           <Modal
             className="popupmodal"
@@ -856,7 +1028,7 @@ const Sidebar = () => {
           </Modal>
         )}
 
-        {number == "1" && (setPercentage === 83 || setPercentage === 100) && kycDone &&
+        {number == "1" && (setPercentage === 83 || setPercentage === 100) &&
           getItemLocal("datagatheringstatus") && (
             <Modal
               className="popupmodal"
@@ -911,236 +1083,183 @@ const Sidebar = () => {
           )}
 
         <div className="navigation-container left-scroll">
-          {/* ngInclude: '/static/template/navigation.html' */}
           <div
             ng-include="'/static/template/navigation.html'"
             className=""
             style={{}}
           >
-            <ul className="right-navigation ">
-
+            <ul
+              className="right-navigation"
+              style={{
+                padding: 0,
+                margin: "10px 0 0",
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+              }}
+            >
               <li className="navigation-icon">
                 <div
                   className="pointer d-flex align-items-center"
                   style={{
-                    padding: ".7rem 0",
+                    ...getNavItemStyle(isVisible, false),
+                    cursor: "pointer",
                   }}
                   onClick={() => {
                     toggleVisibility();
                   }}
                 >
-                  <img
+                  <span style={getNavIconStyle(isVisible)}>
+                    <FiGrid size={16} />
+                  </span>
+                  <div style={getNavLabelStyle(isVisible)}>Data Gathering</div>
+                  <span
                     style={{
-                      width: "30px",
-                      margin: "0 10px"
+                      color: colors.navy,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      transform: isVisible ? "rotate(0deg)" : "rotate(-90deg)",
+                      transition: "transform 0.2s ease",
                     }}
-                    src={imagePath + "/static/media/DG/DataGathering.svg"}
-                    alt=""
-                  />
-                  <div className="" style={{
-                    color: isVisible ? "#242424" : "#555",
-                    fontSize: "12px"
-                  }}> Data Gathering</div>
-                  <div>
-                    <img
-                      width={15}
-                      style={{
-                        fontWeight: "bold",
-                        marginLeft: "4.5rem",
-                        transform: isVisible ? "rotate(90deg)" : ""
-                      }}
-                      // src={process.env.REACT_APP_STATIC_URL + "media/DG/Right.svg"}
-                      src={imagePath + '/static/media/DG/Right.svg'}
-                      alt=""
-                    />
-                  </div>
+                  >
+                    <FiChevronDown size={18} />
+                  </span>
                 </div>
                 <div style={{
                   opacity: isLoad ? ".7" : "1"
                 }}>
                   {isVisible && (
-                    <ul className={`data-gathering ${isVisible ? null : 'hidden'}}`}>
-                      <li className="navigation-icon" onClick={handleNavigationIconClick}>
-                        <Link
-                          // ng-click="animateBg('bg-about')"
-                          // ng-class="getClass('/about')"
-                          // ng-href="/datagathering/about-you"
-                          to={process.env.PUBLIC_URL + "/datagathering/about-you"}
-                          className={url == "about-you" && isActive ? "active" : ""}
-                          style={{}}
-                        >
-
-                          <img
-                            src={imagePath + "/static/media/DG/about-you.svg"}
-                            alt=""
-                          />{" "}
-                          About You<span className="required">*</span>
-                          {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                            <span className=""></span>
-                          ) : (
-                            dgSidebarData?.profileData[11] && dgSidebarData?.profileData[11]["total"] !== 0 ? (
-                              <span className="navtick tick" />
-                            ) : (
-                              <span className="navtick incomplete">×</span>
-                            )
-                          )}
-                        </Link>
-                      </li>
+                    <ul
+                      className={`data-gathering ${isVisible ? null : 'hidden'}`}
+                      style={{
+                        padding: 0,
+                        margin: "8px 0 0",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "8px",
+                      }}
+                    >
+                      <SidebarLinkItem
+                        to={process.env.PUBLIC_URL + "/datagathering/about-you"}
+                        active={url == "about-you" && isActive}
+                        nested={true}
+                        icon={<FiUser size={15} />}
+                        label={<>About You</>}
+                        status={
+                          !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                            ? null
+                            : dgSidebarData?.profileData[11] && dgSidebarData?.profileData[11]["total"] !== 0
+                              ? "complete"
+                              : "incomplete"
+                        }
+                      />
 
                       {numberr === "0" ? (
-                        <li className="income-expenses navigation-icon" onClick={handleNavigationIconClick}>
-                          <Link
-                            to={process.env.PUBLIC_URL + "/datagathering/about-you/#" + incompleteSection}
-                            className={url == "income-expenses" && isActive ? "active" : ""}
-                            style={{}}
-                            onClick={numberr === "0" ? showToast : null}
-                          >
-                            <img
-                              src={imagePath + "/static/media/DG/income-expenses.svg"}
-                              alt="Income expenses"
-                            />{" "}
-                            Income &amp; Expenses<span className="required">*</span>
-                            {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                              <span className=""></span>
-                            ) : (
-                              dgSidebarData?.profileData &&
+                        <SidebarLinkItem
+                          to={process.env.PUBLIC_URL + "/datagathering/about-you/#" + incompleteSection}
+                          active={url == "income-expenses" && isActive}
+                          nested={true}
+                          onClick={showToast}
+                          icon={<FiTrendingUp size={15} />}
+                          label={<>Income &amp; Expenses</>}
+                          status={
+                            !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                              ? null
+                              : dgSidebarData?.profileData &&
                                 dgSidebarData?.profileData[4] &&
                                 dgSidebarData?.profileData[5] &&
                                 dgSidebarData?.profileData[4]["total"] !== 0 &&
-                                dgSidebarData?.profileData[5]["total"] !== 0 ? (
-                                <span className="navtick tick" />
-                              ) : (
-                                <span className="navtick incomplete">×</span>
-                              )
-                            )}
-                          </Link>
-                        </li>
+                                dgSidebarData?.profileData[5]["total"] !== 0
+                                ? "complete"
+                                : "incomplete"
+                          }
+                        />
                       ) : (
-                        <li className="income-expenses navigation-icon" onClick={handleNavigationIconClick}>
-                          <Link
-                            to={
-                              process.env.PUBLIC_URL + "/datagathering/income-expenses"
-                            }
-                            className={url == "income-expenses" && isActive ? "active" : ""}
-                            style={{}}
-                          >
-                            <img
-                              src={imagePath + "/static/media/DG/income-expenses.svg"}
-                              alt="Income expenses"
-                            />{" "}
-                            Income &amp; Expenses<span className="required">*</span>
-                            {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                              <span className=""></span>
-                            ) : (
-                              dgSidebarData?.profileData &&
+                        <SidebarLinkItem
+                          to={process.env.PUBLIC_URL + "/datagathering/income-expenses"}
+                          active={url == "income-expenses" && isActive}
+                          nested={true}
+                          icon={<FiTrendingUp size={15} />}
+                          label={<>Income &amp; Expenses</>}
+                          status={
+                            !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                              ? null
+                              : dgSidebarData?.profileData &&
                                 dgSidebarData?.profileData[4] &&
                                 dgSidebarData?.profileData[5] &&
                                 dgSidebarData?.profileData[4]["total"] !== 0 &&
-                                dgSidebarData?.profileData[5]["total"] !== 0 ? (
-                                <span className="navtick tick" />
-                              ) : (
-                                <span className="navtick incomplete">×</span>
-                              )
-                            )}
-                          </Link>
-                        </li>
+                                dgSidebarData?.profileData[5]["total"] !== 0
+                                ? "complete"
+                                : "incomplete"
+                          }
+                        />
                       )}
 
                       {numberr === "0" ? (
-                        <li className="goals navigation-icon" onClick={handleNavigationIconClick}>
-                          <Link
-                            to={process.env.PUBLIC_URL + "/datagathering/about-you/#" + incompleteSection}
-                            className={url == "goals" && isActive ? "active" : ""}
-                            onClick={numberr === "0" ? showToast : null}
-                          >
-                            <img
-                              src={imagePath + "/static/media/DG/goal.svg"}
-                              alt=""
-                            />{" "}
-                            Goals<span className="required">*</span>
-                            {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                              <span className=""></span>
-                            ) : (
-                              dgSidebarData?.profileData[3] && dgSidebarData?.profileData[3]["total"] !== 0 ? (
-                                <span className="navtick tick" />
-                              ) : (
-                                <span className="navtick incomplete">×</span>
-                              )
-                            )}
-                          </Link>
-                        </li>
+                        <SidebarLinkItem
+                          to={process.env.PUBLIC_URL + "/datagathering/about-you/#" + incompleteSection}
+                          active={url == "goals" && isActive}
+                          nested={true}
+                          onClick={showToast}
+                          icon={<FiTarget size={15} />}
+                          label={<>Goals</>}
+                          status={
+                            !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                              ? null
+                              : dgSidebarData?.profileData[3] && dgSidebarData?.profileData[3]["total"] !== 0
+                                ? "complete"
+                                : "incomplete"
+                          }
+                        />
                       ) : (
-                        <li className="goals navigation-icon" onClick={handleNavigationIconClick}>
-                          <Link
-                            to={process.env.PUBLIC_URL + "/datagathering/goals"}
-                            className={url == "goals" && isActive ? "active" : ""}
-                          >
-                            <img
-                              src={imagePath + "/static/media/DG/goal.svg"}
-                              alt=""
-                            />{" "}
-                            Goals<span className="required">*</span>
-                            {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                              <span className=""></span>
-                            ) : (
-                              dgSidebarData?.profileData[3] && dgSidebarData?.profileData[3]["total"] !== 0 ? (
-                                <span className="navtick tick" />
-                              ) : (
-                                <span className="navtick incomplete">×</span>
-                              )
-                            )}
-                          </Link>
-                        </li>
+                        <SidebarLinkItem
+                          to={process.env.PUBLIC_URL + "/datagathering/goals"}
+                          active={url == "goals" && isActive}
+                          nested={true}
+                          icon={<FiTarget size={15} />}
+                          label={<>Goals</>}
+                          status={
+                            !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                              ? null
+                              : dgSidebarData?.profileData[3] && dgSidebarData?.profileData[3]["total"] !== 0
+                                ? "complete"
+                                : "incomplete"
+                          }
+                        />
                       )}
 
                       {numberr === "0" ? (
-                        <li className="assets-liabilities navigation-icon" onClick={handleNavigationIconClick}>
-                          <Link
-                            to={process.env.PUBLIC_URL + "/datagathering/about-you/#" + incompleteSection}
-                            className={url == "assets-liabilities" && isActive ? "active" : ""}
-                            onClick={numberr === "0" ? showToast : null}
-                          >
-                            <img
-                              src={imagePath + "/static/media/DG/assets-liabilities.svg"}
-                              alt=""
-                            />{" "}
-                            Assets &amp; Liabilities<span className="required">*</span>
-                            {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                              <span className=""></span>
-                            ) : (
-                              dgSidebarData?.profileData[6] && dgSidebarData?.profileData[6]["total"] !== 0 ? (
-                                <span className="navtick tick" />
-                              ) : (
-                                <span className="navtick incomplete">×</span>
-                              )
-                            )}
-                          </Link>
-                        </li>
+                        <SidebarLinkItem
+                          to={process.env.PUBLIC_URL + "/datagathering/about-you/#" + incompleteSection}
+                          active={url == "assets-liabilities" && isActive}
+                          nested={true}
+                          onClick={showToast}
+                          icon={<FiBriefcase size={15} />}
+                          label={<>Assets &amp; Liabilities</>}
+                          status={
+                            !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                              ? null
+                              : dgSidebarData?.profileData[6] && dgSidebarData?.profileData[6]["total"] !== 0
+                                ? "complete"
+                                : "incomplete"
+                          }
+                        />
                       ) : (
-                        <li className="assets-liabilities navigation-icon" onClick={handleNavigationIconClick}>
-                          <Link
-                            to={
-                              process.env.PUBLIC_URL +
-                              "/datagathering/assets-liabilities"
-                            }
-                            className={url == "assets-liabilities" && isActive ? "active" : ""}
-                          >
-                            <img
-                              src={imagePath + "/static/media/DG/assets-liabilities.svg"}
-                              alt=""
-                            />{" "}
-                            Assets &amp; Liabilities<span className="required">*</span>
-                            {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                              <span className=""></span>
-                            ) : (
-                              dgSidebarData?.profileData[6] && dgSidebarData?.profileData[6]["total"] !== 0 ? (
-                                <span className="navtick tick" />
-                              ) : (
-                                <span className="navtick incomplete">×</span>
-                              )
-                            )}
-                          </Link>
-                        </li>
+                        <SidebarLinkItem
+                          to={process.env.PUBLIC_URL + "/datagathering/assets-liabilities"}
+                          active={url == "assets-liabilities" && isActive}
+                          nested={true}
+                          icon={<FiBriefcase size={15} />}
+                          label={<>Assets &amp; Liabilities</>}
+                          status={
+                            !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                              ? null
+                              : dgSidebarData?.profileData[6] && dgSidebarData?.profileData[6]["total"] !== 0
+                                ? "complete"
+                                : "incomplete"
+                          }
+                        />
                       )}
 
                       {incomeExpenseCookie && getItemLocal("ndasignstatus") == "Y" && (
@@ -1274,7 +1393,7 @@ const Sidebar = () => {
                         </Modal>
                       )}
 
-                      {insuranceCookie && (fpDone && kycDone) && getItemLocal("ndasignstatus") == "Y" && (
+                      {insuranceCookie && getItemLocal("ndasignstatus") == "Y" && (
                         <Modal centered className="popupmodal popupmodal-new" show={insuranceCookie}>
                           <Modal.Header className="ModalHead">
                             <div className="text-center p-0 m-popup-header">Cheers !!</div>
@@ -1356,46 +1475,36 @@ const Sidebar = () => {
                       )}
 
                       {numberr === "0" ? (
-                        <li className="insurance navigation-icon" onClick={handleNavigationIconClick}>
-                          <Link
-                            to={process.env.PUBLIC_URL + "/datagathering/about-you/#" + incompleteSection}
-                            className={url == "insurance" && isActive ? "active" : ""}
-                            onClick={numberr === "0" ? showToast : null}
-                          >
-                            <img
-                              src={imagePath + "/static/media/DG/insurance.svg"}
-                              alt="Insurance"
-                            />{" "}
-                            Insurance
-                            {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                              <span className=""></span>
-                            ) : (
-                              dgSidebarData?.profileData[8] && dgSidebarData?.profileData[8]["total"] !== 0 && (
-                                <span className="navtick tick" />
-                              )
-                            )}
-                          </Link>
-                        </li>
+                        <SidebarLinkItem
+                          to={process.env.PUBLIC_URL + "/datagathering/about-you/#" + incompleteSection}
+                          active={url == "insurance" && isActive}
+                          nested={true}
+                          onClick={showToast}
+                          icon={<FiShield size={15} />}
+                          label="Insurance"
+                          status={
+                            !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                              ? null
+                              : dgSidebarData?.profileData[8] && dgSidebarData?.profileData[8]["total"] !== 0
+                                ? "complete"
+                                : null
+                          }
+                        />
                       ) : (
-                        <li className="insurance navigation-icon" onClick={handleNavigationIconClick}>
-                          <Link
-                            to={process.env.PUBLIC_URL + "/datagathering/insurance"}
-                            className={url == "insurance" && isActive ? "active" : ""}
-                          >
-                            <img
-                              src={imagePath + "/static/media/DG/insurance.svg"}
-                              alt="Insurance"
-                            />{" "}
-                            Insurance
-                            {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
-                              <span className=""></span>
-                            ) : (
-                              dgSidebarData?.profileData[8] && dgSidebarData?.profileData[8]["total"] !== 0 && (
-                                <span className="navtick tick" />
-                              )
-                            )}
-                          </Link>
-                        </li>
+                        <SidebarLinkItem
+                          to={process.env.PUBLIC_URL + "/datagathering/insurance"}
+                          active={url == "insurance" && isActive}
+                          nested={true}
+                          icon={<FiShield size={15} />}
+                          label="Insurance"
+                          status={
+                            !dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0
+                              ? null
+                              : dgSidebarData?.profileData[8] && dgSidebarData?.profileData[8]["total"] !== 0
+                                ? "complete"
+                                : null
+                          }
+                        />
                       )}
 
 
@@ -1404,57 +1513,34 @@ const Sidebar = () => {
                 </div>
               </li>
 
-              <li className={`document navigation-icon ${isLoad ? "fade-in" : null}`}>
-                <Link
-                  to={process.env.PUBLIC_URL + "/datagathering/my-document"}
-                  className={url == "my-document" ? "active" : ""}
-                  onClick={(e) => {
-                    // Prevent toggling visibility when clicking on "My Documents" link
-                    e.stopPropagation();
-                  }}
-                >
-                  <img
-                    src={imagePath + "/static/media/DG/my-documents.svg"}
-                    alt=""
-                  />{" "}
-                  My Documents
-                  {/* <span className="navtick tick" id="tick_my_document_id" /> */}
-                </Link>
-              </li>
-              <li className="dashboard-summary navigation-icon">
-                <Link
-                  style={{ display: "block" }}
-                  to={
-                    process.env.PUBLIC_URL +
-                    "/commondashboard"
-                  }
-                  target="_self"
-                >
-                  <img
-                    src={imagePath + "/static/media/DG/summary.svg"}
-                    alt=""
-                  />
-                  Dashboard
-                  <span className="navtick" id="tick_summary_id" />
-                </Link>
-              </li>
-              <li className="dashboard-summary navigation-icon">
-                <Link
-                  style={{ display: "block" }}
-                  to={
-                    process.env.PUBLIC_URL +
-                    "/tax-planning-page/"
-                  }
-                  target="_self"
-                >
-                  <img
-                    src={imagePath + "/static/media/DG/summary.svg"}
-                    alt=""
-                  />
-                  Tax Planning
-                  <span className="navtick" id="tick_summary_id" />
-                </Link>
-              </li>
+              <SidebarLinkItem
+                to={process.env.PUBLIC_URL + "/datagathering/my-document"}
+                active={url == "my-document"}
+                icon={<FiFolder size={16} />}
+                label="My Documents"
+                onClick={(e) => e.stopPropagation()}
+              />
+              <SidebarLinkItem
+                to={process.env.PUBLIC_URL + "/commondashboard"}
+                target="_self"
+                active={url == "commondashboard"}
+                icon={<FiHome size={16} />}
+                label="Dashboard"
+              />
+              <SidebarLinkItem
+                to={process.env.PUBLIC_URL + "/tax-planning-page/"}
+                target="_self"
+                active={url == "tax-planning-page"}
+                icon={<FiFileText size={16} />}
+                label="Tax Planning"
+              />
+              <SidebarButtonItem
+                active={false}
+                icon={<FiDownload size={16} />}
+                label="CSV Datasheet"
+                onClick={handleDownloadReport}
+                loading={isDownloadingReport}
+              />
             </ul>
             <ul className="mobile-bottom-nav ">
               <li>
@@ -1586,7 +1672,7 @@ const Sidebar = () => {
                       src={imagePath + "/static/media/DG/about-you.svg"}
                       alt=""
                     />{" "}
-                    About You<span className="required">*</span>
+                    About You
 
                     {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
                       <span className=""></span>
@@ -1611,7 +1697,7 @@ const Sidebar = () => {
                       src={imagePath + "/static/media/DG/income-expenses.svg"}
                       alt="Income expenses"
                     />{" "}
-                    Income &amp; Expenses<span className="required">*</span>
+                    Income &amp; Expenses
                     {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
                       <span className=""></span>
                     ) : (
@@ -1636,7 +1722,7 @@ const Sidebar = () => {
                       src={imagePath + "/static/media/DG/goal.svg"}
                       alt=""
                     />{" "}
-                    Goals<span className="required">*</span>
+                    Goals
                     {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
                       <span className=""></span>
                     ) : (
@@ -1660,7 +1746,7 @@ const Sidebar = () => {
                       src={imagePath + "/static/media/DG/assets-liabilities.svg"}
                       alt=""
                     />{" "}
-                    Assets &amp; Liabilities<span className="required">*</span>
+                    Assets &amp; Liabilities
                     {(!dgSidebarData?.profileData || Object.keys(dgSidebarData?.profileData).length === 0) ? (
                       <span className=""></span>
                     ) : (

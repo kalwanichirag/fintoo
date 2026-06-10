@@ -16,13 +16,6 @@
   position: absolute;
 }
 
-.header-section-title {
-  color: #060606;
-  font-size: 2.7rem;
-  font-weight: 500;
-  line-height: 3.6rem;
-}
-
 .section-sub-title {
   font-size: 1.5rem;
   font-weight: 400;
@@ -39,7 +32,14 @@
 }
 
 .header-section-content {
-  width: 50%;
+  width: min(42rem, 46%);
+}
+
+.header-section-title {
+ color: #060606;
+  font-size: 2.7rem;
+  font-weight: 700;
+  line-height: 3.6rem;
 }
 
 .header-section-content .sectionsubText {
@@ -47,8 +47,21 @@
   font-size: 1.1rem;
 }
 
+.header-section-image {
+  flex: 1;
+  display: flex;
+  justify-content: end;
+}
+
+.header-section-image-container {
+  width: min(30rem, 100%);
+}
+
 .header-section-image-container img {
-  width: 30rem;
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 1 / 1;
 }
 
 .header-section-content-btn {
@@ -118,29 +131,17 @@
 
 @media only screen and (max-width: 600px) {
   .header-section {
-    padding: 2rem 0.5rem;
+    padding: 1rem 1rem 3.5rem;
   }
 
   .header-section-content {
     width: 100%;
-  }
-  .header-section-title {
-    font-size: 1.6rem;
-    font-weight: 500;
-    line-height: 2.6rem;
-
-  }
-  
-  .header-section {
-    padding: 0rem 0rem 0 6rem;
-  }
-
-  .header-section-content {
-    width: 100%;
-    margin-top: 2rem;
+    margin-top: 1.25rem;
     display: grid;
-    padding: 2rem;
+    gap: 1rem;
+    padding: 0;
     place-items: center;
+    text-align: center;
   }
 
   .header-section-image {
@@ -151,28 +152,33 @@
   }
 
   .header-section-image-container {
-    width: 90%;
-
+    width: min(100%, 18rem);
   }
 
   .header-section-image-container img {
-    width: 350px;
-  }
-
-  .header-section-content-btn {
     width: 100%;
-  }
-
-  .header-section-container {
-    display: inline-flex;
-    flex-direction: column-reverse;
-    width: 100%;
+    max-width: 18rem;
   }
 
   .header-section-title {
-    font-size: 1.6rem;
-    font-weight: 500;
-    line-height: 2.6rem;
+    max-width: none;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  .header-section-content-btn {
+    min-width: 12rem;
+    width: auto;
+  }
+
+  .header-section-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+    width: 100%;
   }
 
   .header-section-content-btn {
@@ -188,7 +194,7 @@
     border-color: #fcfcfc;
     border-radius: 30px;
     transition: all 0.3s;
-    padding: 1rem 3rem;
+    padding: 0.9rem 2rem;
     text-align: center;
   }
 }

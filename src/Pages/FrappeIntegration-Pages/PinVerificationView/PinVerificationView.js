@@ -15,6 +15,7 @@ import { getParentUserId, setItemLocal, setUserId } from "../../../common_utilit
 import { DATA_BELONGS_TO } from "../../../constants";
 import { AutoFetchFinvuData } from "../../../FrappeIntegration-Services/services/External-api/externalApi";
 import { get } from "react-scroll/modules/mixins/scroller";
+import { ValidateRedirection } from "../../../FrappeIntegration-Services/services/master-api/masterApiService";
 
 const handleGetFamilyMember = async (userId) => {
     try {
@@ -118,9 +119,32 @@ const handleCheckAllStatus = async (userId) => {
     }
 };
 
+const kyc_fp_redirection = async (lead_id) => {
+    try {
+        if (!lead_id) {
+            console.error("Lead ID not found.");
+            return false;
+        }
+
+        const result = await ValidateRedirection(lead_id);
+        const message = result?.data?.message;
+
+        if (result?.status === 200 && message?.success) {
+            if (message?.redirect_to_fp === 1 || message?.redirect_to_kyc === 1) {
+                return true; // redirect required
+            }
+        } else {
+            console.error("Redirection validation failed:", result);
+        }
+    } catch (error) {
+        console.error("Error checking user status:", error);
+    }
+    return false; // no redirect
+};
+
 const fetchFinvuData = async (user_id) => {
     try {
-        let payload = {"user_id": user_id,data_belongs_to: DATA_BELONGS_TO};
+        let payload = { "user_id": user_id, data_belongs_to: DATA_BELONGS_TO };
         const result = await AutoFetchFinvuData(payload);
     } catch (error) {
         console.error("Error fetching Finvu data:", error);
@@ -181,19 +205,21 @@ const PinVerification = ({ serCurrentView, userDetails, setIsAuthModalOpen, setv
                 const userData = userDataString ? JSON.parse(userDataString) : {};
 
 
+                let redirectUrl = `${process.env.PUBLIC_URL}/commondashboard`; // default
+
                 if (userData.mobile_verified === false) {
-                    window.location.href = process.env.PUBLIC_URL + "/mobile-verfication";
-                    return;
+                    redirectUrl = `${process.env.PUBLIC_URL}/mobile-verfication`;
+                } else if (userData.user_onboarding_status === false) {
+                    redirectUrl = `${process.env.PUBLIC_URL}/onboard-flow`;
+                } else if (userData.user_lead_id) {
+                    const kycRedirect = await kyc_fp_redirection(userData.user_lead_id);
+                    if (kycRedirect) {
+                        redirectUrl = `${process.env.PUBLIC_URL}/datagathering/verification-docs`;
+                    }
                 }
 
-                if (userData.user_onboarding_status === false) {
-                    window.location.href = process.env.PUBLIC_URL + "/onboard-flow";
-                    return;
-                }
-                
-                
-
-                window.location.href = process.env.PUBLIC_URL + "/commondashboard";
+                // Perform final redirect
+                window.location.href = redirectUrl;
 
 
                 setItemLocal("logged_in", 1);
@@ -227,7 +253,7 @@ const PinVerification = ({ serCurrentView, userDetails, setIsAuthModalOpen, setv
                 <h2 className={styles.heading}>
                     Hi {userDetails.email}
                 </h2>
-                <h2>Welcome Back</h2>
+                <h2 className={styles.heroTitle}>Welcome Back</h2>
                 {/* <p className={styles.subtext}>
                     {userDetails.email}?<button className={styles.signOutBtn} onClick={() => {
                         setview('AUTHFLOW');
@@ -433,6 +459,9 @@ const ResetPin = ({ userDetails, setIsAuthModalOpen, setview, setVerificationFlo
             <div className={styles.header}>
                 <h2 className={styles.heading}>
                     Reset Fin-Pin
+                </h2>
+                <h2 className={styles.heroTitle}>
+                    Secure Your Access
                 </h2>
             </div>
 

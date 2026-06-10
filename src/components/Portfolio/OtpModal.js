@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import otpmodal from "./otpmodal.module.css";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import SubmitButton from "./SubmitButton";
-import { addNomineeDetails, DeleteCart, SwitchOrderEntry } from "../../FrappeIntegration-Services/services/investment-api/investmentService";
+import { addNomineeDetails, DeactivateCart, DeleteCart, StpRegistration, SwitchOrderEntry } from "../../FrappeIntegration-Services/services/investment-api/investmentService";
 import {
   Normalorderentry,
   SwpCancellation,
@@ -79,7 +79,6 @@ const PortfolioOtpModal = (props) => {
   const switchFund = async () => {
     setStopSIPButtonDisable(true);
     var trans_code = "NEW";
-    console.log("PROPS ========= ", props);
     var trans_id = "" + props.transaction_id.current;
 
     var payload = {
@@ -255,25 +254,24 @@ const PortfolioOtpModal = (props) => {
       startSTP();
     }
     if (nomineeflag == null || nomineeflag == "") {
-      updatenominee();
+      // updatenominee();
     }
   };
   const startSTP = async () => {
     setStopSIPButtonDisable(true);
+    console.log("STP Props: ", props);
     
     try {
-      let config = {
-        method: "post",
-        url: DMF_BASE_URL + "api/bse/stpregistration",
-        data: {
+      let payload = {
           transaction_ids: props.stpTransactionId,
           data_belongs_to: DATA_BELONGS_TO,
-        },
-      };
+          user_id: getUserId()
+        };
 
-      var res2 = await fetchEncryptData(config);
-      setStartStp(res2.data);
-      if (res2.error_code * 1 === 100) {
+      var response = await StpRegistration(payload);
+      console.log("STP Response: ", response);
+      setStartStp(response.data);
+      if (response.status_code * 1 === 200) {
         await deleteCart();
         setStopSIPButtonDisable(false);
         navigate(
@@ -287,7 +285,7 @@ const PortfolioOtpModal = (props) => {
       }
     } catch (e) {
       setStopSIPButtonDisable(false);
-      console.log("Start STP::: ", e);
+      console.log("Start STP Errpr::: ", e);
     }
   };
  
@@ -307,7 +305,8 @@ const PortfolioOtpModal = (props) => {
       };
       var res = await Normalorderentry(payload);
       
-      await deleteCartAPI();
+      //await deleteCartAPI();
+      await DeactivateCartAPI();
       setStopSIPButtonDisable(false);
       if (res.status_code == 200) {
         navigate(
@@ -423,6 +422,16 @@ const PortfolioOtpModal = (props) => {
     };
 
     const response = await DeleteCart(payload);
+  };
+
+  const DeactivateCartAPI = async () => {
+    var cart_id = props.value[2].current;
+    var payload = {
+      from_cart_id: "" + cart_id,
+      user_id: "" + getUserId(),
+    };
+
+    const response = await DeactivateCart(payload);
   };
   
   const fetchSms = async (v) => {
@@ -579,7 +588,6 @@ const PortfolioOtpModal = (props) => {
           <div className={props.isActive ? "Stylesss" : "sssss"}>
             <div className="modal-whitepopup-box-item grey-color border-top-0 text-center">
               <p>Sent to</p>
-              {console.log("otp modal props ==== ", props)}
               <p className={props.isActive ? otpmodal.userMail : null}>
                 {useremail}
               </p>

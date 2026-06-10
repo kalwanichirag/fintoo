@@ -20,6 +20,10 @@ import FintooLoader from "../../FintooLoader";
 import * as toastr from "toastr";
 import "toastr/build/toastr.css";
 import { check_all_status_api, generateLead, sendMail, sendSMS } from "../../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import {
+  getStoredChoiceLead,
+  storeChoiceLeadFromUrl,
+} from "../../../Utils/leadAttribution";
 
 function ExpertRmDetails() {
   let selectedRM = useSelector((state) => state.selectedRM);
@@ -70,6 +74,8 @@ function ExpertRmDetails() {
   };
 
   React.useEffect(() => {
+    storeChoiceLeadFromUrl();
+
     function handleClickOutside(event) {
       if (rmDetailRef.current && !rmDetailRef.current.contains(event.target)) {
         closePopup();
@@ -194,6 +200,7 @@ function ExpertRmDetails() {
 
   const thanksContinue = async () => {
     setIsLoading(!isLoading);
+    storeChoiceLeadFromUrl();
     let email = formData.mailid;
     let data = {};
     data = {
@@ -213,16 +220,25 @@ function ExpertRmDetails() {
       ...data,
     };
 
+    const choiceLead = getStoredChoiceLead() || {};
+    const urlParams = new URLSearchParams(window.location.search || "");
+    const resolvedSource = (choiceLead.source || urlParams.get("utm_source") || "").trim();
+    const resolvedCampaign = (choiceLead.campaign || urlParams.get("utm_campaign") || "").trim();
+    const resolvedTag = (choiceLead.tag || urlParams.get("tags") || "").trim();
+
     let payload = {
       "services": ["assisted_advisory_fixed_fees"],
-      "source": "Website Callback",
-      "tag": "fin_web_FP_exp",
+      "source": resolvedSource || "Website Callback",
+      "tag": resolvedTag || "fin_web_FP_exp",
       "email": email,
       "full_name": formData.fullname,
       "mobile": formData.mobile,
       "rm_id": data.lead_rm_id,
       "slab": formData.incomeslabname
 
+    }
+    if (resolvedCampaign) {
+      payload["campaign"] = resolvedCampaign;
     }
     if (getParentUserId()) {
       payload["user_id"] = getParentUserId()
@@ -351,7 +367,7 @@ function ExpertRmDetails() {
       setCalendlyData({
         name: user_data["user_name"] || user_data["name"] || "",
         email: user_data["user_email"],
-        mobile: user_data["mobile"],
+        mobile: user_data["user_mobile"],
         country_code: user_data["user_country_code"] || "+91",
       });
     }

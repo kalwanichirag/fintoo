@@ -16,7 +16,7 @@ const FinalCTA = ({formtype}) => {
 
       {/* Main Container */}
       <div className="tw-container tw-mx-auto tw-px-6 tw-relative tw-z-10">
-        <div className="tw-grid md:tw-grid-cols-2 tw-gap-12 tw-items-center">
+        <div className="tw-grid md:tw-grid-cols-2 md:tw-gap-12 tw-items-center">
           
           {/* LEFT: Text Section */}
           <div className="tw-text-left tw-max-w-2xl">
@@ -47,12 +47,12 @@ const FinalCTA = ({formtype}) => {
               Join thousands of successful Indians who trust Fintoo with their wealth.
             </p>
 
-            <div className="tw-flex tw-flex-col sm:tw-flex-row tw-gap-4 tw-mb-10">
-              {/* <button className="tw-gradient-orange tw-text-white tw-px-8 tw-py-4 tw-rounded-full tw-font-semibold tw-text-lg hover:tw-shadow-2xl tw-transition-all tw-duration-300">
+           {/*   <div className="tw-flex tw-flex-col sm:tw-flex-row tw-gap-4 tw-mb-10">
+             <button className="tw-gradient-orange tw-text-white tw-px-8 tw-py-4 tw-rounded-full tw-font-semibold tw-text-lg hover:tw-shadow-2xl tw-transition-all tw-duration-300">
                 <i className="fas fa-calendar-check tw-mr-2"></i>
                 Book Your Complimentary Session
-              </button> */}
-            </div>
+              </button> 
+            </div>*/}
           </div>
 
           {/* RIGHT: Calendly Embed */}

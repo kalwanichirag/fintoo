@@ -336,17 +336,17 @@ export default function NewCart() {
         "Please complete your profile to access all features and enjoy a tailored experience"
       );
       openModal();
-    } else if (r?.data?.nominee_authenticated == "No") {
-      setpopuptext(
-        "Nominee authentication is pending. Please complete your profile to proceed with the order placement."
-      );
-      openModal();
     } else if (
       userDeatils.user_is_minor !== 1 &&
       Profilepercentage.profile_status !== 100
     ) {
       setpopuptext(
         "Please complete your profile to access all features and enjoy a tailored experience"
+      );
+      openModal();
+    } else if (r?.data?.nominee_authenticated == "No") {
+      setpopuptext(
+        "Nominee authentication is pending. Please complete your profile to proceed with the order placement."
       );
       openModal();
     } else {
@@ -369,8 +369,7 @@ export default function NewCart() {
       navigate(
         process.env.PUBLIC_URL + "/direct-mutual-fund/profile/dashboard"
       );
-    }
-    if (status == "No") {
+    } else if (status == "No") {
       navigate(
         process.env.PUBLIC_URL + "/direct-mutual-fund/profile/dashboard/nominee"
       );

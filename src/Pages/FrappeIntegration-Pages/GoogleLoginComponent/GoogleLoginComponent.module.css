@@ -1,23 +1,28 @@
 /* LoginButton.module.css */
 
 .googleLoginBtn {
-    background: white;
+    background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
     width: 100%;
-    padding: 1.25rem 1rem;
-    /* py-5 px-4 */
-    border: 1px solid #d1d5db;
-    /* border-gray-300 */
-    color: #4B5675;
-    font-weight: 500;
+    padding: 1rem 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.34);
+    color: #334155;
+    font-weight: 700;
     font-size: 1rem;
-    border-radius: 0.375rem;
-    /* rounded-md */
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.googleLoginBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(15, 23, 42, 0.09);
+    border-color: rgba(13, 78, 166, 0.28);
 }
 
 .googleLogo {
-    margin-right: 0.5rem;
+    margin-right: 0.7rem;
     width: 20px;
 }

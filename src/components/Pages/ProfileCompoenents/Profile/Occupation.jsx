@@ -1,25 +1,24 @@
 import { useState, useEffect } from "react";
 import "react-responsive-modal/styles.css";
-import Link from "../../../MainComponents/Link";
-import Profile_1 from "../../../Assets/Profile_1.png";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { Container, Row, Col } from "react-bootstrap";
-import ProgressBar from "@ramonak/react-progress-bar";
-import Back from "../../../Assets/left-arrow.png";
+import { Row, Col } from "react-bootstrap";
 import FintooButton from "../../../HTML/FintooButton";
 import FintooProfileBack from "../../../HTML/FintooProfileBack";
-import { CheckSession, getUserId, memberId } from "../../../../common_utilities";
-import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
-import commonEncode from "../../../../commonEncode";
-import {} from "../../../../constants";
+import { getUserId } from "../../../../common_utilities";
+import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import FintooCheckbox from "../../../FintooCheckbox/FintooCheckbox";
 import { fetchUserProfileDetails, updateBasicDetails } from "../../../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import { GetOccupationList, GetSlabList } from "../../../../FrappeIntegration-Services/services/master-api/masterApiService";
 
+const STATUS_CODE = {
+  SUCCESS: 200,
+};
+
+const TOAST_TYPE = {
+  SUCCESS: "success",
+  ERROR: "error",
+};
 
 function Occupation(props) {
   const user_id = getUserId();
@@ -27,26 +26,23 @@ function Occupation(props) {
   const [userDetails, setUserDetails] = useState("");
   const [occupation, setOccupation] = useState([]);
   const [incSlabs, setIncSlab] = useState([]);
-  const dispatch = useDispatch();
   const [occupationId, setOccupationId] = useState("");
   const [incomeId, setIncomeId] = useState("");
-  const allUserData = localStorage.getItem("user");
-  const showBack = useSelector((state) => state.isBackVisible);
-  const userData = JSON.parse(allUserData);
-  const statusList = ["Married", "Unmarried"];
   const [MaStatus, SetMaStatus] = useState("");
+  const dispatch = useDispatch();
+  const showBack = useSelector((state) => state.isBackVisible);
+  const statusList = ["Married", "Unmarried"];
 
   const onLoadInIt = async () => {
     try {
-      var response = await fetchUserProfileDetails(user_id);
-      setUserDetails(response?.data ? response.data : {});
+      const response = await fetchUserProfileDetails(user_id);
+      setUserDetails(response?.data || {});
     } catch (e) {
-      e.errorAlert();
+      console.error("Error loading user details:", e);
     }
   };
 
-  const defaultValues = async () => {
-    // Check if userDetails exists before accessing its properties
+  const defaultValues = () => {
     if (!userDetails) {
       setIncomeId("");
       setOccupationId("");
@@ -54,21 +50,9 @@ function Occupation(props) {
       return;
     }
 
-    if (userDetails.income_slab_id != "") {
-      setIncomeId(userDetails.income_slab_id);
-    } else {
-      setIncomeId("");
-    }
-    if (userDetails.user_occupation_id != "") {
-      setOccupationId(userDetails.user_occupation_id);
-    } else {
-      setOccupationId("");
-    }
-    if (userDetails.user_marital_status != "") {
-      SetMaStatus(userDetails.user_marital_status);
-    } else {
-      SetMaStatus("");
-    }
+    setIncomeId(userDetails.user_income_slab_id || userDetails.income_slab_id || "");
+    setOccupationId(userDetails.user_occupation_id || "");
+    SetMaStatus(userDetails.user_marital_status || "");
   };
 
   useEffect(() => {
@@ -77,27 +61,24 @@ function Occupation(props) {
 
   const getIncomeSlabs = async () => {
     try {
-      
-      var res = await GetSlabList();
-      var responseInc = res.data;
-      setIncSlab(responseInc);
+      const res = await GetSlabList();
+      setIncSlab(res.data);
     } catch (e) {
-      e.errorAlert();
+      console.error("Error fetching income slabs:", e);
     }
   };
 
   const getOccupations = async () => {
     try {
-      var responseobj = await GetOccupationList();
+      const responseobj = await GetOccupationList();
       setOccupation(responseobj.data);
     } catch (e) {
-      e.errorAlert();
+      console.error("Error fetching occupations:", e);
     }
   };
 
   useEffect(() => {
     localStorage.removeItem("req");
-    // // checksession();
     onLoadInIt();
     getOccupations();
     getIncomeSlabs();
@@ -105,11 +86,7 @@ function Occupation(props) {
   }, []);
 
   const handleStatusChange = (v) => {
-    if (MaStatus == v) {
-      SetMaStatus("");
-    } else {
-      SetMaStatus(v);
-    }
+    SetMaStatus(MaStatus === v ? "" : v);
   };
 
   const handleSubmit = (event) => {
@@ -118,90 +95,65 @@ function Occupation(props) {
     event.stopPropagation();
     
     if (form.checkValidity() === true) {
-      if (
-        occupationId != "" &&
-        incomeId != "" &&
-        occupationId != "0" &&
-        incomeId != "0" &&
-        MaStatus != ""
-      ) {
+      if (occupationId && incomeId && occupationId !== "0" && incomeId !== "0" && MaStatus) {
         ApiCall();
       } else {
+        let message = "";
         if (!occupationId && !incomeId && !MaStatus) {
-          dispatch({
-            type: "RENDER_TOAST",
-            payload: {
-              message: "Please select Marital Status,Occupation & Income Slab",
-              type: "error",
-            },
-          });
-        } else if (incomeId == "" || incomeId == "0") {
-          dispatch({
-            type: "RENDER_TOAST",
-            payload: {
-              message: "Please select Income Slab",
-              type: "error",
-            },
-          });
-        } else if (occupationId == "" || occupationId == "0") {
-          dispatch({
-            type: "RENDER_TOAST",
-            payload: {
-              message: "Please select Occupation",
-              type: "error",
-            },
-          });
-        } else if (MaStatus == "") {
-          dispatch({
-            type: "RENDER_TOAST",
-            payload: {
-              message: "Please select Marital Status",
-              type: "error",
-            },
-          });
+          message = "Please select Marital Status, Occupation & Income Slab";
+        } else if (!incomeId || incomeId === "0") {
+          message = "Please select Income Slab";
+        } else if (!occupationId || occupationId === "0") {
+          message = "Please select Occupation";
+        } else if (!MaStatus) {
+          message = "Please select Marital Status";
         }
+        
+        dispatch({
+          type: "RENDER_TOAST",
+          payload: { message, type: TOAST_TYPE.ERROR },
+        });
       }
     }
     setValidated(true);
   };
   
   const ApiCall = async () => {
-    
-    var payload = {
+    const payload = {
       user_id: getUserId(),
       occupation: occupationId,
       income_slab_id: incomeId,
       marital_status: MaStatus
-    }
-    var response_obj = await updateBasicDetails(payload);
-    let error_code = response_obj["status_code"];
-    if (error_code == 200) {
-      let incomeSlabLabel = "";
-      incSlabs.forEach((w) => {
-        if (w.slab_id === incomeId) {
-          incomeSlabLabel = w.slab_description;
-        }
-      });
-      if (window.webengage && window.webengage.user) {
+    };
+    
+    const responseObj = await updateBasicDetails(payload);
+    const errorCode = responseObj["status_code"];
+    
+    if (errorCode === STATUS_CODE.SUCCESS) {
+      const incomeSlabLabel = incSlabs.find(w => w.slab_id === incomeId)?.slab_description || "";
+      
+      if (window.webengage?.user) {
         if (incomeSlabLabel) {
           window.webengage.user.setAttribute("Income Slab", incomeSlabLabel);
         }
         window.webengage.user.setAttribute("marital_status", MaStatus);
       }
+      
       dispatch({
         type: "RENDER_TOAST",
         payload: {
           message: "User details updated successfully.",
-          type: "success",
+          type: TOAST_TYPE.SUCCESS,
         },
       });
+      
       setTimeout(() => {
         props.onNext();
       }, 3500);
     } else {
       dispatch({
         type: "RENDER_TOAST",
-        payload: { message: response_obj["message"], type: "error" },
+        payload: { message: responseObj["message"], type: "error" },
       });
     }
   };
@@ -290,14 +242,13 @@ function Occupation(props) {
                       outline: "none",
                       height: "3rem",
                     }}
+                    value={incomeId}
                     onChange={(event) => setIncomeId(event.target.value)}
                   >
                     <option value="0">Select</option>
                     {incSlabs && incSlabs.map((w) => (
                       <option
-                        selected={
-                          userDetails && w.slab_id == userDetails.user_income_slab_id
-                        }
+                        key={w.slab_id}
                         value={w.slab_id}
                       >
                         {w.slab_description}
@@ -313,7 +264,6 @@ function Occupation(props) {
                   type="submit"
                   title="Next"
                 />
-                {/* onClick={() => props.onNext()} */}
               </div>
             </div>
           </Form>

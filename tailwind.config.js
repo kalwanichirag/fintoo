@@ -2,15 +2,17 @@
 module.exports = {
   prefix: "tw-",
   content: [
+    "./src/Pages/ReviewPage.js",
+    "./src/Pages/retirement-planning/**/*.{js,jsx,ts,tsx}",
     "./src/components/Insurance/**/*.{js,jsx,ts,tsx}",
     "./src/components/retirement-planning/**/*.{js,jsx,ts,tsx}",
     "./src/components/FinancialPlanningPage/**/*.{js,jsx,ts,tsx}",
     "./src/components/dashboardnew/**/*.{js,jsx,ts,tsx}",
     "./src/components/landingpagesOtp/**/*.{js,jsx,ts,tsx}",
-
-
-
-
+    "./src/Pages/womoneya/**/*.{js,jsx,ts,tsx}",
+    "./src/Pages/PmsMarketingPage/**/*.{js,jsx,ts,tsx}",
+    "./src/Pages/ItrLandingPage/**/*.{js,jsx,ts,tsx}",
+   // "./src/Pages/JoinWaitingList/**/*.{js,jsx,ts,tsx}",
   ],
   corePlugins: {
     preflight: false, // disables Tailwind's global base styles
@@ -50,10 +52,10 @@ module.exports = {
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
+        dmsans: ["DM Sans", "sans-serif"],
+        dmserif: ["DM Serif Display", "serif"],
       },
     },
   },
   plugins: [],
 };
-
-

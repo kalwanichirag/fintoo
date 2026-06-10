@@ -1,0 +1,31 @@
+.chatBody {
+  max-height: 380px;
+  min-height: 300px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.chatBody::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chatBody::-webkit-scrollbar-track {
+  background: #eef2f7;
+  border-radius: 10px;
+}
+
+.chatBody::-webkit-scrollbar-thumb {
+  background: #c7d3e3;
+  border-radius: 10px;
+}
+
+.chatBody::-webkit-scrollbar-thumb:hover {
+  background: #a9b7c8;
+}
+
+@media (max-width: 768px) {
+  .chatBody {
+    min-height: 260px;
+    max-height: 340px;
+  }
+}

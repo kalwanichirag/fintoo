@@ -58,7 +58,7 @@ export default function AuthModal() {
                         <div className={styles.modalContainer}
                             onClick={(e) => e.stopPropagation()}
                         >
-                            
+                            <LeftBaner />
                             <div className={styles.rightPanel}>
                                 <div className={styles.whiteCard}>
                                     <AuthFlow

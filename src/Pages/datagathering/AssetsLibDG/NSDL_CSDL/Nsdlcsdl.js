@@ -422,6 +422,9 @@ const Nsdlcsdl = forwardRef((props, ref) => {
                               props.Closemodal();
                             }
                           }}
+                          onHandlebackClick={() => {
+                            setCount(0);
+                          }}
                           onProceedClick={(response) => {
                             handleProceedClick();
                             setCdslNsdlResponse({ ...response });
@@ -448,6 +451,7 @@ const Nsdlcsdl = forwardRef((props, ref) => {
                       {count === 3 && (
                         <Completed
                           fromStockCard={fromStockCard} 
+                          onLinkedSuccess={props.onLinkedSuccess}
                           onClose={() => {
                             setCurrentPopup(null);
                             

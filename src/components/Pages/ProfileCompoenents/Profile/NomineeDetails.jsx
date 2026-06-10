@@ -4,8 +4,6 @@ import { DATA_BELONGS_TO } from "../../../../constants";
 import { Form, Row, FormGroup } from "react-bootstrap";
 import axios from "axios";
 import OTPInput, { ResendOTP } from "otp-input-react";
-import commonEncode from "../../../../commonEncode";
-
 import "../Fatca/style.css";
 import FintooButton from "../../../HTML/FintooButton";
 import FintooProfileBack from "../../../HTML/FintooProfileBack";
@@ -22,9 +20,7 @@ import {
 import {
   fetchUserProfileDetails,
   getRelationList,
-  sendMail,
   sendOTP,
-  sendSMS,
   verifyOTP,
 } from "../../../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import {
@@ -33,22 +29,31 @@ import {
   updateNomineeDetails,
 } from "../../../../FrappeIntegration-Services/services/investment-api/investmentService";
 
+const VALIDATION_PATTERNS = {
+  EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  MOBILE: /^[6-9]\d{9}$/,
+  PAN: /^[A-Z]{5}\d{4}[A-Z]$/,
+  AADHAAR: /^\d{12}$/,
+  PINCODE: /^\d{5,6}$/,
+  NAME: /^[a-z A-Z]+$/,
+};
+
+const TOAST_TYPE = {
+  SUCCESS: "success",
+  ERROR: "error",
+};
+
+const TIMER_INTERVAL = 1000;
+
 function NomineeDetails(props) {
   const [countryStateCity, setSountryStateCity] = useState({
     countries: [],
     states: [],
     cities: [],
   });
-
-  useEffect(() => {}, [countryStateCity]);
-
   const [validated, setValidated] = useState(false);
   const [editNumber, setEditNumber] = useState(null);
   const [allNominee, setAllNominee] = useState([]);
-
-  useEffect(() => {}, [allNominee]);
-  // const [nomineeDataHistory, setNomineeDataHistory] = useState(null);
-
   const [fullname, setFullname] = useState("");
   const [percentage, setPercentage] = useState("");
   const [relation, setRelation] = useState("");
@@ -81,8 +86,6 @@ function NomineeDetails(props) {
   const [mobile, setmobile] = useState("");
   const [email, setemail] = useState("");
   const [count, setCount] = useState(120);
-  const [GeneratedSmsOTP, setGeneratedSmsOTP] = useState("");
-  const [generatedemailotp, setGeneratedEmailOTP] = useState("");
 
   const handleClosedata = () => setShowdata(false);
   const timer = useRef({ obj: null, counter: 120, default: 120 });
@@ -90,7 +93,6 @@ function NomineeDetails(props) {
   const [nomineerelations, setNomineeRelations] = useState([]);
   const [navDynamic, setNavDynamic] = useState({ prev: "", next: "" });
 
-  // Add location reference for pincode-based auto-fill
   const locationRef = useRef(null);
   const dataExistRef = useRef(false);
   const apiCountryRef = useRef();
@@ -102,7 +104,7 @@ function NomineeDetails(props) {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     nomineelist();
     getNomineeRelations();
-  }, [mobile, email]);
+  }, []);
 
   const isDataSame = () => {
     if (!allNominee[0]) return false;
@@ -127,7 +129,7 @@ function NomineeDetails(props) {
       nominee_relation: relation,
       nominee_dob: moment(dob).format("YYYY-MM-DD"),
       nominee_email,
-      nominee_mobile: parseInt(nominee_mobile),
+      nominee_mobile: Number(nominee_mobile),
       nominee_address1,
       nominee_address2,
       nominee_address3,
@@ -166,28 +168,14 @@ function NomineeDetails(props) {
     return JSON.stringify(currentNominee) === JSON.stringify(savedNominee);
   };
 
-  // const handleNextBtn = () => {
-  //   const sameCheck = isDataSame();
-  //   if (!sameCheck) {
-  //     randomOTP.current = Math.floor(Math.random() * 90000) + 10000;
-  //     startTimer();
-  //     fetchMail();
-  //     fetchSms();
-  //     setShowdata(true);
-  //   } else {
-  //     fetchMail();
-  //     fetchSms();
-  //     setShowdata(true);
-  //     props.onNext(navDynamic.next);
-  //   }
-  // }
   const handleNextBtn = () => {
+    if (!validateForm()) return;
+
     const sameCheck = isDataSame();
-    
+
     if (!sameCheck) {
       randomOTP.current = Math.floor(Math.random() * 90000) + 10000;
       startTimer();
-      // fetchMail();
       fetchSms();
       setShowdata(true);
     } else {
@@ -197,24 +185,20 @@ function NomineeDetails(props) {
 
   const onLoadInIt = async () => {
     try {
-      var response = await fetchUserProfileDetails(getUserId());
+      const response = await fetchUserProfileDetails(getUserId());
 
-      if (response.status_code == 200) {
-        setUserDetails(response.data);
-        setmobile(response.data.mobile);
-        setemail(response.data.user_email);
+      if (response.status_code === 200) {
+        const data = response.data;
+        setUserDetails(data);
+        setmobile(data.mobile);
+        setemail(data.user_email);
 
-        let navDynamic__ = {};
-        if (
-          userDetails.user_residential_status == "AHN-2" ||
-          userDetails.user_residential_status == "AHN-3"
-        ) {
-          navDynamic__.next = "Bank";
-          navDynamic__.prev = "FatcaAdd";
-        } else {
-          navDynamic__.next = "Bank";
-          navDynamic__.prev = "FatcaAll";
-        }
+        const navDynamic__ = {
+          next: "Bank",
+          prev: data.user_residential_status === "NRI"
+            ? "FatcaAdd"
+            : "FatcaAll"
+        };
         setNavDynamic(navDynamic__);
       } else {
         dispatch({
@@ -225,7 +209,7 @@ function NomineeDetails(props) {
     } catch (e) {
       dispatch({
         type: "RENDER_TOAST",
-        payload: { message: "Something went wrong...", type: "error" },
+        payload: { message: "Something went wrong.", type: TOAST_TYPE.ERROR },
       });
     }
   };
@@ -236,17 +220,15 @@ function NomineeDetails(props) {
     timer.current.counter = timer.current.default;
     setCount(timer.current.counter);
     timer.current.obj = setInterval(() => {
-      if (timer.current.counter == 0) {
+      if (timer.current.counter === 0) {
         clearInterval(timer.current.obj);
         timer.current.counter = timer.current.default;
         return;
       }
       timer.current.counter = timer.current.counter - 1;
       setCount(timer.current.counter);
-    }, 1000);
+    }, TIMER_INTERVAL);
   };
-
-  var user_id = getUserId();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -259,103 +241,78 @@ function NomineeDetails(props) {
   };
 
   const validateForm = () => {
-    const tempEerror = {};
-    if (fullname.trim() == "") tempEerror.fullname = "Name is required";
-    if (fullname.length < 2 && fullname != "")
-      tempEerror.fullname = "Please Provide Valid nominee first name ";
-    if (Boolean(dob) == false) tempEerror.dob = "Date of birth is required";
-    if (
-      guardianName.trim() == "" &&
-      moment().diff(moment(dob), "years") < 18 &&
-      guardianName.length < 2
-    )
-      tempEerror.guardianName = "Parent/Guardian name is required. ";
-    if (relation.trim() == "") tempEerror.relation = "Relation is required";
+    const tempError = {};
 
-    if (guardianName.trim() == "") {
+    if (!fullname.trim()) {
+      tempError.fullname = "Name is required";
+    } else if (fullname.length < 2) {
+      tempError.fullname = "Please Provide Valid nominee first name";
+    }
+
+    if (!dob) tempError.dob = "Date of birth is required";
+
+    if (!guardianName.trim()) {
       if (moment().diff(moment(dob), "years") < 18) {
-        tempEerror.guardianName = "Parent/Guardian name is required.";
+        tempError.guardianName = "Parent/Guardian name is required.";
       } else {
         setGuardianName("");
       }
-    } else if (!/^[a-z A-Z]+$/.test(guardianName)) {
-      tempEerror.guardianName = "Please enter valid Parent/Guardian name";
+    } else if (!VALIDATION_PATTERNS.NAME.test(guardianName)) {
+      tempError.guardianName = "Please enter valid Parent/Guardian name";
     }
 
-    // ---------------------------------------------------------------------------------------------------------------------------------
-    if (nominee_email.trim() === "") {
-      tempEerror.nominee_email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(nominee_email)) {
-      tempEerror.nominee_email = "Please enter a valid email address";
+    if (!relation.trim()) tempError.relation = "Relation is required";
+
+    if (!nominee_email.trim()) {
+      tempError.nominee_email = "Email is required";
+    } else if (!VALIDATION_PATTERNS.EMAIL.test(nominee_email)) {
+      tempError.nominee_email = "Please enter a valid email address";
     }
 
-    if (nominee_mobile === "") {
-      tempEerror.nominee_mobile = "Mobile number is required";
-    } else if (!/^[6-9]\d{9}$/.test(nominee_mobile)) {
-      tempEerror.nominee_mobile = "Please enter a valid 10-digit mobile number";
+    if (!nominee_mobile) {
+      tempError.nominee_mobile = "Mobile number is required";
+    } else if (!VALIDATION_PATTERNS.MOBILE.test(nominee_mobile)) {
+      tempError.nominee_mobile = "Please enter a valid 10-digit mobile number";
     }
 
-    if (nominee_address1.trim() === "")
-      tempEerror.nominee_address1 = "Address line 1 is required";
+    if (!nominee_address1.trim()) {
+      tempError.nominee_address1 = "Address line 1 is required";
+    }
 
-    // if (nominee_address2.trim() === "")
-    //   tempEerror.nominee_address2 = "Address line 2 is required";
+    if (!nominee_pincode.trim()) {
+      tempError.nominee_pincode = "Pincode is required";
+    } else if (!VALIDATION_PATTERNS.PINCODE.test(nominee_pincode)) {
+      tempError.nominee_pincode = "Please enter a valid pincode";
+    }
 
-    // if (nominee_address3.trim() === "")
-    //   tempEerror.nominee_address3 = "Address line 3 is required";
+    if (!nominee_city_id) tempError.nominee_city = "City is required";
+    if (!nominee_state_id) tempError.nominee_state = "State is required";
+    if (!nominee_country_id) tempError.nominee_country = "Country is required";
 
-    if (nominee_pincode.trim() === "")
-      tempEerror.nominee_pincode = "Pincode is required";
-    else if (!/^\d{5,6}$/.test(nominee_pincode))
-      tempEerror.nominee_pincode = "Please enter a valid pincode";
+    if (!nominee_id_proof_type) {
+      tempError.nominee_id_proof_type = "ID proof type is required";
+    }
 
-    if (nominee_city_id === "") tempEerror.nominee_city = "City is required";
-
-    if (nominee_state_id === "") tempEerror.nominee_state = "State is required";
-
-    if (nominee_country_id === "")
-      tempEerror.nominee_country = "Country is required";
-
-    if (nominee_id_proof_type === "")
-      tempEerror.nominee_id_proof_type = "ID proof type is required";
-
-    if (nominee_id_proof_number === "") {
-      tempEerror.nominee_id_proof_number = "ID proof number is required";
-    } else {
-      if (nominee_id_proof_type != "") {
-        if (
-          nominee_id_proof_type == "PAN" &&
-          !/^[A-Z]{5}\d{4}[A-Z]$/.test(nominee_id_proof_number)
-        ) {
-          tempEerror.nominee_id_proof_number = "Please enter a valid PAN";
-        } else {
-          if (userDetails.pan === nominee_id_proof_number) {
-            tempEerror.nominee_id_proof_number =
-              "PAN can not be same as parent";
-          }
+    if (!nominee_id_proof_number) {
+      tempError.nominee_id_proof_number = "ID proof number is required";
+    } else if (nominee_id_proof_type) {
+      if (nominee_id_proof_type === "PAN") {
+        if (!VALIDATION_PATTERNS.PAN.test(nominee_id_proof_number)) {
+          tempError.nominee_id_proof_number = "Please enter a valid PAN";
+        } else if (userDetails?.user_pan === nominee_id_proof_number) {
+          tempError.nominee_id_proof_number = "PAN can not be same as parent";
         }
-
-        if (
-          nominee_id_proof_type == "Aadhaar" &&
-          !/^[2-9]{1}[0-9]{11}$/.test(nominee_id_proof_number)
-        ) {
-          tempEerror.nominee_id_proof_number =
-            "Please enter a valid Aadhar number";
-        }
-        if (
-          nominee_id_proof_type == "Driving license" &&
-          !/^([A-Z]{2})(\d{2}|\d{3})[a-zA-Z]{0,1}(\d{4})(\d{7})$/.test(
-            nominee_id_proof_number
-          )
-        ) {
-          tempEerror.nominee_id_proof_number =
-            "Please enter a valid Driving License number";
-        }
+      } else if (nominee_id_proof_type === "Aadhaar" &&
+        !/^[2-9]{1}[0-9]{11}$/.test(nominee_id_proof_number)) {
+        tempError.nominee_id_proof_number = "Please enter a valid Aadhar number";
+      } else if (nominee_id_proof_type === "Driving license" &&
+        !/^([A-Z]{2})(\d{2}|\d{3})[a-zA-Z]{0,1}(\d{4})(\d{7})$/.test(nominee_id_proof_number)) {
+        tempError.nominee_id_proof_number = "Please enter a valid Driving License number";
       }
     }
 
-    setError({ ...tempEerror });
-    return !Boolean(Object.keys(tempEerror).length);
+    setError(tempError);
+    return Object.keys(tempError).length === 0;
   };
   const editData = (v, index) => {
     setEditThis({
@@ -389,10 +346,10 @@ function NomineeDetails(props) {
 
         setFullname(
           allNominee[0]["nominee_first_name"] +
-            " " +
-            allNominee[0]["nominee_middle_name"] +
-            " " +
-            allNominee[0]["nominee_last_name"]
+          " " +
+          allNominee[0]["nominee_middle_name"] +
+          " " +
+          allNominee[0]["nominee_last_name"]
         );
         setPercentage(allNominee[0]["nominee_applicable"]);
         setDob(allNominee[0]["nominee_dob"]);
@@ -415,7 +372,7 @@ function NomineeDetails(props) {
         setNominee_country_id(allNominee[0]["nominee_country_id"]);
         setNominee_state_id(allNominee[0]["nominee_state_id"]);
         setNominee_city_id(allNominee[0]["nominee_city_id"]);
-        setNominee_city(allNominee[0]["nominee_city_id"]);
+        //setNominee_city(allNominee[0]["nominee_city_id"]);
         setNominee_id_proof_type(allNominee[0]["nominee_id_proof_type"]);
         setNominee_id_proof_number(allNominee[0]["nominee_id_proof_number"]);
 
@@ -445,7 +402,6 @@ function NomineeDetails(props) {
       }
     } catch (e) {
       console.error("Error fetching nominee details:", e);
-      // Set empty array to prevent errors and allow user to continue
       setAllNominee([]);
       dispatch({
         type: "RENDER_TOAST",
@@ -479,13 +435,14 @@ function NomineeDetails(props) {
         nominee_country_id: nominee_country_id,
         nominee_id_proof_type: nominee_id_proof_type,
         nominee_id_proof_number: (nominee_id_proof_number || "").trim(),
-        nominee_guardian_name: guardianName ? guardianName : null,
+        nominee_guardian_name: guardianName || null,
         data_belongs_to: DATA_BELONGS_TO
-      }
-      const sameCheck = isDataSame()
-      if (allNominee.length > 0 && !sameCheck || allNominee.length == 0 && !sameCheck) {
+      };
+
+      const sameCheck = isDataSame();
+      if ((allNominee.length > 0 && !sameCheck) || (allNominee.length === 0 && !sameCheck)) {
         const r = await addNomineeDetails(payload);
-        if (r.status_code == 200) {
+        if (r.status_code === 200) {
           dispatch({
             type: "RENDER_TOAST",
             payload: { message: r.message, type: "success" },
@@ -526,12 +483,12 @@ function NomineeDetails(props) {
         nominee_country_id: nominee_country_id,
         nominee_id_proof_type: nominee_id_proof_type,
         nominee_id_proof_number: (nominee_id_proof_number || "").trim(),
-        nominee_guardian_name: guardianName ? guardianName : null,
+        nominee_guardian_name: guardianName || null,
         data_belongs_to: DATA_BELONGS_TO,
       };
 
       const r = await updateNomineeDetails(payload);
-      if (r.status_code == 200) {
+      if (r.status_code === 200) {
         dispatch({
           type: "RENDER_TOAST",
           payload: { message: r.message, type: "success" },
@@ -551,36 +508,25 @@ function NomineeDetails(props) {
   };
 
   const fetchSms = async () => {
-
     const payload = {
       identifier: userDetails.mobile,
       for_otp: "mobile"
-    }
-
+    };
     await sendOTP(payload);
   };
 
-  const fetchMail = async () => {
-
-    const payload = {
-      identifier: userDetails.user_email,
-      for_otp: "email"
-    }
-    await sendOTP(payload);
-  };
   const getNomineeRelations = async () => {
     try {
-      var res = await getRelationList();
-
+      const res = await getRelationList();
       setNomineeRelations(res?.data);
-    } catch (e) {}
+    } catch (e) {
+      console.error("Error fetching nominee relations:", e);
+    }
   };
-
-  // -------------------------------------------------------------------------------------------------------------------------------------
 
   const getCountries = async (returnArr) => {
     try {
-      var res = await GetCountries();
+      const res = await GetCountries();
 
       if (returnArr) {
         return res.data;
@@ -588,7 +534,7 @@ function NomineeDetails(props) {
         setSountryStateCity((prev) => ({ ...prev, countries: res.data }));
       }
     } catch (e) {
-      console.log("catch", e);
+      console.error("Error fetching countries:", e);
     }
   };
 
@@ -596,7 +542,7 @@ function NomineeDetails(props) {
     if (!country_id) return [];
 
     try {
-      var res = await GetStates(country_id);
+      const res = await GetStates(country_id);
 
       if (returnArr) {
         return res.data;
@@ -608,17 +554,15 @@ function NomineeDetails(props) {
         }));
       }
     } catch (e) {
-      console.log("catch", e);
+      console.error("Error fetching states:", e);
     }
   };
 
   const getCities = async (returnArr, state_id) => {
-    if (!state_id) {
-      return [];
-    }
+    if (!state_id) return [];
 
     try {
-      var res = await GetCities(state_id);
+      const res = await GetCities(state_id);
 
       if (returnArr) {
         return res.data;
@@ -626,25 +570,35 @@ function NomineeDetails(props) {
         setSountryStateCity((prev) => ({ ...prev, cities: res.data }));
       }
     } catch (e) {
-      console.log("catch", e);
+      console.error("Error fetching cities:", e);
     }
   };
 
   const onCountryChange = async (country_id) => {
     if (!country_id) return;
     setNominee_country_id(country_id);
+
     setNominee_state("");
+    setNominee_state_id("");
+    setNominee_city("");
+    setNominee_city_id("");
+    setNominee_pincode("");
+
+    locationRef.current = null;
     await getStates(false, country_id);
   };
+
   const onStateChange = async (state_id) => {
     if (!state_id) return;
     setNominee_state_id(state_id);
     setNominee_city("");
     setNominee_city_id("");
+    setNominee_pincode("");
+
+    locationRef.current = null;
     await getCities(false, state_id);
   };
 
-  // Add pincode-based auto-fill functions
   const fetchAutoCountry = async () => {
     try {
       if (apiCountryRef.current) {
@@ -661,7 +615,6 @@ function NomineeDetails(props) {
       var data = res.data.data;
 
       locationRef.current = { ...data };
-      // Find and set country
       if (countryStateCity.countries && countryStateCity.countries.length > 0) {
         var countryIndex = countryStateCity.countries.findIndex(
           (v) => v.country_name === locationRef.current.Country
@@ -671,9 +624,9 @@ function NomineeDetails(props) {
           setNominee_country_id(selectedCountry.country_id);
           setNominee_country(selectedCountry.country_name);
           setError((prev) => ({
-          ...prev,
-          nominee_country: "",
-        }));
+            ...prev,
+            nominee_country: "",
+          }));
           await fetchAutoState(selectedCountry.country_id);
         }
       }
@@ -682,7 +635,7 @@ function NomineeDetails(props) {
     }
   };
 
-  const fetchAutoState = async  (countryId = null) => {
+  const fetchAutoState = async (countryId = null) => {
     const currentCountryId = countryId || nominee_country_id;
     if (!currentCountryId) {
       return;
@@ -697,7 +650,6 @@ function NomineeDetails(props) {
       var data = res.data;
       setSountryStateCity((prev) => ({ ...prev, states: data, cities: [] }));
 
-      // Find and set state
       var stateIndex = data.findIndex(
         (v) => v.state_name === locationRef.current.State
       );
@@ -705,12 +657,11 @@ function NomineeDetails(props) {
         const selectedState = data[stateIndex];
         setNominee_state_id(selectedState.state_id);
         setNominee_state(selectedState.state_name);
-         setError((prev) => ({
-        ...prev,
-        nominee_state: "",
-      }));
+        setError((prev) => ({
+          ...prev,
+          nominee_state: "",
+        }));
 
-        // Call fetchAutoCity directly with the state ID to avoid timing issues
         await fetchAutoCity(selectedState.state_id);
       }
     } catch (e) {
@@ -736,12 +687,10 @@ function NomineeDetails(props) {
         setSountryStateCity((prev) => ({ ...prev, cities: data }));
       }
 
-      // Try exact match first
       var index = data.findIndex(
         (v) => v.city_name === locationRef.current.District
       );
 
-      // If no exact match, try case-insensitive match
       if (index === -1) {
         index = data.findIndex(
           (v) =>
@@ -750,7 +699,6 @@ function NomineeDetails(props) {
         );
       }
 
-      // If still no match, try partial match
       if (index === -1) {
         index = data.findIndex(
           (v) =>
@@ -768,9 +716,9 @@ function NomineeDetails(props) {
         setNominee_city_id(selectedCity.city_id);
         setNominee_city(selectedCity.city_name);
         setError((prev) => ({
-        ...prev,
-        nominee_city: "",
-      }));
+          ...prev,
+          nominee_city: "",
+        }));
       }
     } catch (e) {
       console.log("Error fetching cities:", e);
@@ -778,17 +726,16 @@ function NomineeDetails(props) {
   };
 
   const verifyOTPCode = async () => {
-
     try {
       const payload = {
         identifier: userDetails.mobile,
         for_otp: "mobile",
         otp: OTP
-      }
+      };
 
       const response = await verifyOTP(payload);
-      if (response.status_code == 200 || response.status_code == "200") {
-        if (allNominee.length == 0) {
+      if (response.status_code === 200 || response.status_code === "200") {
+        if (allNominee.length === 0) {
           saveNominee();
         } else {
           updateNominee();
@@ -800,12 +747,10 @@ function NomineeDetails(props) {
         });
       }
     } catch (error) {
-      console.log("Error in verifyOTP:", error);
+      console.error("Error in verifyOTP:", error);
     }
+  };
 
-  }
-
-  // Add useEffect to trigger pincode lookup
   useEffect(() => {
     if (nominee_pincode && nominee_pincode.length === 6) {
       dataExistRef.current = false;
@@ -813,17 +758,14 @@ function NomineeDetails(props) {
     }
   }, [nominee_pincode]);
 
-  // Add useEffect to trigger state lookup when country changes
   useEffect(() => {
     if (nominee_country_id && locationRef.current) {
       fetchAutoState();
     }
   }, [nominee_country_id]);
 
-  // Add useEffect to trigger city lookup when state changes
   useEffect(() => {
     if (nominee_state_id && locationRef.current) {
-      // Add a small delay to ensure state is properly set
       setTimeout(() => {
         fetchAutoCity(nominee_state_id);
       }, 100);
@@ -962,7 +904,7 @@ function NomineeDetails(props) {
                         <option value="">Select</option>
                         {nomineerelations &&
                           nomineerelations.map((v) => (
-                            <option value={v.relation_id}>
+                            <option key={v.relation_id} value={v.relation_id}>
                               {v.relation_name}
                             </option>
                           ))}
@@ -979,9 +921,8 @@ function NomineeDetails(props) {
                       </Form.Label>
                       <FormGroup controlId="date" bsSize="large">
                         <div
-                          className={`dob8 nominee-calendar ${
-                            dob ? "m_selected" : "m_empty"
-                          }`}
+                          className={`dob8 nominee-calendar ${dob ? "m_selected" : "m_empty"
+                            }`}
                         >
                           <FintooDatePicker
                             maxDate={new Date()}
@@ -1059,7 +1000,6 @@ function NomineeDetails(props) {
                         </div>
                       )}
                     </>
-                    {/* --------------------------------------------------------------------------------------------------------------------------------------- */}
                     <div className="col-12 col-md-6 profile-space-1 col-md-6">
                       <Form.Label className="LabelName" htmlFor="inputText">
                         Email
@@ -1231,7 +1171,7 @@ function NomineeDetails(props) {
                     </div>
 
                     <div className=" col-12 col-md-4 profile-space-1">
-                      <Form.Label className="LabelName" htmlFor="inputText">
+                      <Form.Label className="LabelName" htmlFor="PIN">
                         Pincode
                       </Form.Label>
                       <Form.Control
@@ -1249,7 +1189,7 @@ function NomineeDetails(props) {
                         onChange={(e) => {
                           const value = e.target.value.replace(/\D/g, "");
                           setNominee_pincode(value);
-
+                          locationRef.current = null;
                           if (value) {
                             setError((prev) => ({
                               ...prev,
@@ -1286,9 +1226,8 @@ function NomineeDetails(props) {
                           height: "2.5rem",
                           outline: "none",
                         }}
-                        className={`NomineeName shadow-none ${
-                          error.nominee_city ? "is-invalid" : ""
-                        }`}
+                        className={`NomineeName shadow-none ${error.nominee_city ? "is-invalid" : ""
+                          }`}
                         onChange={(e) => {
                           const city_id = e.target.value;
                           const city_name = e.target.options[e.target.selectedIndex].text;
@@ -1296,7 +1235,10 @@ function NomineeDetails(props) {
                           setNominee_city_id(city_id);
                           setNominee_city(city_name);
 
-                          if (value) {
+                          setNominee_pincode("");
+                          locationRef.current = null;
+
+                          if (city_id) {
                             setError((prev) => ({ ...prev, nominee_city: "" }));
                           }
                         }}
@@ -1462,7 +1404,11 @@ function NomineeDetails(props) {
                         }}
                         className="NomineeName shadow-none"
                         onChange={(e) => {
-                          setNominee_id_proof_number(e.target.value);
+                          if (nominee_id_proof_type == "PAN") {
+                            setNominee_id_proof_number(e.target.value.toUpperCase());
+                          } else {
+                            setNominee_id_proof_number(e.target.value);
+                          }
                           if (error.nominee_id_proof_number) {
                             setError((prev) => ({
                               ...prev,
@@ -1484,9 +1430,8 @@ function NomineeDetails(props) {
             </Form>
             <div className="pt-4 fintoo-top-border mt-4">
               <div
-                className={`mb-3,mx-2 ${
-                  moment().diff(moment(dob), "years") < 18 ? "" : "d-none"
-                }`}
+                className={`mb-3,mx-2 ${moment().diff(moment(dob), "years") < 18 ? "" : "d-none"
+                  }`}
                 style={{ fontFamily: "Red Hat Text" }}
               >
                 <p className="mt-4">
@@ -1581,7 +1526,6 @@ function NomineeDetails(props) {
                         randomOTP.current =
                           Math.floor(Math.random() * 90000) + 10000;
                         startTimer();
-                        // fetchMail();
                         fetchSms();
                       }}
                     >
@@ -1625,4 +1569,3 @@ function NomineeDetails(props) {
 }
 
 export default NomineeDetails;
-

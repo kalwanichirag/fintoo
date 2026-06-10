@@ -1,246 +1,166 @@
 import { useState, useEffect } from "react";
 import "react-responsive-modal/styles.css";
-import Fatcaimg from "../../../Assets/05_Fatca_details.svg";
-import { Form, Container, Row, Col, Button } from "react-bootstrap";
-import ProgressBar from "@ramonak/react-progress-bar";
-import Back from "../../../Assets/left-arrow.png";
-import Resident from "../../../Assets/04_fatca_resident.svg";
-import NRIResident from "../../../Assets/NRI.svg";
-import NROResident from "../../../Assets/nro.png";
-import HoldingNatureImg from "../../../Assets/07_holding_nature_single.svg";
-import HoldingNatureJoint from "../../../Assets/08_holding_nature_joint.svg";
-import HoldingNatureSurvivor from "../../../Assets/09_holding_nature_anyone_survivor.svg";
+import { Form } from "react-bootstrap";
 import { SegmentedControl } from "segmented-control";
 import FintooButton from "../../../HTML/FintooButton";
 import FintooProfileBack from "../../../HTML/FintooProfileBack";
 import { DATA_BELONGS_TO } from "../../../../constants";
-import axios from "axios";
-import { DMF_BASE_URL,  } from "../../../../constants";
-import commonEncode from "../../../../commonEncode";
 import { Modal as ReactModal } from "react-responsive-modal";
-import {
-  CheckSession,
-  fetchEncryptData,
-  getParentUserId,
-  getUserId,
-  memberId,
-} from "../../../../common_utilities";
+import { getParentUserId, getUserId } from "../../../../common_utilities";
 import { useDispatch, useSelector } from "react-redux";
 import FintooInlineLoader from "../../../FintooInlineLoader";
-import { addFatcaDetails,GetFatcaDetails } from "../../../../FrappeIntegration-Services/services/master-api/masterApiService";
-import { fetchUserProfileDetails, updateBasicDetails, userLogin } from "../../../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import { addFatcaDetails, GetFatcaDetails } from "../../../../FrappeIntegration-Services/services/master-api/masterApiService";
+import { fetchUserProfileDetails, updateBasicDetails } from "../../../../FrappeIntegration-Services/services/user-management-api/userApiService";
+
+const TOAST_DURATION = {
+  SHORT: 2000,
+  MEDIUM: 3000,
+  LONG: 3500,
+};
+
+const STATUS_CODE = {
+  SUCCESS: 200,
+};
+
+const TOAST_TYPE = {
+  SUCCESS: "success",
+  ERROR: "error",
+};
 
 function FatcaAll(props) {
   const user_id = getUserId();
-  const [userDetails, setUserDetails] = useState("");
+
+  const [userDetails, setUserDetails] = useState(null);
   const [validated, setValidated] = useState(false);
-  const [isPoliticallyExposed, setPoliticallyExposed] = useState("2");
   const [residential, setResidential] = useState("RES");
   const [updateSeg, setUpdateSeg] = useState(0);
-  const [parentName, setParentName] = useState("");
-  const [parentProfile, setParentProfile] = useState([]);
-  const allUserData = localStorage.getItem("user");
   const [jointDropdown, setJointDropdown] = useState([]);
-  const userData = JSON.parse(allUserData);
-  const dispatch = useDispatch();
-  const showBack = useSelector((state) => state.isBackVisible);
   const [isLoading, setIsLoading] = useState(false);
   const [holdingNature, setHoldingNature] = useState("");
-  const [holding, setHolding] = useState("");
+  const [holding, setHolding] = useState("Single");
   const [isOpenReKycModal, setIsOpenReKycModal] = useState(false);
   const [error, setError] = useState(false);
-  const [fatcaId, setFatcaId] = useState(false);
-  const [userFatcaDetails, setUserFatcaDetails] = useState("");
+  const [fatcaId, setFatcaId] = useState(null);
+  const [userFatcaDetails, setUserFatcaDetails] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  let navDynamicNext = "";
-  let navDynamicPrev = "";
+  const [value, setValue] = useState("0");
+  const [value1, setValue1] = useState("No");
+
+  const dispatch = useDispatch();
+  const showBack = useSelector((state) => state.isBackVisible);
+
+  let navDynamicNext = value === "1" ? "FatcaAdd" : "NomineeDetails";
 
   const options = [
-    {
-      label: "Yes",
-      value: "Yes",
-      default: isPoliticallyExposed == "1" ? true : false,
-    },
-    {
-      label: "No",
-      value: "No",
-      default: isPoliticallyExposed == "2" ? true : false,
-    },
+    { label: "Yes", value: "Yes", default: value1 === "Yes" },
+    { label: "No", value: "No", default: value1 === "No" },
     {
       label: "Partially Exposed",
       value: "Partially Exposed",
-      default: isPoliticallyExposed == "3" ? true : false,
+      default: value1 === "Partially Exposed",
     },
   ];
 
   const options1 = [
-    {
-      label: "Yes",
-      value: "1",
-      default: residential == "NRO" || residential == "NRI" ? true : false,
-    },
-    { label: "No", value: "0", default: residential == "RES" ? true : false },
+    { label: "Yes", value: "1", default: residential === "NRI" },
+    { label: "No", value: "0", default: residential === "RES" },
   ];
-
-  const [value, setValue] = useState("");
-
-  const [value1, setValue1] = useState("2");
-
-  if (residential == "NRI" && value == "1") {
-    navDynamicNext = "FatcaAdd";
-    navDynamicPrev = "FatcaAll";
-  }
-  if (residential == "RES" && value == "0") {
-    navDynamicNext = "NomineeDetails";
-    navDynamicPrev = "FatcaAll";
-  }
 
   const onLoadInIt = async () => {
     try {
-      
-      var res = await fetchUserProfileDetails(user_id);
-      var user_details = res.data;
-
-      setUserDetails(user_details);
+      const res = await fetchUserProfileDetails(user_id);
+      setUserDetails(res?.data || null);
     } catch (e) {
-      
+      console.error("Error loading user details:", e);
     }
   };
 
-  const defaultValues = async () => {
-    // Check if userDetails exists before accessing its properties
+  const defaultValues = () => {
     if (!userDetails) {
       setResidential("RES");
-      setHolding("AHN-1");
-      setPoliticallyExposed("2");
-      setUpdateSeg((v) => ++v);
+      setHolding("Single");
+      setValue1("No");
+      setValue("0");
+      setUpdateSeg((v) => v + 1);
       return;
     }
 
-    if (userDetails.user_residential_status != "") {
-      if (userDetails.user_residential_status == "RES") {
-        setResidential("RES");
-      }
-      if (userDetails.user_residential_status == "NRI") {
-        setResidential("NRI");
-      }
-    } else {
-      setResidential("RES");
-    }
-    
-    if (userDetails.user_holding_nature) {
-      if (userDetails.user_holding_nature == "AHN-1") {
-        setHolding("AHN-1");
-      }
-      if (userDetails.user_holding_nature == "AHN-3") {
-        setHolding("AHN-3");
-      }
-      if (userDetails.user_holding_nature == "AHN-2") {
-        setHolding("AHN-2");
-      }
-    } else {
-      setHolding("AHN-1");
-    }
+    const isNRI = userDetails.user_residential_status === "NRI";
 
-    if (userDetails.user_politically_exposed == "Yes") {
-      setPoliticallyExposed("1");
-    } else if (userDetails.user_politically_exposed == "No") {
-      setPoliticallyExposed("2");
-    } else if (userDetails.user_politically_exposed == "Partially Exposed") {
-      setPoliticallyExposed("3");
-    } else{
-      setPoliticallyExposed("2");
-    }
+    setResidential(isNRI ? "NRI" : "RES");
+    setValue(isNRI ? "1" : "0");
 
-    setUpdateSeg((v) => ++v);
+    const holdingMap = {
+      Single: "Single",
+      "Either or survivor": "Either or survivor",
+      Joint: "Joint",
+    };
+
+    setHolding(holdingMap[userDetails.account_holding_nature_label] || "Single");
+
+    const politicalMapReverse = {
+      "1": "Yes",
+      "2": "No",
+      "3": "Partially Exposed",
+      Yes: "Yes",
+      No: "No",
+      "Partially Exposed": "Partially Exposed",
+    };
+
+    setValue1(
+      politicalMapReverse[userDetails.user_politically_exposed] || "No"
+    );
+
+    setUpdateSeg((v) => v + 1);
   };
 
   useEffect(() => {
-    if (typeof userDetails == "string" || !userDetails) return;
+    if (!userDetails) return;
+
     defaultValues();
     getUserParent();
-    if (
-      typeof userDetails != "string" &&
-      userDetails &&
-      "joint_survivor_user_id" in userDetails &&
-      userDetails.joint_survivor_user_id
-    ) {
+
+    if (userDetails?.joint_survivor_user_id) {
       setHoldingNature(userDetails.joint_survivor_user_id);
     }
   }, [userDetails]);
+
+  const getUserParent = async () => {
+    // Placeholder for future implementation
+  };
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
 
     event.preventDefault();
     event.stopPropagation();
-    if (form.checkValidity() === true) {
+
+    if (submitting) return;
+
+    if (form.checkValidity()) {
       ApiCall();
     } else {
       dispatch({
         type: "RENDER_TOAST",
         payload: {
-          message: holdingNature ? "Please try again." : "Please select member",
-          type: "error",
-          autoClose: 3000,
+          message: holdingNature
+            ? "Please try again."
+            : "Please select member",
+          type: TOAST_TYPE.ERROR,
+          autoClose: TOAST_DURATION.MEDIUM,
         },
       });
     }
     setValidated(true);
   };
-
-  const getUserParent = async () => {
-    // try {
-    //   setIsLoading(true);
-    //   var config_joint = {
-    //     method: "POST",
-    //     url: DMF_JOINT_DROPDOWN_API_URL,
-    //     data: { user_id: "" + getParentUserId() },
-    //   };
-
-    //   var respon = await fetchEncryptData(config_joint);
-    //   setJointDropdown(respon.data);
-
-    //   var config_user = {
-    //     method: "POST",
-    //     url: '',
-    //     data: { user_id: "" + getParentUserId() },
-    //   };
-
-    //   var resp = await fetchEncryptData(config_user);
-      
-    //   setParentName(resp.data);
-
-    //   var config_profile = {
-    //     method: "POST",
-    //     url: '',
-    //     data: { pan: resp.data.pan },
-    //   };
-
-    //   var res = await fetchEncryptData(config_profile);
-    //   setParentProfile(res.data);
-    //   setIsLoading(false);
-    // } catch (e) {
-    //   setIsLoading(false);
-    // }
+  const SegmentedChange = () => {
+    setUpdateSeg((v) => v + 1);
   };
 
-  const SegmentedChange = async () => {
-    if (residential == "RES") {
-      setUpdateSeg((v) => ++v);
-    }
-    if (residential == "NRI") {
-      setUpdateSeg((v) => ++v);
-    }
-  };
-
-  const ResiChange = async () => {
-    if (value == "1") {
-      setResidential("NRI");
-    }
-    if (value == "0") {
-      setResidential("RES");
-    }
+  const ResiChange = () => {
+    setResidential(value === "1" ? "NRI" : "RES");
   };
 
   useEffect(() => {
@@ -248,152 +168,132 @@ function FatcaAll(props) {
   }, [value]);
 
   const ApiCall = async () => {
-    let joint_survivor_user_id = "";
+    if (submitting) return;
 
-    var myHolding = holding;
-    if (myHolding == "AHN-2") {
-      myHolding = "anyone_survivor";
-      joint_survivor_user_id = holdingNature;
-    } else if (myHolding == "AHN-3") {
-      joint_survivor_user_id = holdingNature;
-    } else {
-      joint_survivor_user_id = "0";
-    }
-    if (myHolding === "") {
+    let joint_survivor_user_id =
+      holding === "Joint" || holding === "Either or survivor"
+        ? holdingNature
+        : "";
+
+    if (!holding) {
       dispatch({
         type: "RENDER_TOAST",
         payload: {
           message: "Please select the account holding nature",
-          type: "error",
-          autoClose: 2000,
+          type: TOAST_TYPE.ERROR,
+          autoClose: TOAST_DURATION.SHORT,
         },
       });
       return;
     }
 
-    props.mainData.residential_status = value;
-    props.mainData.politically_exposed = value1;
-
-    var payload = {
-      user_id: getUserId(),
-      residential_status: residential,
-      holding_nature: holding,
-      politically_exposed: value1,
-      // joint_survivor_user_id: joint_survivor_user_id
-    }
-
-    let respData = await updateBasicDetails(payload);
-
-    if (respData.status_code == 200) {
-      addfatca();
-      setTimeout(() => {
-        props.onNext(navDynamicNext);
-      }, 3500);
-    } else {
+    if (!userFatcaDetails) {
       dispatch({
         type: "RENDER_TOAST",
         payload: {
-          message: respData["message"],
-          type: "error",
-          autoClose: 2000,
+          message: "Please wait, loading FATCA details",
+          type: TOAST_TYPE.ERROR,
+          autoClose: TOAST_DURATION.SHORT,
         },
       });
+      return;
+    }
+
+    const payload = {
+      user_id,
+      residential_status: residential,
+      holding_nature: holding,
+      politically_exposed: value1 || "No"
+    };
+
+    try {
+      setSubmitting(true);
+
+      const respData = await updateBasicDetails(payload);
+
+      if (respData?.status_code === STATUS_CODE.SUCCESS) {
+        await addfatca();
+        props.onNext(navDynamicNext);
+      } else {
+        throw new Error(respData?.message);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: "RENDER_TOAST",
+        payload: {
+          message: error?.message || "Something went wrong",
+          type: TOAST_TYPE.ERROR,
+          autoClose: TOAST_DURATION.SHORT,
+        },
+      });
+    } finally {
+      setSubmitting(false);
     }
   };
 
   useEffect(() => {
     onLoadInIt();
-    // // checksession();
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  function onChangeValue(event) {
-    setResidential(event.target.value);
-  }
-  const [isActive, setActive] = useState("true");
-
-  const handleToggle = () => {
-    setActive(!isActive);
-  };
-  //
-
-  function onChangeValue1(event) {
-    setHolding(event.target.value);
-  }
-  const [isActive1, setActive1] = useState("true");
-
   const apiFatcaDetails = async () => {
-      var user_id = getUserId();
-      try {
-        
-        var response = await GetFatcaDetails(user_id);
-        const fatca_response = response?.data;
-        setUserFatcaDetails(fatca_response);
-        
-      } catch (e) {
-        console.log("catch", e);
-      }
-    };
-  
-    useEffect(() => {
-      apiFatcaDetails();
-    }, []);
+    try {
+      const response = await GetFatcaDetails(user_id);
+      setUserFatcaDetails(response?.data || null);
+    } catch (error) {
+      console.error("Error fetching FATCA details:", error);
+    }
+  };
+
+  useEffect(() => {
+    apiFatcaDetails();
+  }, []);
 
   const addfatca = async () => {
     try {
-     
-      let payload = {
-        user_id: getUserId(),
+      const payload = {
+        user_id,
         data_belongs_to: DATA_BELONGS_TO,
-        fatca_nationality: residential == "RES" ? "India" : "",
-        ...(userFatcaDetails?.fatca_overseas_address && {
-          fatca_overseas_address: userFatcaDetails.fatca_overseas_address,
-        }),
-        ...(userFatcaDetails?.fatca_country_id && {
-          fatca_country_id: userFatcaDetails.fatca_country_id,
-        }),
-        ...(userFatcaDetails?.fatca_city && {
-          fatca_city: userFatcaDetails.fatca_city,
-        }),
-        ...(userFatcaDetails?.fatca_state && {
-          fatca_state: userFatcaDetails.fatca_state,
-        }),
-        ...(userFatcaDetails?.fatca_zip_code && {
-          fatca_zip_code: userFatcaDetails.fatca_zip_code
-        })
-      }
-      payload.fatca_overseas_address = userFatcaDetails?.fatca_overseas_address || "";
-      payload.fatca_country_id = userFatcaDetails?.fatca_country_id || "";
-      payload.fatca_city = userFatcaDetails?.fatca_city || "";
-      payload.fatca_tax_payer_id_one = userFatcaDetails?.fatca_tax_payer_id_one || "";
-      payload.fatca_id_type_one = userFatcaDetails?.fatca_id_type_one || "";
-      payload.fatca_tax_payer_country_one = userFatcaDetails?.fatca_tax_payer_country_one || "";
-      payload.fatca_tax_payer_id_two = userFatcaDetails?.fatca_tax_payer_id_two || "";
-      payload.fatca_id_type_two = userFatcaDetails?.fatca_id_type_two || "";
-      payload.fatca_tax_payer_country_two = userFatcaDetails?.fatca_tax_payer_country_two || "";
-      payload.fatca_tax_payer_id_three = userFatcaDetails?.fatca_tax_payer_id_three || "";
-      payload.fatca_id_type_three = userFatcaDetails?.fatca_id_type_three || "";
-      payload.fatca_tax_payer_country_three = userFatcaDetails?.fatca_tax_payer_country_three || "";
-      
-      var response = await addFatcaDetails(payload);
+        fatca_nationality: residential === "RES" ? "India" : "",
+        fatca_overseas_address: userFatcaDetails?.fatca_overseas_address || "",
+        fatca_country_id: userFatcaDetails?.fatca_country_id || "",
+        fatca_city: userFatcaDetails?.fatca_city || "",
+        fatca_state: userFatcaDetails?.fatca_state || "",
+        fatca_zip_code: userFatcaDetails?.fatca_zip_code || "",
+        fatca_tax_payer_id_one: userFatcaDetails?.fatca_tax_payer_id_one || "",
+        fatca_id_type_one: userFatcaDetails?.fatca_id_type_one || "",
+        fatca_tax_payer_country_one: userFatcaDetails?.fatca_tax_payer_country_one || "",
+        fatca_tax_payer_id_two: userFatcaDetails?.fatca_tax_payer_id_two || "",
+        fatca_id_type_two: userFatcaDetails?.fatca_id_type_two || "",
+        fatca_tax_payer_country_two: userFatcaDetails?.fatca_tax_payer_country_two || "",
+        fatca_tax_payer_id_three: userFatcaDetails?.fatca_tax_payer_id_three || "",
+        fatca_id_type_three: userFatcaDetails?.fatca_id_type_three || "",
+        fatca_tax_payer_country_three: userFatcaDetails?.fatca_tax_payer_country_three || "",
+      };
+
+      const response = await addFatcaDetails(payload);
+
+      if (!response) throw new Error("FATCA failed");
+
       dispatch({
         type: "RENDER_TOAST",
         payload: {
-          message: response["message"],
-          type: "success",
-          autoClose: 2000,
+          message: response.message || "FATCA added",
+          type: TOAST_TYPE.SUCCESS,
+          autoClose: TOAST_DURATION.SHORT,
         },
       });
-      if (response?.data?.fatca_id) {
-        setFatcaId(response.data.fatca_id);
-      } else {
-        setFatcaId(null);
-      }
 
-    } catch (e) {
+      setFatcaId(response?.data?.fatca_id || null);
+    } catch (error) {
       dispatch({
         type: "RENDER_TOAST",
-        payload: { message: "Something went Wrong...", type: "error" },
+        payload: {
+          message: "Something went wrong while adding FATCA details",
+          type: TOAST_TYPE.ERROR,
+          autoClose: TOAST_DURATION.SHORT,
+        },
       });
       setError(true);
     }
@@ -505,12 +405,11 @@ function FatcaAll(props) {
                   <br />
                   <div
                     className="d-flex text-center"
-                    onChange={onChangeValue}
                     style={{ marginTop: "0rem" }}
                   >
                     <div
                       className={`w-33 rs-type-bx pointer ${
-                        residential == "RES" ? "active" : ""
+                        residential === "RES" ? "active" : ""
                       }`}
                     >
                       <div
@@ -538,7 +437,7 @@ function FatcaAll(props) {
                     </div>
                     <div
                       className={`w-33 rs-type-bx pointer ${
-                        residential == "NRI" ? "active" : ""
+                        residential === "NRI" ? "active" : ""
                       }`}
                     >
                       <div
@@ -555,7 +454,7 @@ function FatcaAll(props) {
                               "media/DMF/NRI.svg"
                             }
                             className={
-                              residential.toLowerCase() == "nri"
+                              residential.toLowerCase() === "nri"
                                 ? "ColorChangeDark"
                                 : "ColorChange"
                             }
@@ -584,10 +483,10 @@ function FatcaAll(props) {
                       className="my-segment"
                       options={options1}
                       key={"sg-" + updateSeg}
-                      style={{ width: "66.66%", color: "#042b62" }} // purple400
+                      style={{ width: "66.66%", color: "#042b62" }}
                       setValue={(newValue) => {
                         setValue(newValue);
-                        if (newValue === "yes") {
+                        if (newValue === "1") {
                         }
                       }}
                     />
@@ -607,9 +506,9 @@ function FatcaAll(props) {
                   >
                     <div
                       className={`w-33 rs-type-bx pointer ${
-                        holding == "AHN-1" ? "active" : "AHN-1"
+                        holding === "Single" ? "active" : ""
                       }`}
-                      onClick={() => setHolding("AHN-1")}
+                      onClick={() => setHolding("Single")}
                     >
                       <label htmlFor="Single">
                         <img
@@ -629,13 +528,13 @@ function FatcaAll(props) {
                     </div>
 
                     <div
-                      className={`w-33 rs-type-bx pointer  ${
-                        holding == "AHN-3" ? "active" : ""
+                      className={`w-33 rs-type-bx pointer ${
+                        holding === "Joint" ? "active" : ""
                       }`}
                       onClick={() => {
                         setHolding((v) => {
                           if (getParentUserId() !== getUserId()) {
-                            return "AHN-3";
+                            return "Joint";
                           } else {
                             return v;
                           }
@@ -661,16 +560,15 @@ function FatcaAll(props) {
                     </div>
 
                     <div
-                      className={`w-33 rs-type-bx pointer  ${
-                        holding == "AHN-2" ? "active" : ""
+                      className={`w-33 rs-type-bx pointer ${
+                        holding === "Either or survivor" ? "active" : ""
                       }`}
                       onClick={() =>
                         setHolding((v) => {
-                          if (getParentUserId() != getUserId()) {
-                            return "AHN-2";
-                          } else {
-                            return v;
+                          if (getParentUserId() !== getUserId()) {
+                            return "Either or survivor";
                           }
+                          return v;
                         })
                       }
                     >
@@ -693,7 +591,7 @@ function FatcaAll(props) {
                       </div>
                     </div>
                   </div>
-                  {holding == "joint" || holding == "any" ? (
+                  {holding === "joint" || holding === "any" ? (
                     <div className="d-md-flex justify-content-start">
                       <div className="w-50  mt-4 ms-auto pe-4">
                         <div

@@ -68,7 +68,7 @@ import StopSipReason from "../../../components/StopSipReason";
 import StopSipSelectionModal from "../../../components/Portfolio/StopSipSelectionModal";
 import FintooButton from "../../../components/HTML/FintooButton";
 import SimpleReactValidator from 'simple-react-validator';
-import { getMfSummaryPortfolio, getMfDetailedPortfolio, PlaceOrder, MaintenanceStatus, AddToCartDetails, AddTransaction, GetSchemeList, DeleteCart, AddSwitchToCartDetails, AddSwitchTransaction } from "../../../FrappeIntegration-Services/services/investment-api/investmentService";
+import { getMfSummaryPortfolio, getMfDetailedPortfolio, PlaceOrder, MaintenanceStatus, AddToCartDetails, AddTransaction, GetSchemeList, DeleteCart, AddSwitchToCartDetails, AddSwitchTransaction, AddStpToCart } from "../../../FrappeIntegration-Services/services/investment-api/investmentService";
 import { fetchUserMfProfileStatus, getUserBankDetails, XsiporderEntry } from "../../../FrappeIntegration-Services/services/master-api/masterApiService";
 import { FintooLogoLoader } from "../../../components/FintooInlineLoader";
 
@@ -159,7 +159,7 @@ const PortfolioFund = (props) => {
 
   const [operationsBtnsDisable, setOperationsBtnsDisable] = useState(false);
 
-  const [operationsBtnMsg, setOperationsBtnMsg] = useState("d-none");
+  const [operationsBtnMsg, setOperationsBtnMsg] = useState("");
 
   const openModal = () => {
     setIsOpen(true);
@@ -323,28 +323,6 @@ const PortfolioFund = (props) => {
 
       var detailsData = JSON.parse(localStorage.getItem("detailsData"));
 
-      // let r = await fetchEncryptData({
-      //   url: DMF_ALL_TRANSACTIONS_API_URL,
-      //   data: {
-      //     "user_id": "" + getUserId(),
-      //     "is_direct": IS_DIRECT
-      //   },
-      //   method: "post"
-      // });
-      // let tempAvailableUnits = 0;
-      // r.data.forEach(v => {
-      //   if (v.transaction_folio_no == detailsData["folio_no"]) {
-      //   }
-      // });
-
-      // var config = {
-      //   method: "post",
-      //   url: DMF_DETAILED_PF_API_URL,
-      //   data: detailsData,
-      // };
-
-      // var res = await fetchEncryptData(config);
-
       var mfSummaryPortfolioData = await getMfDetailedPortfolio(detailsData);
 
       var res = mfSummaryPortfolioData;
@@ -352,7 +330,9 @@ const PortfolioFund = (props) => {
       // var minInstallmentText = res.data?.fund_details[0]?.astp_min_installment_number;
       // setMinInstallmentText(minInstallmentText ? Number(minInstallmentText) : "");
       setDetailedMfPotfolio(res.data);
-      setFundDetails(res.data.fund_list);
+      setFundDetails(
+        Array.isArray(res.data.fund_list) && res.data.fund_list.length > 0 ? res.data.fund_list[0] : []
+      );
       setSchemeCodeData(res.data.fund_list[0]["scheme_code"]);
       setNoOfInstallment(minInstallmentText);
 
@@ -404,12 +384,13 @@ const PortfolioFund = (props) => {
       var detailsData = JSON.parse(localStorage.getItem("detailsData"));
       var details = detailsData.amc_code;
       var payload = {
-        amc_code: details
+        amc_code: details,
+        all_record: 1
       };
 
       var res = await GetSchemeList(payload);
       setAmcCode(res.data);
-      setStpAmcCode(res.stp_data);
+      setStpAmcCode(res.data);
     } catch (e) { }
   };
 
@@ -625,22 +606,22 @@ const PortfolioFund = (props) => {
         method: "post",
         url: DMF_GETEXITLOAD_API_URL,
         data: {
-          scheme_code: fundDetails.scheme_code,
-          invested_date: fundDetails.inv_since,
+          scheme_code: fundDetails?.scheme_code,
+          invested_date: fundDetails?.inv_since,
           exit_load_date: today_date,
           redeem_amount: currAmount,
-          invested_amount: fundDetails.inv,
+          invested_amount: fundDetails?.inv,
           redeem_unit: units,
-          unit: fundDetails.units,
-          curr_nav: fundDetails.curr_nav,
+          unit: fundDetails?.units,
+          curr_nav: fundDetails?.curr_nav,
           exit_load_unit:
-            fundDetails.exit_load_unit == undefined
+            fundDetails?.exit_load_unit == undefined
               ? 0
-              : fundDetails.exit_load_unit,
+              : fundDetails?.exit_load_unit,
           exit_free_unit:
-            fundDetails.exit_free_unit == undefined
+            fundDetails?.exit_free_unit == undefined
               ? "0"
-              : fundDetails.exit_free_unit,
+              : fundDetails?.exit_free_unit,
         },
       };
 
@@ -700,6 +681,42 @@ const PortfolioFund = (props) => {
       }
     } catch (e) {
       console.log("SWITCH Error Transaction: ", e);
+    }
+  };
+
+  const addStpToTransaction = async () => {
+    var cart_id_from = cartIdRef.current.cart_id_from.toString();
+    var cart_id_to = cartIdRef.current.cart_id_to.toString();
+    var bankid = getprimarybank.bank_id;
+    var folio_number = folioNumber;
+    try {
+      var payload = {
+        from_data: {
+          transaction_bank_id: bankid,
+          transaction_user_id: getUserId(),
+          transaction_cart_id: cart_id_from,
+          transaction_folio_no: folio_number,
+          trxn_type: "STO",
+          data_belongs_to: DATA_BELONGS_TO,
+          device_track: "Web"
+        },
+        to_data: {
+          transaction_bank_id: bankid,
+          transaction_user_id: getUserId(),
+          transaction_cart_id: cart_id_to,
+          trxn_type: "STI",
+          data_belongs_to: DATA_BELONGS_TO,
+          device_track: "Web"
+        }
+      };
+      console.log("STP Payload: ", payload);
+      var response = await AddSwitchTransaction(payload);
+      if (response.status_code * 1 === 200) {
+        transactionIdRef.current = response.data;
+        setStpTransactionId(response.data?.from_transaction_id)
+      }
+    } catch (e) {
+      console.log("STP Error Transaction: ", e);
     }
   };
 
@@ -826,20 +843,21 @@ const PortfolioFund = (props) => {
       var stpInvRes = await fetchEncryptData(stpMinInvest);
       setMinInvestStp(stpInvRes.data);
       var stp_unit =
-        parseFloat(fundDetails.curr_val) / parseFloat(getarray2.nav);
+        parseFloat(fundDetails?.curr_val) / parseFloat(getarray2.nav);
       setStpUnits(stp_unit.toFixed(3));
     }
   };
 
   const handleStpTofund = async (v) => {
     var getarray2 = getStpAmcCode.find((obj) => {
-      localStorage.setItem("switch_to", v);
+      localStorage.setItem("switch_to", v); 
       return obj.scheme_name === v;
     });
+    console.log("fundDetails", fundDetails);
     setSchemeDetails(getarray2);
 
     const fullCalendar = [...Array(31).keys()].map(i => i + 1);
-    const availableDates = getarray2.stp_dates.split('|').map(num => parseInt(num, 10));
+    const availableDates = getarray2?.stp_dates?.split('|').map(num => parseInt(num, 10));
     const missingDates = fullCalendar.filter(date => !availableDates.includes(date));
 
     const currentYear = moment().year();
@@ -852,8 +870,8 @@ const PortfolioFund = (props) => {
     }
 
     setStpHolidayList(stpConvertedDates);
-    setMinInvestStp(getarray2.astp_in_min_installment_amt);
-    setStpMultiAmt(getarray2.astp_multi_amt);
+    setMinInvestStp(fundDetails?.astp_min_installment_number);
+    setStpMultiAmt(getarray2.stp_units_multiplier);
 
   };
 
@@ -902,11 +920,11 @@ const PortfolioFund = (props) => {
         setCurrentSWPAmount(txt)
         setValidSwpAmount(true);
         const swpAmount = Number(txt);
-        if (swpAmount < fundDetails.min_redemption_amt) {
+        if (swpAmount < fundDetails?.min_redemption_amt) {
           setWithdrawalPlanBtn(false);
           setValidSwpAmount(false);
           setSwpErrorText(
-            "Minimum amount: ₹ " + fundDetails.min_redemption_amt
+            "Minimum amount: ₹ " + fundDetails?.min_redemption_amt
           );
         } else {
           setWithdrawalPlanBtn(true);
@@ -925,12 +943,12 @@ const PortfolioFund = (props) => {
         }
 
         if (openModalByName == "swp") {
-          if (txt <= fundDetails.curr_val) {
+          if (txt <= fundDetails?.curr_val) {
             setValidSwpAmount(true);
             setSwpErrorText("");
             setSwpAmount(txt);
           } else {
-            setSwpErrorText("Maximum amount: ₹ " + fundDetails.curr_val);
+            setSwpErrorText("Maximum amount: ₹ " + fundDetails?.curr_val);
             setValidSwpAmount(false);
           }
         }
@@ -958,7 +976,7 @@ const PortfolioFund = (props) => {
           setValidSwpAmount(true);
           setSwpUnits(
             Math.round(
-              (parseFloat((txt / fundDetails.curr_nav) * 1) + Number.EPSILON) *
+              (parseFloat((txt / fundDetails?.curr_nav) * 1) + Number.EPSILON) *
               1000
             ) / 1000
           );
@@ -966,12 +984,12 @@ const PortfolioFund = (props) => {
         if (openModalByName == "stp") {
           if (parseFloat(txt) < parseFloat(minInvestStp)) {
             setSwpErrorText("Min. amount: ₹ " + minInvestStp);
-          } else if (parseFloat(txt) > fundDetails.curr_val) {
-            setSwpErrorText("Available amount for STP: ₹ " + fundDetails.curr_val)
+          } else if (parseFloat(txt) > fundDetails?.curr_val) {
+            setSwpErrorText("Available amount for STP: ₹ " + fundDetails?.curr_val)
           } else {
             setSwpErrorText("");
             setStpUnits(
-              Math.round((parseFloat(txt / fundDetails.curr_nav) + Number.EPSILON) * 1000) /
+              Math.round((parseFloat(txt / fundDetails?.curr_nav) + Number.EPSILON) * 1000) /
               1000
             )
           }
@@ -1040,7 +1058,7 @@ const PortfolioFund = (props) => {
 
           setSwpUnits(
             Math.round(
-              (parseFloat((txt / fundDetails.curr_nav) * 1) + Number.EPSILON) *
+              (parseFloat((txt / fundDetails?.curr_nav) * 1) + Number.EPSILON) *
               1000
             ) / 1000
           );
@@ -1060,13 +1078,13 @@ const PortfolioFund = (props) => {
   };
 
   const ValidateSwpButton = () => {
-    if (validStartSwpDate && validEndSwpDate && validSwpAmount && (Number(currentSWPAmount) > Number(fundDetails.min_redemption_amt))) {
+    if (validStartSwpDate && validEndSwpDate && validSwpAmount && (Number(currentSWPAmount) > Number(fundDetails?.min_redemption_amt))) {
       setWithdrawalPlanBtn(true);
     }
   };
 
   const addCartSWP = async () => {
-    var schemeCode = fundDetails.scheme_code;
+    var schemeCode = fundDetails?.scheme_code;
     var amount = swpAmount.toString();
     try {
       var payload = {
@@ -1079,7 +1097,7 @@ const PortfolioFund = (props) => {
           units: swpUnits.toString(),
           user_id: getUserId(),
           cart_purchase_type: "7",
-          cart_folio_no: fundDetails.folio_no,
+          cart_folio_no: fundDetails?.folio_no,
           data_belongs_to: DATA_BELONGS_TO,
           perpetual_check: "N",
           start_date: moment(startDateSwp).format("YYYY-MM-DD"),
@@ -1103,8 +1121,8 @@ const PortfolioFund = (props) => {
 
   const addTransactionSwp = async () => {
 
-    var schemeCode = fundDetails.scheme_code;
-    var folio_number = fundDetails.folio_no;
+    var schemeCode = fundDetails?.scheme_code;
+    var folio_number = fundDetails?.folio_no;
     var cart_id = cartId.current.toString();
 
     try {
@@ -1257,7 +1275,7 @@ const PortfolioFund = (props) => {
 
   const handleChange = () => {
     if (profilePercentage === 100) {
-      window.location.href = `/direct-mutual-fund/MutualFund/${fundDetails[0].scheme_code}?folio_no=${folio_no_append}`;
+      window.location.href = `/direct-mutual-fund/MutualFund/${fundDetails?.scheme_code}?folio_no=${folio_no_append}`;
     } else {
       openModal();
     }
@@ -1270,7 +1288,7 @@ const PortfolioFund = (props) => {
 
   // const linkUrl =
   //   profile.data.profile_status === 100
-  //     ? `/web/direct-mutual-fund/MutualFund/${fundDetails.slug}?folio_no=${folio_no_append}`
+  //     ? `/web/direct-mutual-fund/MutualFund/${fundDetails?.slug}?folio_no=${folio_no_append}`
   //     : null;
 
   function swpDates() {
@@ -1355,7 +1373,7 @@ const PortfolioFund = (props) => {
     }));
     setDetailedMfPotfolio({ ...___a });
   };
-  var folio_no_append = btoa(fundDetails.folio_no);
+  var folio_no_append = btoa(fundDetails?.folio_no);
   const getUserMandateList = async () => {
     try {
 
@@ -1472,7 +1490,7 @@ const PortfolioFund = (props) => {
 
   const handleInstallmentChange = (e) => {
     var installmentCount = e.target.value;
-    if (!isNaN(installmentCount) && installmentCount.length <= schemedetails.astp_max_installment_number.length && Number(installmentCount) >= 0) {
+    if (!isNaN(installmentCount) && installmentCount.length <= fundDetails?.astp_max_installment_number.length && Number(installmentCount) >= 0) {
       setNoOfInstallment(installmentCount ? Number(installmentCount) : "");
       setMonthlyRecurringStpAmount(
         Number(installmentCount) > 0 && Number(currAmount) > 0
@@ -1482,91 +1500,47 @@ const PortfolioFund = (props) => {
     }
   };
 
-
-  const addStptoTransaction = async () => {
-    var cart_id_from = cartIdRef.current.cart_id_from.toString();
-    var cart_id_to = cartIdRef.current.cart_id_to.toString();
-    var bankid = primaryBankId;
-    var folio_number = fundDetails.folio_no;
-    try {
-      var payload = {
-        method: "post",
-        url: DMF_ADD_TO_SWP_STP_TRANSACTION_API_URL,
-        data: {
-          from_data: [
-            {
-              transaction_bank_id: bankid,
-              transaction_user_id: getUserId(),
-              transaction_cart_id: cart_id_from,
-              transaction_folio_no: folio_number,
-              trxn_type: "SOU",
-              is_direct: "1",
-              device_track: "web"
-            },
-          ],
-          to_data: [
-            {
-              transaction_bank_id: bankid,
-              transaction_user_id: getUserId(),
-              transaction_cart_id: cart_id_to,
-              // transaction_folio_no: folio_number, Enquire with monika and shiva
-              trxn_type: "SIU",
-              is_direct: "1",
-              device_track: "web"
-            },
-          ],
-        },
-      };
-      var res = await fetchEncryptData(payload);
-      setStpTransactionId(res.data.transaction_id);
-      transactionIdRef.current = res.data.transaction_id;
-    } catch (e) { }
-  };
-
   const addStpToCart = async () => {
     try {
       var toschemecode = schemedetails.scheme_code;
-      var schemeCode = fundDetails.scheme_code;
+      var schemeCode = fundDetails?.scheme_code;
       var amount = currAmount;
       localStorage.setItem("amount", amount);
       // var units = units;
 
       var payload = {
-        method: "post",
-        url: DMF_ADD_TO_STPSWP_CART_API_URL,
-        data: {
-          from_data: [
-            {
-              cart_scheme_code: schemeCode,
-              cart_amount: amount,
-              cart_units: "0",
-              user_id: getUserId(),
-              cart_purchase_type: "9",
-              is_direct: "1",
-              cart_sip_start_date: stpStartDate,
-              no_of_installments: noOfInstallment
-            },
-          ],
-          to_data: [
-            {
-              cart_scheme_code: toschemecode,
-              cart_amount: amount,
-              cart_units: "0",
-              user_id: getUserId(),
-              cart_purchase_type: "8",
-              is_direct: "1",
-              cart_sip_start_date: stpStartDate,
-            },
-          ],
-        },
-      };
+          from_data: {
+            cart_scheme_code: schemeCode,
+            cart_amount: amount,
+            cart_units: "0",
+            user_id: getUserId(),
+            cart_purchase_type: "STO",
+            data_belongs_to: DATA_BELONGS_TO,
+            cart_sip_start_date: stpStartDate,
+            no_of_installments: noOfInstallment
+          },
+          to_data: {
+            cart_scheme_code: toschemecode,
+            cart_amount: amount,
+            cart_units: "0",
+            user_id: getUserId(),
+            cart_purchase_type: "STI",
+            data_belongs_to: DATA_BELONGS_TO,
+            cart_sip_start_date: stpStartDate,
+          },
+        }
 
-      var res = await fetchEncryptData(payload);
-      cartIdRef.current = res.data[0];
-      if (res.error_code * 1 === 100) {
-        addStptoTransaction();
+      var response = await AddStpToCart(payload);
+      if (response.status_code * 1 === 200) {
+        cartIdRef.current = {
+          cart_id_from: response?.data?.cart_id_from,
+          cart_id_to: response?.data?.cart_id_to
+        };
+        addStpToTransaction();
       }
-    } catch (e) { }
+    } catch (e) {
+      console.error("STP Cart Error: ", e);
+    }
   };
 
   const handleTransferFund = () => {
@@ -1609,8 +1583,8 @@ const PortfolioFund = (props) => {
 
   const handleSWPTransaction = () => {
     var error_message = "";
-    if (Number(currentSWPAmount) < Number(fundDetails.min_redemption_amt)) {
-      error_message = "The minimum amount to start an SWP for this fund is " + fundDetails.min_redemption_amt;
+    if (Number(currentSWPAmount) < Number(fundDetails?.min_redemption_amt)) {
+      error_message = "The minimum amount to start an SWP for this fund is " + fundDetails?.min_redemption_amt;
       setValidSwpAmount(false);
     }
 
@@ -1632,9 +1606,9 @@ const PortfolioFund = (props) => {
 
   const setBtnState = () => {
     if (!Array.isArray(memberData) || memberData.length === 0) return;
-    if (!Array.isArray(fundDetails) || fundDetails.length === 0) return;
+    if (!Array.isArray(fundDetails) || fundDetails?.length === 0) return;
 
-    const investorName = fundDetails[0]?.investor_name
+    const investorName = fundDetails?.investor_name
       ?.toLowerCase()
       .trim();
 
@@ -1653,7 +1627,9 @@ const PortfolioFund = (props) => {
 
     const isFamilyAccount =
       getItemLocal("family") === true ||
-      getItemLocal("family") === "true";
+      getItemLocal("family") === "true" ||
+      getItemLocal("family") === 1 ||
+      getItemLocal("family") === "1";
 
     const shouldDisableButtons =
       isEcas || isMinorInvestor || isFamilyAccount;
@@ -1715,22 +1691,22 @@ const PortfolioFund = (props) => {
             transform: "translateX(-0.4cm)",
           }}
         >
-          {summaryPortfolio && fundDetails?.length > 0 && (
-            <b>{"Investor: " + fundDetails[0].investor_name}</b>
+          {summaryPortfolio && (
+            <b>{"Investor: " + fundDetails?.investor_name}</b>
           )}
 
         </p>
       </div>
-      {/* <div className="ps-2 mb-0" style={{fontSize: '1.2rem',alignItems: 'left', textAlign: 'right' }}><p>{"Investment for:"+" "+ fundDetails.name}</p></div> */}
+      {/* <div className="ps-2 mb-0" style={{fontSize: '1.2rem',alignItems: 'left', textAlign: 'right' }}><p>{"Investment for:"+" "+ fundDetails?.name}</p></div> */}
       <div className="Border m-1">
         <div className="row m-1">
           <div className="col-12 col-md-8">
             <div className="d-flex">
-              {fundDetails?.[0]?.amc_code && (
+              {fundDetails?.amc_code && (
                 <div className="fund-logo">
                   {isLoading && <FintooLogoLoader isLoading={true} />}
                   <img
-                    src={`${process.env.REACT_APP_STATIC_URL}/media/companyicons/${fundDetails[0].amc_code}.png`}
+                    src={`${process.env.REACT_APP_STATIC_URL}/media/companyicons/${fundDetails?.amc_code}.png`}
                     style={{ display: isLoading ? "none" : "block" }}
                     onLoad={() => setIsLoading(false)}
                     onError={(e) => {
@@ -1744,32 +1720,32 @@ const PortfolioFund = (props) => {
               <div>
                 <div className="fund-name h5 pb-0 pb-md-3">
 
-                  {fundDetails.length > 0 && fundDetails[0] ? (
-                    fundDetails[0].scheme_type === "regular" ? (
-                      fundDetails[0].scheme
+                  {fundDetails ? (
+                    fundDetails?.scheme_type === "regular" ? (
+                      fundDetails?.scheme
                     ) : (
-                      <Link to={`/direct-mutual-fund/MutualFund/${fundDetails[0].scheme_code}`}>
-                        {fundDetails[0].scheme}
+                      <Link to={`/direct-mutual-fund/MutualFund/${fundDetails?.scheme_code}`}>
+                        {fundDetails?.scheme}
                       </Link>
                     )
                   ) : (null)}
 
                 </div>
                 <div className="d-none d-md-flex fd-small-dt">
-                  <p>{fundDetails.length > 0 && fundDetails[0] ? (
-                    fundDetails[0].fintoo_fund_type
+                  <p>{fundDetails ? (
+                    fundDetails?.fintoo_fund_type
                   ) : null}</p>
                   <p>
-                    {fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].scheme_risk_value) : null} {fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].fintoo_fund_type) : null}
+                    {fundDetails ? (fundDetails?.scheme_risk_value) : null} {fundDetails ? (fundDetails?.fintoo_fund_type) : null}
                   </p>
                   <p className="bottom-starrating-container">
                     <p>
-                      Star Rating :{fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].star_rating) : null}
+                      Star Rating :{fundDetails ? (fundDetails?.star_rating) : null}
                       <FaStar style={{ color: "#FFBF00" }} />
                     </p>
                   </p>
-                  <p>Folio No.: {fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].folio_no) : null}</p>
-                  <p>NAV: {fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].curr_nav) : null}</p>
+                  <p>Folio No.: {fundDetails ? (fundDetails?.folio_no) : null}</p>
+                  <p>NAV: {fundDetails ? (fundDetails?.curr_nav) : null}</p>
                 </div>
               </div>
             </div>
@@ -1780,9 +1756,9 @@ const PortfolioFund = (props) => {
             >
               <Link
                 className={investMoreBtnLinkDisable}
-                // to={`/web/direct-mutual-fund/MutualFund/${fundDetails.slug}?folio_no=${folio_no_append}`}
+                // to={`/web/direct-mutual-fund/MutualFund/${fundDetails?.slug}?folio_no=${folio_no_append}`}
                 onClick={() => handleChange()}
-              // to={profile.data.profile_status === 100 ? `/web/direct-mutual-fund/MutualFund/${fundDetails.slug}?folio_no=${folio_no_append}` : openModal()}
+              // to={profile.data.profile_status === 100 ? `/web/direct-mutual-fund/MutualFund/${fundDetails?.slug}?folio_no=${folio_no_append}` : openModal()}
               >
                 <strong>Invest More</strong>
               </Link>
@@ -1903,8 +1879,9 @@ const PortfolioFund = (props) => {
                             Swal.fire(isMaintenanceDown.description);
                           } else {
                             localStorage.removeItem("switch_to");
-                            if (profile.data.profile_status === 100) {
+                            if (profilePercentage === 100) {
                               setOpenModalByName("stp");
+                              handlePrimaryBank();
                               setStepCount(0);
                             } else {
                               openModal();
@@ -1916,6 +1893,7 @@ const PortfolioFund = (props) => {
                             validatorFlags.stp_flag === "N" || operationsBtnsDisable
                             ? "disabled"
                             : ""
+                          // getUserId() === "e2hjij2gef" ? "" : "disabled"
                         }
                       >
                         STP
@@ -1948,7 +1926,7 @@ const PortfolioFund = (props) => {
                         }
                       }}
                       className={
-                        fundDetails.inv_type === "SIP" && fundDetails.sip_status === "Active"
+                        fundDetails?.inv_type === "SIP" && fundDetails?.sip_status === "Active"
                           ? ""
                           : "disabled"
                       }
@@ -2153,31 +2131,31 @@ const PortfolioFund = (props) => {
                 <div className="cntRItems">
                   <div className="borderSpace">Invested</div>
                   <div className={`borderSpace borderText`}>
-                    {fundDetails.length > 0 && fundDetails[0] ? (indianRupeeFormat(fundDetails[0].inv)) : null}
+                    {fundDetails ? (indianRupeeFormat(fundDetails?.inv)) : null}
                   </div>
                 </div>
                 <div className="cntRItems">
                   <div className="borderSpace">AVG NAV</div>
                   <div className={`borderSpace borderText`}>
-                    {fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].avg_nav) : null}
+                    {fundDetails ? (fundDetails?.avg_nav) : null}
                   </div>
                 </div>
                 <div className="cntRItems">
                   <div className="borderSpace">Units</div>
                   <div className={`borderSpace borderText`}>
-                    {fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].units) : null}
+                    {fundDetails ? (fundDetails?.units) : null}
                   </div>
                 </div>
                 <div className="cntRItems">
                   <div className="borderSpace">Current Value</div>
                   <div className={`borderSpace borderText`}>
-                    {fundDetails.length > 0 && fundDetails[0] ? (indianRupeeFormat(fundDetails[0].curr_val)) : null}
+                    {fundDetails ? (indianRupeeFormat(fundDetails?.curr_val)) : null}
                   </div>
                 </div>
                 <div className="cntRItems">
                   <div className="borderSpace">Returns</div>
                   <div className={`borderSpace borderText`}>
-                    {fundDetails.length > 0 && fundDetails[0] ? (indianRupeeFormat(fundDetails[0].gain_loss)) : null}
+                    {fundDetails ? (indianRupeeFormat(fundDetails?.gain_loss)) : null}
                   </div>
                 </div>
                 <div
@@ -2195,25 +2173,25 @@ const PortfolioFund = (props) => {
                   <div className={`borderSpace borderText`}>
                     {returnsType == "xirr" && (
                       <p
-                        className={`valueBoxPercentage ${(fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].xirr_percentage) : 0) * 1 < 0 ? "red" : "green"}`}
+                        className={`valueBoxPercentage ${(fundDetails ? (fundDetails?.xirr_percentage) : 0) * 1 < 0 ? "red" : "green"}`}
                       >
-                        <span>{fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].xirr_percentage) : null}</span>
+                        <span>{fundDetails ? (fundDetails?.xirr_percentage) : null}</span>
                         <FaLongArrowAltUp />
                       </p>
                     )}
-                    {/* {fundDetails.xirr_percentage * 1 > 0 ? "+" : "-"} */}
+                    {/* {fundDetails?.xirr_percentage * 1 > 0 ? "+" : "-"} */}
                     {returnsType == "absolute" && (
                       <p
-                        className={`valueBoxPercentage ${(fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].abs_return_percentage) : null) * 1 < 0
+                        className={`valueBoxPercentage ${(fundDetails ? (fundDetails?.abs_return_percentage) : null) * 1 < 0
                           ? "red"
                           : "green"
                           }`}
                       >
-                        <span>{fundDetails.length > 0 && fundDetails[0] ? (fundDetails[0].abs_return_percentage) : null}</span>
+                        <span>{fundDetails ? (fundDetails?.abs_return_percentage) : null}</span>
                         <FaLongArrowAltUp />
                       </p>
                     )}
-                    {/* {fundDetails.xirr_percentage * 1 > 0 ? "+" : "-"} */}
+                    {/* {fundDetails?.xirr_percentage * 1 > 0 ? "+" : "-"} */}
                   </div>
                 </div>
               </div>
@@ -2227,27 +2205,27 @@ const PortfolioFund = (props) => {
               <div className="borderSpace">Invested</div>
               <div className={`borderSpace borderText`}>
                 <strong>
-                  {fundDetails.length > 0 && fundDetails[0] ? (indianRupeeFormat(fundDetails[0].inv)) : null}
+                  {fundDetails ? (indianRupeeFormat(fundDetails?.inv)) : null}
                 </strong>
               </div>
             </div>
             <div className="col-4 p-3">
               <div className="borderSpace">AVG NAV</div>
               <div className={`borderSpace borderText`}>
-                <strong>{fundDetails.length > 0 && fundDetails[0] ? fundDetails[0].avg_nav : null}</strong>
+                <strong>{fundDetails ? fundDetails?.avg_nav : null}</strong>
               </div>
             </div>
             <div className="col-4 p-3">
               <div className="borderSpace">Units</div>
               <div className={`borderSpace borderText`}>
-                <strong>{fundDetails.length > 0 && fundDetails[0] ? fundDetails[0].units : null}</strong>
+                <strong>{fundDetails ? fundDetails?.units : null}</strong>
               </div>
             </div>
             <div className="col-4 p-3">
               <div className="borderSpace">Current</div>
               <div className={`borderSpace borderText`}>
                 <strong>
-                  {fundDetails.length > 0 && fundDetails[0] ? indianRupeeFormat(fundDetails[0].curr_val) : null}
+                  {fundDetails ? indianRupeeFormat(fundDetails?.curr_val) : null}
                 </strong>
               </div>
             </div>
@@ -2255,7 +2233,7 @@ const PortfolioFund = (props) => {
               <div className="borderSpace">Returns</div>
               <div className={`borderSpace borderText`}>
                 <strong>
-                  {fundDetails.length > 0 && fundDetails[0] ? indianRupeeFormat(fundDetails[0].gain_loss) : null}
+                  {fundDetails ? indianRupeeFormat(fundDetails?.gain_loss) : null}
                 </strong>
               </div>
             </div>
@@ -2546,7 +2524,7 @@ const PortfolioFund = (props) => {
                       <div className="modal-whitepopup-box-item grey-color border-top-0">
                         <FintooLongDropdownSecond
                           label="Switch From "
-                          defaultValue={fundDetails?.[0]?.scheme_code}
+                          defaultValue={fundDetails?.scheme_code}
                           value={detailedMfPotfolio}
                           onChange={(v) => handleSwitchFromFund(v)}
                         />
@@ -2915,7 +2893,7 @@ const PortfolioFund = (props) => {
                       <div className="modal-whitepopup-box-item grey-color border-top-0">
                         <FintooLongDropdownSecond
                           label="Redeem Fund"
-                          defaultValue={fundDetails?.[0]?.scheme_code || ""}
+                          defaultValue={fundDetails?.scheme_code || ""}
                           value={summaryPortfolio}
                           onChange={(v) => handleSwitchFromFund(v)}
                         />
@@ -3235,12 +3213,12 @@ const PortfolioFund = (props) => {
                       <div className="modal-whitepopup-box-item grey-color border-top-0">
                         {/* <FintooLongDropdown
                       label="Withdraw From"
-                      value={fundDetails.scheme_code}
+                      value={fundDetails?.scheme_code}
                       onChange={(v) => handleSwitchTofund(v)}
                     /> */}
                         <FintooLongDropdownSecond
                           label="Withdraw From"
-                          defaultValue={fundDetails.scheme_code}
+                          defaultValue={fundDetails?.scheme_code}
                           value={summaryPortfolio}
                           onChange={(v) => handleSwitchFromFund(v)}
                         />
@@ -3252,7 +3230,7 @@ const PortfolioFund = (props) => {
                             <div>Folio</div>
                             <div>
                               <strong className="folio-swp">
-                                {fundDetails.folio_no}
+                                {fundDetails?.folio_no}
                               </strong>
                             </div>
                           </div>
@@ -3260,7 +3238,7 @@ const PortfolioFund = (props) => {
                             <div>Current Amount</div>
                             <div>
                               <strong className="curr-amount-swp">
-                                ₹ {fundDetails.curr_val}
+                                ₹ {fundDetails?.curr_val}
                               </strong>
                             </div>
                           </div>
@@ -3384,11 +3362,11 @@ const PortfolioFund = (props) => {
                       <div class="">Withdraw From</div>
                       <div>
                         <p className="lbl-title">
-                          <strong>{fundDetails.scheme}</strong>
+                          <strong>{fundDetails?.scheme}</strong>
                         </p>
                         {localStorage.setItem(
                           "switch_from",
-                          fundDetails.scheme
+                          fundDetails?.scheme
                         )}
                       </div>
                     </div>
@@ -3400,7 +3378,7 @@ const PortfolioFund = (props) => {
                         <div className="w-33 cl-8-f">
                           <div>Folio</div>
                           <div>
-                            <strong>{fundDetails.folio_no}</strong>
+                            <strong>{fundDetails?.folio_no}</strong>
                           </div>
                         </div>
                         <div className="w-33 cl-8-f">
@@ -3519,7 +3497,7 @@ const PortfolioFund = (props) => {
                   ) : (
                     <>
                       <div className="modal-whitepopup-box-item grey-color border-top-0">
-                        <strong>{fundDetails.scheme}</strong>
+                        <strong>{fundDetails?.scheme}</strong>
                       </div>
 
                       <div className="modal-whitepopup-box-item grey-color">
@@ -3537,14 +3515,14 @@ const PortfolioFund = (props) => {
                           <div className="col-12 col-md-6 pe-2 mb-4 mb-md-0">
                             <div>Folio</div>
                             <div>
-                              <strong>{fundDetails.folio_no}</strong>
+                              <strong>{fundDetails?.folio_no}</strong>
                             </div>
                           </div>
                           <div className="col-12 col-lg-6 pe-2">
                             <div>Fund Value</div>
                             <div className="">
                               <div className="w-100 ">
-                                <strong>₹ {fundDetails.curr_val}</strong>
+                                <strong>₹ {fundDetails?.curr_val}</strong>
                               </div>
                             </div>
                           </div>
@@ -3681,7 +3659,7 @@ const PortfolioFund = (props) => {
                       <div class="">Transfer From</div>
                       <div>
                         <p className="lbl-title">
-                          <strong>{fundDetails.scheme}</strong>
+                          <strong>{fundDetails?.scheme}</strong>
                         </p>
                       </div>
                     </div>
@@ -3704,7 +3682,7 @@ const PortfolioFund = (props) => {
                         <div className="w-33 cl-8-f">
                           <div>Folio</div>
                           <div>
-                            <strong>{fundDetails.folio_no}</strong>
+                            <strong>{fundDetails?.folio_no}</strong>
                           </div>
                         </div>
                         <div className="w-33 cl-8-f">
@@ -3750,7 +3728,7 @@ const PortfolioFund = (props) => {
         {stepCount == 2 && (
           <PortfolioOtpModal
             value={[
-              { folio_no: fundDetails.folio_no, scheme: fundDetails.scheme, cartIdRef: cartIdRef.current },
+              { folio_no: fundDetails?.folio_no, scheme: fundDetails?.scheme, cartIdRef: cartIdRef.current },
             ]}
             label={"Confirm STP"}
             stpTransactionId={stpTransactionId}
@@ -3809,7 +3787,7 @@ const PortfolioFund = (props) => {
                       <div className="modal-whitepopup-box-item px-md-4 grey-color border-top-0">
                         <div>Fund Name</div>
                         <div className="textfont">
-                          <strong>{fundDetails?.[0]?.scheme}</strong>
+                          <strong>{fundDetails?.scheme}</strong>
                         </div>
                       </div>
 
@@ -3818,7 +3796,7 @@ const PortfolioFund = (props) => {
                           <div className="w-50 pe-2">
                             <div>Amount</div>
                             <div>
-                              <strong>{indianRupeeFormat(fundDetails?.[0]?.inv)}</strong>
+                              <strong>{indianRupeeFormat(fundDetails?.inv)}</strong>
                             </div>
                           </div>
                           <div

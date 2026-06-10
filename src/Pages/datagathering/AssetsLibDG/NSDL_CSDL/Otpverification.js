@@ -484,7 +484,11 @@ const Otpverification = (props) => {
                   }}
                   className={`Cancel commonDashboardButton custom-outline-hover-btn-style`}
                   onClick={() => {
-                    props.onHandlebackClick();
+                    if (typeof props.onHandlebackClick === "function") {
+                      props.onHandlebackClick();
+                    } else if (typeof props.onClose === "function") {
+                      props.onClose();
+                    }
                   }}
                 >
                   Back

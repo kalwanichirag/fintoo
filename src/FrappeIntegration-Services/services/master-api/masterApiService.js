@@ -1,4 +1,5 @@
-import { masterEndpoints } from "../../../constants";
+import axios from "axios";
+import { masterEndpoints, VALIDATE_REDIRECTION, X_CRM_ACCESS_TOKEN, X_CRM_USER } from "../../../constants";
 import apiClient from "../apiClient";
 
 // std useful dynamic values
@@ -407,6 +408,27 @@ export const Normalorderentry = async (payload) => {
 
         return response;
     } catch (error) {
+        throw error;
+    }
+};
+
+
+export const ValidateRedirection = async (lead_id) => {
+    try{
+
+        const response = await axios.get(
+          `${VALIDATE_REDIRECTION}?lead_id=${lead_id}`,
+          {
+            headers: {
+              "X-CRM-Access-Token": X_CRM_ACCESS_TOKEN,
+              "X-CRM-User": X_CRM_USER
+            }
+          }
+        );
+      
+        return response;
+    }
+    catch(error){
         throw error;
     }
 };

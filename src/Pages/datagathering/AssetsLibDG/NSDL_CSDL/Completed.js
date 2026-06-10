@@ -10,6 +10,8 @@ import FintooLoader from "../../../../components/FintooLoader";
 
 const Completed = (props) => {
   const { fromStockCard = false } = props;
+  const areBothSelected = props?.areBothSelected || { both: false };
+  const stockAmount = props?.modalData?.stocksamount ?? null;
 
   const handleDownloadClick = (downloadPDF) => {
     const link = document.createElement('a');
@@ -33,17 +35,18 @@ const Completed = (props) => {
   const par_report_data = useSelector((state) => state.par_report_data);
   const [downloadParReport, setDownloadParReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showFallbackSuccess, setShowFallbackSuccess] = useState(false);
 
   const handleRedirect = () => {
 
-    if (props.areBothSelected.both) {
+    if (areBothSelected.both) {
       props.setAreBothSelected(prev => ({
         ...prev,
         redirectFlow: true
       }));
 
       props.setInvestmentTypeView((prev) => {
-        return props.areBothSelected.prevInvestView === 'STOCK' ? 'MF' : 'STOCK'
+        return areBothSelected.prevInvestView === 'STOCK' ? 'MF' : 'STOCK'
       })
     } else {
       props.onClose();
@@ -57,13 +60,38 @@ const Completed = (props) => {
       (location.pathname === "/commondashboard" || location.pathname === "/commondashboard/")
     ) {
       (async () => {
-        let res = await props.generateParSnippet(1);
-        if (res === false) {
-          props.onClose();
+        if (typeof props.generateParSnippet === "function") {
+          let res = await props.generateParSnippet(1);
+          if (res === false) {
+            props.onClose();
+          }
         }
       })();
     }
   }, []);
+
+  useEffect(() => {
+    if (!fromStockCard) return;
+
+    // Trigger dashboard refresh if provided.
+    if (props.onLinkedSuccess) {
+      props.onLinkedSuccess();
+    }
+
+    const fallbackTimer = setTimeout(() => {
+      setIsLoading(false);
+      setShowFallbackSuccess(true);
+    }, 1200);
+
+    const closeTimer = setTimeout(() => {
+      if (props.onClose) props.onClose();
+    }, 1800);
+
+    return () => {
+      clearTimeout(fallbackTimer);
+      clearTimeout(closeTimer);
+    };
+  }, [fromStockCard, props]);
 
 
   return (
@@ -77,7 +105,7 @@ const Completed = (props) => {
             location.pathname === "/commondashboard" || location.pathname === "/commondashboard/" ? (
               <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 {
-                  !props.modalData.stocksamount ? (
+                  !stockAmount && !showFallbackSuccess ? (
                     <div>
                       <FintooLoader isLoading={isLoading} />
                       {/* <img
@@ -102,19 +130,23 @@ const Completed = (props) => {
                         <div style={{
                           fontSize: "1"
                         }} className={`${CommonCss.infoText}`}>
-                          Your Stocks Portfolio - {<span style={{ color: '#042b62' }}>{props.modalData.stocksamount && indianRupeeFormat(props.modalData.stocksamount)}</span>}
+                          {stockAmount ? (
+                            <>Your Stocks Portfolio - {<span style={{ color: '#042b62' }}>{indianRupeeFormat(stockAmount)}</span>}</>
+                          ) : (
+                            <>Your stock holdings were fetched successfully.</>
+                          )}
                         </div>
                         <div className={`${Styles.Congratulationssubtxt} ${CommonCss.infoText}`}>
                           {props.fromStockCard
                             ? "We’ve successfully analyzed your stock portfolio." :
-                            props.areBothSelected.both ? 'We have retrieved your stock details. To proceed with generating your Consolidated Portfolio Report, please link your mutual fund holdings as well.' : 'Based on the details you provided, we found the following stock investments in your portfolio. You can download a detailed report of your stocks portfolio by clicking the button below.'
+                            areBothSelected.both ? 'We have retrieved your stock details. To proceed with generating your Consolidated Portfolio Report, please link your mutual fund holdings as well.' : 'Based on the details you provided, we found the following stock investments in your portfolio. You can download a detailed report of your stocks portfolio by clicking the button below.'
                           }
                         </div>
                         <div className="ButtonBx mt-0 d-md-flex justify-content-center">
                           <div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
                               {
-                                props.areBothSelected.both ? (
+                                areBothSelected.both ? (
                                   <button
                                     onClick={() => { handleRedirect() }}
                                     style={{

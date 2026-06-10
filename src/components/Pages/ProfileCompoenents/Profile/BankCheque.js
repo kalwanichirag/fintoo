@@ -30,17 +30,12 @@ const UploadInput = styled("input")({
   display: "none",
 });
 const aspect = 16 / 9;
-const scale = 1;
 
 function BankCheque(props) {
   const user_id = getUserId();
   const bank_id = getItemLocal("YmFua19pZA==")
-  const [bankId, setBankId] = useState("");
-
-  const [upload, uploadImage] = useState([]);
   const imgRef = useRef(null);
   const inputFileUpload = useRef(null);
-  const [validated, setValidated] = useState(false);
   const dispatch = useDispatch();
   const [crop, setCrop] = useState({
     unit: "%", // Can be 'px' or '%'
@@ -53,9 +48,7 @@ function BankCheque(props) {
   const [completedCrop, setCompletedCrop] = useState(null);
   const [preview, setPreview] = useState(false);
   const previewCanvasRef = useRef(null);
-  const [rotateValue, setRotateValue] = useState(0);
   const showBack = useSelector((state) => state.isBackVisible);
-  const [chequeName, setChequeName] = useState("");
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const chequeNameRef = useRef();
@@ -107,7 +100,7 @@ function BankCheque(props) {
   };
 
   useEffect(() => {
-    getbankdetails();
+    //getbankdetails();
     GetUserDetails();
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }, []);
@@ -124,7 +117,6 @@ function BankCheque(props) {
       event.preventDefault();
       event.stopPropagation();
     }
-    setValidated(true);
   };
   const [showModal, setShow] = useState(false);
 
@@ -191,8 +183,6 @@ function BankCheque(props) {
     const crop = centerCrop(
       makeAspectCrop(
         {
-          // You don't need to pass a complete crop into
-          // makeAspectCrop or centerCrop.
           unit: "%",
           width: 90,
         },
@@ -269,7 +259,7 @@ function BankCheque(props) {
   };
 
   const convertBase = async () => {
-    const mimeType = "image/jpeg"; // Adjust based on the image format you are working with
+    const mimeType = "image/jpeg";
     const blob = base64ToBlob(imgSrc, mimeType);
 
     let file = new File([blob], "fileName.jpg", { type: mimeType });

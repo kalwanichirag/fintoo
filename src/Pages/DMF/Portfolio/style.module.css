@@ -728,3 +728,42 @@
 .bullet-item-ActionButton:disabled {
     opacity: 0.6;
 }
+
+.assetIconShell {
+    align-items: center;
+    background: linear-gradient(135deg, #edf4ff 0%, #d9e8ff 100%);
+    border: 1px solid #d2e1fb;
+    border-radius: 10px;
+    color: #0b3778;
+    display: inline-flex;
+    height: 40px;
+    justify-content: center;
+    width: 40px;
+}
+
+.assetInlineIcon {
+    font-size: 0.95rem;
+}
+
+.assetLogoImg {
+    background: #fff;
+    border: 1px solid #dbe5f2;
+    border-radius: 10px;
+    height: 40px;
+    object-fit: contain;
+    padding: 4px;
+    width: 40px;
+}
+
+.assetInitialBadge {
+    align-items: center;
+    background: linear-gradient(135deg, #0b3778 0%, #1b5fc0 100%);
+    border-radius: 10px;
+    color: #fff;
+    display: inline-flex;
+    font-size: 0.9rem;
+    font-weight: 700;
+    height: 40px;
+    justify-content: center;
+    width: 40px;
+}

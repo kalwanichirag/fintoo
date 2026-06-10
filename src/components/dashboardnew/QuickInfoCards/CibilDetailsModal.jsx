@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import DetailsStep from "./DetailStep";
 import OtpStep from "./OtpStep";
 import commonEncode from "../../../commonEncode";
@@ -33,9 +34,7 @@ export default function CibilDetailsModal({ onClose, onSuccess }) {
 
   const [members, setMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [consentId, setConsentId] = useState(null);
 const [userProfile, setUserProfile] = useState(null);
-const CIBIL_CACHE_KEY = "cibil_report_v1";
 const LIABILITY_CACHE_KEY = "LIABILITY_OVERVIEW_CACHE";
 const LIABILITY_REFRESH_EVENT = "liability-overview-refresh";
     
@@ -96,22 +95,51 @@ useEffect(() => {
     return () => clearInterval(timer);
   }, [step, canResend]);
 
+  const activateOtpStep = (nextRequestId) => {
+    setRequestId(nextRequestId);
+    setOtp(Array(6).fill(""));
+    setResendTimer(60);
+    setCanResend(false);
+    setStep("OTP");
+  };
+
   /* ---------------- GENERATE TOKEN ---------------- */
 
-  const handleGenerateToken = async () => {
+  const handleGenerateToken = async (memberOverride = selectedMember) => {
     try {
       setIsLoading(true);
       setErrorMessage("");
 
-      const res = await generateRecordentToken({});
+      const uniqueId = memberOverride?.pan?.trim();
+      const mobileNumber = memberOverride?.mobile?.toString().trim();
+
+      if (!uniqueId || !mobileNumber) {
+        throw new Error("Please provide valid member details (PAN, mobile).");
+      }
+
+      const payload = {
+        data_belongs_to: "DIR",
+        user_id: getUserId(),
+        mobileNumber,
+        uniqueId,
+      };
+
+      const res = await generateRecordentToken(payload);
       const accessToken = res?.data?.access_token;
+      const generatedRequestId = res?.data?.requestId;
 
       if (!accessToken) {
-        throw new Error("Token generation failed");
+        throw new Error( "Token generation failed");
       }
 
       setRecordentToken(accessToken);
-      await handleSendConsentOtp(accessToken);
+
+      if (generatedRequestId) {
+        await handleResendOtp(accessToken, generatedRequestId, false);
+        return;
+      }
+
+      await handleSendConsentOtp(accessToken, memberOverride);
     } catch (e) {
       console.error(e);
       setErrorMessage("Unable to initiate CIBIL check");
@@ -122,34 +150,37 @@ useEffect(() => {
 
   /* ---------------- SEND OTP ---------------- */
 
-  const handleSendConsentOtp = async (token) => {
+  const handleSendConsentOtp = async (token, memberOverride = selectedMember) => {
     try {
+      const fullName = memberOverride?.name?.trim();
+      const uniqueId = memberOverride?.pan?.trim();
+      const mobileNumber = Number(memberOverride?.mobile);
+
+      if (!fullName || !uniqueId || !mobileNumber) {
+        throw new Error("Please provide valid member details (name, PAN, mobile).");
+      }
+
       const payload = {
-        fullName: "SHETTY SUDHIR",
-        uniqueId: "AHFLW7645D",
-        mobileNumber: 9820140097,
-      
-        // fullName: selectedMember?.name ,
-        // uniqueId: selectedMember?.pan ,
-        // mobileNumber: selectedMember?.mobile ,
-        requestType: 3,
+        user_id: getUserId(),
         access_token: token,
+        fullName,
+        mobileNumber,
+        uniqueId,
+        requestType: 3,
       };
 
       const res = await sendRecordentOtp(payload);
 
-      if (!res?.data?.requestId) {
+      const nextRequestId = res?.data?.requestId;
+
+      if (Number(res?.status_code) !== 200 || !nextRequestId) {
         throw new Error("OTP send failed");
       }
 
-      setRequestId(res.data.requestId);
-      setOtp(Array(6).fill(""));
-      setResendTimer(60);
-      setCanResend(false);
-      setStep("OTP");
+      activateOtpStep(nextRequestId);
     } catch (e) {
       console.error(e);
-      setErrorMessage("Failed to send consent OTP");
+      setErrorMessage( "Failed to send consent OTP");
     }
   };
 
@@ -215,6 +246,7 @@ const buildLoanPayload = (profile, cibilData) => {
 const handleFetchCibil = async (consentId) => {
   try {
     const res = await fetchRecordentReport({
+      user_id: getUserId(),
       consentId,
       recordentProductCode: "RCDT3",
       access_token: recordentToken,
@@ -223,8 +255,6 @@ const handleFetchCibil = async (consentId) => {
     if (!res?.data) {
       throw new Error("CIBIL report not ready");
     }
-    // Keep cache in sync as soon as fresh CIBIL data is received.
-    localStorage.setItem(CIBIL_CACHE_KEY, JSON.stringify(res.data));
 
     // ✅ Build payload using profile + cibil
     if (!userProfile) {
@@ -274,19 +304,26 @@ const handleFetchCibil = async (consentId) => {
 
   /* ---------------- RESEND OTP ---------------- */
 
-  const handleResendOtp = async () => {
-    if (!canResend) return;
+  const handleResendOtp = async (
+    requestToken = recordentToken,
+    nextRequestId = requestId,
+    enforceTimer = true
+  ) => {
+    if (enforceTimer && !canResend) return;
 
     try {
       setIsLoading(true);
 
-      await resendRecordentOtp({
-        requestId,
-        access_token: recordentToken,
+      const res = await resendRecordentOtp({
+        requestId: nextRequestId,
+        access_token: requestToken,
       });
 
-      setResendTimer(60);
-      setCanResend(false);
+      if (Number(res?.status_code) !== 200) {
+        throw new Error("Failed to resend OTP");
+      }
+
+      activateOtpStep(nextRequestId);
     } catch (e) {
       console.error(e);
       setErrorMessage("Failed to resend OTP");
@@ -306,14 +343,21 @@ const handleFetchCibil = async (consentId) => {
 
   /* ---------------- UI ---------------- */
 
-  return (
-    <div className="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center">
+  const modalNode = useMemo(() => {
+    if (typeof document === "undefined") return null;
+    return document.body;
+  }, []);
+
+  if (!modalNode) return null;
+
+  return createPortal(
+    <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-flex tw-items-center tw-justify-center tw-p-4">
       <div
         className="tw-absolute tw-inset-0 tw-bg-black/40"
         onClick={onClose}
       />
 
-      <div className="tw-relative tw-z-10 tw-w-full tw-max-w-md tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-xl">
+      <div className="tw-relative tw-z-10 tw-w-full tw-max-w-lg tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-xl">
         {step === "DETAILS" && (
           <DetailsStep
             members={members}
@@ -341,6 +385,7 @@ const handleFetchCibil = async (consentId) => {
           />
         )}
       </div>
-    </div>
+    </div>,
+    modalNode
   );
 }

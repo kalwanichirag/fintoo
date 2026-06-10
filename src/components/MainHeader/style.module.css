@@ -4,10 +4,7 @@
   text-overflow: ellipsis;
 }
 
-.fakeSpace {
-  /* height: 3rem; */
-  height: 7.5rem;
-}
+
 .cartCount {
   width: 0.8rem;
   height: 0.8rem;
@@ -19,8 +16,6 @@
 }
 .header {
   background: #fff;
-  /* font-family: 'Red Hat Text', sans-serif; */
-  /* box-shadow: 2px 2px 6px 0 hsl(0deg 0% 82% / 26%); */
   left: 0;
 
   position: fixed;
@@ -114,8 +109,8 @@
   text-decoration: none !important;
   color: #042b62;
   display: block;
-  padding: 0 25px;
-  font-size: 1.2rem !important;
+  padding: 0 1rem;
+  font-size: 1.1rem !important;
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
@@ -221,16 +216,18 @@
   background: #fff;
 }
 .in-container {
-  /* padding-top: 2rem; */
-  padding-bottom: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .UAE-in-container .in-container {
   padding-top: 0rem !important;
   padding-bottom: 0rem !important;
 }
 .fixedheader .in-container {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+    box-shadow: 2px 2px 6px 0 hsl(0deg 0% 82% / 26%);
+
 }
 .profile-submenu {
   width: 300px;
@@ -238,6 +235,17 @@
   /* padding-left: 1rem;
   padding-right: 1rem; */
   border-radius: 10px;
+}
+
+@media (min-width:1600px) {
+  .profile-submenu {
+    width:16vw;
+    background: #fff;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 10px;
+  }
+  
 }
 /* .profile-inner-dv {
   padding-left: 1rem;
@@ -351,8 +359,32 @@
   position: relative;
   padding: 0px !important;
 }
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.headerIcon {
+  width: 26px;
+  height: 26px;
+  color: #2a2a2a !important;
+  vertical-align: middle;
+  flex-shrink: 0;
+  stroke-width: 1.8;
+}
+.supportPhoneIcon {
+  width: 18px;
+  height: 18px;
+  color: #2a2a2a;
+  vertical-align: middle;
+  flex-shrink: 0;
+  stroke-width: 1.8;
+}
 .mobile-menu .cart {
   padding-right: 0.7rem !important;
+}
+.regionselectordialog {
+  margin-right: 0.5rem;
 }
 .cart div {
   position: absolute;
@@ -361,7 +393,7 @@
     height: 1.2rem; */
   line-height: 0.8rem;
   text-align: center;
-  background: #042b62;
+  background: #2a2a2a;
   color: #fff;
   border-radius: 0.8rem;
   padding: 5px;
@@ -404,17 +436,18 @@
   transition: all ease-in-out 0.2s;
 }
 
-.scrollable-profile-section {
-  max-height: 200px;
-  overflow: auto;
-}
+
+
+
+
+
 .mobile-menu {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
 .in-container {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 .card-in-1 {
@@ -731,7 +764,7 @@ display: block;
 
 @media (min-width: 768px) {
   .fakeSpace {
-    height: 7.5rem;
+    height: 5.5rem;
     background: #fff;
   }
 }

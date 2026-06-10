@@ -45,12 +45,12 @@ const AdvisoryReportUI = ({ reportsData, fetchReportsData }) => {
   const [spinneremail, setSpinneremail] = useState(0);
   const [showReportmodal, setShowReportmodal] = useState(false);
   const [emailLoading, setEmailLoading] = useState({ PAR: false, MF: false });
-  const [kycModal, setKycModal] = useState(false);
-  const [kycDone, setKycDone] = useState(false);
+  // const [kycModal, setKycModal] = useState(false);
+  // const [kycDone, setKycDone] = useState(false);
   const userData = JSON.parse(localStorage.getItem("user_data") || '{}');
 
   useEffect(() => {
-    getDocument();
+    // getDocument();
     initializeUserData();
   }, []);
 
@@ -295,39 +295,39 @@ const AdvisoryReportUI = ({ reportsData, fetchReportsData }) => {
     }
   }
 
-  const getDocument = async () => {
-    try {
-      const res = await paymentStatus();
-      if (res?.status_code == 200) {
-        const payment_data = res.data
-        let isKycDone = false;
+  // const getDocument = async () => {
+  //   try {
+  //     const res = await paymentStatus();
+  //     if (res?.status_code == 200) {
+  //       const payment_data = res.data
+  //       let isKycDone = false;
 
-        if (
-          payment_data.plan_uuid === "fp_expert" &&
-          payment_data.plan_name !== "Assisted Advisory"
-        ) {
-          const resDoc = await GetDocumentDetails(
-            getParentUserId(),
-            DATA_BELONGS_TO
-          );
+  //       if (
+  //         payment_data.plan_uuid === "fp_expert" &&
+  //         payment_data.plan_name !== "Assisted Advisory"
+  //       ) {
+  //         const resDoc = await GetDocumentDetails(
+  //           getParentUserId(),
+  //           DATA_BELONGS_TO
+  //         );
 
-          if (resDoc?.status_code === 200) {
-            isKycDone = resDoc.data.some(
-              (doc) =>
-                doc.document_cat_uuid === "e_aadhar" ||
-                doc.document_cat_uuid === "panDirect"
-            );
-          }
-        } else {
-          isKycDone = true;
-        }
+  //         if (resDoc?.status_code === 200) {
+  //           isKycDone = resDoc.data.some(
+  //             (doc) =>
+  //               doc.document_cat_uuid === "e_aadhar" ||
+  //               doc.document_cat_uuid === "panDirect"
+  //           );
+  //         }
+  //       } else {
+  //         isKycDone = true;
+  //       }
 
-        setKycDone(isKycDone);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  //       setKycDone(isKycDone);
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   const paymentStatus = async () => {
     const payload = {
@@ -420,28 +420,28 @@ const AdvisoryReportUI = ({ reportsData, fetchReportsData }) => {
   }, [sessionData]);
 
   const summaryReport = async () => {
-    if(!kycDone){
-      setKycModal(true);
-      setSpinner(0);
-      setSpinneremail(0);
-    }
-    else{
+    // if(!kycDone){
+    //   setKycModal(true);
+    //   setSpinner(0);
+    //   setSpinneremail(0);
+    // }
+    // else{
       const newReportValue = 1;
       setReportValue(newReportValue);
       setReportType("pdf");
       setSpinner(2);
       downloadReport(newReportValue);
-    }
+    // }
   };
 
   const summaryEmail = async () => {
     try {
-      if (!kycDone) {
-        setSpinner(0);
-        setSpinneremail(0);
-        setKycModal(true);
-      }
-      else {
+      // if (!kycDone) {
+      //   setSpinner(0);
+      //   setSpinneremail(0);
+      //   setKycModal(true);
+      // }
+      // else {
 
         setSpinneremail(1);
 
@@ -507,7 +507,7 @@ const AdvisoryReportUI = ({ reportsData, fetchReportsData }) => {
             },
           });
         }
-      }
+      // }
     } catch (error) {
       console.error("Error in summaryEmail:", error);
       dispatch({
@@ -957,11 +957,11 @@ const AdvisoryReportUI = ({ reportsData, fetchReportsData }) => {
         Closemodal={() => { setShowReportmodal(false); fetchReportsData() }}
         forpar={true} />
 
-      <KYCPopup
+      {/* <KYCPopup
         kycDone={kycDone}
         show={kycModal}
         onHide={() => setKycModal(false)}
-      />
+      /> */}
     </>
   );
 };

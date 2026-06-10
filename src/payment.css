@@ -271,7 +271,7 @@ h2 {
   background: #042b62;
 }
 
-.checkbox-container .custom-checkbox+label:before {
+/* .checkbox-container .custom-checkbox+label:before {
   content: "";
   margin-right: 10px;
   display: inline-block;
@@ -297,7 +297,7 @@ h2 {
   top: 6px;
   left: 3px;
   transform: rotate(-45deg);
-}
+} */
 
 .checkbox-label a {
   display: inline-block;

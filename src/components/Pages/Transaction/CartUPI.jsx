@@ -9,10 +9,6 @@ import MainLayout from "../../Layout/MainLayout";
 import {  DATA_BELONGS_TO
 } from "../../../constants";
 import {
-  CheckSession,
-  apiCall,
-  getSumOfProperty,
-  setItemLocal,
   getItemLocal,
   getUserId,
   isFamilySelected,
@@ -40,7 +36,6 @@ export default function CartUPI() {
   };
 
   useEffect(() => {
-    // //// checksession();
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }, []);
 
@@ -62,51 +57,18 @@ export default function CartUPI() {
         bank_id: bankid
       }
       var res = await getUserBankDetails(payload);
-     
-      // var res = await apiCall(DMF_GETBANKDETAILS_API_URL, {
-      //   user_id: userid,
-      //   bank_id: bankid,
-      //   data_belongs_to: DATA_BELONGS_TO,
-      // });
+
       setBankDetail(res.data);
-      changeTypeName(res.data[0].bank_id);
-      getUpiData(res.data[0].bank_id);
-      if (!cartData || !cartAmt) getCartData();
+      changeTypeName(res?.data[0]?.bank_id);
+
+      setSaveUpiId(true);
+      setUpiId(res?.data[0]?.bank_upi_id);
+      
     } catch (e) {
-      // 
+      
     }
   };
 
-  const getCartData = async () => {
-    // var res = await apiCall(GET_CART_DETAILS, {
-    //   user_id: userid,
-    //   data_belongs_to: DATA_BELONGS_TO,
-    // });
-    // let cartSum = getSumOfProperty(res.data, "cart_amount");
-    // setItemLocal("cart_data", res.data);
-    // setItemLocal("cart_amt", cartSum);
-    // setCartData(JSON.stringify(res.data));
-    // setCartAmt(JSON.stringify(cartSum));
-  };
-
-  const getUpiData = async (bank_id) => {
-    try {
-      var res = await apiCall(DMF_GETBANKUPIID_API_URL, {
-        bank_id: String(bank_id),
-      });
-      // 
-      if (res.error_code == "100") {
-        if (res.data.save_upi_id == 'Y'){
-          setSaveUpiId(true);
-          setUpiId(res.data.upi_id);
-          
-        }
-      }
-    } catch (e) {
-      // 
-    }
-  }
-  // 
   return (
     <MainLayout>
       <div className="Transaction">

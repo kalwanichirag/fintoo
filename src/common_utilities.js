@@ -14,9 +14,13 @@ import "toastr/build/toastr.css";
 import { check_all_status_api, fetchUserProfileDetails, getFamilyMember } from "./FrappeIntegration-Services/services/user-management-api/userApiService";
 import { GetCartDetails, GetSchemeList } from "./FrappeIntegration-Services/services/investment-api/investmentService";
 import { Fetch_User_Mf_Profile_Status } from "./FrappeIntegration-Services/services/financial-planning-api/ndaflow";
+import { clearLocalStorageExcept } from "./Utils/storage";
+import { ValidateRedirection } from "./FrappeIntegration-Services/services/master-api/masterApiService";
 
 const handleCheckAllStatus = async (userId) => {
   try {
+    const isCRM = localStorage.getItem("from_crm") === "1";
+    if (isCRM) return;
     if (userId) {
       const result = await check_all_status_api(userId);
 
@@ -116,54 +120,119 @@ const hanleprofileDetails = async (userId) => {
   }
 };
 
+export const kyc_fp_redirection = async (lead_id) => {
+  try {
+    if (!lead_id) return false;
+
+    const result = await ValidateRedirection(lead_id);
+    const message = result?.data?.message;
+
+    if (result?.status === 200 && message?.success) {
+
+      if (message?.kyc_rejected === 1) {
+        localStorage.setItem("kyc_rejected", "1");
+
+        if (message?.rejection_message) {
+          localStorage.setItem(
+            "kyc_rejection_message",
+            message.rejection_message
+          );
+        }
+
+        return true;
+      } else {
+        localStorage.removeItem("kyc_rejected");
+        localStorage.removeItem("kyc_rejection_message");
+      }
+
+      if (message?.redirect_to_fp === 1 || message?.redirect_to_kyc === 1) {
+        return true;
+      }
+    }
+  } catch (error) {
+    console.error("Error checking user status:", error);
+  }
+
+  return false;
+};
+
+export const isFromCRM = () => {
+  return localStorage.getItem("from_crm") === "1";
+};
+
 export const storeUserSession = async (queryParams) => {
   const { userdata, token, redirect_to } = queryParams;
-  debugger
+
+  sessionStorage.removeItem("kyc_skipped");
+
+  const isCRMUser = queryParams?.from_crm === "1";
+  if (isCRMUser) {
+    localStorage.setItem("from_crm", "1");
+  }
+
   if (userdata && token) {
     try {
       const userData = JSON.parse(commonEncode.decrypt(userdata));
       const userToken = commonEncode.decrypt(token);
 
+      removeMemberId();
       setUserId(userData?.user_id);
       Cookies.set("token", userToken, { expires: 1 });
       localStorage.setItem("sky", token);
       localStorage.setItem("token", token);
       localStorage.setItem(
         'user_data',
-        JSON.stringify({ ...userData})
+        JSON.stringify({ ...userData })
       );
-      setItemLocal("family",1);
-      window.history.replaceState({}, "", process.env.PUBLIC_URL+"/commondashboard");
+
+      Object.keys(localStorage).forEach((key) => {
+        if (
+          key.startsWith("mf_performance_cache_") ||
+          key.startsWith("stock_summary_cache_") ||
+          key === "asset_allocation_cache"
+        ) {
+          localStorage.removeItem(key);
+        }
+      });
+      setItemLocal("family", 1);
       await handleCheckAllStatus(userData?.user_id);
       await handleGetFamilyMember(userData?.user_id);
       await hanleprofileDetails(userData?.user_id);
 
-
       const userDataString = localStorage.getItem("user_data");
       const user_Data = userDataString ? JSON.parse(userDataString) : {};
 
+      if (isCRMUser) {
+        window.location.replace(
+          process.env.PUBLIC_URL + "/datagathering/verification-docs"
+        );
+        return;
+      }
 
       if (user_Data.mobile_verified === false) {
-        window.location.href = process.env.PUBLIC_URL + "/mobile-verfication";
+        window.location.replace(process.env.PUBLIC_URL + "/mobile-verfication");
         return;
       }
 
       if (user_Data.user_onboarding_status === false) {
-        window.location.href = process.env.PUBLIC_URL + "/onboard-flow";
+        window.location.replace(process.env.PUBLIC_URL + "/onboard-flow");
         return;
       }
 
-      localStorage.removeItem('auth_view');
-      localStorage.removeItem('verification_flow');
+      localStorage.removeItem("auth_view");
+      localStorage.removeItem("verification_flow");
 
       if (redirect_to == "report") {
-        window.location.href = "/report/intro";
+        window.location.replace("/report/intro");
       }
       if (redirect_to == "datagathering") {
-        window.location.href = "/datagathering/about-you";
+        window.location.replace("/datagathering/about-you");
       }
       if (redirect_to == "cart") {
-        window.location.href = "/direct-mutual-fund/mycart";
+        window.location.replace("/direct-mutual-fund/mycart");
+      }
+      if (redirect_to == "verification-docs") {
+        window.location.replace("/datagathering/verification-docs");
       }
     } catch (error) {
       console.error("Error storing user session:", error);
@@ -198,13 +267,13 @@ export const fetchMembers = async () => {
 
 export const getPublicMediaURL = (path) => {
   return (
-      process.env.PUBLIC_URL +
-      "/" +
-      path
-        .split("/")
-        .filter((v) => v != "")
-        .join("/")
-    );
+    process.env.PUBLIC_URL +
+    "/" +
+    path
+      .split("/")
+      .filter((v) => v != "")
+      .join("/")
+  );
   // if (window.location.host.includes("fintoo.in")) {
   //   return (
   //     process.env.REACT_APP_STATIC_MEDIA_URL +
@@ -392,7 +461,7 @@ export const CheckSession = async () => {
 
 export const loginRedirect = () => {
   let tempParamItrPage = localStorage.getItem("itr-page");
-  localStorage.clear();
+  clearLocalStorageExcept(["leadData"]);
   if (tempParamItrPage) {
     localStorage.setItem("itr-page", tempParamItrPage);
   }
@@ -494,7 +563,7 @@ export const successAlert = (msg) => {
 };
 
 export const errorAlert = (msg = "Something went wrong") => {
-  Swal.fire({
+  return Swal.fire({
     title: "",
     html: msg,
     icon: "error",

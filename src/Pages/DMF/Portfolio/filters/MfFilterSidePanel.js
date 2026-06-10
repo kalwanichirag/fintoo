@@ -1,86 +1,37 @@
 import React, { memo, useEffect, useState } from 'react';
-import Form from "react-bootstrap/Form";
 import SlidingPanel from 'react-sliding-side-panel';
 import CloseFilter from "../../../../Assets/Images/close.png";
 import FintooCheckbox from '../../../../components/FintooCheckbox/FintooCheckbox';
-import axios from 'axios';
-// import { flushSync } from 'react-dom';
 import _ from 'lodash';
+import { getMfSummaryPortfolio } from '../../../../FrappeIntegration-Services/services/investment-api/investmentService';
+import { getItemLocal, getParentUserId, getUserId, loginRedirectGuest } from '../../../../common_utilities';
+import { DATA_BELONGS_TO } from '../../../../constants';
+import { fetchUserProfileDetails } from '../../../../FrappeIntegration-Services/services/user-management-api/userApiService';
 
-const subCategoriesObj = {
-    equity: [
-        // "Large-Cap",
-        // "Mid-Cap",
-        // "Sector - Healthcare",
-        // "Sector - Technology",
-        // "Sector - FMCG",
-        // "Sector - Energy",
-        // "Sector - Financial Services",
-        // "Equity - Other",
-        // "ELSS (Tax Savings)",
-        // "Global - Other",
-        // "Multi-Cap",
-        // "Equity - Infrastructure",
-        // "Small-Cap",
-        // "Large & Mid-Cap",
-        // "Value",
-        // "Contra",
-        // "Dividend Yield",
-        // "Focused Fund",
-        // "Index Funds",
-        // "Equity–Consumption",
-        // "Equity - ESG",
-        // "Flexi Cap"
-    ],
-    debt: [
-        // "Short Duration",
-        // "Ultra Short Duration",
-        // "10 yr Government Bond",
-        // "Government Bond",
-        // "Short-Term Government Bond",
-        // "Liquid",
-        // "Fixed Maturity Short-Term Bond",
-        // "Fixed Maturity Ultrashort Bond",
-        // "Medium to Long Duration",
-        // "Long Duration",
-        // "Fixed Maturity Intermediate-Term Bond",
-        // "Credit Risk",
-        // "Dynamic Bond",
-        // "Low Duration",
-        // "Money Market",
-        // "Medium Duration",
-        // "Corporate Bond",
-        // "Banking & PSU",
-        // "Floating Rate",
-        // "Overnight",
-        // "Index - Fixed Income"
-    ],
-    hybrid: [
-        // "Balanced Allocation",
-        // "Conservative Allocation",
-        // "Arbitrage Fund",
-        // "Aggressive Allocation",
-        // "Dynamic Asset Allocation",
-        // "Multi Asset Allocation",
-        // "Equity Savings",
-        // "Fund of Funds"
-    ],
-    others: [
-        // "Sector - Precious Metals",
-        // "Retirement",
-        // "Children"
-    ]
-}
+let subCategoriesObj = {
+    equity: [],
+    debt: [],
+    hybrid: [],
+    others: []
+};
 
 const defaultFilterOptions = {
     categoryOptions: [],
     amcNamesOptions: [],
-}
+};
 
-function MfFilterSidePanel({ isOpen, togglePanel, mainData, setMainData, mfListDataCopy, fetchFundsData, resetFilterTriggerState, setResetFilterTriggerState }) {
+function MfFilterSidePanel({
+    isOpen,
+    togglePanel,
+    mainData,
+    setMainData,
+    mfListDataCopy,
+    fetchFundsData,
+    resetFilterTriggerState,
+    setResetFilterTriggerState
+}) {
 
     const [sidePanelWidth, setSidePanelWidth] = useState(25);
-    // const [amcList, setAmcList] = useState([]);
 
     const [filterState, setFilterState] = useState({
         amcFilter: false,
@@ -93,192 +44,218 @@ function MfFilterSidePanel({ isOpen, togglePanel, mainData, setMainData, mfListD
         subCategories: []
     });
 
-    const [filterOptions, setFilterOptions] = useState(defaultFilterOptions)
+    const [filterOptions, setFilterOptions] = useState(defaultFilterOptions);
 
-    const assignSubCategoriesObj = (data) => {
-        const fundType = data.fintoo_fund_type.toLowerCase()
-        if (fundType === 'debt') {
-        }
-        if (subCategoriesObj[fundType]) {
-            if (data.amfitype) {
-                if (!subCategoriesObj[fundType].includes(data.amfitype)) {
-                    subCategoriesObj[fundType] = [...subCategoriesObj[fundType], data.amfitype]
-                }
+    const [subCategoriesState, setSubCategoriesState] = useState({
+        equity: [],
+        debt: [],
+        hybrid: [],
+        others: []
+    });
+
+    const buildSubCategoryMap = (list = []) => {
+        const map = {
+            equity: [],
+            debt: [],
+            hybrid: [],
+            others: []
+        };
+
+        list.forEach((v) => {
+            const type = v.fintoo_fund_type?.toLowerCase();
+            const sub = v.amfitype;
+
+            if (!type || !sub || !map[type]) return;
+
+            if (!map[type].includes(sub)) {
+                map[type].push(sub);
             }
-        }
-    }
+        });
+
+        return map;
+    };
 
     const assignFilterOptions = () => {
         let categoryOptions = [];
         let amcNamesOptions = [];
 
-        mfListDataCopy ? mfListDataCopy.forEach((v) => {
-            if (categoryOptions.findIndex((x) => x == v.fintoo_fund_type) == -1) {
+        mfListDataCopy?.forEach((v) => {
+            if (!categoryOptions.includes(v.fintoo_fund_type)) {
                 categoryOptions.push(v.fintoo_fund_type);
             }
-            if (!amcNamesOptions.includes(v.fund_house)) {
-                amcNamesOptions.push(v.fund_house)
-            }
-            assignSubCategoriesObj(v)
-        }) : [];
-        setFilterOptions({ categoryOptions, amcNamesOptions });
-    }
 
-    const sortOptions = [{ label: 'Current Value', keyName: 'curr_val' }, { label: 'Invested Amount', keyName: 'inv' }, { label: 'Gain Percentage', keyName: 'xirr_percentage' }, { label: 'Gain Value', keyName: 'gain_loss' }]
-    const categoryOptions = ['Equity', 'Debt', 'Hybrid', 'Solution Oriented', 'Others']
+            if (!amcNamesOptions.includes(v.fund_house)) {
+                amcNamesOptions.push(v.fund_house);
+            }
+        });
+
+        const newMap = buildSubCategoryMap(mfListDataCopy);
+        subCategoriesObj = newMap;
+        setSubCategoriesState(newMap);
+
+        setFilterOptions({ categoryOptions, amcNamesOptions });
+    };
+
+    useEffect(() => {
+        subCategoriesObj = subCategoriesState;
+    }, [subCategoriesState]);
+
+    const sortOptions = [
+        { label: 'Current Value', keyName: 'curr_val' },
+        { label: 'Invested Amount', keyName: 'inv' },
+        { label: 'Gain Percentage', keyName: 'xirr_percentage' },
+        { label: 'Gain Value', keyName: 'gain_loss' }
+    ];
 
     const handleSubCategoryChange = (subCat) => {
-        if (!filterState.subCategories.includes(subCat)) {
-            setFilterState(prev => ({ ...prev, subCategories: [...prev.subCategories, subCat] }))
-        } else {
-            const arr = [...filterState.subCategories]
-            const index = filterState.subCategories.indexOf(subCat)
-            arr.splice(index, 1)
-            setFilterState(prev => ({ ...prev, subCategories: arr }))
-        }
-    }
+        setFilterState((prev) => ({
+            ...prev,
+            subCategories: prev.subCategories.includes(subCat)
+                ? prev.subCategories.filter((x) => x !== subCat)
+                : [...prev.subCategories, subCat]
+        }));
+    };
 
     const handleCategoryChange = (cat) => {
-        // if (cat !== filterState.fundsCategory && filterState.fundsCategory !== null) {
-        //     setFilterState({ ...filterState, subCategories: [] })
-        // }
-        if (filterState.fundsCategory === cat) {
-            setFilterState({ ...filterState, fundsCategory: null })
-        } else {
-            setFilterState({ ...filterState, fundsCategory: cat });
-        }
-
-        setFilterState(prev => ({ ...prev, subCategories: [] }))
-    }
+        setFilterState((prev) => ({
+            ...prev,
+            fundsCategory: prev.fundsCategory === cat ? null : cat,
+            subCategories: []
+        }));
+    };
 
     const handleAmcNameChange = (v) => {
-        let amcName = filterState.amcNames;
-        if (amcName.findIndex((x) => x == v) > -1) {
-            amcName.splice(amcName.findIndex((x) => x == v), 1);
-        } else {
-            amcName.push(v);
-        }
-        setFilterState({ ...filterState, amcNames: amcName });
-    };
-
-    const getAmcList = async () => {
-        // var config = {
-        //     method: "post",
-        //     url: DMF_GET_AMC_LIST,
-        //     data: "{}",
-        // };
-        // var res = await axios(config);
-        // setAmcList(res.data);
-    };
-
-    const resetFilter = () => {
-        setFilterState({
-            amcFilter: false,
-            amcNames: [],
-            fundsCategory: null,
-            sort: null,
-            category: null,
-            type: 'All',
-            platform: 'All',
-            subCategories: []
+        setFilterState((prev) => {
+            const exists = prev.amcNames.includes(v);
+            return {
+                ...prev,
+                amcNames: exists
+                    ? prev.amcNames.filter((x) => x !== v)
+                    : [...prev.amcNames, v]
+            };
         });
-        setMainData((prev) => ({
-            ...prev,
-            fund_list: [...mfListDataCopy],
-            fund_details: [...mfListDataCopy],
-        }));
-        setResetFilterTriggerState(() => ({
-            triggerReset: false,
-            showResetTriggerUi: false,
-            filtersActive: false,
-        }));
-        togglePanel(false);
     };
 
-    const applyFilter = () => {
+    const familyArray = (typeOfArray) => {
+        let new_array = [];
+        var new_data = getItemLocal("member");
 
-        let filteredData = [...mfListDataCopy]
-        if (filterState.amcNames.length > 0) {
-            filteredData = filteredData.filter((v) =>
-                filterState.amcNames.includes(v.fund_house)
-            );
+        switch (typeOfArray) {
+            case "pan":
+                new_data?.forEach((el) => el.pan && new_array.push(el.pan));
+                break;
+            case "user_id":
+                new_data?.forEach((el) => el.id && new_array.push(el.id.toString()));
+                break;
         }
+        return new_array;
+    };
 
-        if (filterState.fundsCategory) {
-            filteredData = filteredData.filter(
-                (v) => {
-                    if (filterState.subCategories.length <= 0) {
-                        return v.fintoo_fund_type.toLowerCase() == filterState.fundsCategory.toLowerCase()
-                    } else {
-                        return (v.fintoo_fund_type.toLowerCase() == filterState.fundsCategory.toLowerCase()) && filterState.subCategories.includes(v.amfitype)
-                    }
+    const resetFilter = async () => {
+        try {
+            let new_array = getItemLocal("family") ? familyArray("pan") : [];
 
-                }
-
-            );
-        }
-
-        if (filterState.sort) {
-            switch (filterState.sort) {
-                case "curr_val":
-                    filteredData = filteredData.sort((a, b) => b.curr_val - a.curr_val);
-                    break;
-                case "inv":
-                    filteredData = filteredData.sort((a, b) => b.inv - a.inv);
-                    break;
-                case "xirr_percentage":
-                    filteredData = filteredData.sort((a, b) => b.xirr_percentage - a.xirr_percentage);
-                    break;
-                case "gain_loss":
-                    filteredData = filteredData.sort((a, b) => b.gain_loss - a.gain_loss);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (filterState.type) {
-
-            if (filterState.type.toLowerCase() !== 'all') {
-                filteredData = filteredData.filter(
-                    (v) => v.scheme_type === filterState.type.toLowerCase()
-                );
+            if (getParentUserId() == null) {
+                loginRedirectGuest();
+                return;
             }
 
+            const userRes = await fetchUserProfileDetails(getUserId());
+
+            const payload = {
+                pan: getItemLocal("family") ? new_array : userRes.data.user_pan,
+                amc_names: [],
+                category: null,
+                sub_category: [],
+                sort_by: null,
+                scheme_type: null,
+                platform: null,
+                data_belongs_to: DATA_BELONGS_TO
+            };
+
+            const res = await getMfSummaryPortfolio(payload);
+
+            setMainData((prev) => ({
+                ...prev,
+                fund_list: res.data?.fund_list || [],
+                portfolio_summary: res.data?.portfolio_summary || {},
+            }));
+
+            setFilterState({
+                amcFilter: false,
+                amcNames: [],
+                fundsCategory: null,
+                sort: null,
+                category: null,
+                type: 'All',
+                platform: 'All',
+                subCategories: []
+            });
+
+            setResetFilterTriggerState({
+                triggerReset: false,
+                showResetTriggerUi: false,
+                filtersActive: false,
+            });
+
+            togglePanel(false);
+
+        } catch (e) {
+            console.error("Reset API failed", e);
+        }
+    };
+
+    const applyFilter = async () => {
+        let new_array = getItemLocal("family") ? familyArray("pan") : [];
+
+        if (getParentUserId() == null) {
+            loginRedirectGuest();
+            return;
         }
 
-        if (filterState.platform) {
-            if (filterState.platform !== 'All') {
-                filteredData = filteredData.filter(
-                    (v) => filterState.platform === 'Fintoo' ? v.fund_registrar !== 'ecas' : v.fund_registrar === 'ecas'
-                );
+        const userRes = await fetchUserProfileDetails(getUserId());
+
+        const payload = {
+            pan: getItemLocal("family") ? new_array : userRes.data.user_pan,
+            amc_names: filterState.amcNames,
+            category: filterState.fundsCategory,
+            sub_category: filterState.subCategories,
+            sort_by: filterState.sort,
+            scheme_type: filterState.type !== 'All' ? filterState.type : null,
+            platform: filterState.platform !== 'All' ? filterState.platform : null,
+            data_belongs_to: DATA_BELONGS_TO
+        };
+
+        try {
+            const res = await getMfSummaryPortfolio(payload);
+
+            const apiData = res.data?.fund_list || [];
+
+            setMainData((prev) => ({
+                ...prev,
+                fund_list: apiData,
+                portfolio_summary: res.data?.portfolio_summary || {},
+            }));
+
+            togglePanel(false);
+            setResetFilterTriggerState((prev) => ({ ...prev, filtersActive: true }));
+
+            if (apiData.length === 0) {
+                setResetFilterTriggerState((prev) => ({ ...prev, showResetTriggerUi: true }));
             }
-        }
-        setMainData((prev) => ({
-            ...prev,
-            fund_list: [...filteredData],
-            fund_details: [...filteredData],
-        }));
-        togglePanel(false);
-        setResetFilterTriggerState((prev) => ({ ...prev, filtersActive: true }));
-        if (filteredData.length == 0 && mfListDataCopy.length > 0) {
-            setResetFilterTriggerState((prev) => ({ ...prev, showResetTriggerUi: true }));
-        }
 
-    }
+        } catch (error) {
+            console.error("API Error:", error);
+        }
+    };
 
     useEffect(() => {
-        assignFilterOptions()
-    }, [mfListDataCopy])
+        assignFilterOptions();
+    }, [mfListDataCopy]);
 
     useEffect(() => {
-        // getAmcList();
         function handleResize() {
-            if (window.innerWidth < 768) {
-                setSidePanelWidth(100);
-            } else {
-                setSidePanelWidth(30);
-            }
+            setSidePanelWidth(window.innerWidth < 768 ? 100 : 30);
         }
 
         window.addEventListener("resize", handleResize);
@@ -289,17 +266,11 @@ function MfFilterSidePanel({ isOpen, togglePanel, mainData, setMainData, mfListD
     useEffect(() => {
         if (resetFilterTriggerState.triggerReset) {
             resetFilter();
-            setResetFilterTriggerState(() => ({ triggerReset: false, showResetTriggerUi: false, filtersActive: false }));
         }
-    }, [resetFilterTriggerState])
+    }, [resetFilterTriggerState]);
 
     useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-            window.scrollTo(0, 0)
-        }
+        document.body.style.overflow = isOpen ? 'hidden' : 'unset';
         return () => document.body.style.overflow = 'unset';
     }, [isOpen]);
 
@@ -459,16 +430,16 @@ function MfFilterSidePanel({ isOpen, togglePanel, mainData, setMainData, mfListD
                                 </li>
                                 <li className="fltr-items-li fltr-items-li-w50">
                                     <FintooCheckbox
-                                        checked={filterState.platform == 'Fintoo'}
+                                        checked={filterState.platform == 'Internal'}
                                         title={'Fintoo'}
-                                        onChange={() => filterState.platform == 'Fintoo' ? setFilterState({ ...filterState, platform: null }) : setFilterState({ ...filterState, platform: 'Fintoo' })}
+                                        onChange={() => filterState.platform == 'Internal' ? setFilterState({ ...filterState, platform: null }) : setFilterState({ ...filterState, platform: 'Internal' })}
                                     />
                                 </li>
                                 <li className="fltr-items-li fltr-items-li-w50">
                                     <FintooCheckbox
-                                        checked={filterState.platform == 'Others'}
+                                        checked={filterState.platform == 'External'}
                                         title={'Others'}
-                                        onChange={() => filterState.platform == 'Others' ? setFilterState({ ...filterState, platform: null }) : setFilterState({ ...filterState, platform: 'Others' })}
+                                        onChange={() => filterState.platform == 'External' ? setFilterState({ ...filterState, platform: null }) : setFilterState({ ...filterState, platform: 'External' })}
                                     />
                                 </li>
                             </ul>

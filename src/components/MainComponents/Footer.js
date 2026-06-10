@@ -135,6 +135,10 @@ function Footer() {
                           <img
                             alt="Download Fintoo app on play store"
                             className=" ls-is-cached lazyloaded"
+                            loading="lazy"
+                            width="135"
+                            height="40"
+                            decoding="async"
                             src={Mintyandroid}
                           />
                         </a>
@@ -148,6 +152,10 @@ function Footer() {
                           <img
                             alt="Download Fintoo app on app store"
                             className=" ls-is-cached lazyloaded"
+                            loading="lazy"
+                            width="135"
+                            height="40"
+                            decoding="async"
                             src={Mintyapp}
                           />
                         </a>

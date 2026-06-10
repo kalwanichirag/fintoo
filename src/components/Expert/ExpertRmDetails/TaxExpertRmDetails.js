@@ -10,6 +10,7 @@ import "toastr/build/toastr.css";
 import { Link, useNavigate } from "react-router-dom";
 import { CheckSession, getItemLocal, getParentUserId, getStarRatingValue, indianRupeeFormat, removeMemberId, setFpUserDetailsId, setMemberId } from "../../../common_utilities";
 import {CRM_URL, imagePath } from "../../../constants";
+import { storeChoiceLeadFromUrl } from "../../../Utils/leadAttribution";
 
 const getRatingClass = (rating, position) => {
   const starVal = getStarRatingValue(rating, position);
@@ -40,6 +41,7 @@ function TaxExpertRmDetails() {
   };
 
   React.useEffect(() => {
+    storeChoiceLeadFromUrl();
 
     function handleClickOutside(event) {
       if (rmDetailRef.current && !rmDetailRef.current.contains(event.target)) {
@@ -69,6 +71,7 @@ function TaxExpertRmDetails() {
   };
 
   const payNowHandler = () => {
+    storeChoiceLeadFromUrl();
     // if (!loggedIn) {
     //   return // checksession();
     // }

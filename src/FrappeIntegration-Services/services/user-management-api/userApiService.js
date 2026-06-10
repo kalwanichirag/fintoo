@@ -1,6 +1,7 @@
 import { userManagementEndpoints, DATA_BELONGS_TO, financialplanningInsuranceEndpoints } from "../../../constants";
 import apiClient from "../apiClient"
 import Cookies from "js-cookie";
+import { clearLocalStorageExcept } from "../../../Utils/storage";
 
 // CHECK_EMAIL API
 export const checkEmail = async (payload) => {
@@ -129,7 +130,7 @@ export const userLogout = async () => {
     Cookies.remove('user_data');
     localStorage.removeItem('auth_view');
     localStorage.removeItem('verification_flow');
-    localStorage.clear();
+    clearLocalStorageExcept(["leadData"]);
     window.location.href = '/login';
 
 };
@@ -552,6 +553,5 @@ export const updateOpportunityStatus = async (payload) => {
         throw error;
     }
 };
-
 
 

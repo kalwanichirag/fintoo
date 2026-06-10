@@ -14,7 +14,7 @@ import OTPInput from "otp-input-react";
 
 const TwoFactorOtpModal = (props) => {
   const user_data = JSON.parse(localStorage.getItem("user_data"));
-  
+
   const timer = useRef({ obj: null, counter: 120, default: 120 });
   const otpRef = useRef(null);
   const [count, setCount] = useState(120);
@@ -31,10 +31,11 @@ const TwoFactorOtpModal = (props) => {
 
   useEffect(() => {
     onLoadInIt();
-    
-    fetchMail();
-    fetchSms();
-  }, [useremail,usermobile,username]);
+    if (useremail && usermobile) {
+      fetchMail();
+      fetchSms();
+    }
+  }, [useremail, usermobile, username]);
 
   const handleOtpChange = (e) => {
     if (e.target.value.length > 5) {
@@ -111,7 +112,7 @@ const TwoFactorOtpModal = (props) => {
         identifier: usermobile,
         for_otp: "mobile"
       }
-  
+
       await sendOTP(payload);
     } catch (err) {
       console.error("SMS sending failed:", err);
@@ -119,18 +120,16 @@ const TwoFactorOtpModal = (props) => {
   };
 
   const fetchMail = async () => {
-    // const otp = otpRef.current || generateOTP();
-    // setGeneratedEmailOTP(otp);
+    try {
+      const payload = {
+        identifier: useremail,
+        for_otp: "email"
+      }
 
-    // try {
-    //   const payload = {
-    //     identifier: useremail
-    //   };
-      
-    //   const res = await sendOTP(payload);
-    // } catch (err) {
-    //   console.error("Email sending failed:", err);
-    // }
+      await sendOTP(payload);
+    } catch (err) {
+      console.error("SMS sending failed:", err);
+    }
   };
 
   const onLoadInIt = async () => {
@@ -178,7 +177,7 @@ const TwoFactorOtpModal = (props) => {
   //     setusermobile(userData.mobile || "");
   //   }
   // }, []);
-  
+
   // useEffect(() => {
   //   if (useremail && usermobile) {
   //     // ✅ this runs only once because of ref guard
@@ -197,7 +196,7 @@ const TwoFactorOtpModal = (props) => {
     timer.current.counter = timer.current.default;
     startTimer();
   }, []);
-  
+
   var props_data = props.value;
 
   return (

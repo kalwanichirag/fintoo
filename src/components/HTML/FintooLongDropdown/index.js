@@ -33,7 +33,7 @@ const FintooLongDropdown = (props) => {
   }, []);
 
   useEffect(()=> {
-    setFoundFund(props_data)
+    setFoundFund(props.value)
   }, []);
 
   useEffect(() => {
@@ -51,15 +51,13 @@ const FintooLongDropdown = (props) => {
     }
   }, [selected]); 
 
-var props_data = props.value;
-
 const handleSearch = async (e) => {
   const keyword = e.target.value;
   setSearchTerm(keyword);
   if (keyword !== "" && keyword.length > 2) {
     const searchedFund = await fetchschemecode(keyword);
   }else if (keyword.length <= 2) { 
-    setFoundFund(props_data);
+    setFoundFund(props.value);
 
   }
 };

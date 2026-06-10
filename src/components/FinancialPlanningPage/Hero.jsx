@@ -8,11 +8,11 @@ const HeroSection = ({onBookClick}) => {
     >
       <div className="tw-absolute tw-inset-0 tw-bg-black/10"></div>
 
-      <div className="tw-container tw-mx-auto tw-px-6 tw-relative tw-z-10">
-        <div className="tw-grid lg:tw-grid-cols-2 tw-gap-12 tw-items-center ">
+      <div className="tw-container tw-mx-auto tw-px-4 sm:tw-px-6 tw-relative tw-z-10">
+        <div className="tw-grid lg:tw-grid-cols-2 tw-gap-10 lg:tw-gap-12 tw-items-center ">
           {/* Left Content */}
           <div className="tw-fade-in">
-            <div className="tw-flex tw-items-center  tw-gap-3 tw-mb-6">
+            <div className="tw-flex tw-flex-wrap tw-items-center tw-gap-2 sm:tw-gap-3 tw-mb-6">
               <div className="tw-flex tw-items-center tw-space-x-1 tw-bg-white/20 tw-px-3 tw-py-1 tw-rounded-full">
                 <i className="fas fa-star tw-text-yellow-400"></i>
                 <span className="tw-text-sm">20+ Years Experience</span>
@@ -29,18 +29,17 @@ const HeroSection = ({onBookClick}) => {
               </div>
             </div>
 
-            <h1 className="tw-text-[2.5rem] lg:tw-text-6xl tw-font-bold tw-mb-6 tw-leading-tight">
+            <h1 className="tw-text-[2.15rem] sm:tw-text-[2.5rem] lg:tw-text-6xl tw-font-bold tw-mb-5 sm:tw-mb-6 tw-leading-tight">
               Plan Your Wealth,
               <br />
               <span className="tw-text-orange-400">Secure Your Future</span>
             </h1>
 
-            <p className="tw-text-xl tw-mb-4 tw-text-blue-100">
-              Best Financial Advice for Indian Professionals &amp; Business
-              Owners
+            <p className="tw-text-lg sm:tw-text-xl tw-mb-4 tw-text-blue-100">
+              Personalized Financial Planning for working professionals in India.
             </p>
 
-            <p className="tw-text-lg tw-mb-8 tw-text-blue-200">
+            <p className="tw-text-base sm:tw-text-lg tw-leading-relaxed tw-mb-8 tw-text-blue-200">
               Personalized Financial Planning &amp; Investment Advisory.
               <br />
               Book your complimentary 15-min virtual consultation with a
@@ -49,14 +48,14 @@ const HeroSection = ({onBookClick}) => {
 
             <div className="tw-flex tw-flex-col sm:tw-flex-row tw-gap-4">
               <a onClick={onBookClick}
- className="tw-cursor-pointer  tw-text-white tw-no-underline hover:tw-text-white tw-gradient-orange tw-text-white tw-px-8 tw-py-4 tw-rounded-full tw-font-semibold tw-text-lg hover:tw-shadow-xl tw-transition-all tw-duration-300">
+ className="tw-cursor-pointer tw-inline-flex tw-items-center tw-justify-center tw-text-white tw-no-underline hover:tw-text-white tw-gradient-orange tw-px-6 sm:tw-px-8 tw-py-4 tw-rounded-full tw-font-semibold tw-text-base sm:tw-text-lg hover:tw-shadow-xl tw-transition-all tw-duration-300">
                 <i className="fas fa-calendar-alt tw-mr-2"></i>
                 Book Your Free Session
               </a>
             </div>
-            <div className="tw-flex tw-items-center  tw-text-sm  tw-gap-3 tw-mt-8">
+            <div className="tw-flex tw-flex-wrap tw-items-center tw-text-sm tw-gap-x-5 tw-gap-y-3 tw-mt-8">
 
-              <div className="tw-flex tw-items-center  tw-space-x-2">
+              <div className="tw-flex tw-items-center tw-space-x-2">
                 <i className="fas fa-check-circle tw-text-green-400"></i>
                 <span>No Hidden Fees</span>
               </div>
@@ -84,9 +83,9 @@ const HeroSection = ({onBookClick}) => {
               <div className="tw-absolute -tw-top-4 -tw-right-4 tw-bg-white tw-rounded-2xl tw-p-4 tw-shadow-xl tw-animate-bounce-slow">
                 <div className="tw-text-center">
                   <div className="tw-text-2xl tw-font-bold tw-text-green-600">
-                    14.8%
+                    ₹217Cr+
                   </div>
-                  <div className="tw-text-sm tw-text-gray-600">Avg Returns</div>
+                  <div className="tw-text-sm tw-text-gray-600">AUA</div>
                 </div>
               </div>
 
@@ -96,11 +95,12 @@ const HeroSection = ({onBookClick}) => {
               >
                 <div className="tw-text-center">
                   <div className="tw-text-2xl tw-font-bold tw-text-blue-600">
-                    ₹500Cr+
+                    ₹4000Cr+
                   </div>
-                  <div className="tw-text-sm tw-text-gray-600">AUM</div>
+                  <div className="tw-text-sm tw-text-gray-600">AUT</div>
                 </div>
               </div>
+              
 
               <div className="tw-absolute tw-top-1/2 -tw-left-6 tw-bg-orange-500 tw-text-white tw-rounded-full tw-p-3 tw-shadow-xl">
                 <div className="tw-flex tw-items-center tw-space-x-2">

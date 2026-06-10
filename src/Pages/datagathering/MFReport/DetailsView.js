@@ -396,7 +396,7 @@ const DetailsView = (props) => {
                     </form>
 
                     <div className={`mt-5 ${props.sendDisabled ? Styles.continueBtnsDisable : Styles.continueBtns}`}>
-                        <button onClick={handleSendOTP} className="custom-background-color">
+                        <button onClick={props.SmallcaseSDK} className="custom-background-color">
                             Fetch Holdings
                         </button>
                     </div>

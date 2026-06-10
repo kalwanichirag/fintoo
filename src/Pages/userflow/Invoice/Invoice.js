@@ -68,9 +68,9 @@ function Invoice() {
                   <tr key={item.name || index}>
                     <td>Financial Planning</td>
                     {/* <td>{item.service_name_c || '-'}</td> */}
-                    <td><span>{item.custom_plan_name || '-'}</span></td>
-                    <td>{indianRupeeFormat(item.grand_total)}</td>
-                    <td>{item.posting_date}</td>
+                    <td><span>{item.plan_name || '-'}</span></td>
+                    <td>{indianRupeeFormat(item.paid_amount)}</td>
+                    <td>{item.invoice_date}</td>
                     <td className="text-center">
                         <a
                           href={item.invoice_file_url}

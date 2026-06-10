@@ -544,7 +544,7 @@ function YourInfo(props) {
                 props.setTab("tab2");
                 setIsLoading(false)
                 // getknowyourstatus();
-                update_opportunity_status();
+                // update_opportunity_status();
                 check_profile_status();
                 // updateretirementdate();
 
@@ -733,21 +733,21 @@ function YourInfo(props) {
     };
 
 
-    const update_opportunity_status = async () => {
-        try {
-            let opp_id = getItemLocal("opportunity_id")
-            let payload = {
-                "party_name": leadId,
-                "opportunity_id": opp_id,
-                "custom_opportunity_status": "Data Gathering Scheduled"
-            }
-            var config_pfs = await updateOpportunityStatus(payload)
-            console.log("congid",config_pfs,payload)
-        }
-        catch (e) {
-            console.log('Error', e);
-        }
-    };
+    // const update_opportunity_status = async () => {
+    //     try {
+    //         let opp_id = getItemLocal("opportunity_id")
+    //         let payload = {
+    //             "party_name": leadId,
+    //             "opportunity_id": opp_id,
+    //             "custom_opportunity_status": "Data Gathering Scheduled"
+    //         }
+    //         var config_pfs = await updateOpportunityStatus(payload)
+    //         console.log("congid",config_pfs,payload)
+    //     }
+    //     catch (e) {
+    //         console.log('Error', e);
+    //     }
+    // };
 
     const checkRetirementAge = (retAge) => {
         if (retAge && age) {

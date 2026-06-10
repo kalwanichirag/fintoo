@@ -98,6 +98,7 @@ function isInputInPolicy(inputName, policyType) {
 
 const initialValues = {
   goldType: "",
+  userAssetName: "",
   goldMemberName: "",
   numberOfUnits: "",
   purchasePrice: "",
@@ -213,6 +214,10 @@ const NewGoldFormView = () => {
     }
 
     if (formData.goldType === "Others") {
+      if (!formData.userAssetName?.trim()) {
+        simpleValidator.current.showMessageFor("userAssetName");
+        hasValidationErrors = true;
+      }
       if (formData.numberOfGms && Number(formData.numberOfGms) <= 0) {
         simpleValidator.current.showMessageFor("numberOfGms");
         hasValidationErrors = true;
@@ -525,7 +530,7 @@ const NewGoldFormView = () => {
           if (assetName === "Sovereign Gold Bonds")
             return "Sovereign Gold Bonds";
           if (assetName === "Others") return "Others";
-          return assetName; // fallback
+          return "Others";
         };
 
         const goldType = mapAssetNameToGoldType(assetDetails.user_asset_name);
@@ -551,7 +556,7 @@ const NewGoldFormView = () => {
 
         // For "Others" category, use user_asset_investment_amount directly as totalInvestedValue
         const totalInvestedValue =
-          assetDetails.user_asset_name === "Others"
+          goldType === "Others"
             ? assetDetails.user_asset_investment_amount
             : investedAmount;
 
@@ -559,11 +564,17 @@ const NewGoldFormView = () => {
         setFormData((prevFormData) => ({
           ...prevFormData,
           goldType: goldType,
+          userAssetName:
+            goldType === "Others" &&
+            assetDetails.user_asset_name !== "Others" &&
+            assetDetails.user_asset_name
+              ? assetDetails.user_asset_name
+              : "",
           numberOfUnits: assetDetails.user_asset_quantity || "",
           numberOfGms: assetDetails.user_asset_quantity || "",
           // For Others category, don't set purchasePrice since it's not collected
           purchasePrice:
-            assetDetails.user_asset_name === "Others"
+            goldType === "Others"
               ? ""
               : assetDetails.user_asset_avg_purchase_price || "",
           currentValue: assetDetails.user_asset_current_amount || "",
@@ -575,7 +586,7 @@ const NewGoldFormView = () => {
 
         // Set investedAmount for all categories except Others (which uses totalInvestedValue directly)
         // Physical Gold should also use user_asset_investment_amount for consistency in table display
-        if (assetDetails.user_asset_name !== "Others") {
+        if (goldType !== "Others") {
           setInvestedAmount(investedAmount);
         }
         setCurrentValue(assetDetails.user_asset_current_amount || 0);
@@ -793,7 +804,10 @@ const NewGoldFormView = () => {
 
       // Build the new API body format
       let goldformData = {
-        user_asset_name: goldDetails.asset_sub_name || formData.goldType, // Use subcategory name to match table expectations
+        user_asset_name:
+          formData.goldType === "Others"
+            ? formData.userAssetName.trim()
+            : goldDetails.asset_sub_name || formData.goldType,
         asset_cat_id: goldDetails.asset_id,
         asset_name_uuid: goldDetails.asset_name_uuid, // Required by API
         asset_sub_cat_id: goldDetails.asset_sub_id,
@@ -1038,6 +1052,7 @@ const NewGoldFormView = () => {
   const emptystates = () => {
     setFormData((prevformData) => ({
       ...prevformData,
+      userAssetName: "",
       purchasePrice: "",
       numberOfGms: "",
       currentPrice: "",
@@ -1162,6 +1177,29 @@ const NewGoldFormView = () => {
                     )}
                   </div>
                 </div>
+                {formData.goldType === "Others" && (
+                  <div className="my-md-4">
+                    <div>
+                      <span className="lbl-newbond">
+                        Enter Other Investment Name *
+                      </span>
+                      <br />
+                      <input
+                        placeholder="Enter investment name"
+                        className="w-100 fntoo-textbox-react"
+                        type="text"
+                        name="userAssetName"
+                        value={formData.userAssetName}
+                        onChange={(e) => onInputChange(e, false)}
+                      />
+                      {simpleValidator.current.message(
+                        "userAssetName",
+                        formData.userAssetName,
+                        "required"
+                      )}
+                    </div>
+                  </div>
+                )}
                 <div className="my-md-4">
                   <div className="">
                     <span className="lbl-newbond">

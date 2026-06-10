@@ -728,7 +728,7 @@ function NomineeList(props) {
                     <div className="sm:w-100">
                       <div className="memeber-logo">
                         <img
-                          src={process.env.REACT_APP_STATIC_URL + "media/DMF/uni-user-ic.svg"}
+                          src={ProfileImage}
                         />
                       </div>
                     </div>

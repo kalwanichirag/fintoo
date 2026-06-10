@@ -8,7 +8,7 @@ import {
 } from "../common_utilities";
 import FintooLoader from "../components/FintooLoader";
 import "../checkboxstyle.css";
-import { BASE_API_URL, DATA_BELONGS_TO } from "../constants";
+import { BASE_API_URL, DATA_BELONGS_TO, FRAPPE_BASE_API_URL } from "../constants";
 import * as toastr from "toastr";
 import "toastr/build/toastr.css";
 import HideHeader from "../components/HideHeader";
@@ -20,6 +20,7 @@ import {
   Getpaymentstatus,
   Paymentfail,
   Paymentsuccess,
+  VerifyPayment,
 } from "../FrappeIntegration-Services/services/payment-api/paymentapiService";
 import { IoMdArrowBack } from "react-icons/io";
 import style from "./style.module.css";
@@ -286,6 +287,7 @@ const PaymentPage = () => {
         planUUID === "tax_plan"
           ? parseInt(paymentPayloadData.gross_amount)
           : parseInt(totalAmount),
+      user_id: getParentUserId()
     };
 
     try {
@@ -293,7 +295,7 @@ const PaymentPage = () => {
 
       if (response.status_code === 200 && response.data?.order_id) {
         setOrderID(response.data.order_id);
-        return response.data.order_id;
+        return response.data;
       } else {
         console.error("Order ID generation failed", response);
         return null;
@@ -304,16 +306,35 @@ const PaymentPage = () => {
     }
   };
 
-  const loadRazorpayScript = () => {
+  const VerifyCashfreePayment = async (order_Id) => {
+    try {
+      const response = await VerifyPayment(order_Id);
+
+      if (response.status_code === 200 && response.data?.payment_status) {
+        return response
+      } else {
+        console.error("verify payment error", response);
+        return {};
+      }
+    } catch (error) {
+      console.error("Error verify payment:", error);
+      return {};
+    }
+  };
+
+  const loadCashfreeScript = () => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
+
       script.onload = () => {
         resolve(true);
       };
+
       script.onerror = () => {
         resolve(false);
       };
+
       document.body.appendChild(script);
     });
   };
@@ -380,15 +401,15 @@ const PaymentPage = () => {
             const today = new Date();
             const plan = paymentStatus?.data;
             const expiryDate = new Date(plan.plan_expiry_date);
-            if (selectedPlanId && plan.user_pay_plan_id){
+            if (selectedPlanId && plan.user_pay_plan_id) {
               if (selectedPlanId == plan.user_pay_plan_id) {
                 if (today < expiryDate) {
                   toastr.options.positionClass = "toast-bottom-left";
                   toastr.error("You have already paid for this service.");
                   navigate(`${process.env.PUBLIC_URL}/commondashboard`);
                 }
-              }  
-            } else{
+              }
+            } else {
               checkout();
             }
           }
@@ -420,105 +441,61 @@ const PaymentPage = () => {
       return;
     }
 
-    const isScriptLoaded = await loadRazorpayScript();
+    const isScriptLoaded = await loadCashfreeScript();
 
     if (!isScriptLoaded) {
-      // alert("Razorpay SDK failed to load. Are you online?");
       return;
     }
     const generatedOrderId = await CreateOrderID();
     if (!generatedOrderId) {
-      // alert("Order ID generation failed.");
       return;
     }
+    const paymentSessionId = generatedOrderId.payment_session_id;
+    const order_Id = generatedOrderId.order_id;
 
-    const options = {
-      key:  process.env.REACT_APP_MODE == "live" ? "rzp_live_rYE1IuyTWkWiDv" : "rzp_test_SA4S6rcFbk4JvI",
-      amount:
-        planUUID == "tax_plan"
-          ? parseInt(paymentPayloadData.gross_amount) * 100
-          : totalAmount * 100,
-      currency: "INR",
-      name: "Fintoo",
-      description: "Financial Planning",
-      image:
-        "https://stg.minty.co.in/static/userflow/img/fintoo_razor_pay_logo.png",
-      callback_url: "/razor_pay_payment_success/",
-      order_id: orderId,
-      prefill: {
-        name: memberData[0].name,
-        email: memberData[0].user_email,
-        contact: "91" + memberData[0].mobile,
-      },
-      notes: {
-        address:
-          "Fintoo Wealth Private Limited B/309, Dynasty Business park, Opp Sangam Cinema, Andheri (East), J B Nagar, Mumbai, Maharashtra 400059",
-      },
-      theme: {
-        color: "#042b62",
-      },
-      readonly: {
-        contact: true,
-        email: true,
-        name: true,
-      },
-      config: {
-        display: {
-          hide: [{ method: "paylater" }],
-        },
-      },
-      handler: function (response) {
-        if (planUUID === "tax_plan") {
-          handlePaySuccess(response, generatedOrderId, false);
-        } else {
-          handlePaySuccess(response, generatedOrderId, true);
-        }
-      },
-      modal: {
-        ondismiss: function () {
-          //console.log("Payment popup closed by user");
-        },
-      },
+    // initialize cashfree sdk
+    const cashfree = window.Cashfree({
+      mode: process.env.REACT_APP_MODE == "live" ? "production" : "sandbox",
+    });
+
+    const checkoutOptions = {
+      paymentSessionId: paymentSessionId,
+      redirectTarget: "_modal",
     };
 
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
-
-    // Don’t run this right away — handle failure in `handler` or `modal.ondismiss`
-    rzp1.on("payment.failed", async function (response) {
-      const failure_payload = {
-        user_id: userData.user_id,
-        razorpay_order_id: orderId,
-        razorpay_payment_id: response.error.metadata.payment_id,
-        amount: totalAmount,
-        user_pay_plan_id: planUUID,
-        user_pay_coupon_code: enteredCoupon || "",
-      };
-      let decoded_res = await Paymentfail(failure_payload);
-      if (decoded_res) {
-        window.location.href = "/payment_failure/";
+    // open checkout
+    cashfree.checkout(checkoutOptions).then(async (result) => {
+      if (result.paymentDetails) {
+        const verify_payment = await VerifyCashfreePayment(order_Id);
+        if (verify_payment && verify_payment.status_code === 200 && verify_payment.data?.payment_status === "SUCCESS") {
+          handlePaySuccess(verify_payment.data.payment_id, order_Id, planUUID === "tax_plan" ? false : true);
+        }
+        else{
+          console.error("Payment Failed", verify_payment);
+        }
       }
     });
-  };
+  }
+
 
   // For tax-payment - API Pending
-  const handlePaySuccess = async (data, generatedOrderId, is_success) => {
+  const handlePaySuccess = async (trxn_id, generatedOrderId, is_success) => {
     const parsedCouponId =
       paymentPayloadData.c_id !== "" ? paymentPayloadData.c_id : null;
 
     let api_data_success = {
       razorpay_order_id: generatedOrderId,
-      razorpay_payment_id: data.razorpay_payment_id,
+      razorpay_payment_id: trxn_id,
       data_belongs_to: DATA_BELONGS_TO,
     };
-    
+
     if (is_success) {
       api_data_success = {
         user_id: getUserId(),
         plan_uuid: planId,
         total_amount: totalpay.toString(),
         coupon_name: couponApplied,
-        trxn_id: data.razorpay_payment_id,
+        trxn_id: trxn_id,
         data_belongs_to: DATA_BELONGS_TO
       };
     } else {
@@ -599,7 +576,7 @@ const PaymentPage = () => {
   };
 
   const skippayment = async () => {
-   
+
     var razorpay_payment_id = returnHash();
     if (isNDAChecked) {
       // if (planCartPay.length == 0) {
@@ -635,7 +612,7 @@ const PaymentPage = () => {
 
           default:
             toastr.options.positionClass = "toast-bottom-left";
-            toastr.error(response?.message  || "Something went wrong");
+            toastr.error(response?.message || "Something went wrong");
             setIsLoading(false);
             break;
         }
@@ -959,11 +936,11 @@ const PaymentPage = () => {
                                     gap: "5px", // Optional: spacing between image and text
                                   }}
                                 >
-                                 <FaGift
-  size={15}
-  color="#042b62"
-  style={{ marginRight: "4px" }}
-/>
+                                  <FaGift
+                                    size={15}
+                                    color="#042b62"
+                                    style={{ marginRight: "4px" }}
+                                  />
 
                                   <button
                                     type="button"
@@ -1215,7 +1192,7 @@ const PaymentPage = () => {
                                       id="ndacheck"
                                       className="custom-checkbox new"
                                       tabIndex="1"
-                                      checked={isNDAChecked} 
+                                      checked={isNDAChecked}
                                       onChange={handleNDAClick}
                                       style={{ zIndex: "2 !important" }}
                                     />

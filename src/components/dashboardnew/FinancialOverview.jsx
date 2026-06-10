@@ -78,7 +78,7 @@ const StatCard = ({
   return (
     <Wrapper {...wrapperProps}>
       <div
-        className={`tw-p-4 tw-rounded-xl tw-border ${style.bg} ${link ? "hover:tw-shadow-md tw-cursor-pointer tw-transition" : ""
+        className={`tw-p-3 md:tw-p-4 tw-rounded-xl tw-border ${style.bg} ${link ? "hover:tw-shadow-md tw-cursor-pointer tw-transition" : ""
           }`}
       >
         {label && (
@@ -160,6 +160,7 @@ export default function FinancialOverview({ state = "filled" }) {
 
   const chartRef = useRef(null);
   const chartContainerRef = useRef(null);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   const getMemberIdFn = () => {
     try {
@@ -334,7 +335,7 @@ export default function FinancialOverview({ state = "filled" }) {
     }
 
     chartRef.current = Highcharts.chart(chartContainerRef.current, {
-      chart: { type: "pie", height: 400 },
+      chart: { type: "pie", height: isMobile ? 250 : 400 },
       title: { text: "Expenses Breakdown" },
       series: [
         {
@@ -370,19 +371,19 @@ export default function FinancialOverview({ state = "filled" }) {
 
   return (
     <StateBlock state={state} show="filled">
-      <div className="lg:tw-col-span-2  tw-rounded-2xl tw-p-6">
+      <div className="lg:tw-col-span-2 tw-rounded-2xl tw-p-4 md:tw-p-6">
         {isEmpty ? (
           <EmptyFinancialOverview />
         ) : (
           <>
-            <div className="tw-flex tw-items-center tw-justify-between tw-mb-6">
+            <div className="tw-flex tw-items-start md:tw-items-center tw-justify-between tw-mb-4 md:tw-mb-6">
   <div>
-    <h2 className="tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1">
+    <h2 className="tw-text-lg md:tw-text-xl tw-font-bold tw-text-slate-900 tw-mb-1">
       Financial Overview
     </h2>
 
     {/* Linked Accounts */}
-    <div className="tw-flex tw-items-center tw-gap-2 tw-flex-wrap">
+    <div className="tw-flex tw-items-center tw-gap-1.5 md:tw-gap-2 tw-flex-wrap">
       <span className="tw-text-sm tw-text-slate-500 tw-font-medium">
         Linked Accounts ({bankSummary?.totalAccounts || 0})
       </span>
@@ -410,14 +411,14 @@ export default function FinancialOverview({ state = "filled" }) {
   </div>
 
   <Link to="/money-management/bank-tracking-overview">
-    <div className="tw-bg-fintoo-blue tw-text-white tw-text-xs tw-font-semibold tw-py-2 tw-px-4 tw-rounded-lg tw-flex tw-items-center hover:tw-opacity-90">
+    <div className="tw-bg-fintoo-blue tw-text-white tw-text-xs tw-font-semibold tw-py-2 tw-px-3 md:tw-px-4 tw-rounded-lg tw-flex tw-items-center hover:tw-opacity-90">
       <FaLink className="tw-mr-2" />
       Link Bank
     </div>
   </Link>
 </div>
               
-            <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-4 tw-mb-8">
+            <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-3 md:tw-gap-4 tw-mb-5 md:tw-mb-8">
               {!loading && dashboardStats && (
                 <>
                   <StatCard {...dashboardStats.bankBalance} />
@@ -428,16 +429,16 @@ export default function FinancialOverview({ state = "filled" }) {
               )}
             </div>
 
-            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-6">
-              <div className="tw-h-[400px]">
+            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-4 md:tw-gap-6">
+              <div className="tw-h-[250px] md:tw-h-[400px]">
                 <div ref={chartContainerRef} className="tw-h-full" />
               </div>
 
-              <div className="tw-space-y-3">
+              <div className="tw-space-y-2.5 md:tw-space-y-3 tw-pr-1">
                 {expenseBreakup.map((item, i) => (
                   <div
                     key={i}
-                    className="tw-flex tw-items-center tw-justify-between tw-p-3 tw-rounded-lg tw-bg-slate-50"
+                    className="tw-flex tw-items-center tw-justify-between tw-p-2.5 md:tw-p-3 tw-rounded-lg tw-bg-slate-50"
                   >
                     <div className="tw-flex tw-items-center">
                       <div

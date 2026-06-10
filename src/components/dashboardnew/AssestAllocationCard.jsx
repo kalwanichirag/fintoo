@@ -34,6 +34,7 @@ const TODAY = new Date().toDateString();
 
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   // ---------------- FETCH DATA ----------------
   const fetchAllocation = async (silent = false) => {
@@ -125,7 +126,7 @@ const hasValidAllocation =
       chart: {
         type: "pie",
         backgroundColor: "transparent",
-        height: 300,
+        height: isMobile ? 230 : 300,
       },
       title: { text: null },
       credits: { enabled: false },
@@ -136,7 +137,7 @@ const hasValidAllocation =
         pie: {
           innerSize: "60%",
           dataLabels: {
-            enabled: true,
+            enabled: !isMobile,
             format: "<b>{point.name}</b><br>{point.percentage:.1f}%",
             style: {
               fontSize: "10px",
@@ -167,16 +168,16 @@ const hasValidAllocation =
       {/* FILLED STATE */}
       <StateBlock state={state} show="filled">
         <div className="">
-          <div className="tw-p-6 tw-border-b tw-border-gray-100">
-            <h3 className="tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-0 tw-pb-0 ">
+          <div className="tw-p-4 md:tw-p-6 tw-border-b tw-border-gray-100">
+            <h3 className="tw-text-xl tw-font-bold tw-text-slate-900 tw-mb-0 tw-pb-0 ">
               Asset Allocation Overview
             </h3>
-             <p className="tw-text-sm tw-text-slate-500 tw-mb-0" >
+             <p className="tw-text-sm tw-text-slate-500 tw-mb-0 " >
         Track and manage your financial goals
       </p>
           </div>
 
-          <div className="tw-p-6 tw-pt-0">
+          <div className="tw-p-4 md:tw-p-6 tw-pt-0">
            {loading ? (
   <div className="tw-text-center tw-text-slate-500 tw-py-10">
     Loading asset allocation...
@@ -186,7 +187,7 @@ const hasValidAllocation =
 ) : (
   <>
     {/* CHART */}
-    <div ref={chartRef}></div>
+    <div ref={chartRef} className="tw-mt-1 md:tw-mt-0"></div>
 
     {/* LEGEND */}
     <div className="tw-mt-4 tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-x-6 tw-gap-y-3">
@@ -225,7 +226,7 @@ const hasValidAllocation =
       <StateBlock state={state} show="empty">
         <div className="glass-card tw-rounded-2xl tw-shadow-sm tw-border tw-border-gray-100">
           <div className="tw-p-6 tw-border-b tw-border-gray-100">
-            <h3 className="tw-text-xl tw-font-bold tw-text-slate-800">
+            <h3 className="tw-text-xl tw-font-bold tw-text-slate-900">
               Asset Allocation Overview
             </h3>
           </div>

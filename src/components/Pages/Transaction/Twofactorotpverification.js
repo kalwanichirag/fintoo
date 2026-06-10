@@ -25,6 +25,8 @@ const Twofactorotpverification = (props) => {
   const [nomineeflag, setnomineeflag] = useState("");
   const [username, SetName] = useState("");
   const [OTP, setOTP] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const otpFlowLockRef = useRef(false);
 
   // const user_data = JSON.parse(localStorage.getItem("user_data"));
 
@@ -51,11 +53,24 @@ const Twofactorotpverification = (props) => {
   };
 
   const submitOtp = async () => {
-    const isVerified = await verifyOTPCode();
-    if (!isVerified) {
-      setValidOtp(false);
+    if (otpFlowLockRef.current) return;
+
+    otpFlowLockRef.current = true;
+
+    try {
+      const isVerified = await verifyOTPCode();
+
+      if (!isVerified) {
+        setValidOtp(false);
+        return;
+      }
+
+      await props.onSubmit();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      otpFlowLockRef.current = false;
     }
-    props.onSubmit();
   };
 
   const updatenominee = async () => {
@@ -186,7 +201,9 @@ const Twofactorotpverification = (props) => {
     }, 1000);
   };
 
-  var props_data = props.value;
+  const submitOtpHandler = () => {
+    submitOtp();
+  };
 
   return (
     <>
@@ -243,14 +260,13 @@ const Twofactorotpverification = (props) => {
               {validOtp ? <> </> : <p className="red-color">Invalid OTP</p>}
             </div>
 
-            <div
+            <button
               className="mt-3 switch-fund-btn mobile-bottom-button"
-              onClick={() => {
-                submitOtp();
-              }}
+              style={{ width: "100%" }}
+              disabled={isSubmitting} onClick={submitOtpHandler}
             >
-              Submit
-            </div>
+              {isSubmitting ? "Processing..." : "Submit"}
+            </button>
           </div>
         </div>
       </Modal.Body>

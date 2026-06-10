@@ -111,12 +111,12 @@ const ProfileInsiderDashboard = (props) => {
 
       var userDetails = await fetchUserProfileDetails(userid);
       
-      if (userDetails.data.user_holding_nature == "AHN-1") {
+      if (userDetails.data.account_holding_nature_label == "Single") {
         setHoldingNature("Single");
-      } else if (userDetails.data.user_holding_nature == "AHN-3") {
+      } else if (userDetails.data.account_holding_nature_label == "Joint") {
         setHoldingNature("Joint");
-      } else if (userDetails.data.user_holding_nature == "AHN-2") {
-        setHoldingNature("Anyone or Survivor");
+      } else if (userDetails.data.account_holding_nature_label == "Either or survivor") {
+        setHoldingNature("Either or survivor");
       } else {
         setHoldingNature("");
       }

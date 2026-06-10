@@ -21,6 +21,7 @@ import { fetchEncryptData, getUserId } from "../../common_utilities";
 import { Link,useNavigate } from "react-router-dom";
 import { Select } from "evergreen-ui";
 import { fetchUserProfileDetails } from "../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import { clearLocalStorageExcept } from "../../Utils/storage";
 
 const DashboardTopMenu = (props) => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const DashboardTopMenu = (props) => {
   var user_id = localStorage.getItem("userid");
 
   const logout = () => {
-    localStorage.clear();
+    clearLocalStorageExcept(["leadData"]);
     props.dispatch({ type: "LOGGIN_LOGOUT", payload: false });
   };
   

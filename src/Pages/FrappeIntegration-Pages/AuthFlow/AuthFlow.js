@@ -203,7 +203,7 @@ export default function AuthFlow({ setview, setVerificationFlow, userDetails, se
                         <div className={styles.flexCenter}>
                             <h1 className={`mb-0 ${styles.heading}`}>Welcome to </h1>
                             <Link to={`/`}>
-                                <img src={process.env.REACT_APP_STATIC_URL + "media/wp/Fintoologo_.svg"} alt="FintooLogo" style={{ width: '100px' }} /></Link>
+                                <img src={process.env.REACT_APP_STATIC_URL + "media/wp/Fintoologo_.svg"} alt="FintooLogo" style={{ width: '120px' }} /></Link>
                         </div>
 
                         <div className={styles.viewSpacing}>
@@ -258,7 +258,7 @@ export default function AuthFlow({ setview, setVerificationFlow, userDetails, se
                             <div>
                                 <div>
                                     <label className={styles.inputLabel} htmlFor="email">Email Address</label>
-                                    <span className="relative">
+                                    <span className={styles.inputWithIcon}>
                                         <input
                                             id="email"
                                             type="email"

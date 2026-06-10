@@ -11,6 +11,7 @@ export const FRAPPE_BASE_URL = "https://fintoodev.frappe.cloud/api/method/";
 export const BASE_API_FRAPPE_URL = process.env.REACT_APP_BASE_FRAPPE_API_URL;
 export const RAZORPAY_API_URL = "https://ifsc.razorpay.com/";
 export const DMF_BASE_URL = process.env.REACT_APP_DMF_BASE_URL;
+export const CRM_BASE_URL = process.env.REACT_APP_CRM_BASE_URL;
 // export const BASE_API_URL = 'http://127.0.0.1:8000/'; //local
 // export const STATIC_URL = 'http://127.0.0.1:8000/static/';
 export const FRAPPE_BASE_API_URL = "https://fintoodev.frappe.cloud/";
@@ -68,6 +69,8 @@ export const RAZOR_PAY_SECRET = process.env.REACT_APP_MODE == "live" ? "GOfFTB1H
 export const ASSESSMENT_YEAR = '2025-26';
 export const RAZORPAY_CHECKOUT = "https://checkout.razorpay.com/v1/checkout.js";
 
+export const X_CRM_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4ZjNhZDQ5MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczNDY2NzIwMH0.b9cD4qLQZxWm2A8nKpF7S3JvE0R6uT1HhYc5M2X9aQs";
+export const X_CRM_USER = "online@fintoo.in";
 
 /******************************************************************************* Frappe API Endpoints ********************************************************************************************************/
 
@@ -171,7 +174,7 @@ export const userManagementEndpoints = {
   UPDATE_APPOINTMENT_DETAILS: `${userManagementBaseAPIUrl}/update_appointment_details`,
   FETCH_USER_MF_PROFILE_STATUS: `${userManagementBaseAPIUrl}/fetch_user_mf_profile_status`,
   DELETE_BANK_DETAILS: `${userManagementBaseAPIUrl}/delete_bank_details`,
-  UPDATE_CUSTOM_OPPORTUNITY_STATUS: `${userManagementBaseAPIUrl}/update_opportunity_status`,
+  // UPDATE_CUSTOM_OPPORTUNITY_STATUS: `${userManagementBaseAPIUrl}/update_opportunity_status`,
 
 
   // Check All status 
@@ -179,6 +182,7 @@ export const userManagementEndpoints = {
   CHECK_ALL_STATUS_API: `${financialplanningBaseAPIUrl}/check_all_status_api`
 };
 
+export const VALIDATE_REDIRECTION = `${CRM_BASE_URL}/validate_redirection`
 // money management endpoints
 
 export const FINVU_BASE_API_URL = "https://fintoo.fiulive.finfactor.co.in/finsense/API/V2"
@@ -230,11 +234,13 @@ export const investmentEndpoints = {
   UPDATE_CART_API_URL: `${investmentBaseAPIUrl}/update_cart`,
   ADD_TO_CART_API_URL: `${investmentBaseAPIUrl}/add_to_cart`,
   ADD_SWITCH_TO_CART_API_URL: `${investmentBaseAPIUrl}/add_switch_to_cart`,
+  ADD_STP_TO_CART_API_URL: `${investmentBaseAPIUrl}/add_stp_to_cart`,
   UPDATE_CATEGORY_GOAL_LINKAGE: `${investmentBaseAPIUrl}/update_category_goal_linkage`,
   ADD_NOMINEE_DETAILS: `${investmentBaseAPIUrl}/add_nominee_details`,
   UPDATE_NOMINEE_DETAILS: `${investmentBaseAPIUrl}/update_nominee_details`,
   GET_MF_CATEGORIES: `${investmentBaseAPIUrl}/get_mf_categories`,
   DELETE_CART_FUND: `${investmentBaseAPIUrl}/delete_cart`,
+  DEACTIVATE_CART_FUND: `${investmentBaseAPIUrl}/deactivate_cart`,
   PLACE_ORDER : `${investmentBaseAPIUrl}/place_order`,
   SUCCESS_ORDER : `${investmentBaseAPIUrl}/success_order`,
   CANCEL_ORDER : `${investmentBaseAPIUrl}/cancel_order`,
@@ -245,6 +251,7 @@ export const investmentEndpoints = {
   ADD_TRANSACTION: `${investmentBaseAPIUrl}/add_transaction`,
   ADD_SWITCH_TRANSACTION: `${investmentBaseAPIUrl}/add_switch_transaction`,
   SWITCH_ORDER_ENTRY: `${investmentBaseAPIUrl}/switch_order_entry`,
+  STP_REGISTERATION: `${investmentBaseAPIUrl}/stp_registration`,
 };
 
 export const masterEndpoints = {
@@ -274,7 +281,6 @@ export const masterEndpoints = {
   GET_EMANDATE_AUTH_URL: `${financialplanningBaseAPIUrl}/get_emandate_auth_url`,
   SWP_REGISTERATION : `${financialplanningBaseAPIUrl}/swp_registeration`,
   SWP_CANCELLATION : `${financialplanningBaseAPIUrl}/swp_cancellation`,
-  STP_REGISTERATION : `${financialplanningBaseAPIUrl}/stp_registeration`,
   STP_CANCELLATION : `${financialplanningBaseAPIUrl}/stp_cancellation`,
   XSIPORDER_ENTRY : `${financialplanningBaseAPIUrl}/xsiporder_entry`,
   NORMALORDER_ENTRY : `${financialplanningBaseAPIUrl}/normalorder_entry`,
@@ -332,6 +338,7 @@ export const PaymentappEndpoints = {
   GET_BILLING_DETAILS: `${paymentappBaseAPIUrl}/get_billing_details`,
   GET_INVOICE_LIST: `${paymentappBaseAPIUrl}/get_invoice_list`,
   RENEW_PAYMENT: `${paymentappBaseAPIUrl}/renew_payment`,
+  VERIFY_PAYMENT: `${paymentappBaseAPIUrl}/verify_cashfree_payment_status`,
 };
 
 export const DashboardEndpoints = {

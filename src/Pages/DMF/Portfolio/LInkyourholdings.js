@@ -386,7 +386,8 @@ function LInkyourholdings(props) {
         let payload = {
           token: jwtTok.data.token,
           pan: selectedMember.pan,
-          mobile: selectedMember.mobile
+          mobile: selectedMember.mobile,
+          user_id: selectedMember.id
         }
         let trxnIdData = await GenerateMfTxnId(payload);
         setSmallcaseAuthToken(jwtTok.data.token)

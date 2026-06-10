@@ -1,5 +1,8 @@
 
 import React, { useEffect, useState } from "react";
+import "./dashboard.css";
+import "./mainData.css";
+import "./payment.css";
 //import { useEffect, useState } from "react";
 import FundList from "./components/Pages/MF_List";
 import { HelmetProvider } from "react-helmet-async";
@@ -27,7 +30,7 @@ import ProfileInsiderBankAccount from "./Pages/DMF/ProfileInsider/BankAccount";
 import ProfileInsiderNominee from "./Pages/DMF/ProfileInsider/Nominee";
 import PaymentSucess from "./components/Pages/ErrosPages/PaymentSuccess";
 import PaymentFailed from "./components/Pages/ErrosPages/PaymentFailed";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ProfileMandate from "./Pages/DMF/ProfileInsider/ProfileMandate";
 import Manadatestatus from "./Pages/DMF/ProfileInsider/Manadatestatus";
 import AddMembers from "./Pages/DMF/ProfileInsider/AddMembers";
@@ -118,6 +121,7 @@ import ItrFilling from "./Pages/itr-for-uae/itr-filling";
 import ITRFileLanding from "./Pages/ITRFileLanding";
 import Contactus2 from "./Pages/Contactus2";
 import ITRFileLandingae from "./Pages/ITRFileLandingae";
+import VerificationDocuments from "./Pages/datagathering/VerificationDocuments";
 
 // import AskFintoo from "./components/AskFintoo";
 import Title from "./components/Title";
@@ -199,6 +203,7 @@ import AuthCheck from "./Pages/FrappeIntegration-Pages/AuthFlow/AuthCheck";
 import ScrollToTop from "./ScrollToTop";
 import ApexChartsPage from "./components/Pages/Graph/Mobile_Graph";
 import MobileVerificationPage from "./components/Mobileverifycheck";
+import VerificationDocumentCheck from "./components/VerificationDocumentCheck";
 import MobileVerify from "./Pages/FrappeIntegration-Pages/verify-mobile-number/page";
 import OnboardflowPage from "./components/Mobileverifycheck/Onboardflow";
 import ProtectedPage from "./Services/ProtectedPage";
@@ -207,19 +212,23 @@ import InvestmentPlanningNew from "./Pages/Invest-planning/InvestmentPlannning";
 import ThankYouPage from "./Pages/Thankyoupage/Thankyoupage";
 import AdvanceTaxCalculator from "./Pages/Tax-calculators/AdvanceTaxCalculator";
 import InvestmentPlanningNewB from "./Pages/Invest-planning-b/InvestmentPlannning";
+import WomoneyaPage from "./Pages/womoneya/WomoneyaPage";
 import MainCssLoader from "./MainCssLoader";
+import CashfreeCheckoutPage from "./Pages/CashfreePaymentChekout";
 const store = createStore(fintooReducer);
 function AppShell() {
+  const location = useLocation();
 
   const [isLoading, setIsLoading] = useState(true);
   const [pageurl, setPageurl] = useState(false);
 
-  const currentPath = window.location.pathname
+  const currentPath = location.pathname;
+  const normalizedPath = currentPath.replace(/\/+$/, "") || "/";
 
 
-  let containsMutualFundSnippet = currentPath.includes('mutual-fund-snippet') || currentPath.includes('connect-with-us') || currentPath.includes('personal-financial-plan') || currentPath.includes('New-Page');
+  let containsMutualFundSnippet = normalizedPath.includes('mutual-fund-snippet') || normalizedPath.includes('connect-with-us') || normalizedPath.includes('personal-financial-plan') || normalizedPath.includes('New-Page');
 
-  let hideScrollToTop = currentPath.includes('financial-planning')
+  let hideScrollToTop = normalizedPath.includes('financial-planning')
 
   useEffect(() => {
     setIsLoading(false);
@@ -299,29 +308,47 @@ function AppShell() {
   };
 
   useScrollPercentageTrigger((percentage, direction) => {
+    if (!window?.webengage?.track) {
+      return;
+    }
+
     if (direction === "forward") {
-      webengage.track("forward scroll", {
+      window.webengage.track("forward scroll", {
         "scroll percentages": percentage
       })
     } else {
-      webengage.track("backward scroll", {
+      window.webengage.track("backward scroll", {
         "scroll percentages": percentage
       })
     }
   });
 
- const hidePaths = [
+const hidePaths = [
   "/approve-computation",
   "/retirement-planning",
   "/investment-planning",
   "/financial-advice",
    "/thankyou-page",
-  "/investment-plan"
+   "/investment-plan",
+ 
  ];
   
   
 
-const shouldHideHeaderFooter = hidePaths.includes(currentPath);
+const shouldHideHeaderFooter = hidePaths.some((path) => {
+  return normalizedPath === path || normalizedPath.startsWith(`${path}/`);
+});
+
+const hideHeaderOnlyPaths = [
+  "/womoneya",
+  "/womoneya-choice",
+];
+
+const shouldHideHeaderOnly = hideHeaderOnlyPaths.some((path) => {
+  return normalizedPath === path || normalizedPath.startsWith(`${path}/`);
+});
+
+const shouldHideHeader = shouldHideHeaderFooter || shouldHideHeaderOnly;
 
 
 
@@ -347,6 +374,7 @@ const shouldHideHeaderFooter = hidePaths.includes(currentPath);
         {/* <ScrollTracker onTrigger={handleScrollTrigger} /> */}
         <AutoLogout />
         <MobileVerificationPage />
+        <VerificationDocumentCheck />
         <OnboardflowPage />
         {/* <ProtectedPage /> */}
           <MainCssLoader/>
@@ -359,7 +387,7 @@ const shouldHideHeaderFooter = hidePaths.includes(currentPath);
             !hideScrollToTop && <FintooScrollToTop />
           } */}
           {/* <CallHeader /> */}
-          {!shouldHideHeaderFooter && isLoading == false && <MainHeader />}
+          {!shouldHideHeader && isLoading == false && <MainHeader />}
           <Title />
           {/* <NomineeInfoModal /> */}
 
@@ -421,7 +449,18 @@ const shouldHideHeaderFooter = hidePaths.includes(currentPath);
               exact
               path={`${process.env.PUBLIC_URL}/ipo`}
               element={<IpoPage />}
-            />
+          />
+           <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/womoneya`}
+            element={<WomoneyaPage />}
+            
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/womoneya-choice`}
+            element={<WomoneyaPage variant="association" />}
+          />
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/tax-planning-page`}
@@ -490,6 +529,11 @@ const shouldHideHeaderFooter = hidePaths.includes(currentPath);
               exact
               path={`${process.env.PUBLIC_URL}/investment-planning-page`}
               element={<InvestPlanning />}
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/datagathering/verification-docs`}
+              element={<VerificationDocuments />}
             />
             <Route
               exact
@@ -1401,6 +1445,7 @@ const shouldHideHeaderFooter = hidePaths.includes(currentPath);
               element={<PersonalFinancialPlan />}
             />
            
+           
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/loan-against-mutual-funds`}
@@ -1457,6 +1502,11 @@ const shouldHideHeaderFooter = hidePaths.includes(currentPath);
               exact
               path={`${process.env.PUBLIC_URL}/mobile-verfication`}
               element={<MobileVerify />}
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/checkout-payment`}
+              element={<CashfreeCheckoutPage />}
             />
           </Routes>
           {!shouldHideHeaderFooter && isLoading == false && <Footer />}

@@ -320,6 +320,9 @@ function Footer() {
                               alt="Download Fintoo app on play store"
                               className=" ls-is-cached lazyloaded"
                               loading="lazy"
+                              width="135"
+                              height="40"
+                              decoding="async"
                               src={
                                 process.env.REACT_APP_STATIC_URL +
                                 "media/footer/minty-android-app.webp"
@@ -339,6 +342,10 @@ function Footer() {
                             <img
                               alt="Download Fintoo app on app store"
                               className=" ls-is-cached lazyloaded"
+                              loading="lazy"
+                              width="135"
+                              height="40"
+                              decoding="async"
                               src={
                                 process.env.REACT_APP_STATIC_URL +
                                 "media/footer/minty-app-store.png"

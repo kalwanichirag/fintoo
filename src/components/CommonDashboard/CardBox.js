@@ -50,6 +50,7 @@ import { GetDocumentDetails } from "../../FrappeIntegration-Services/services/fi
 import { fetchUserProfileDetails } from "../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import { Getpaymentstatus } from "../../FrappeIntegration-Services/services/payment-api/paymentapiService";
 import MainDashboard from "../dashboardnew/MainContent";
+import { loginWebEngageSafe } from "../../Utils/Webengage/safeLogin";
 
 function CardBox({ lifecyclestatus, renewpopup, subscriptionenddate }) {
   const planIsExpired = getItemLocal("plan_is_expired");
@@ -476,17 +477,10 @@ function CardBox({ lifecyclestatus, renewpopup, subscriptionenddate }) {
 
   useEffect(() => {
     if (!userLeadId) return;
-
-    const loginWebEngage = () => {
-      if (window.webengage) {
-        webengage.user.login(userLeadId);
-        console.log("WebEngage login done:", userLeadId);
-      } else {
-        setTimeout(loginWebEngage, 200); // retry every 200ms until SDK loads
-      }
-    };
-
-    loginWebEngage();
+    const loggedIn = loginWebEngageSafe(userLeadId);
+    if (loggedIn) {
+      console.log("WebEngage login done:", userLeadId);
+    }
   }, [userLeadId]);
 
   const renewalDate = async () => {
@@ -532,10 +526,14 @@ useEffect(() => {
 }, [userLeadId]);
 
 
+const [useNewDashboard, setUseNewDashboard] = useState(true);
 
   return (
     <>
-
+ {useNewDashboard ? (
+      <MainDashboard />
+    ) : (
+          <>
 <MainDashboard/>
       <div className="d-md-flex justify-content-md-between justify-content-md-center">
         {renewpopup == 1 ? (
@@ -1165,7 +1163,9 @@ useEffect(() => {
 
 
       <MFReportModal open={openModalByName == 'MF_Screening'} CloseMfModal={CloseMfModal} setOpenModalByName={setOpenModalByName} fetchReportsData={fetchReportsData} />
-
+ </>
+       )}
+       
       {/* for Success Popup */}
       {/* <BootModal.Modal dialogClassName="Nsdlcsdl-modal-width"
         className="Modalpopup"

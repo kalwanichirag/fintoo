@@ -1,87 +1,105 @@
 .backdrop {
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background:
+        linear-gradient(135deg, rgba(3, 23, 58, 0.96) 0%, rgba(5, 44, 101, 0.94) 48%, rgba(11, 76, 130, 0.9) 100%),
+        linear-gradient(rgba(125, 180, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125, 180, 255, 0.12) 1px, transparent 1px);
+    background-size: auto, 32px 32px, 32px 32px;
     z-index: 50;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 24px;
+    overflow-y: auto;
 }
 
 .modalContainer {
     position: relative;
-    min-height: 450px;
+    min-height: 640px;
     display: flex;
-    width: 95%;
-    height: 70%;
-    background-color: #042b62;
-    border-radius: 0.75rem;
+    width: min(1180px, 100%);
+    min-width: 0;
+    background:
+        radial-gradient(circle at top left, rgba(102, 170, 255, 0.3), transparent 34%),
+        linear-gradient(160deg, rgba(4, 35, 86, 0.98) 0%, rgba(7, 54, 118, 0.95) 52%, rgba(8, 32, 74, 0.98) 100%);
+    border-radius: 32px;
+    border: 1px solid rgba(148, 198, 255, 0.2);
+    box-shadow: 0 32px 90px rgba(1, 11, 31, 0.42);
+    overflow: hidden;
 }
 
 @media (min-width: 768px) {
     .modalContainer {
-        width: 60%;
-        height: 50%;
+        min-height: 700px;
     }
 }
 
 @media (min-width: 1024px) {
     .modalContainer {
-        width: 30%;
-        height: 80%;
+        min-height: 80vh;
     }
 }
 
 .rightPanel {
     width: 100%;
-    height: 100%;
+    min-width: 0;
+    display: flex;
 }
 
 @media (min-width: 1280px) {
     .rightPanel {
-        width: 100%;
+        width: 48%;
     }
 }
 
 .whiteCard {
     width: 100%;
-    height: 100%;
-    background-color: white;
+    min-height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, #f7fbff 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0.75rem;
+    border-radius: 28px;
+    border: 1px solid rgba(226, 236, 248, 0.85);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    padding: 28px 18px;
 }
 
 .verificationWrapper {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Match backdrop color */
+    background:
+        linear-gradient(135deg, rgba(3, 23, 58, 0.96) 0%, rgba(5, 44, 101, 0.94) 48%, rgba(11, 76, 130, 0.9) 100%),
+        linear-gradient(rgba(125, 180, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125, 180, 255, 0.12) 1px, transparent 1px);
+    background-size: auto, 32px 32px, 32px 32px;
     z-index: 50;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 24px;
 }
 
 .verificationContainer {
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
-    background-color: white;
-    border-radius: 0.75rem;
-    border: 1px solid #F1F1F4;
-    width: 95%;
+    box-shadow: 0 32px 90px rgba(1, 11, 31, 0.42);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #f7fbff 100%);
+    border-radius: 28px;
+    border: 1px solid rgba(226, 236, 248, 0.85);
+    width: min(560px, 100%);
+    overflow: hidden;
 }
 
 @media (min-width: 768px) {
     .verificationContainer {
-        width: 45%;
+        width: min(620px, 100%);
     }
 }
 
 @media (min-width: 1024px) {
     .verificationContainer {
-        width: 30%;
+        width: min(640px, 100%);
     }
 }

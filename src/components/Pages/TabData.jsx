@@ -477,6 +477,20 @@ function TabData(props) {
     }
   }, [type]);
 
+  const sipEnabled =
+    type === "sip" &&
+    props?.fundData?.Overview?.sip_allowed === "true" &&
+    props?.fundData?.fund_detail?.sip_flag === "true" &&
+    Number(props?.fundData?.fund_detail?.sip_minimum_investment) > 0;
+
+  const lumpsumEnabled =
+    type === "lumpsum" &&
+    props?.fundData?.Overview?.is_purchase_available === "true" &&
+    props?.fundData?.fund_detail?.lumpsum_flag === "true" &&
+    Number(props?.fundData?.fund_detail?.lumpsum_minimum_investment) > 0;
+
+  const isEnabled = sipEnabled || lumpsumEnabled;
+
   return (
     <div className="App">
       <WhiteOverlay show={isLoading} />
@@ -776,13 +790,7 @@ function TabData(props) {
         {
           <div className="Right_Btn calc-buttons-d">
             <button
-              disabled={
-                !(
-                  (type == "sip" && props?.fundData?.fund_detail?.sip_minimum_investment > 0) ||
-                  (type == "lumpsum" &&
-                    props?.fundData?.fund_detail?.lumpsum_minimum_investment > 0)
-                )
-              }
+              disabled={!isEnabled}
               onClick={() => {
                 const userId = localStorage.getItem("dXNlcmlk");
 
@@ -794,20 +802,11 @@ function TabData(props) {
               }}
               className={`fin-cal-button ${shake ? `shake` : ""}`}
             >
-              {" "}
-              Invest Now{" "}
+              Invest Now
             </button>
 
             <button
-              disabled={
-                !(
-                  (type === "sip" &&
-                    (props.fundData?.Overview?.sip_allowed === "true" || props.fundData?.Overview?.sip_allowed === "") &&
-                    props.fundData?.fund_detail?.sip_minimum_investment > 0) ||
-                  (type === "lumpsum" &&
-                    props.fundData?.fund_detail?.lumpsum_minimum_investment > 0)
-                )
-              }
+              disabled={!isEnabled}
               onClick={() => {
                 const userId = localStorage.getItem("dXNlcmlk");
 

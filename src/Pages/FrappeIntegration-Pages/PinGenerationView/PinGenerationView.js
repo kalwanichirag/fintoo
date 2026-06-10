@@ -12,6 +12,7 @@ import * as toastr from "toastr";
 import "toastr/build/toastr.css";
 import { setItemLocal, setUserId } from "../../../common_utilities";
 import { useNavigate } from "react-router-dom";
+import { getStoredChoiceLead } from "../../../Utils/leadAttribution";
 
 export default function PinGenerationView({ userDetails, setIsAuthModalOpen, setview, setVerificationFlow, setUserDetailsFlow }) {
 
@@ -32,7 +33,7 @@ export default function PinGenerationView({ userDetails, setIsAuthModalOpen, set
         try {
             if (userId) {
                 const result = await check_all_status_api(userId);
-    
+
                 if (result?.status_code === "200") {
                     const {
                         nda_sign_check,
@@ -42,14 +43,14 @@ export default function PinGenerationView({ userDetails, setIsAuthModalOpen, set
                         plan_is_expired,
                         opportunity_id
                     } = result.data;
-    
+
                     setItemLocal("ndasignstatus", nda_sign_check);
                     setItemLocal("datagatheringstatus", data_gethering_check);
                     setItemLocal("reportstatus", report_check);
                     setItemLocal("plan_is_expired", plan_is_expired);
                     setItemLocal("plan_uuid", plan_uuid);
                     setItemLocal("opportunity_id", opportunity_id);
-    
+
                 } else {
                     console.error("Status check failed:", result?.message);
                 }
@@ -68,17 +69,23 @@ export default function PinGenerationView({ userDetails, setIsAuthModalOpen, set
             return;
         } else {
             const enteredPin = pin.join("");
+            const choiceLead = getStoredChoiceLead() || {};
+            const urlParams = new URLSearchParams(window.location.search || "");
+            const resolvedSource = (choiceLead.source || urlParams.get("utm_source") || "").trim();
 
             const payload = {
                 email: userDetails.email,
                 pin: enteredPin
-            }
+            };
 
+            if (resolvedSource) {
+                payload.source = resolvedSource;
+            }
             setLoading(true);
 
             const data = await userRegister(payload);
             if (data.status_code == 200 || data.error_code == 200) {
-                
+
                 webengage.user.login(data.data.user_lead_id);
                 webengage.user.setAttribute("we_email", data.data.user_email);
                 const { token, api_key, api_secret, expiry_time, ...userData } = data.data;

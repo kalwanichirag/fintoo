@@ -132,13 +132,13 @@ export default function NetWorthCard({ member_selected }) {
   if (loading) return null;
 
   return (
-    <div className="glass-card tw-rounded-2xl tw-p-5 tw-flex tw-flex-col tw-justify-between tw-h-full">
+    <div className="glass-card tw-rounded-2xl tw-p-4 md:tw-p-5 tw-flex tw-flex-col tw-justify-between tw-h-full">
       <StateBlock show={isFilled}>
         <div>
-          <div className="tw-flex tw-items-center tw-justify-between tw-mb-6">
+          <div className="tw-flex tw-items-center tw-justify-between tw-mb-4 md:tw-mb-6">
             <div className="tw-flex tw-items-center tw-space-x-3">
-              <div className="tw-w-12 tw-h-12 tw-bg-fintoo-blue tw-rounded-xl tw-flex tw-items-center tw-justify-center">
-                <FaWallet className="tw-text-white tw-text-2xl" />
+              <div className="tw-w-11 tw-h-11 md:tw-w-12 md:tw-h-12 tw-bg-fintoo-blue tw-rounded-xl tw-flex tw-items-center tw-justify-center">
+                <FaWallet className="tw-text-white tw-text-xl md:tw-text-2xl" />
               </div>
               <div>
                 <h2 className="tw-text-base tw-font-semibold tw-text-slate-800 tw-mb-0">

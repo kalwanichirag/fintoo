@@ -203,14 +203,16 @@ const userId = getUserId();
       setGoalData([]);
     }
   }
-const [useNewDashboard, setUseNewDashboard] = useState(false);
+const [useNewDashboard, setUseNewDashboard] = useState(true);
 
   return (
     <CommonDashboardLayout>
 
      
         {useNewDashboard ? (
-      <MainDashboard />
+      <MainDashboard
+   
+      />
     ) : (
           <>
             
@@ -401,14 +403,7 @@ const [useNewDashboard, setUseNewDashboard] = useState(false);
       </>
        )}
        
-      <div className="d-flex justify-content-start mb-3">
-  <button
-    className="bg-transparent text-white border-0"
-    onClick={() => setUseNewDashboard(prev => !prev)}
-  >
-    {useNewDashboard ? "Switch to Old Dashboard" : "Switch to New Dashboard"}
-  </button>
-</div>
+    
 
     </CommonDashboardLayout>
   );

@@ -134,7 +134,7 @@ function Profile(props) {
             return;
           }
 
-          if (!mainData.user_pan?.trim()) {
+          if (!mainData.user_pan?.trim() || statusData.kyc_verified === "No") {
             setShowPanel("Pan");
             return;
           }
@@ -493,6 +493,7 @@ function Profile(props) {
         return;
       }
     }
+    setShowPanel(v);
   };
 
   const onDocumentSelect = (v) => {
@@ -537,6 +538,8 @@ function Profile(props) {
               <>
                 {showPanel === "Pan" && (
                   <Pan
+                    mainData={mainData}
+                    statusData={statusData}
                     onPrevious={() => handlePrevious("")}
                     onNext={() => handleNext("Birth")}
                   />

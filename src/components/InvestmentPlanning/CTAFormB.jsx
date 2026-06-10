@@ -7,46 +7,46 @@ export default function CTAFormB() {
   return (
     <section
       id="cta-form-section"
-      className="tw-py-20 tw-bg-gradient-to-r tw-from-fintoo-blue tw-to-blue-800"
+      className="tw-py-14 sm:tw-py-16 lg:tw-py-20 tw-bg-gradient-to-r tw-from-fintoo-blue tw-to-blue-800"
     >
       <div className="tw-max-w-7xl tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8">
-        <div className="tw-grid lg:tw-grid-cols-2 tw-gap-12 tw-items-center">
+        <div className="tw-grid lg:tw-grid-cols-2 tw-gap-10 lg:tw-gap-12 tw-items-center">
           {/* Left Side */}
           <div className="tw-text-white tw-space-y-8">
-            <div className="tw-flex tw-flex-wrap tw-gap-3 tw-mb-6">
-              <div className="tw-bg-white tw-text-fintoo-blue tw-px-4 tw-py-3 tw-rounded-full tw-text-sm tw-font-medium tw-border tw-border-white/20">
+            <div className="tw-flex tw-flex-wrap tw-gap-2 sm:tw-gap-3 tw-mb-6">
+              <div className="tw-bg-white tw-text-fintoo-blue tw-px-3 sm:tw-px-4 tw-py-2.5 sm:tw-py-3 tw-rounded-full tw-text-xs sm:tw-text-sm tw-font-medium tw-border tw-border-white/20">
                 <i className="fas fa-gift tw-mr-2 tw-text-fintoo-blue"></i>
                 Free Consultation
               </div>
-              <div className="tw-bg-white tw-text-fintoo-blue tw-px-4 tw-py-3 tw-rounded-full tw-text-sm tw-font-medium tw-border tw-border-white/20">
+              <div className="tw-bg-white tw-text-fintoo-blue tw-px-3 sm:tw-px-4 tw-py-2.5 sm:tw-py-3 tw-rounded-full tw-text-xs sm:tw-text-sm tw-font-medium tw-border tw-border-white/20">
                 <i className="fas fa-clock tw-mr-2 tw-text-fintoo-blue"></i>
                 15-Min Session
               </div>
-              <div className="tw-bg-white tw-text-fintoo-blue tw-px-4 tw-py-3 tw-rounded-full tw-text-sm tw-font-medium tw-border tw-border-white/20">
+              <div className="tw-bg-white tw-text-fintoo-blue tw-px-3 sm:tw-px-4 tw-py-2.5 sm:tw-py-3 tw-rounded-full tw-text-xs sm:tw-text-sm tw-font-medium tw-border tw-border-white/20">
                 <i className="fas fa-user-graduate tw-mr-2 tw-text-fintoo-blue"></i>
                 Certified Advisors
               </div>
             </div>
 
-            <h2 className="tw-text-4xl lg:tw-text-5xl tw-font-bold tw-leading-tight">
+            <h2 className="tw-text-[2.2rem] sm:tw-text-4xl lg:tw-text-5xl tw-font-bold tw-leading-tight">
               Plan Smarter.{" "}
               <span className="tw-text-fintoo-orange">Invest Better</span>.
               Grow Confidently.
             </h2>
 
-            <p className="tw-text-xl tw-text-blue-100 tw-leading-relaxed">
+            <p className="tw-text-lg sm:tw-text-xl tw-text-blue-100 tw-leading-relaxed">
               Schedule your complimentary 1-on-1 wealth planning session with a
               certified Fintoo financial advisor today.
             </p>
           </div>
 
           {/* Right Side Calendly */}
-          <div className="tw-bg-white tw-rounded-3xl tw-p-8 tw-shadow-2xl">
-            <div className="tw-text-center tw-mb-8">
-              <h3 className="tw-text-3xl tw-font-bold tw-text-fintoo-blue tw-mb-2">
+          <div className="tw-bg-white tw-rounded-[1.75rem] sm:tw-rounded-3xl tw-p-5 sm:tw-p-8 tw-shadow-2xl tw-overflow-hidden">
+            <div className="tw-text-center tw-mb-6 sm:tw-mb-8">
+              <h3 className="tw-text-2xl sm:tw-text-3xl tw-font-bold tw-text-fintoo-blue tw-mb-2">
                 Book Your Free Consultation
               </h3>
-              <p className="tw-text-gray-600">
+              <p className="tw-text-sm sm:tw-text-base tw-text-gray-600">
                 Start your wealth transformation journey today
               </p>
             </div>

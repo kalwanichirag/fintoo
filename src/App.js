@@ -21,6 +21,13 @@ const MARKETING_ROUTES = [
 
   "/retirement-planning",
   "/retirement-strategy",
+
+  "/thankyou-page",
+  "/review",
+  "/retirement-planner",
+  "/portfolio-management-services",
+  "/itr-filing",
+ 
 ];
 
 

@@ -13,9 +13,10 @@ import { useEffectAfterInitialRender } from "../../Utils/Hooks/LifeCycleHooks";
 
 import styles from "./style.module.css";
 import { GET_OCCUPATION_LIST, UPDATEBASICDETAILS } from "../../constants";
-import { getFamilyMember,fetchUserProfileDetails, getOccupationList, updateBasicDetails, generateLead } from "../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import { getFamilyMember, fetchUserProfileDetails, getOccupationList, updateBasicDetails, generateLead, check_all_status_api } from "../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import HideHeader from "../HideHeader";
 import HideFooter from "../HideFooter";
+import { getStoredChoiceLead } from "../../Utils/leadAttribution";
 
 function get100YearsAgoDate() {
   const today = new Date();
@@ -103,7 +104,7 @@ export default function UseFlowInputs({ onContinue }) {
 
   const handleGetFamilyMember = async () => {
     try {
-    
+
       const result = await getFamilyMember(userId);
 
       if (result?.status_code == 200) {
@@ -117,6 +118,7 @@ export default function UseFlowInputs({ onContinue }) {
           user_email: member.user_email || '',
           fp_user_details_id: member.user_details_id || '',
           fdmf_is_minor: member.is_minor ? 'Y' : 'N',
+          user_age: member.user_age
         }));
 
         setItemLocal("member", [...transformedData]);
@@ -152,6 +154,48 @@ export default function UseFlowInputs({ onContinue }) {
     }
   };
 
+  const handleCheckAllStatus = async (userId) => {
+    try {
+      if (userId) {
+        const result = await check_all_status_api(userId);
+
+        if (result?.status_code === "200") {
+          const {
+            nda_sign_check,
+            data_gethering_check,
+            report_check,
+            plan_uuid,
+            plan_is_expired,
+            opportunity_id
+          } = result.data;
+
+          setItemLocal("ndasignstatus", nda_sign_check);
+          setItemLocal("datagatheringstatus", data_gethering_check);
+          setItemLocal("reportstatus", report_check);
+          setItemLocal("plan_is_expired", plan_is_expired);
+          setItemLocal("plan_uuid", plan_uuid);
+          setItemLocal("opportunity_id", opportunity_id);
+
+          if (plan_uuid !== "fp_robo" && plan_uuid !== "") {
+            if (plan_is_expired == "N" && nda_sign_check == "N") {
+              window.location.href = `${process.env.PUBLIC_URL}/userflow/expert-nda`;
+              return true;
+            }
+          }
+          return false;
+        } else {
+          console.error("Status check failed:", result?.message);
+          return false;
+        }
+      } else {
+        console.error("User ID not found.");
+        return false;
+      }
+    } catch (error) {
+      console.error("Error checking user status:", error);
+      return false;
+    }
+  };
 
   const onSubmit = async (data) => {
     const userDetailsPayload = {
@@ -168,11 +212,24 @@ export default function UseFlowInputs({ onContinue }) {
       const result = await updateBasicDetails(userDetailsPayload);
 
       if (result.status_code == 200) {
+        const choiceLead = getStoredChoiceLead() || {};
+        const urlParams = new URLSearchParams(window.location.search || "");
+        const resolvedSource = (choiceLead.source || urlParams.get("utm_source") || "").trim();
+        const resolvedCampaign = (choiceLead.campaign || urlParams.get("utm_campaign") || "").trim();
+        const resolvedTag = (choiceLead.tag || urlParams.get("tags") || "").trim();
+
 
         let payload = {
-          "source": "Website Callback",
+          "source": resolvedSource || "Website Callback",
           "email": user_data.user_email,
-          "full_name": userDetailsPayload.name
+          "full_name": userDetailsPayload.name,
+          "services": ["robo_advisory_499_plan"],
+        }
+        if (resolvedCampaign) {
+          payload.campaign = resolvedCampaign;
+        }
+        if (resolvedTag) {
+          payload.tag = resolvedTag;
         }
         await generateLead(payload);
 
@@ -186,6 +243,10 @@ export default function UseFlowInputs({ onContinue }) {
           webengage.user.setAttribute("age", age);
         }
         await handleGetFamilyMember();
+
+        const redirected = await handleCheckAllStatus(user_data.user_id);
+        if (redirected) return;
+
         reset();
         window.location.href = process.env.PUBLIC_URL + "/commondashboard";
         setItemLocal("logged_in", 1);
@@ -494,4 +555,3 @@ export default function UseFlowInputs({ onContinue }) {
     </>
   )
 }
-

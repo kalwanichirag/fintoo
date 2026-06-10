@@ -1,26 +1,19 @@
-import { React, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import ProfileInsiderLayout from "../../../components/Layout/ProfileInsiderLayout";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Profilebank from "./ProfileBank";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "react-responsive-modal/styles.css";
-import Profile_1 from "../../../components/Assets/06_banking_app.svg";
 import BankConfirm from "../../../components/Assets/13_penny_dropped.png";
-import HDFC from "../../../components/Assets/hdfc.png";
 import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import ProgressBar from "@ramonak/react-progress-bar";
 import "../../../components/Pages/ProfileCompoenents/Fatca/style.css";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import FintooButton from "../../../components/HTML/FintooButton";
 import FintooProfileBack from "../../../components/HTML/FintooProfileBack";
 import ReactCrop, {
   centerCrop,
   makeAspectCrop,
-  Crop,
-  PixelCrop,
 } from "react-image-crop";
 import { MdDelete } from "react-icons/md";
 import SimpleReactValidator from "simple-react-validator";
@@ -29,20 +22,16 @@ import styled from "styled-components";
 import Styles from "./style.module.css";
 import { fetchUserProfileDetails, deteleBankDetails } from "../../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import { addNewCity, pennydropValidation, getCodes, getUserBankDetails, addBank, BseClientRegistration, FatcaUpload } from "../../../FrappeIntegration-Services/services/master-api/masterApiService";
-// import { DMF_BASE_URL } from "../../../constants";
 import {
   RAZORPAY_API_URL,
   SUPPORT_EMAIL,
   DATA_BELONGS_TO,
 } from "../../../constants";
 import commonEncode from "../../../commonEncode";
-import ReactDOM from "react-dom/client";
 import { ToastContainer, toast } from "react-toastify";
-import { CheckSession, getUserId, fetchEncryptData, isFamilySelected } from "../../../common_utilities";
+import { getUserId, fetchEncryptData, isFamilySelected } from "../../../common_utilities";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import Select from "react-select";
-import customStyles from "../../../components/CustomStyles";
 import Mandate_limit from "../../../components/Pages/Transaction/Mandate_limit";
 import axios from "axios";
 function ProfileInsiderBankAccount(props) {
@@ -247,10 +236,6 @@ function ProfileInsiderBankAccount(props) {
   const handleSelect = (e) => {
     setSelectedAccountType(e.target.value + "");
   };
-  // var bank_id = "";
-  // if (localStorage.getItem("bank_id")) {
-  //   bank_id = localStorage.getItem("bank_id");
-  // }
 
   useEffect(() => {
     if (searchParams.get('add') == 1 && requiredDataLoaded == true) {
@@ -262,8 +247,6 @@ function ProfileInsiderBankAccount(props) {
 
 
   const onLoadInIt = async () => {
-
-    // To fetch banks of user
 
     try {
       let payload = {
@@ -279,16 +262,6 @@ function ProfileInsiderBankAccount(props) {
         .sort((a, b) => new Date(a.creation) - new Date(b.creation));
       setUserBanks(sortedData);
     } catch (e) { }
-    //Fetch Bank Types
-    // try {
-    //   let config = {
-    //     method: "POST",
-    //     url: DMF_GETBANKTYPES_API_URL,
-    //   };
-    //   var res = await axios(config);
-    // } catch (e) { }
-
-    //Fetch User Details
     try {
       var res = await fetchUserProfileDetails(user_id);
       
@@ -297,7 +270,6 @@ function ProfileInsiderBankAccount(props) {
     } catch (e) { }
   };
 
-  //Fetch Pennydrop
   const fetchPennydroData = async () => {
     try {
 
@@ -327,7 +299,6 @@ function ProfileInsiderBankAccount(props) {
         });
       } else {
 
-        //Fetch Razorpay
         const resF = await axios.get(RAZORPAY_API_URL + IFSCCode);
         var pennydrop_obj = response;
         setpennydrop(resF);
@@ -353,7 +324,6 @@ function ProfileInsiderBankAccount(props) {
         var bankDetailsRP = responseRP;
         var bankDetails = response;
 
-        //Fetch Codes
         localStorage.setItem(
           "bankDetails",
           commonEncode.encrypt(JSON.stringify(response))
@@ -369,7 +339,6 @@ function ProfileInsiderBankAccount(props) {
         }
         const r2 = await getCodes(payload);
 
-        //Add Bank
         var urladddata = {
           bank_user_id: user_id,
           bank_acc_no: accountNumber,
@@ -419,7 +388,6 @@ function ProfileInsiderBankAccount(props) {
               payload: { message: response_obj.message, type: "error" },
               autoClose: 3000,
             });
-            // handleClose();
             return;
           } else if (error_code == "100") {
             dispatch({
@@ -511,26 +479,6 @@ function ProfileInsiderBankAccount(props) {
     }
   };
 
-  // const deleteBank = async () => {
-  //   let data = {};
-  //   let bank_id = localStorage.getItem("bank_id_dynamic");
-  //   data["bank_user_id"] = user_id;
-  //   data["bank_id"] = bank_id;
-  //   let config = {
-  //     method: "POST",
-  //     url: '',
-  //     data: data,
-  //   };
-  //   return;
-  //   var res = await fetchEncryptData(config);
-  //   let error_code = res.error_code;
-  //   if (error_code == "100") {
-  //     localStorage.removeItem("bankDetails");
-  //     localStorage.removeItem("sendData");
-  //     props.onNext("Bank");
-  //   }
-  // };
-
   const updateBank = async () => {
     var data = {};
     let bank_id = localStorage.getItem("bank_id_dynamic");
@@ -592,17 +540,16 @@ function ProfileInsiderBankAccount(props) {
     } catch (e) { }
   };
 
-  // Function to get account holding nature ID based on residential status
   const getAccountHoldingNatureId = (residentialStatus) => {
     switch (residentialStatus) {
       case "RES":
-        return "AHN-1"; // Single
+        return "Single";
       case "NRI":
-        return "AHN-2"; // Either or survivor
+        return "Either or survivor";
       case "NRO":
-        return "AHN-2"; // Either or survivor
+        return "Either or survivor";
       default:
-        return "AHN-1"; // Default to Single
+        return "Single";
     }
   };
 
@@ -610,14 +557,14 @@ function ProfileInsiderBankAccount(props) {
     switch (n) {
       case "RES":
         setAccountTypes([
-          { title: "Savings", value: "BTM-1" },
-          { title: "Current", value: "BTM-2" },
+          { title: "Savings", value: "Savings" },
+          { title: "Current", value: "Current" },
         ]);
         break;
       case "NRI":
         setAccountTypes([
-          { title: "NRE", value: "BTM-3" },
-          { title: "NRO", value: "BTM-4" },
+          { title: "NRE", value: "NRI - Repatriable (NRE)" },
+          { title: "NRO", value: "NRI - Repatriable (NRO)" },
         ]);
         break;
       default:

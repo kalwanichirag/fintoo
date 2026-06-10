@@ -6,18 +6,33 @@ import { generateLead } from "../FrappeIntegration-Services/services/user-manage
 import { Getpaymentstatus } from "../FrappeIntegration-Services/services/payment-api/paymentapiService";
 import { getParentUserId } from "../common_utilities";
 import { DATA_BELONGS_TO } from "../constants";
+import { showCalendlyRedirectLoader } from "./calendlyRedirectLoader";
 
 const CALENDLY_TOKEN =
   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNjQ4MjExMjQ0LCJqdGkiOiJmMmM1YWIwOC01N2ZiLTQ0YzAtODNjYy1lM2QxZWZhZGY2YzMiLCJ1c2VyX3V1aWQiOiI0ODVhZTAyZC02ZGNiLTQ1MjktODdiYi01MGY2NDE3NGI4ZWYifQ.5bIIwHH3DTn1Vp7Oj6hZlLkVIbI1q7jxqFogGaGkb1g";
+const THANKYOU_URL = "https://www.fintoo.in/thankyou-page";
+
+const redirectToThankyouOnce = () => {
+  if (window.__calendlyThankYouRedirecting) return;
+  window.__calendlyThankYouRedirecting = true;
+  showCalendlyRedirectLoader("Booking confirmed. Redirecting you to the next page...");
+  setTimeout(() => {
+    window.location.replace(THANKYOU_URL);
+  }, 1200);
+};
 
 export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAndComment) => {
   try {
+    showCalendlyRedirectLoader(
+      "Please wait while we confirm your appointment and save your booking details..."
+    );
 
 
     /* ---------------- UTM ---------------- */
     const params = new URLSearchParams(window.location.search);
     const utm_source = params.get("utm_source") || "Website";
     const utm_medium = params.get("utm_medium") || "Calendly";
+    const utm_campaign = params.get("utm_campaign") || "";
     const tags = params.get("tags") || "";
 
     /* ---------------- INVITEE ---------------- */
@@ -31,6 +46,10 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
 
     const invitee = inviteeRes?.resource;
     if (!invitee) return;
+
+    showCalendlyRedirectLoader(
+      "Almost there. We are syncing your Calendly booking with Fintoo..."
+    );
 
     /* ---------------- EVENT ---------------- */
     let scheduledEvent = null;
@@ -51,6 +70,11 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
       ? new Date(scheduledEvent.end_time)
       : null;
 
+        const createdAt = scheduledEvent.created_at
+            ? new Date(scheduledEvent.created_at)
+            : null;
+
+
     const calendlyEventName = scheduledEvent?.name || "";
     const bookingDate = startDate?.toLocaleDateString("en-GB") || "";
     const bookingTime =
@@ -62,6 +86,7 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
       startDate && endDate
         ? `${Math.round((endDate - startDate) / 60000)} mins`
         : "";
+        
 
     /* ---------------- Q&A ---------------- */
     const qna = invitee.questions_and_answers || [];
@@ -79,8 +104,13 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
       tag: tags,
       slab: income,
       source: utm_source,
+      campaign: utm_campaign,
       services: [scheduleData.serviceName || "Financial Planning"],
     });
+
+    showCalendlyRedirectLoader(
+      "Your meeting is confirmed. Redirecting you to the thank you page..."
+    );
 
     const leadId = leadRes?.data?.lead_id;
     let webengageLoggedIn = false;
@@ -96,19 +126,22 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
 
     /* ---------------- WEBENGAGE (FINAL) ---------------- */
     const webengagePayload = {
-      lead_source: utm_source,
-      lead_medium: utm_medium,
-      lead_status: "Entry",
-      tag: tags,
-      lead_date: new Date().toLocaleDateString("en-GB"),
+      "Lead Source": utm_source,
+      "Lead Medium": utm_medium,
+      "Lead Status": "Entry",
+      "RM Name": "Online",
+      "RM Email": "Online@fintoo.in",
+      "Tag": tags || "",
+      "Lead Date": createdAt,
 
-      rm_name: "Online",
-      rm_email: "Online@fintoo.in",
+      "Lead Status": "Entry",
+
+
       name: invitee.name,
       email: invitee.email,
       number: mobile,
       calendly_event_name: calendlyEventName,
-      calendly_booking_date: bookingDate,
+      calendly_booking_date: startDate,
       calendly_booking_time: bookingTime,
       calendly_duration: duration,
     };
@@ -146,7 +179,7 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
       webengage.user.setAttribute('we_whatsapp_opt_in', true);
 
       window.webengage.user.setAttribute("Income Slab", income || "");
-console.log(Object.keys(webengagePayload));
+      console.log(Object.keys(webengagePayload));
       // ✅ STATIC EVENT NAME
       window.webengage.track(
         pageName,
@@ -171,5 +204,7 @@ console.log(Object.keys(webengagePayload));
 
   } catch (e) {
     console.error("Error in calendlyCallbackFun:", e);
+  } finally {
+    redirectToThankyouOnce();
   }
 };

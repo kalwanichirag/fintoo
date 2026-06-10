@@ -1,29 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import "react-responsive-modal/styles.css";
-import Link from "../../../MainComponents/Link";
 import Signatureimg from "../../../Assets/08_signture.svg";
 import ProfileCompletedImg from "../../../../Assets/Images/temp_img_8865.svg";
-import Button from "react-bootstrap/Button";
-import { Container, Row, Col } from "react-bootstrap";
-import ProgressBar from "@ramonak/react-progress-bar";
-import Photo from "../Aadhar/Photo";
+import { Row } from "react-bootstrap";
 import "../Fatca/style.css";
-import Back from "../../../Assets/left-arrow.png";
 import axios from "axios";
 import commonEncode from "../../../../commonEncode";
 import {
-  CheckSession,
   fetchData,
   fetchEncryptData,
   getUserId,
-  memberId,
 } from "../../../../common_utilities";
 import { DATA_BELONGS_TO } from "../../../../constants";
 
 import styled from "styled-components";
 
 import FintooButton from "../../../HTML/FintooButton";
-import { canvasPreview } from "../../../FintooCrop/canvasPreview";
 import { MdDelete } from "react-icons/md";
 import FintooProfileBack from "../../../HTML/FintooProfileBack";
 import { useSelector, useDispatch } from "react-redux";
@@ -33,10 +25,7 @@ import ReactCrop from "../../../HTML/ReactCrop";
 import SweetAlert from "sweetalert-react/lib/SweetAlert";
 import { AofImageUpload, FatcaUpload, GenerateAof } from "../../../../FrappeIntegration-Services/services/master-api/masterApiService";
 import { DeleteDocumentApi, UploadDocumentApi } from "../../../../FrappeIntegration-Services/services/financial-planning-api/document";
-import { constants } from "buffer";
 import { fetchUserProfileDetails } from "../../../../FrappeIntegration-Services/services/user-management-api/userApiService";
-// import {mergeFile,mergeBase64} from 'canvas-merge-images';
-// import mergeImages from "merge-images";
 
 const userid = getUserId();
 
@@ -58,17 +47,11 @@ const UploadSignature = (props) => {
     height: 50,
   });
   const [imgSrc, setImgSrc] = useState("");
-  const [completedCrop, setCompletedCrop] = useState(null);
   const [preview, setPreview] = useState(false);
-  const previewCanvasRef = useRef(null);
-  const imgRef = useRef(null);
-  const [rotateValue, setRotateValue] = useState(0);
-  const [mainData, setMainData] = useState({});
   const showBack = useSelector((state) => state.isBackVisible);
   const [showModal, setShowModal] = useState(false);
   const [showModalfalse, setshowModalfalse] = useState(false);
   const [condition, setCondition] = useState(false);
-  const [kycdetails, setKycDetails] = useState("");
   const [userDetails, setUserDetails] = useState("");
   const [oldPhoto, setOldPhoto] = useState({});
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -191,16 +174,6 @@ const UploadSignature = (props) => {
     setCrop(crop);
   };
 
-  // const convertBlob = () => {
-  //   // 
-  //   console.log(imgSrc);
-  //   fetch(imgSrc)
-  //     .then((res) => res.blob())
-  //     .then(async (blob) => {
-  //       convertBase(blob);
-  //     });
-  // };
-
   const convertBlob = async () => {
 
     const byteString = atob(imgSrc.split(',')[1]);
@@ -237,7 +210,7 @@ const UploadSignature = (props) => {
       formdata.append("user_document_belongs_to", DATA_BELONGS_TO)
       formdata.append("document_files", file);
       formdata.append("user_document_user_id", userid);
-      formdata.append("document_cat_uuid", "signDirect"); // document category uuid - static for now
+      formdata.append("document_cat_uuid", "signDirect");
 
       const response = await UploadDocumentApi(formdata);
 
@@ -388,7 +361,6 @@ const UploadSignature = (props) => {
     } else {
       setCondition(false);
       setshowModalfalse(true);
-      //setPopupDescError(response_obj["message"]);
       setPopupDescError("Please try again later, or contact customer support.");
       setPopupTitleError("Oops! Something went wrong");
     }
@@ -405,7 +377,7 @@ const UploadSignature = (props) => {
 
       return await new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result); // Base64 string
+        reader.onloadend = () => resolve(reader.result);
         reader.onerror = reject;
         reader.readAsDataURL(blob);
       });
@@ -670,9 +642,6 @@ const UploadSignature = (props) => {
           setShowModal(false);
         }}
       >
-        {/* <Modal.Header closeButton>
-        <Modal.Title id="example-custom-modal-styling-title">Passport front</Modal.Title>
-        </Modal.Header> */}
         <Modal.Body>
           <div className="modal-body-box">
             <h2 className="pt-3 pb-0 text-center">Profile Completed</h2>

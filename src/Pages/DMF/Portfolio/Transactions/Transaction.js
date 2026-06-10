@@ -286,13 +286,35 @@ const PortfolioTransaction = (props) => {
 
       var res = await fetchEncryptData(config);
 
-      setUpcomingTransaction(res.data);
+      const groupedData = groupBySubType(res.data);
+
+      setUpcomingTransaction(groupedData);
+
     } catch (e) {
       console.error("Error fetching upcoming transactions:", e);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const groupBySubType = (transactions) => {
+  return transactions.reduce(
+    (acc, item) => {
+      const type = (item.transaction_sub_type_code || "").toUpperCase();
+
+      if (type === "SIP") {
+        acc.sip.push(item);
+      } else if (type === "SWP") {
+        acc.swp.push(item);
+      } else if (type === "STI" || type === "STO") {
+        acc.stp.push(item);
+      }
+
+      return acc;
+    },
+    { sip: [], swp: [], stp: [] }
+  );
+};
 
   const getInprocessTransactions = async () => {
     if (getItemLocal("family")) {
@@ -1062,7 +1084,7 @@ const PortfolioTransaction = (props) => {
 
                   {tabSelection == "upcoming" && innerSelection == "sip" && (
                     <>
-                      {upcomingTransaction.length > 0 && !isLoading ? (
+                      {upcomingTransaction?.sip?.length > 0 && !isLoading ? (
                         <>
                           <div
                             className={` d-flex justify-content-between grey-500 mt-4 ${style.subTiles}`}
@@ -1073,14 +1095,14 @@ const PortfolioTransaction = (props) => {
                               <div className="pe-4 fn-right-border">
                                 Monthly payable: Total SIP{" "}
                                 <span className="TotalSIP">
-                                  {upcomingTransaction.length}
+                                  {upcomingTransaction?.sip?.length}
                                 </span>{" "}
                               </div>
                               <div className="ps-4">
                                 Total Amount:{" "}
                                 <span className="TotalSIPAmount">
                                   {indianRupeeFormat(
-                                    upcomingTransaction.reduce(
+                                    upcomingTransaction?.sip?.reduce(
                                       (acc, curr) => acc + curr.cart_amount,
                                       0
                                     )
@@ -1110,7 +1132,7 @@ const PortfolioTransaction = (props) => {
                               </tr>
                             </thead>
                             <tbody>
-                              {upcomingTransaction.map((val) => (
+                              {upcomingTransaction?.sip?.map((val) => (
                                 <tr>
                                   <td
                                     scope="row"
@@ -1243,21 +1265,21 @@ const PortfolioTransaction = (props) => {
 
                   {tabSelection == "upcoming" && innerSelection == "stp" && (
                     <>
-                      {upcomingTransaction.length > 0 ? (
+                      {upcomingTransaction?.stp?.length > 0 ? (
                         <>
                           <div className=" d-flex justify-content-between grey-500 mt-4">
                             <div className="d-flex fn-tp-text-9 ps-0 pt-4 pb-3">
                               <div className="pe-4 fn-right-border">
                                 Monthly payable: Total STP{" "}
                                 <span className="TotalSIP">
-                                  {upcomingTransaction.length}
+                                  {upcomingTransaction?.stp?.length}
                                 </span>
                               </div>
                               <div className="ps-4">
                                 Total Amount:{" "}
                                 <span className="TotalSIPAmount">
                                   {indianRupeeFormat(
-                                    upcomingTransaction.reduce(
+                                    upcomingTransaction?.stp?.reduce(
                                       (acc, curr) => acc + curr.cart_amount,
                                       0
                                     )
@@ -1283,7 +1305,7 @@ const PortfolioTransaction = (props) => {
                               </tr>
                             </thead>
                             <tbody>
-                              {upcomingTransaction.map((val) => (
+                              {upcomingTransaction?.stp?.map((val) => (
                                 <tr>
                                   <td
                                     scope="row"
@@ -1293,10 +1315,11 @@ const PortfolioTransaction = (props) => {
                                     <div className="fundName9">
                                       <div>
                                         <img
-                                          src={
-                                            process.env.REACT_APP_STATIC_URL +
-                                            "/media/DMF/01_icici.png"
-                                          }
+                                          src={`${process.env.REACT_APP_STATIC_URL}/media/companyicons/${val.amc_code}.png`}
+                                          onError={(e) => {
+                                            e.target.src = `${process.env.PUBLIC_URL}/static/media/companyicons/amc_icon.png`;
+                                            e.onError = null;
+                                          }}
                                         />
                                       </div>
                                       <div className="fundNameCon">
@@ -1331,7 +1354,7 @@ const PortfolioTransaction = (props) => {
                                       <strong>{val.transfer_to_scheme}</strong>
                                     </div>
                                     <div>
-                                      Folio No.: {val.transfer_folio_no}
+                                      Folio No.: {val.transaction_folio_no}
                                     </div>
                                   </td>
                                 </tr>
@@ -1373,7 +1396,7 @@ const PortfolioTransaction = (props) => {
 
                   {tabSelection == "upcoming" && innerSelection == "swp" && (
                     <>
-                      {upcomingTransaction.length > 0 ? (
+                      {upcomingTransaction?.swp?.length > 0 ? (
                         <>
                           <div
                             className={`d-flex justify-content-between grey-500 mt-4 ${style.subTiles}`}
@@ -1382,14 +1405,14 @@ const PortfolioTransaction = (props) => {
                               <div className="pe-4 fn-right-border">
                                 Total SWP{" "}
                                 <span className="TotalSIP">
-                                  {upcomingTransaction.length}
+                                  {upcomingTransaction?.swp?.length}
                                 </span>
                               </div>
                               <div className="ps-4">
                                 Total Amount:{" "}
                                 <span className="TotalSIPAmount">
                                   {indianRupeeFormat(
-                                    upcomingTransaction.reduce(
+                                    upcomingTransaction?.swp?.reduce(
                                       (acc, curr) => acc + curr.cart_amount,
                                       0
                                     )
@@ -1417,7 +1440,7 @@ const PortfolioTransaction = (props) => {
                               </tr>
                             </thead>
                             <tbody>
-                              {upcomingTransaction.map((val) => (
+                              {upcomingTransaction?.swp?.map((val) => (
                                 <tr>
                                   <td
                                     scope="row"
@@ -1427,10 +1450,11 @@ const PortfolioTransaction = (props) => {
                                     <div className="fundName9">
                                       <div>
                                         <img
-                                          src={
-                                            process.env.REACT_APP_STATIC_URL +
-                                            "/media/DMF/01_icici.png"
-                                          }
+                                          src={`${process.env.REACT_APP_STATIC_URL}/media/companyicons/${val.amc_code}.png`}
+                                          onError={(e) => {
+                                            e.target.src = `${process.env.PUBLIC_URL}/static/media/companyicons/amc_icon.png`;
+                                            e.onError = null;
+                                          }}
                                         />
                                       </div>
                                       <div className="fundNameCon">

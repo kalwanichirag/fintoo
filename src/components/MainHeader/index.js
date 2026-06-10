@@ -5,12 +5,17 @@ import { ReactComponent as ProfilePic } from "../../Assets/Images/profile-pictur
 import styles from "./style.module.css";
 import { useEffect, useRef, useState } from "react";
 import FintooLogo from "./images/logo.svg";
-import CallBlack from "./Call_Black.png";
-import { CHECK_SESSION, imagePath, DATA_BELONGS_TO } from "../../constants";
+import { CHECK_SESSION, DATA_BELONGS_TO } from "../../constants";
 import Button from "react-bootstrap/Button";
 import commonEncode from "../../commonEncode";
 import Modal from "react-bootstrap/Modal";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  TbHome,
+  TbHeadset,
+  TbShoppingBag,
+  TbPhone,
+} from "react-icons/tb";
 import {
   compareMemberWithUser,
   fetchData,
@@ -39,7 +44,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FintooInlineLoader from "../FintooInlineLoader";
 import WhiteOverlay from "../HTML/WhiteOverlay";
 import IncompleteRegistration from "../IncompleteRegistration";
-import Cart from "../../Assets/Images/CommonDashboard/cart.svg";
 import InfoStrip from "../InfoComponents/InfoStrip";
 import {
   fetchUserProfileDetails,
@@ -48,6 +52,18 @@ import {
   userLogout,
 } from "../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import { Fetch_User_Mf_Profile_Status } from "../../FrappeIntegration-Services/services/financial-planning-api/ndaflow";
+import { clearLocalStorageExcept } from "../../Utils/storage";
+
+const safeWebEngageSetAttribute = (key, value) => {
+  try {
+    const setAttr = window?.webengage?.user?.setAttribute;
+    if (typeof setAttr !== "function") return;
+    setAttr(key, value);
+  } catch (err) {
+    // Ignore SDK readiness/user-state timing errors.
+    console.warn("WebEngage setAttribute skipped:", key, err);
+  }
+};
 
 const MainHeader = (props) => {
   const loginCookie = getCookie("token");
@@ -79,7 +95,7 @@ const MainHeader = (props) => {
       updateGuestCartCount(currentCartCount);
     }
 
-    localStorage.clear();
+    clearLocalStorageExcept(["leadData"]);
 
     // Restore guest cart count after clearing
     if (currentCartCount > 0) {
@@ -174,11 +190,7 @@ const MainHeader = (props) => {
 
       if (userdata.status_code === 200 && window.webengage?.user) {
         const kycStatus = Number(userdata.data.kyc_verified) === 1;
-
-        window.webengage.user.setAttribute(
-          "kyc_status",
-          kycStatus ? "true" : "false"
-        );
+        safeWebEngageSetAttribute("kyc_status", kycStatus ? "true" : "false");
       }
       // Setuserdata(details1);
       if (
@@ -536,15 +548,9 @@ const MainHeader = (props) => {
   }, [location]);
 
   useEffect(() => {
-  if (!window.webengage) return;
-  if (!allMembers || allMembers.length === 0) return;
-
-  window.webengage.user.setAttribute(
-    "family_member_count",
-    String(allMembers.length)
-  );
-
-}, [allMembers]);
+    if (!allMembers || allMembers.length === 0) return;
+    safeWebEngageSetAttribute("family_member_count", String(allMembers.length));
+  }, [allMembers]);
 
 
   return (
@@ -586,17 +592,18 @@ const MainHeader = (props) => {
                 alt="Fintoo logo"
               />
             </a>
-            <div className="d-flex align-items-center px-4">
+            <div className={styles.headerActions}>
               <Link
                 to={process.env.PUBLIC_URL + "/direct-mutual-fund/mycart"}
                 className={` ${styles.cart}`}
+                aria-label="Cart"
               >
                 {cartCount > 0 && (
                   <div>
                     <span>{cartCount}</span>
                   </div>
                 )}
-                <img src={imagePath + Cart} width={30} />
+                <TbShoppingBag className={styles.headerIcon} />
               </Link>
               <div onClick={() => setOpenProfile(true)}>
                 {Object.keys(selectedMember).length > 0 && (
@@ -855,6 +862,21 @@ const MainHeader = (props) => {
                       </ul>
                     )}
                   </li>
+                  <li className={styles["mn-li"]}>
+                    <Link
+                      style={{
+                        fontWeight: "normal",
+                        fontSize: "1.5rem",
+                      }}
+                      onClick={() => {
+                        setOpenMenu(false);
+                      }}
+                      target="_self"
+                      to={`${process.env.PUBLIC_URL}/womoneya`}
+                    >
+                      Womoneya 3.0
+                    </Link>
+                  </li>
 
                   {/*  */}
                   <li className={styles["mn-li"]}>
@@ -871,14 +893,7 @@ const MainHeader = (props) => {
                         }}
                       >
                         {" "}
-                        <img
-                          src={
-                            process.env.REACT_APP_STATIC_URL +
-                            "media/Header/online_support_black.png"
-                          }
-                          alt=""
-                          style={{ width: "27.5px", verticalAlign: "top" }}
-                        />{" "}
+                        <TbHeadset className={styles.headerIcon} />{" "}
                       </span>
                       <span> Help Support</span>
                       <span className={`${styles.aspan} ${styles.mobilespan}`}>
@@ -889,13 +904,7 @@ const MainHeader = (props) => {
                       <ul className={styles["submenu"]}>
                         <li className="pb-0">
                           <span>
-                            <img
-                              src={
-                                process.env.REACT_APP_STATIC_URL +
-                                "media/Header/Call_Black.png"
-                              }
-                              width={20}
-                            />{" "}
+                            <TbPhone className={styles.supportPhoneIcon} />{" "}
                           </span>
                           <span>
                             <a
@@ -936,7 +945,7 @@ const MainHeader = (props) => {
             </div>
           </div>
         </div>
-        <div className="d-none d-lg-block container-fluid">
+        <div className="d-none d-lg-block container-fluid p-0">
           <div className={` ${styles["in-container"]}`}>
             <div className="row align-items-center">
               <div className="col-md-5">
@@ -1195,6 +1204,15 @@ const MainHeader = (props) => {
                       </ul>
                     </div>
                   </li>
+                  <li>
+                    <Link
+                      className={` ${styles["link-url"]} main_header_link_url`}
+                      to={`${process.env.PUBLIC_URL}/womoneya`}
+                      onClick={() => toggleLoader()}
+                    >
+                      Womoneya 3.0
+                    </Link>
+                  </li>
                   {/* <li>
                     <a
                       className={styles["link-url"]}
@@ -1237,14 +1255,10 @@ const MainHeader = (props) => {
                             verticalAlign: "textBottom",
                           }}
                         >
-                          <img
-                            src={
-                              process.env.REACT_APP_STATIC_URL +
-                              "media/Header/home_black.png"
-                            }
-                            alt="Dashboard"
+                          <TbHome
+                            className={styles.headerIcon}
+                            aria-label="Dashboard"
                             title="Dashboard"
-                            style={{ width: "27.5px", verticalAlign: "top" }}
                           />
                         </span>
                       </Link>
@@ -1252,13 +1266,10 @@ const MainHeader = (props) => {
                   )}
                   <li className={`pointer ${styles.regionselectordialog}`}>
                     <div className={styles["link-url"]}>
-                      <img
-                        src={
-                          process.env.REACT_APP_STATIC_URL +
-                          "media/Header/customer-support.webp"
-                        }
-                        alt=""
-                        style={{ width: "27.5px" }}
+                      <TbHeadset
+                        className={styles.headerIcon}
+                        aria-label="Customer support"
+                        title="Customer support"
                       />
                       {/* 
 Customer Help Center */}
@@ -1270,13 +1281,7 @@ Customer Help Center */}
                         <div className={`w-100`}>
                           <div className={`${styles.CallOption}`}>
                             <span>
-                              <img
-                                width={20}
-                                src={
-                                  process.env.REACT_APP_STATIC_URL +
-                                  "media/Header/Call_Black.png"
-                                }
-                              />{" "}
+                              <TbPhone className={styles.supportPhoneIcon} />{" "}
                             </span>
                             <span>
                               <a
@@ -1302,24 +1307,18 @@ Customer Help Center */}
                     </div>
                   </li>
                   {/* desktop */}
-                  <li className="px-4">
+                  <li className="px-0">
                     <Link
                       to={process.env.PUBLIC_URL + "/direct-mutual-fund/mycart"}
                       className={`pe-2 ${styles.cart}`}
+                      aria-label="Cart"
                     >
                       {cartCount > 0 && (
                         <div>
                           <span className={styles.cartCount}>{cartCount}</span>
                         </div>
                       )}
-                      <img
-                        // src={
-                        //   process.env.REACT_APP_STATIC_URL +
-                        //   "media/Header/cart.png"
-                        // }
-                        src={imagePath + Cart}
-                        width={30}
-                      />
+                      <TbShoppingBag className={styles.headerIcon} />
                     </Link>
                   </li>
 
@@ -1390,14 +1389,7 @@ Customer Help Center */}
                               </span>
                             </div>
                           )}
-                          <img
-                            // src={
-                            //   process.env.REACT_APP_STATIC_URL +
-                            //   "media/Header/cart.png"
-                            // }
-                            src={imagePath + Cart}
-                            width={30}
-                          />
+                          <TbShoppingBag className={styles.headerIcon} />
                         </Link>
                       </li>
 
@@ -1561,7 +1553,7 @@ const ProfileMenu = ({
   }, [location]);
 
   const logout = () => {
-    localStorage.clear();
+    clearLocalStorageExcept(["leadData"]);
     dispatch({ type: "LOGGIN_LOGOUT", payload: false });
     navigate(process.env.PUBLIC_URL + "/logout");
   };
@@ -1753,11 +1745,13 @@ const ProfileMenu = ({
                           v?.id === selectedMember.id
                         )
                     )
-                    .map((v) => {
-                      const displayName = v?.name || v?.relation || "Unknown";
-                      const displayText = `${displayName
-                        .split(" ")[0]
-                        .trim()} ${v?.fdmf_is_minor ? "#m" : ""}`;
+                      .map((v) => {
+                        const displayName = v?.name || v?.relation || "Unknown";
+                        const displayText = `${displayName
+                          .split(" ")
+                          .slice(0, 2)
+                          .join(" ")
+                          .trim()} ${v?.fdmf_is_minor ? "#m" : ""}`;
                       const avatarName = v?.name || v?.relation || "U";
 
                       return (

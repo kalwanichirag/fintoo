@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { updateBasicDetails } from "../../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import commonEncode from "../../../commonEncode";
 
 export default function DetailsStep({
   members,
@@ -47,7 +48,7 @@ export default function DetailsStep({
         setSaving(true);
 
         await updateBasicDetails({
-          user_pan: pan,
+          pan: pan,
           mobile: mobile,
           user_id: selectedMember?.id, // important
         });
@@ -59,8 +60,25 @@ export default function DetailsStep({
         mobile,
       };
 
+      try {
+        const storedMembers = JSON.parse(
+          commonEncode.decrypt(localStorage.getItem("member")) || "[]"
+        );
+        const nextMembers = storedMembers.map((member) =>
+          String(member?.id) === String(updatedMember?.id)
+            ? { ...member, pan, mobile }
+            : member
+        );
+        localStorage.setItem(
+          "member",
+          commonEncode.encrypt(JSON.stringify(nextMembers))
+        );
+      } catch (storageError) {
+        console.error("Failed to persist member cache:", storageError);
+      }
+
       setSelectedMember(updatedMember);
-      onNext();
+      onNext(updatedMember);
     } catch (err) {
       console.error("Update failed:", err);
     } finally {

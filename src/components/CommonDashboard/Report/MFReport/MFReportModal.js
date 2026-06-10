@@ -444,7 +444,8 @@ const MFReportModal = (props) => {
             let reqData = {
                 token: jwtToken,
                 pan: selectedMember.pan,
-                mobile: selectedMember.mobile
+                mobile: selectedMember.mobile,
+                user_id: selectedMember.id
             }
             let trxnId = await GettransactionID(reqData)
             if (trxnId.status_code == 200) return trxnId;

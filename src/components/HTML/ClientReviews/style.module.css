@@ -43,6 +43,24 @@
   width: 100%;
   overflow: hidden;
 }
+
+.SlideShow :global(.slick-list),
+.SlideShow :global(.slick-track) {
+  display: flex;
+}
+
+.SlideShow :global(.slick-slide) {
+  height: auto;
+}
+
+.SlideShow :global(.slick-slide > div) {
+  height: 100%;
+}
+
+.slideItem {
+  box-sizing: border-box;
+  height: 100%;
+}
  .Odd {
  margin-top: 5rem;
  width: 100%;
@@ -53,7 +71,9 @@ align-items: center;
 }
 
 .TestimonialCard {
-  width: 80% !important;
+  width: auto !important;
+  max-width: 100%;
+  min-height: 100px;
   background: #fff;
   border: 1px solid #ebebf0;
   box-sizing: border-box;
@@ -61,18 +81,24 @@ align-items: center;
   transition: 0.3s ease-in-out;
   overflow: hidden;
   padding: 20px;
-  display: block;
-  margin: 1rem 4rem;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 1rem;
 }
 .TestimonialCardHeader {
   display: flex;
+  align-items: flex-start;
 }
 .CardProfile{
   align-items: center;
 }
 .CardProfileImg img {
-  max-width: 40px;
-  max-height: 40px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  display: block;
+  object-fit: cover;
   border-radius: 50%;
 }
 .ProfileName {
@@ -92,10 +118,65 @@ align-items: center;
 }
 .clientReviewTxt {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.clientReviewTxt p {
+  margin-bottom: 0;
+  color: #333333;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.clampedReview {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.expandedReview {
+  display: block;
+}
+
+.readMoreBtn {
+  margin-top: auto;
+  padding-top: 12px;
+  border: 0;
+  background: transparent;
+  color: #042b62;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
 }
 .CardProfileImg p {
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
   color: #e7e7e7;
+}
+
+@media (max-width: 600px) {
+  .SlideShow {
+    width: 100%;
+    margin-top: 2.25rem;
+  }
+
+  .slideItem {
+    padding: 0 2px;
+  }
+
+  .TestimonialCard {
+    min-height: 320px;
+    margin: 0.75rem 0;
+    padding: 16px;
+    width: 100% !important;
+  }
+
+  .clientReviewTxt {
+    padding: 8px 4px 0;
+  }
 }

@@ -50,6 +50,7 @@ import { getMedicalInsurance } from "../../FrappeIntegration-Services/services/f
 import { GetDocumentDetails } from "../../FrappeIntegration-Services/services/financial-planning-api/document";
 import MainDashboard from "../dashboardnew/MainContent";
 import { fetchUserProfileDetails } from "../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import { loginWebEngageSafe } from "../../Utils/Webengage/safeLogin";
 
 function CardBoxGoals(props) {
   const renewpopup = props.renewpopup;
@@ -59,8 +60,8 @@ function CardBoxGoals(props) {
   const [error, setError] = useState(false);
   const [scorecardvalue, setScorecardValue] = useState(0);
   const [ssessiondata, setSessionData] = useState({});
-  const [kycDone, setKycDone] = useState(false);
-  const [fpDone, setFPDone] = useState(false);
+  // const [kycDone, setKycDone] = useState(false);
+  // const [fpDone, setFPDone] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const [spinneremail, setSpinneremail] = useState(0);
   const [emailLoading, setEmailLoading] = useState({ PAR: false, MF: false });
@@ -1042,18 +1043,11 @@ function CardBoxGoals(props) {
 
   useEffect(() => {
     if (!userLeadId) return;
-
-    const loginWebEngage = () => {
-      if (window.webengage) {
-        webengage.user.login(String(userLeadId));
-        console.log("WebEngage login done:", userLeadId);
-      } else {
-        setTimeout(loginWebEngage, 200); // retry every 200ms until SDK loads
-      }
-    };
-
-    loginWebEngage();
-  }, []);
+    const loggedIn = loginWebEngageSafe(userLeadId);
+    if (loggedIn) {
+      console.log("WebEngage login done:", userLeadId);
+    }
+  }, [userLeadId]);
   const renewalDate = async () => {
     try {
       const parentUserId = getParentUserId();
@@ -1099,7 +1093,7 @@ function CardBoxGoals(props) {
 
   return (
     <>
-      {/* <MainDashboard/> */}
+      <MainDashboard/>
       <div className="d-md-flex justify-content-md-between justify-content-md-center mb-4">
         {renewpopup == 1 ? (
           <div className="RenewMsgbox">
@@ -1829,13 +1823,13 @@ function CardBoxGoals(props) {
         </div>
       </div>
 
-      <KYCPopup
+      {/* <KYCPopup
         kycDone={kycDone}
         fpDone={fpDone}
         show={kycModal}
         sessiondata={ssessiondata}
         onHide={() => setKycModal(false)}
-      />
+      /> */}
       <Modal
         className="Modalpopup"
         open={open}

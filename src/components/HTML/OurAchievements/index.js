@@ -57,8 +57,7 @@ const OurAchievements = ({ isMFSnippet }) => {
 
   // ✅ generic animation function
   const animate = (targets) => {
-    const max = 1000;
-    const min = 100;
+    const totalFrames = 100;
     let frame = 0;
 
     const timer = setInterval(() => {
@@ -66,12 +65,18 @@ const OurAchievements = ({ isMFSnippet }) => {
       setCounts((prev) => {
         const updated = { ...prev };
         for (let key in targets) {
-          updated[key] = Math.round((frame * (targets[key] / min)) / 10);
+          updated[key] = Math.min(
+            targets[key],
+            Math.round((frame / totalFrames) * targets[key])
+          );
         }
         return updated;
       });
 
-      if (frame > max) clearInterval(timer);
+      if (frame >= totalFrames) {
+        clearInterval(timer);
+        setCounts((prev) => ({ ...prev, ...targets }));
+      }
     }, 1);
   };
 
@@ -79,9 +84,9 @@ const OurAchievements = ({ isMFSnippet }) => {
   const startAnimation = () => {
     animate({
       b2: 250,
-      b3: 300,
-      b4: 150000,
-      b5: 150000,
+      b3: 4000,
+      b4: 250000,
+      b5: 250000,
       b6: 3,
     });
   };

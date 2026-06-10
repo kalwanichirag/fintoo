@@ -66,7 +66,7 @@ const HowItWorksSection = ({onBookClick}) => {
         {/* CTA Button */}
         <div className="tw-text-center tw-mt-12">
          <a           onClick={onBookClick}
- className="tw-cursor-pointer tw-text-white tw-no-underline hover:tw-text-white tw-gradient-orange tw-text-white tw-px-8 tw-py-4 tw-rounded-full tw-font-semibold tw-text-lg hover:tw-shadow-xl tw-transition-all tw-duration-300">
+ className="tw-block tw-cursor-pointer tw-text-white tw-no-underline hover:tw-text-white tw-gradient-orange tw-text-white tw-px-8 tw-py-4 tw-rounded-full tw-font-semibold tw-text-lg hover:tw-shadow-xl tw-transition-all tw-duration-300">
             <i className="fas fa-calendar-check tw-mr-2"></i>
             Book Your Free Appointment
           </a>

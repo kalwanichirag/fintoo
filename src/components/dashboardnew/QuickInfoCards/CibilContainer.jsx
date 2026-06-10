@@ -55,13 +55,9 @@ export default function CibilContainer() {
     setShowModal(false);
   }, []);
 
-  const cardState = cibilData ? "filled" : "empty";
-
   return (
     <>
       <CibilScoreCard
-        state={cardState}
-        cibilResponse={cibilData}
         refreshKey={scoreRefreshKey}
         onCheckCibil={handleCheckCibil}
         onRefresh={handleRefreshCibil}

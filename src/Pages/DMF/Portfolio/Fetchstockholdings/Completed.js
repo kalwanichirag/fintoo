@@ -9,6 +9,7 @@ import CommonCss from "../../../../components/CommonStyle/CommonPopup.module.css
 import FintooLoader from "../../../../components/FintooLoader";
 
 const Completed = (props) => {
+  const stockAmount = props?.modalData?.stocksamount ?? null;
 
   const handleDownloadClick = (downloadPDF) => {
     const link = document.createElement('a');
@@ -32,6 +33,7 @@ const Completed = (props) => {
   const par_report_data = useSelector((state) => state.par_report_data);
   const [downloadParReport, setDownloadParReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [, setSnippetError] = useState(false);
 
   const handleRedirect = () => {
 
@@ -72,7 +74,7 @@ const Completed = (props) => {
             location.pathname === "/commondashboard" || location.pathname === "/commondashboard/" ? (
               <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 {
-                  !props.modalData.stocksamount ? (
+                  !stockAmount ? (
                     <div>
                       {/* <img
                         className="ms-2"
@@ -96,7 +98,7 @@ const Completed = (props) => {
                         <div style={{
                           fontSize: "1"
                         }} className={`${CommonCss.infoText}`}>
-                          Your Stocks Portfolio - {<span style={{ color: '#042b62' }}>{props.modalData.stocksamount && indianRupeeFormat(props.modalData.stocksamount)}</span>}
+                          Your Stocks Portfolio - {<span style={{ color: '#042b62' }}>{stockAmount && indianRupeeFormat(stockAmount)}</span>}
                         </div>
                         <div className={`${Styles.Congratulationssubtxt} ${CommonCss.infoText}`}>
                           {

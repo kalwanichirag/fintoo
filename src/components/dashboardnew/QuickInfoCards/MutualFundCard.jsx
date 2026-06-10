@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaChartPie, FaCrown, FaDownload, FaRobot, FaRedo, FaEllipsisV } from "react-icons/fa";
-import { FiRefreshCw, FiInfo } from "react-icons/fi";
+import { FaChartPie, FaCrown, FaDownload, FaRobot, FaEllipsisV } from "react-icons/fa";
+import { FiInfo } from "react-icons/fi";
 
 import MFReportModal from "../../../Pages/datagathering/MFReport/MFReportModal";
-import { getUserId, indianRupeeFormat } from "../../../common_utilities";
+import { getItemLocal, getUserId, indianRupeeFormat } from "../../../common_utilities";
 import { DATA_BELONGS_TO } from "../../../constants";
 
 import { GetDocumentDetails } from "../../../FrappeIntegration-Services/services/financial-planning-api/document";
@@ -12,7 +12,9 @@ import { fetchUserProfileDetails } from "../../../FrappeIntegration-Services/ser
 import { Getpaymentstatus } from "../../../FrappeIntegration-Services/services/payment-api/paymentapiService";
 import { getParentUserId } from "../../../common_utilities";
 import { Fetchecasdatadetails } from "../../../FrappeIntegration-Services/services/financial-planning-api/externalApi";
-import { getMfSummaryPortfolio } from "../../../FrappeIntegration-Services/services/investment-api/investmentService";
+import { getDashboardDataPortfolio, getMfSummaryPortfolio } from "../../../FrappeIntegration-Services/services/investment-api/investmentService";
+import FintooLoader from "../../FintooLoader";
+
 /* ---------- UTIL ---------- */
 const StateBlock = ({ state, show, children }) =>
   state === show ? <>{children}</> : null;
@@ -20,6 +22,20 @@ const StateBlock = ({ state, show, children }) =>
 const toNumber = (value) => {
   if (value === null || value === undefined) return 0;
   return Number(String(value).replace(/,/g, "")) || 0;
+};
+
+const formatCompactAmountIN = (value) => {
+  const amount = Number(value) || 0;
+  const abs = Math.abs(amount);
+  const trim = (num) => num.toFixed(2).replace(/\.?0+$/, "");
+
+  if (abs >= 10000000) {
+    return `${trim(abs / 10000000)}CR`;
+  }
+  if (abs >= 100000) {
+    return `${trim(abs / 100000)}L`;
+  }
+  return abs.toLocaleString("en-IN", { maximumFractionDigits: 2 });
 };
 
 /* ---------- COMPONENT ---------- */
@@ -41,6 +57,12 @@ export default function MutualFundCard() {
   const [lastUpdatedAt, setLastUpdatedAt] = useState(null);
   const [isActionsOpen, setIsActionsOpen] = useState(false);
   const [lowRatedCount, setLowRatedCount] = useState(0);
+  const [dashboardData, setDashboardData] = useState({});
+  const [isDataLoading, setIsDataLoading] = useState({
+    dashboardData: true,
+    mfData: true,
+    otherInvestmentData: true,
+  });
 
   const [reportsData, setReportData] = useState({
     PAR: { Link: "", last_generated_Date: "" },
@@ -53,8 +75,8 @@ export default function MutualFundCard() {
   }
 
   const BASE_URL = (process.env.REACT_APP_STATIC_URL || "")
-  .replace(/\/static\/?$/, "");
-  
+    .replace(/\/static\/?$/, "");
+
   const formatUpdatedDate = (timestamp) => {
     if (!timestamp) return "";
     return new Date(timestamp).toLocaleDateString("en-IN", {
@@ -125,10 +147,13 @@ export default function MutualFundCard() {
         return;
       }
 
+      const hasActivePlan = await checkPaymentStatus();
       const { user_pan, user_name, mobile } = userRes.data;
       const [summaryData, ecasData] = await Promise.all([
         fetchMfSummaryData(user_pan),
-        fetchEcasData(user_pan, user_name, mobile),
+        hasActivePlan
+          ? fetchEcasData(user_pan, user_name, mobile)
+          : Promise.resolve(null),
       ]);
 
       if (summaryData?.hasFunds) {
@@ -213,33 +238,33 @@ export default function MutualFundCard() {
     }
   };
 
-const fetchEcasData = async (pan, username, phone) => {
-  try {
-    const payload = {
-      pan,
-      username,
-      phone: String(phone),
-    };
+  const fetchEcasData = async (pan, username, phone) => {
+    try {
+      const payload = {
+        pan,
+        username,
+        phone: String(phone),
+      };
 
-    const result = await withTimeout(Fetchecasdatadetails(payload), 25000);
+      const result = await withTimeout(Fetchecasdatadetails(payload), 25000);
 
-    // API shape can be either:
-    // 1) { status_code, data: { ... } }
-    // 2) { message: { status_code, data: { ... } } }
-    const envelope = result?.message?.status_code ? result.message : result;
-    const statusCode = String(envelope?.status_code || "");
-    const apiData = envelope?.data?.data || envelope?.data;
+      // API shape can be either:
+      // 1) { status_code, data: { ... } }
+      // 2) { message: { status_code, data: { ... } } }
+      const envelope = result?.message?.status_code ? result.message : result;
+      const statusCode = String(envelope?.status_code || "");
+      const apiData = envelope?.data?.data || envelope?.data;
 
-    if (statusCode !== "200" || !apiData) {
-      return null;
-    }
-    const funds = apiData.mf_name_list || [];
+      if (statusCode !== "200" || !apiData) {
+        return null;
+      }
+      const funds = apiData.mf_name_list || [];
 
-    const count = funds.filter(
-      f => Number(f.star_rating) < 3
-    ).length;
+      const count = funds.filter(
+        f => Number(f.star_rating) < 3
+      ).length;
 
-    return { lowRatedCount: count };
+      return { lowRatedCount: count };
 
   } catch (err) {
     console.error("ECAS API error:", err);
@@ -250,85 +275,130 @@ const fetchEcasData = async (pan, username, phone) => {
 
   /* ---------- FETCH REPORT LINKS ---------- */
   const fetchReportsData = async () => {
-    const userId = getUserId();
-    const res = await GetDocumentDetails(
-      userId,
-      DATA_BELONGS_TO,
-      "mf_screening_report,par_report"
-    );
+    try {
+      const userId = getUserId();
+      const res = await GetDocumentDetails(
+        userId,
+        DATA_BELONGS_TO,
+        "mf_screening_report,par_report"
+      );
 
-    const PAR = res?.data?.find(
-      (d) =>
-        d.user_document_user_id == userId &&
-        d.document_cat_uuid === "par_report"
-    );
+      const docs = Array.isArray(res?.data) ? res.data : [];
 
-    const MF = res?.data?.find(
-      (d) =>
-        d.user_document_user_id == userId &&
-        d.document_cat_uuid === "mf_screening_report"
-    );
+      const PAR = docs.find(
+        (d) =>
+          d.user_document_user_id == userId &&
+          d.document_cat_uuid === "par_report"
+      );
 
-    setReportData({
-      PAR: {
-        Link: PAR?.document_file_url || "",
-        last_generated_Date: PAR?.creation || "",
-      },
-      MF: {
-        Link: MF?.document_file_url || "",
-        last_generated_Date: MF?.creation || "",
-      },
-    });
+      const MF = docs.find(
+        (d) =>
+          d.user_document_user_id == userId &&
+          d.document_cat_uuid === "mf_screening_report"
+      );
+
+      setReportData({
+        PAR: {
+          Link: PAR?.document_file_url || "",
+          last_generated_Date: PAR?.creation || "",
+        },
+        MF: {
+          Link: MF?.document_file_url || "",
+          last_generated_Date: MF?.creation || "",
+        },
+      });
+    } catch (err) {
+      console.error("Fetch report links failed:", err);
+      setReportData({
+        PAR: { Link: "", last_generated_Date: "" },
+        MF: { Link: "", last_generated_Date: "" },
+      });
+    }
   };
   const isPlanActive = (expiryDate) => {
-  if (!expiryDate) return false;
+    if (!expiryDate) return false;
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-  const expiry = new Date(expiryDate);
-  expiry.setHours(23, 59, 59, 999);
+    const expiry = new Date(expiryDate);
+    expiry.setHours(23, 59, 59, 999);
 
-  return expiry >= today;
-};
+    return expiry >= today;
+  };
 
 
-const checkPaymentStatus = async () => {
-  try {
-    const parentUserId = getParentUserId();
+  const checkPaymentStatus = async () => {
+    try {
+      const parentUserId = getParentUserId();
 
-    if (!parentUserId) {
-      setIsPaidUser(false);
-      return;
-    }
+      if (!parentUserId) {
+        setIsPaidUser(false);
+        return false;
+      }
 
-    const payload = {
-      user_id: parentUserId,
-      data_belongs_to: DATA_BELONGS_TO,
-    };
+      const payload = {
+        user_id: parentUserId,
+        data_belongs_to: DATA_BELONGS_TO,
+      };
 
-    const res = await Getpaymentstatus(payload);
+      const res = await Getpaymentstatus(payload);
 
-    /**
-     * EXPECTED:
-     * res.data.plan_expiry_date
-     */
-    const plan = res?.data;
+      /**
+       * EXPECTED:
+       * res.data.plan_expiry_date
+       */
+      const plan = res?.data;
 
     if (plan && isPlanActive(plan.plan_expiry_date)) {
       setIsPaidUser(true);
       console.log("Plan is active");
+      return true;
     } else {
       setIsPaidUser(false);
       console.log("Plan expired or not found");
+      return false;
     }
   } catch (err) {
     console.error("Payment check failed", err);
     setIsPaidUser(false);
+    return false;
   } finally {
     setPaymentChecked(true);
   }
 };
+
+  const getDashboardData = async () => {
+
+    let payload = {};
+
+    if (getItemLocal("family")) {
+      const memberData = getItemLocal("member") || [];
+      const userIds = memberData
+        .filter((m) => m.id !== null)
+        .map((m) => m.id.toString());
+
+      payload = {
+        user_id: getUserId(),
+        data_belongs_to: DATA_BELONGS_TO,
+        family: "1",
+      };
+    } else {
+      payload = {
+        user_id: String(getUserId()),
+      };
+    }
+
+    try {
+      const res = await getDashboardDataPortfolio(payload);
+
+      if (res.status_code === "200") {
+        setDashboardData(res.data);
+      }
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    }
+  };
 
 
   /* ---------- EFFECT ---------- */
@@ -336,8 +406,7 @@ const checkPaymentStatus = async () => {
     isMountedRef.current = true;
 
     const init = async () => {
-      fetchReportsData();
-      checkPaymentStatus();
+      await fetchReportsData();
 
       const cached = localStorage.getItem(MF_CACHE_KEY);
 
@@ -363,6 +432,7 @@ const checkPaymentStatus = async () => {
 
       // ALWAYS fetch latest and update cache on every load/reload.
       await fetchMfPerformance();
+      await getDashboardData();
     };
 
     init();
@@ -402,18 +472,23 @@ const checkPaymentStatus = async () => {
 
   /* ---------- RENDER ---------- */
   return (
-    <div className="glass-card tw-rounded-2xl tw-p-6 tw-relative tw-grid tw-items-stretch">
+    <div className="glass-card tw-rounded-2xl tw-p-4 md:tw-p-6 tw-relative tw-grid tw-items-stretch">
+      {loading && (
+        <div className="tw-absolute tw-inset-0 tw-bg-white/70 tw-flex tw-items-center tw-justify-center tw-z-50 tw-rounded-2xl">
+          <FintooLoader />
+        </div>
+      )}
       {/* ================= FILLED STATE ================= */}
       <StateBlock state={cardState} show="filled">
         <div>
           {/* Header */}
-          <div className="tw-flex tw-items-center tw-justify-between tw-mb-6">
+          <div className="tw-flex tw-items-center tw-justify-between tw-mb-4 md:tw-mb-6">
             <div className="tw-flex tw-items-center tw-space-x-3">
-              <div className="tw-w-12 tw-h-12 tw-bg-fintoo-blue tw-rounded-xl tw-flex tw-items-center tw-justify-center">
-                <FaChartPie className="tw-text-white tw-text-2xl" />
+              <div className="tw-w-11 tw-h-11 md:tw-w-12 md:tw-h-12 tw-bg-fintoo-blue tw-rounded-xl tw-flex tw-items-center tw-justify-center">
+                <FaChartPie className="tw-text-white tw-text-xl md:tw-text-2xl" />
               </div>
               <div>
-                <h2 className="tw-text-base tw-font-semibold tw-text-slate-800 tw-mb-0">
+                <h2 className="tw-text-base tw-font-semibold tw-text-slate-900 tw-mb-0">
                   Mutual Funds
                 </h2>
                 <div className="tw-flex tw-items-center tw-gap-1">
@@ -421,8 +496,8 @@ const checkPaymentStatus = async () => {
                     {loading
                       ? "Fetching..."
                       : lastUpdatedAt
-                      ? `Updated on ${formatUpdatedDate(lastUpdatedAt)}`
-                      : "Updated recently"}
+                        ? `Updated on ${formatUpdatedDate(lastUpdatedAt)}`
+                        : "Updated recently"}
                   </p>
                   {!loading && (
                     <div className="tw-relative tw-group">
@@ -431,10 +506,10 @@ const checkPaymentStatus = async () => {
                         className="tw-bg-transparent tw-p-0 tw-leading-none tw-text-slate-400 hover:tw-text-slate-600"
                         aria-label="Reconnect info"
                       >
-  <FiInfo className="tw-text-slate-600 tw-cursor-pointer tw-ml-0.5 tw-mb-0.5" size={12} />
+                        <FiInfo className="tw-text-slate-600 tw-cursor-pointer tw-ml-0.5 tw-mb-0.5" size={12} />
                       </button>
                       <div className="tw-pointer-events-none tw-absolute tw-left-1/2 tw-top-full tw-z-20 tw-mt-2 tw-w-64 -tw-translate-x-1/2 tw-rounded-md tw-bg-slate-800 tw-text-white tw-text-[11px] tw-leading-snug tw-px-3 tw-py-2 tw-opacity-0 tw-transition-opacity tw-duration-150 group-hover:tw-opacity-100 group-focus-within:tw-opacity-100">
-                       Reconnect to view the updated mutual fund values.
+                        Reconnect to view the updated mutual fund values.
                       </div>
                     </div>
                   )}
@@ -443,7 +518,7 @@ const checkPaymentStatus = async () => {
             </div>
 
             <div ref={actionsMenuRef} className="tw-relative tw-flex tw-items-center tw-gap-3">
-              
+
               <button
                 onClick={() => setIsActionsOpen((v) => !v)}
                 className="tw-flex tw-bg-transparent tw-items-center tw-justify-center tw-h-7 tw-w-7 tw-rounded-md tw-text-slate-500 hover:tw-bg-slate-100 hover:tw-text-slate-700"
@@ -458,16 +533,6 @@ const checkPaymentStatus = async () => {
                   <button
                     onClick={() => {
                       setIsActionsOpen(false);
-                      fetchMfPerformance({ manual: true });
-                    }}
-                    className="tw-w-full tw-bg-transparent tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-2 tw-text-xs tw-text-slate-700 hover:tw-bg-slate-50"
-                  >
-                    <FiRefreshCw size={12} />
-                    Refresh
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsActionsOpen(false);
                       setOpenModalByName({
                         name: "MF_Screening",
                         source: "IMPORT",
@@ -475,8 +540,7 @@ const checkPaymentStatus = async () => {
                     }}
                     className="tw-w-full tw-bg-transparent tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-2 tw-text-xs tw-text-slate-700 hover:tw-bg-slate-50"
                   >
-                    <FaRedo size={12} />
-                    Reconnect
+                    Fetch Holdings
                   </button>
                 </div>
               )}
@@ -488,13 +552,13 @@ const checkPaymentStatus = async () => {
             <p className="tw-text-xs tw-text-slate-500 tw-mb-1">Current Value</p>
             <div className="tw-flex tw-items-baseline tw-space-x-2">
               <p className="tw-text-2xl tw-font-bold tw-text-slate-900 tw-mb-0">
-                {indianRupeeFormat(mfPerformance?.totalCurrentValue || 0)}
+                ₹{formatCompactAmountIN(dashboardData?.investment_allocation?.inv_data?.mutual_fund?.inv_val || 0)}
               </p>
               <p
                 className={`tw-text-xs tw-font-semibold tw-mb-1 ${mfPerformance?.totalGainLoss < 0 ? "!tw-text-red-600" : "!tw-text-green-600"
                   }`}
               >
-                {`${(mfPerformance?.totalGainLoss || 0) > 0 ? "+ " : (mfPerformance?.totalGainLoss || 0) < 0 ? "- " : ""}${indianRupeeFormat(Math.abs(mfPerformance?.totalGainLoss || 0))} (${Math.abs(mfPerformance?.totalGainLossPercentage || 0).toFixed(1)}%)`}
+                {`${(mfPerformance?.totalGainLoss || 0) > 0 ? "+ " : (mfPerformance?.totalGainLoss || 0) < 0 ? "- " : ""}₹${formatCompactAmountIN(Math.abs(mfPerformance?.totalGainLoss || 0))} (${Math.abs(mfPerformance?.totalGainLossPercentage || 0).toFixed(1)}%)`}
               </p>
             </div>
           </div>
@@ -506,7 +570,7 @@ const checkPaymentStatus = async () => {
             <div>
               <p className="tw-text-xs tw-text-slate-500 tw-mb-1">Invested Value</p>
               <p className="tw-font-semibold">
-                {indianRupeeFormat(mfPerformance?.totalInvested || 0)}
+                ₹{formatCompactAmountIN(mfPerformance?.totalInvested || 0)}
               </p>
             </div>
 
@@ -515,7 +579,7 @@ const checkPaymentStatus = async () => {
               <p
                 className={`tw-font-semibold  ${mfPerformance?.oneDayReturn < 0 ? "!tw-text-red-600" : "!tw-text-green-600"}`}
               >
-                {`${(mfPerformance?.oneDayReturn || 0) > 0 ? "+ " : (mfPerformance?.oneDayReturn || 0) < 0 ? "- " : ""}${indianRupeeFormat(Math.abs(mfPerformance?.oneDayReturn || 0))} (${Math.abs(mfPerformance?.oneDayReturnPercentage || 0).toFixed(1)}%)`}
+                {`${(mfPerformance?.oneDayReturn || 0) > 0 ? "+ " : (mfPerformance?.oneDayReturn || 0) < 0 ? "- " : ""}₹${formatCompactAmountIN(Math.abs(mfPerformance?.oneDayReturn || 0))} (${Math.abs(mfPerformance?.oneDayReturnPercentage || 0).toFixed(1)}%)`}
 
               </p>
             </div>
@@ -533,7 +597,7 @@ const checkPaymentStatus = async () => {
                   {lowRatedCount > 0 ? (
                     <span>
                       {lowRatedCount} fund{lowRatedCount > 1 ? "s are" : " is"} underperforming.
-                     Your portfolio needs urgent attention.
+                      Your portfolio needs urgent attention.
                     </span>
                   ) : (
                     <span>
@@ -578,7 +642,7 @@ const checkPaymentStatus = async () => {
                 <FaChartPie className="tw-text-white tw-text-2xl" />
               </div>
               <div>
-                <h2 className="tw-text-base tw-font-semibold tw-mb-0 tw-pb-0">Mutual Funds</h2>
+                <h2 className="tw-text-base tw-font-semibold tw-mb-0 tw-pb-0 tw-text-slate-900">Mutual Funds</h2>
                 <p className="tw-text-xs tw-text-slate-500 tw-mb-0">
                   Portfolio Summary
                 </p>
@@ -586,12 +650,12 @@ const checkPaymentStatus = async () => {
             </div>
 
             <button
-               onClick={() =>
-                  setOpenModalByName({
-                    name: "MF_Screening",
-                    source: "IMPORT",
-                  })
-                }
+              onClick={() =>
+                setOpenModalByName({
+                  name: "MF_Screening",
+                  source: "IMPORT",
+                })
+              }
               className="tw-bg-fintoo-orange tw-text-white tw-text-xs tw-font-semibold tw-py-2 tw-px-4 tw-rounded-lg"
             >
               <FaDownload className="tw-mr-2" />
@@ -601,7 +665,7 @@ const checkPaymentStatus = async () => {
 
           <div className="tw-text-center tw-mb-6">
             <p className="tw-text-xs tw-text-slate-500 tw-mb-1">Current Value</p>
-            <p className="tw-text-3xl tw-font-bold">₹0</p>
+            <p className="tw-text-3xl tw-font-bold tw-text-slate-900">₹0</p>
             <p className="tw-text-sm tw-text-slate-400">
               No data available
             </p>

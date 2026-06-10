@@ -480,10 +480,12 @@ const MFReportModal = (props) => {
 
     const getTransactionId = async (jwtToken) => {
         try {
+            // generatemftxnid expects only jwt token payload.
             let payload = {
-                token: jwtToken,
+                     token: jwtToken,
                 pan: selectedMember.pan,
-                mobile: selectedMember.mobile
+                mobile: selectedMember.mobile,
+                user_id: selectedMember.id
             }
             const response = await GettransactionID(payload)
             if (response.status_code === 200)
@@ -1210,6 +1212,7 @@ const handleSuccess = () => {
                     setIsLoading={setIsLoading}
                     fetchEcasData={fetchEcasData}
                     setShowSuccessPopup={setShowSuccessPopup}
+                    onSuccess={handleSuccess}
                     fetcEcas={true}
                     parSnippet={false}
                     portfolio={false}

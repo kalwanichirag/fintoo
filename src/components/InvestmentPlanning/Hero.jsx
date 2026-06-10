@@ -37,7 +37,7 @@ export default function HeroB() {
                             {/* Trust Indicators */}
                             <div className="tw-flex tw-items-center tw-space-x-6 lg:tw-pt-8 tw-border-t tw-border-gray-200">
                                 <div className="tw-text-center">
-                                    <div className="tw-text-2xl tw-font-bold tw-text-fintoo-blue">₹500Cr+</div>
+                                    <div className="tw-text-2xl tw-font-bold tw-text-fintoo-blue">217CR+</div>
                                     <div className="tw-text-sm tw-text-gray-600">Assets Under Advisory</div>
                                 </div>
                                 <div className="tw-text-center">

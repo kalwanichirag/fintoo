@@ -41,9 +41,9 @@ const PerformanceSection = () => {
       subColor: "tw-text-green-600",
     },
     {
-      value: "₹500Cr+",
+      value: "₹4000Cr+",
       color: "tw-text-green-600",
-      title: "Assets Under Management",
+      title: "Assets Under Tracking",
       sub: "Growing 25% YoY",
       subColor: "tw-text-blue-600",
     },

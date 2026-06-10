@@ -380,7 +380,8 @@ function LinkYourHoldingsDG(props) {
         let payload = {
           token: jwtTok.data.token,
           pan: selectedMember.pan,
-          mobile: selectedMember.mobile
+          mobile: selectedMember.mobile,
+          user_id: selectedMember.user_id
         }
         const trxnIdData = await GettransactionID(payload);
         setSmallcaseAuthToken(jwtTok.data.token)
@@ -558,7 +559,7 @@ const refreshSmallcase = async (memberid) => {
     // );
     let reqData = {
       user_id: memberid,
-      user_pan: member[0].pan
+      user_pan: member[0].pan_number,
     };
     let res = await checkPan(reqData)
 

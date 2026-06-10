@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BootStrapModal from "react-bootstrap/Modal";
+import { FiMail, FiPrinter } from "react-icons/fi";
+import { BsFiletypePdf } from "react-icons/bs";
 import styles from "../../../MainHeader/style.module.css";
 import style from "./../../../CommonDashboard/style.module.css";
 import {
@@ -252,7 +254,10 @@ const SlideBar = () => {
                           setReportValue(1);
                         }}
                       >
-                        Email
+                        <span className="report-action-icon" aria-hidden="true">
+                          <FiMail />
+                        </span>
+                        <span className="visually-hidden">Email</span>
                       </a>
                     </li>
                     <li>
@@ -268,7 +273,10 @@ const SlideBar = () => {
                         }}
 
                       >
-                        PDF
+                        <span className="report-action-icon" aria-hidden="true">
+                          <BsFiletypePdf />
+                        </span>
+                        <span className="visually-hidden">PDF</span>
                       </a>
                     </li>
                     <li>
@@ -283,7 +291,10 @@ const SlideBar = () => {
                           setReportValue(1);
                         }}
                       >
-                        Print
+                        <span className="report-action-icon" aria-hidden="true">
+                          <FiPrinter />
+                        </span>
+                        <span className="visually-hidden">Print</span>
                       </a>
                     </li>
                   </ul>
@@ -682,7 +693,10 @@ const SlideBar = () => {
                       data-type="email"
                       data-text="Sending Email..."
                     >
-                      Email
+                      <span className="report-action-icon" aria-hidden="true">
+                        <FiMail />
+                      </span>
+                      <span className="visually-hidden">Email</span>
                     </a>
                   </li>
                   <li>
@@ -692,7 +706,10 @@ const SlideBar = () => {
                       data-type="pdf"
                       data-text="Downlading PDF..."
                     >
-                      PDF
+                      <span className="report-action-icon" aria-hidden="true">
+                        <BsFiletypePdf />
+                      </span>
+                      <span className="visually-hidden">PDF</span>
                     </a>
                   </li>
                   <li>
@@ -702,7 +719,10 @@ const SlideBar = () => {
                       data-type="print"
                       data-text="Printing Report..."
                     >
-                      Print
+                      <span className="report-action-icon" aria-hidden="true">
+                        <FiPrinter />
+                      </span>
+                      <span className="visually-hidden">Print</span>
                     </a>
                   </li>
                 </ul>

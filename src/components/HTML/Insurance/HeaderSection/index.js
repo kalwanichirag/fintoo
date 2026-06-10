@@ -13,7 +13,7 @@ function HeaderSection() {
         <div className={`${styles["header-section-background-overlay"]}`}></div>
         <div className={`${styles["header-section-container"]}`}>
           <div className={`${styles["header-section-content"]}`}>
-            <h2 className="header-section-bold-title">
+            <h2 className={styles["header-section-title"]}>
               Expect the Unexpected, <br />
               Protect What’s Yours!
             </h2>
@@ -53,7 +53,12 @@ function HeaderSection() {
                   process.env.REACT_APP_STATIC_URL +
                   "media/wp/insurance-1.png"
                 }
-                alt=""
+                alt="Insurance planning"
+            
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+               
               />
             </div>
           </div>

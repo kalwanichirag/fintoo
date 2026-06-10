@@ -1,36 +1,45 @@
 import React, { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2/lib/lib";
 import "react-phone-input-2/lib/style.css";
-import { InlineWidget } from "react-calendly";
+import styles from "./otp.module.css";
 
 import {
-
+  generateLead,
   sendOTP,
   verifyOTP,
 } from "../../FrappeIntegration-Services/services/user-management-api/userApiService";
-import LandingPageCalendly from "../landingpagesCalendly/LandingPageCalendly";
-import Calendar from "../Pages/Calendly/Calendar";
 
-const LeadWithOtp = ({ pageName, calendlyurl }) => {
+const GOOGLE_SHEET_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbxa1JKqBxbApkWyNRT0mTA2R2R5X7CqcapHr9qbiKoyhrg-ILgGdJo9vEH4EdIzlNNx/exec";
+
+const INCOME_SLAB_OPTIONS = [
+  "0 - 10 Lakhs",
+  "10 - 25 Lakhs",
+  "25 - 50 Lakhs",
+  "50 Lakhs - 1 Crore",
+  "1 Cr+",
+];
+
+const LeadWithOtp = ({ pageName }) => {
   const [step, setStep] = useState(1);
   const [resendTimer, setResendTimer] = useState(50);
   const [canResend, setCanResend] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [phoneCountry, setPhoneCountry] = useState(null);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
-
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    mobile: "", // raw digits only
-    comment: "",
+    mobile: "",
+    city: "",
+    incomeSlab: "",
   });
 
   const [otp, setOtp] = useState("");
   const [errors, setErrors] = useState({});
 
-  /* ------------------ UTM ------------------ */
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     sessionStorage.setItem(
@@ -40,7 +49,6 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
     sessionStorage.setItem("tags", params.get("tags") || "");
   }, []);
 
-  /* ------------------ OTP TIMER ------------------ */
   useEffect(() => {
     if (step !== 2) return;
 
@@ -61,17 +69,22 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
     return () => clearInterval(interval);
   }, [step]);
 
-  /* ------------------ REDIRECT ------------------ */
-  // useEffect(() => {
-  //   if (step === 3) {
-  //     const t = setTimeout(() => {
-  //       window.location.replace("https://www.fintoo.in/thankyou-page");
-  //     }, 800);
-  //     return () => clearTimeout(t);
-  //   }
-  // }, [step]);
+  useEffect(() => {
+    if (step !== 3) return;
 
-  /* ------------------ HELPERS ------------------ */
+    const redirectTimer = setTimeout(() => {
+      window.location.assign("/thankyou-page");
+    }, 800);
+
+    return () => clearTimeout(redirectTimer);
+  }, [step]);
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const utmSource = urlParams.get("utm_source") || "Website Callback";
+  const utmCampaign = urlParams.get("utm_campaign") || "";
+  const tags = urlParams.get("tags") || "";
+  const utmMedium = urlParams.get("utm_medium") || "CPC";
+
   const isIndianUser = phoneCountry?.countryCode === "in";
 
   const getIndianMobile = () => formData.mobile.slice(-10);
@@ -84,12 +97,16 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
     ))}`;
   };
 
-  /* ------------------ VALIDATION ------------------ */
   const validateForm = () => {
     const e = {};
 
     if (!formData.fullName.trim()) e.fullName = "Full name is required";
 
+    if (!formData.email) {
+      e.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      e.email = "Enter a valid email";
+    }
 
     if (!phoneCountry) e.mobile = "Please select country and number";
 
@@ -97,19 +114,110 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
       if (!formData.mobile || getIndianMobile().length !== 10) {
         e.mobile = "Enter valid 10 digit mobile number";
       }
-    } else {
-      if (!formData.email) {
-        e.email = "Email is required for OTP";
-      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        e.email = "Enter a valid email";
-      }
     }
 
+    if (!formData.city.trim()) e.city = "City is required";
+
+    if (!formData.incomeSlab) e.incomeSlab = "Please select income slab";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  /* ------------------ SEND OTP ------------------ */
+  const submitLeadToGoogleSheet = async () => {
+    const submittedAt = new Date();
+    const payload = {
+      name: formData.fullName.trim(),
+      "email id": formData.email.trim(),
+      email_id: formData.email.trim(),
+      "mobile number": getFormattedPhone(),
+      mobile_number: getFormattedPhone(),
+      city: formData.city.trim(),
+      "income slab": formData.incomeSlab,
+      income_slab: formData.incomeSlab,
+      date: submittedAt.toLocaleDateString("en-CA"),
+      time: submittedAt.toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }),
+    };
+
+    await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+    });
+  };
+
+  const submitLeadToCRMAndWebengage = async () => {
+    const trimmedName = formData.fullName.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedCity = formData.city.trim();
+    const cleanedMobile = isIndianUser
+      ? getIndianMobile()
+      : getFormattedPhone().replace(/^\+/, "");
+
+    const leadRes = await generateLead({
+      full_name: trimmedName,
+      email: trimmedEmail,
+      mobile: cleanedMobile,
+      city: trimmedCity,
+      slab: formData.incomeSlab,
+      source: utmSource,
+      campaign: utmCampaign,
+      tag: tags,
+      services: ["assisted_advisory_fixed_fees"],
+    });
+
+    if (window.webengage) {
+      const nameParts = trimmedName.split(" ");
+      window.webengage.user.setAttribute("we_first_name", nameParts[0] || "");
+      window.webengage.user.setAttribute(
+        "we_last_name",
+        nameParts.slice(1).join(" ")
+      );
+      window.webengage.user.setAttribute("we_email", trimmedEmail);
+      window.webengage.user.setAttribute("we_phone", cleanedMobile);
+      window.webengage.user.setAttribute("we_city", trimmedCity);
+      window.webengage.user.setAttribute("City", trimmedCity);
+      window.webengage.user.setAttribute("Income Slab", formData.incomeSlab);
+      window.webengage.user.setAttribute("Lead Source", utmSource);
+      window.webengage.user.setAttribute("Lead Medium", utmMedium);
+      window.webengage.user.setAttribute("LeadDate", new Date());
+      window.webengage.user.setAttribute("we_whatsapp_opt_in", true);
+
+      window.webengage.track(pageName || "OTP Lead", {
+        name: trimmedName,
+        email: trimmedEmail,
+        number: cleanedMobile,
+        City: trimmedCity,
+        "Lead Source": utmSource,
+        "Lead Medium": utmMedium,
+        "Lead Status": "Entry",
+        "RM Name": "Online",
+        "RM Email": "Online@fintoo.in",
+        "Lead Type": pageName || "OTP Lead",
+        "Income Slab": formData.incomeSlab,
+        "Tag": tags || "",
+        "Lead Date": new Date(),
+      });
+
+      const leadId = leadRes?.data?.lead_id;
+      if (leadId) {
+        try {
+          window.webengage.user.login(leadId);
+        } catch (error) {
+          console.warn("WebEngage login failed:", error);
+        }
+      }
+    }
+
+    return leadRes;
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -118,13 +226,13 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
     try {
       const payload = isIndianUser
         ? {
-          identifier: getIndianMobile(), 
-          for_otp: "mobile",
-        }
+            identifier: getIndianMobile(),
+            for_otp: "mobile",
+          }
         : {
-          identifier: formData.email,
-          for_otp: "email",
-        };
+            identifier: formData.email,
+            for_otp: "email",
+          };
 
       const res = await sendOTP(payload);
 
@@ -138,22 +246,21 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
       console.error(err);
       alert("OTP send failed");
     } finally {
-    setIsSendingOtp(false);
+      setIsSendingOtp(false);
     }
   };
 
-  /* ------------------ RESEND OTP ------------------ */
   const handleResendOtp = async () => {
     try {
       const payload = isIndianUser
         ? {
-          identifier: getIndianMobile(),
-          for_otp: "mobile",
-        }
+            identifier: getIndianMobile(),
+            for_otp: "mobile",
+          }
         : {
-          identifier: formData.email,
-          for_otp: "email",
-        };
+            identifier: formData.email,
+            for_otp: "email",
+          };
 
       await sendOTP(payload);
       setOtp("");
@@ -164,7 +271,6 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
     }
   };
 
-  /* ------------------ VERIFY OTP ------------------ */
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
 
@@ -178,15 +284,15 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
     try {
       const payload = isIndianUser
         ? {
-          identifier: getIndianMobile(),
-          for_otp: "mobile",
-          otp,
-        }
+            identifier: getIndianMobile(),
+            for_otp: "mobile",
+            otp,
+          }
         : {
-          identifier: formData.email,
-          for_otp: "email",
-          otp,
-        };
+            identifier: formData.email,
+            for_otp: "email",
+            otp,
+          };
 
       const otpRes = await verifyOTP(payload);
 
@@ -196,6 +302,16 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
       }
 
       setErrors({});
+      setIsSubmittingLead(true);
+
+      try {
+        await submitLeadToCRMAndWebengage();
+        await submitLeadToGoogleSheet();
+      } catch (sheetError) {
+        console.error("Lead submission failed", sheetError);
+      } finally {
+        setIsSubmittingLead(false);
+      }
 
       setStep(3);
     } catch (err) {
@@ -206,91 +322,49 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
     }
   };
 
-  const prefillState = {
-    name: formData.fullName,
-    email: formData.email,
-    customAnswers: {
-      a2: getFormattedPhone(),   // Phone number
-    },
-  };
-
-
   return (
-    <div className="tw-bg-white tw-text-left tw-rounded-3xl tw-p-10 tw-shadow-2xl tw-border tw-border-gray-100">
+    <div className={styles.card}>
       {step === 1 && (
         <>
-          <h3 className="tw-text-2xl tw-font-bold tw-text-primary tw-mb-4 tw-text-black">
-            Schedule Your Free Consultation
-          </h3>
+          <h3 className={styles.title}>Schedule Your Free Consultation</h3>
 
-          <form className="tw-space-y-6" onSubmit={handleFormSubmit}>
-            {/* Full Name */}
-            <div>
-              <label className="tw-block tw-text-gray-700 tw-font-semibold tw-mb-1 tw-text-sm">
-                Full Name *
-              </label>
+          <form className={styles.form} onSubmit={handleFormSubmit}>
+            <div className={styles.field}>
+              <label className={styles.label}>Full Name *</label>
               <input
                 type="text"
-                className="tw-w-full tw-px-3 tw-py-2 tw-border tw-border-gray-300 tw-rounded-xl focus:tw-outline-none focus:tw-border-accent tw-text-sm"
+                className={styles.input}
                 value={formData.fullName}
                 onChange={(e) =>
                   setFormData({ ...formData, fullName: e.target.value })
                 }
               />
               {errors.fullName && (
-                <p className="tw-text-red-500 tw-text-sm tw-mt-1">
-                  {errors.fullName}
-                </p>
+                <p className={styles.error}>{errors.fullName}</p>
               )}
             </div>
 
-            {/* Email */}
-            <div>
-              <label className="tw-block tw-text-gray-700 tw-font-semibold tw-mb-1 tw-text-sm">
-                Email ID *
-              </label>
+            <div className={styles.field}>
+              <label className={styles.label}>Email ID *</label>
               <input
                 type="email"
-                className="tw-w-full tw-px-3 tw-py-2 tw-border tw-border-gray-300 tw-rounded-xl focus:tw-outline-none focus:tw-border-accent tw-text-sm"
+                className={styles.input}
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
               />
-              {errors.email && (
-                <p className="tw-text-red-500 tw-text-sm tw-mt-1">
-                  {errors.email}
-                </p>
-              )}
+              {errors.email && <p className={styles.error}>{errors.email}</p>}
             </div>
 
-            {/* Mobile */}
-            <div>
-              <label className="tw-block tw-text-gray-700 tw-font-semibold tw-mb-1 tw-text-sm">
-                Mobile Number *
-              </label>
+            <div className={`${styles.field} ${styles.phoneField}`}>
+              <label className={styles.label}>Mobile Number *</label>
               <PhoneInput
-                country={"in"}                // default India
-                enableSearch                  // search among 200+ countries
+                country={"in"}
+                enableSearch
                 countryCodeEditable={true}
-                inputStyle={{
-                  width: "100%",
-                  height: "44px",
-                  fontSize: "14px",
-                  borderRadius: "12px",
-                  border: "1px solid #d1d5db",
-                }}
-                buttonStyle={{
-                  borderRadius: "12px 0 0 12px",
-                  border: "1px solid #d1d5db",
-                }}
-                dropdownStyle={{
-                  borderRadius: "12px",
-                }}
                 value={formData.mobile}
                 onChange={(value, country) => {
-                  // value example: "14155552671"
-                  // we store +14155552671 (E.164)
                   setFormData({
                     ...formData,
                     mobile: value,
@@ -299,67 +373,70 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
                 }}
               />
 
+              {errors.mobile && <p className={styles.error}>{errors.mobile}</p>}
+            </div>
 
-              {errors.mobile && (
-                <p className="tw-text-red-500 tw-text-sm tw-mt-1">
-                  {errors.mobile}
-                </p>
+            <div className={styles.field}>
+              <label className={styles.label}>City *</label>
+              <input
+                type="text"
+                className={styles.input}
+                value={formData.city}
+                onChange={(e) =>
+                  setFormData({ ...formData, city: e.target.value })
+                }
+              />
+              {errors.city && <p className={styles.error}>{errors.city}</p>}
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Income Slab *</label>
+              <select
+                className={styles.select}
+                value={formData.incomeSlab}
+                onChange={(e) =>
+                  setFormData({ ...formData, incomeSlab: e.target.value })
+                }
+              >
+                <option value="">Select income slab</option>
+                {INCOME_SLAB_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              {errors.incomeSlab && (
+                <p className={styles.error}>{errors.incomeSlab}</p>
               )}
             </div>
 
-
-
-
-            {/* Comment */}
-            <div>
-              <label className="tw-block tw-text-gray-700 tw-font-semibold tw-mb-1 tw-text-sm">
-                Comment / Message
-              </label>
-              <textarea
-                rows="4"
-                className="tw-w-full tw-px-3 tw-py-2 tw-border !tw-border-[#e9e9e9] tw-rounded-xl focus:tw-outline-none focus:tw-border-accent tw-text-sm"
-                value={formData.comment}
-                onChange={(e) =>
-                  setFormData({ ...formData, comment: e.target.value })
-                }
-              />
-            </div>
-
-
-
-
             <button
-  type="submit"
-  disabled={isSendingOtp}
-  className={`tw-w-full tw-px-8 tw-py-4 tw-font-bold tw-rounded-full tw-transition-all tw-shadow-lg
-    ${isSendingOtp
-      ? "tw-bg-gray-400 tw-cursor-not-allowed"
-      : "tw-bg-fintoo-blue hover:tw-bg-blue-900 tw-text-white"
-    }`}
->
-  {isSendingOtp ? (
-  <span className="tw-flex tw-items-center tw-justify-center">
-    Sending OTP...
-    <span className="tw-ml-2 tw-animate-spin tw-border-2 tw-border-white tw-border-t-transparent tw-rounded-full tw-w-4 tw-h-4" />
-  </span>
-) : (
-  "Continue"
-)}
-
-</button>
+              type="submit"
+              disabled={isSendingOtp}
+              className={`${styles.submitButton} ${
+                isSendingOtp ? styles.buttonDisabled : ""
+              }`}
+            >
+              {isSendingOtp ? (
+                <span className={styles.buttonContent}>
+                  Sending OTP...
+                  <span className={styles.spinner} />
+                </span>
+              ) : (
+                "Continue"
+              )}
+            </button>
           </form>
         </>
       )}
 
       {step === 2 && (
         <>
-          <h3 className="tw-text-2xl tw-font-bold tw-text-black tw-mb-0">
-            Verify OTP
-          </h3>
+          <h3 className={styles.title}>Verify OTP</h3>
 
-          <p className="tw-text-sm tw-text-gray-600 tw-mb-4">
+          <p className={styles.subtext}>
             OTP sent to{" "}
-            <span className="tw-font-semibold">
+            <span className={styles.subtextStrong}>
               {phoneCountry?.countryCode === "in"
                 ? formData.mobile
                 : formData.email}
@@ -368,43 +445,42 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="tw-text-fintoo-blue tw-ml-2 tw-text-sm tw-font-semibold"
+              className={styles.editButton}
             >
               Edit
             </button>
           </p>
 
-          <form className="tw-space-y-6" onSubmit={handleOtpSubmit}>
+          <form className={styles.form} onSubmit={handleOtpSubmit}>
             <input
               type="text"
               maxLength="6"
-              className="tw-w-full tw-text-center tw-text-xl tw-tracking-widest tw-px-4 tw-py-4 tw-border tw-border-gray-300 tw-rounded-xl focus:tw-outline-none focus:tw-border-accent"
+              className={styles.otpInput}
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
             />
 
-            {errors.otp && (
-              <p className="tw-text-red-500 tw-text-sm">{errors.otp}</p>
-            )}
+            {errors.otp && <p className={styles.error}>{errors.otp}</p>}
 
             <button
               type="submit"
-              className="tw-w-full tw-px-8 tw-py-4 tw-bg-fintoo-blue tw-text-white tw-font-bold tw-rounded-full hover:tw-bg-blue-900 tw-transition-all"
+              disabled={isVerifying || isSubmittingLead}
+              className={styles.submitButton}
             >
-              {isVerifying ? "Verifying OTP..." : "Verify OTP"}
+              {isVerifying || isSubmittingLead
+                ? "Submitting..."
+                : "Verify OTP"}
             </button>
           </form>
 
-          <div className="tw-text-center tw-mt-4">
+          <div className={styles.resendWrap}>
             {!canResend ? (
-              <p className="tw-text-sm tw-text-gray-500">
-                Resend OTP in <span className="tw-font-semibold">{resendTimer}s</span>
+              <p className={styles.timerText}>
+                Resend OTP in{" "}
+                <span className={styles.timerValue}>{resendTimer}s</span>
               </p>
             ) : (
-              <button
-                onClick={handleResendOtp}
-                className="tw-text-sm tw-font-semibold tw-text-fintoo-blue"
-              >
+              <button onClick={handleResendOtp} className={styles.linkButton}>
                 Resend OTP
               </button>
             )}
@@ -413,13 +489,18 @@ const LeadWithOtp = ({ pageName, calendlyurl }) => {
       )}
 
       {step === 3 && (
-        <div className="tw-bg-white tw-space-y-4 tw-py-6">
-
-          {/* <InlineWidget url={calendlyurl} prefill={prefillState} /> */}
-          <LandingPageCalendly variant="minimal" prefill={prefillState} pageName={pageName} servicename={"assisted_advisory_fixed_fees"} calendlyurl={calendlyurl} />
+        <div className={styles.successWrap}>
+          <div className={styles.successBadge}>Verified</div>
+          <h3 className={styles.title}>Consultation request received</h3>
+          <p className={styles.subtext}>
+            Thank you{formData.fullName ? `, ${formData.fullName}` : ""}. Your
+            details have been shared with our team for {pageName || "this request"}.
+          </p>
+          <p className={styles.subtext}>
+            We will connect with you within 24hours.
+          </p>
         </div>
       )}
-
     </div>
   );
 };

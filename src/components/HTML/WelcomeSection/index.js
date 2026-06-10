@@ -13,7 +13,7 @@ const WelcomeSection = () => {
     infinite: true,
     speed: 500,
     autoplaySpeed: 3000,
-    autoplay: true,
+    autoplay: false,
     fade: false,
     slidesToShow: 1,
     arrows: false,

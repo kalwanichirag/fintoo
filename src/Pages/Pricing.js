@@ -23,6 +23,7 @@ import { SegmentedControl } from "segmented-control";
 import TaxPricingView from "./Pricing/views/TaxPricingView";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Getpaymentstatus, getpricinglist } from "../FrappeIntegration-Services/services/payment-api/paymentapiService";
+import { storeChoiceLeadFromUrl } from "../Utils/leadAttribution";
 
 
 const PricingPage = () => {
@@ -46,6 +47,7 @@ const PricingPage = () => {
 
   useEffect(() => {
     SetServiceTab(() => defaultService())
+    storeChoiceLeadFromUrl();
 
     const keyDownHandle = (e) => {
       e.preventDefault()

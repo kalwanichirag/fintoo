@@ -146,7 +146,7 @@ const ProfilePercentage = () => {
                 icon: "info",
               });
             }
-            if ((userData.user_aof_verified === 1 || userData.user_bse_registered === 1) && userData.kyc_verified == 0){
+            if ((userData.user_aof_verified === 1 || userData.user_bse_registered === 1) && userData.kyc_verified == 0 && userData.user_fatca_verified == 0) {
               e.preventDefault();
               setIsOpenReKycModal(true);
             }

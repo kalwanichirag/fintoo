@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import PortfolioLayout from "../../../components/Layout/Portfolio";
-import { FaLongArrowAltUp, FaDownload } from "react-icons/fa";
+import { FaLongArrowAltUp, FaDownload, FaChartLine } from "react-icons/fa";
 import { BsLink45Deg } from "react-icons/bs";
 import { MdOutlineEmail } from "react-icons/md";
 import Table from "react-bootstrap/Table";
@@ -53,7 +53,7 @@ import {
 import { openDialog } from "../CommonDashboard/CommonDashboardComponents/ConfirmationDialog/ConfirmHandler";
 import Modal from "react-responsive-modal";
 import SelectMemberModal from "../../../components/SelectMemberModal";
-import Nsdlcsdl from "./Fetchstockholdings/Nsdlcsdl";
+import Nsdlcsdl from "../../datagathering/AssetsLibDG/NSDL_CSDL/Nsdlcsdl";
 import ConnectWithBroker from "../Portfolio/Fetchstockholdings/ConnectWithBroker";
 import PortfolioBalance from "../../../components/PortfolioBalance";
 import Highcharts from "highcharts";
@@ -78,24 +78,172 @@ import { deleteInsuranceDetails } from "../../../FrappeIntegration-Services/serv
 import { getMfSummaryPortfolio } from "../../../FrappeIntegration-Services/services/investment-api/investmentService";
 import { Fetch_User_Mf_Profile_Status } from "../../../FrappeIntegration-Services/services/financial-planning-api/ndaflow";
 import { Fetchecasdatadetails } from "../../../FrappeIntegration-Services/services/financial-planning-api/externalApi";
+import { Fetchexternalholdingdetails } from "../../../FrappeIntegration-Services/services/financial-planning-api/liabilities";
+import { loginWebEngageSafe } from "../../../Utils/Webengage/safeLogin";
 
 const options_alternate_type = [
   { value: "currency", label: "Currency" },
   { value: "private_equity", label: "Private Equity" },
 ];
 
-const AssetName = ({ title, icon }) => {
+const STOCK_LOGO_TOKEN = process.env.REACT_APP_LOGO_DEV_TOKEN;
+
+const buildLogoQuery = () =>
+  `token=${STOCK_LOGO_TOKEN}&size=64&format=png&fallback=404`;
+
+const normalizeStockTicker = (rawTicker) => {
+  if (!rawTicker) return null;
+
+  const cleaned = String(rawTicker).trim().toUpperCase();
+  if (!cleaned) return null;
+
+  const strippedPrefix = cleaned.replace(/^(NSE|BSE)[:\-]/, "");
+  const strippedSuffix = strippedPrefix.replace(/\.(NS|BO|NSE|BSE|IN)$/, "");
+  const normalized = strippedSuffix.replace(/[^A-Z0-9&-]/g, "");
+
+  return normalized || null;
+};
+
+const cleanCompanyName = (name) => {
+  if (!name) return null;
+
+  return String(name)
+    .replace(/\b(LIMITED|LTD|CORPORATION|CORP|INDUSTRIES|INDUSTRY|COMPANY|CO)\b/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
+const getStockLogoUrls = (stock) => {
+  if (!STOCK_LOGO_TOKEN) return [];
+
+  const urls = [];
+  const pushUnique = (url) => {
+    if (url && !urls.includes(url)) {
+      urls.push(url);
+    }
+  };
+
+  const isinCandidate =
+    stock?.isin ||
+    stock?.asset_unique_code ||
+    stock?.user_asset_unique_code ||
+    stock?.value;
+
+  if (typeof isinCandidate === "string" && /^[A-Z]{2}[A-Z0-9]{9}\d$/i.test(isinCandidate)) {
+    pushUnique(
+      `https://img.logo.dev/isin/${isinCandidate.toUpperCase()}?${buildLogoQuery()}`
+    );
+  }
+
+  const tickerCandidate = normalizeStockTicker(
+    stock?.ticker ||
+    stock?.stock_symbol ||
+    stock?.nse_symbol ||
+    stock?.bse_symbol ||
+    stock?.symbol
+  );
+
+  if (tickerCandidate) {
+    pushUnique(
+      `https://img.logo.dev/ticker/${tickerCandidate}.IN?${buildLogoQuery()}`
+    );
+    pushUnique(
+      `https://img.logo.dev/ticker/${tickerCandidate}?${buildLogoQuery()}`
+    );
+  }
+
+  const nameCandidate = stock?.user_asset_name || stock?.stock_name || stock?.company_name;
+
+  if (nameCandidate) {
+    pushUnique(
+      `https://img.logo.dev/name/${encodeURIComponent(
+        String(nameCandidate).trim()
+      )}?${buildLogoQuery()}`
+    );
+
+    const cleanedName = cleanCompanyName(nameCandidate);
+    if (cleanedName && cleanedName !== String(nameCandidate).trim()) {
+      pushUnique(
+        `https://img.logo.dev/name/${encodeURIComponent(
+          cleanedName
+        )}?${buildLogoQuery()}`
+      );
+    }
+  }
+
+  return urls;
+};
+
+const getAssetInitial = (title) => {
+  if (typeof title !== "string") return "S";
+  const cleaned = title.trim();
+  return cleaned ? cleaned.charAt(0).toUpperCase() : "S";
+};
+
+const allocationColorMap = {
+  "Mutual Funds": "#2563EB",
+  Stocks: "#0EA864",
+  "US Equity": "#D97706",
+  "FD / Bonds": "#E11D48",
+  "Govt. Scheme": "#7C3AED",
+  "Real Estate": "#14B8A6",
+  Alternate: "#64748B",
+  Gold: "#F59E0B",
+  Liquid: "#06B6D4",
+  Insurance: "#9333EA",
+  Other: "#94A3B8",
+};
+
+const getAllocationColor = (title, index) => {
+  return (
+    allocationColorMap[title] ||
+    ["#2563EB", "#0EA864", "#D97706", "#E11D48", "#7C3AED", "#14B8A6"][index % 6]
+  );
+};
+
+const AssetName = ({ title, icon, iconElement, imageUrls = [], fallbackLabel }) => {
+  const [imageIndex, setImageIndex] = useState(0);
+  const initial = useMemo(() => getAssetInitial(fallbackLabel), [fallbackLabel]);
+  const activeImageUrl = imageUrls[imageIndex] || null;
+
+  useEffect(() => {
+    setImageIndex(0);
+  }, [imageUrls, fallbackLabel]);
+
   return (
     <div className={`d-flex align-items-center ${style.flexBxAssetName}`}>
       <div className="pe-3">
-        <img
-          class={`d-none d-md-block ${style.tblIcons}`}
-          src={
-            icon ??
-            process.env.REACT_APP_STATIC_URL_PYTHON +
-            "/assets/img/insurance/insurance_insurance_form.svg"
-          }
-        />
+        {activeImageUrl ? (
+          <img
+            className={`d-none d-md-block ${style.assetLogoImg}`}
+            src={activeImageUrl}
+            alt={fallbackLabel || "Asset logo"}
+            onError={() => {
+              if (imageIndex < imageUrls.length - 1) {
+                setImageIndex((prev) => prev + 1);
+              } else {
+                setImageIndex(imageUrls.length);
+              }
+            }}
+          />
+        ) : fallbackLabel ? (
+          <div className={`${style.assetInitialBadge} d-none d-md-flex`}>
+            {initial}
+          </div>
+        ) : iconElement ? (
+          <div className={`${style.assetIconShell} d-none d-md-flex`}>
+            {iconElement}
+          </div>
+        ) : (
+          <img
+            class={`d-none d-md-block ${style.tblIcons}`}
+            src={
+              icon ??
+              process.env.REACT_APP_STATIC_URL_PYTHON +
+              "/assets/img/insurance/insurance_insurance_form.svg"
+            }
+          />
+        )}
       </div>
       <div>{title}</div>
     </div>
@@ -138,6 +286,7 @@ const PortfolioDashboard = (props) => {
   const [isOpen, setisOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [userExternalFundData, setUserExternalFundData] = useState({});
+  const [stockHoldingData, setStockHoldingData] = useState({});
   const [viewAll, setViewAll] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
   const otherinvUpdated = useSelector((state) => state.otherinvUpdated);
@@ -200,6 +349,8 @@ const PortfolioDashboard = (props) => {
   });
   const [stocksListCopy, setStocksListCopy] = useState([]);
   const [stockList, setStockList] = useState([]);
+  const [stockListData, setStockListData] = useState([]);
+  const [stockListSummary, setStockListSummary] = useState([]);
   const [usEquityList, setUsEquityList] = useState([]);
   const [aifEquityList, setAifEquityList] = useState([]);
   const [govtSchemeList, setGovtSchemeList] = useState([]);
@@ -223,6 +374,7 @@ const PortfolioDashboard = (props) => {
   const userDetails = useRef({});
   const [percent, setPercent] = useState(0);
   const btnDownloadRef = useRef();
+  const stockNsdlRef = useRef(null);
   // const [isDataLoading, setIsDataLoading] = useState(true);
   const [isDataLoading, setIsDataLoading] = useState({
     dashboardData: true,
@@ -238,8 +390,9 @@ const PortfolioDashboard = (props) => {
   const [isStocksFilterPanelActive, setIsStocksFilterPanelActive] =
     useState(false);
 
-  const stocks = otherInvestmentData?.equity_shares?.stocks_details || [];
-  const displayedStocks = viewAll ? stocks : stocks.slice(0, 5);
+  const openStockImportModal = () => {
+    stockNsdlRef.current?.openModal();
+  };
 
   useEffect(() => {
     if (searchParams.get("realestate") == 1) {
@@ -1725,20 +1878,49 @@ const PortfolioDashboard = (props) => {
 
   const checkHoldingStatus = async () => {
     try {
-      const res = await apiClient(portfolioReportEndpoints.GET_SC_CHECK_STATUS, {
-        method: 'POST',
-        body: JSON.stringify({
-          pan: userDetails.current.user_pan,
-          data_belongs_to: DATA_BELONGS_TO,
-        }),
-      });
-      console.log("here", res)
+      const payload = {
+        data_belongs_to: DATA_BELONGS_TO,
+        user_id: getUserId(),
+        holding_type: "MF",
+      };
+      const res = await Fetchexternalholdingdetails(payload);
       if (res.status_code == 200) {
-        setUserExternalFundData(res.data[0] ?? {});
+        const holding = res?.data?.holding_details?.[0] || {};
+        setUserExternalFundData(holding);
       } else {
         throw "";
       }
     } catch (e) { }
+  };
+
+  const checkStockHoldingStatus = async () => {
+    try {
+      const payload = {
+        data_belongs_to: DATA_BELONGS_TO,
+        user_id: getUserId(),
+        holding_type: "Stocks",
+      };
+      const res = await Fetchexternalholdingdetails(payload);
+      if (res.status_code == 200) {
+        const holdingDetails = Array.isArray(res?.data?.holding_details)
+          ? res.data.holding_details
+          : [];
+        const latestHolding = holdingDetails.reduce((latest, item) => {
+          if (!item?.holding_modified_date) return latest;
+          if (!latest?.holding_modified_date) return item;
+          return moment(item.holding_modified_date).isAfter(
+            moment(latest.holding_modified_date)
+          )
+            ? item
+            : latest;
+        }, {});
+        setStockHoldingData(latestHolding || {});
+      } else {
+        setStockHoldingData({});
+      }
+    } catch (e) {
+      setStockHoldingData({});
+    }
   };
 
   useEffect(() => {
@@ -1756,6 +1938,7 @@ const PortfolioDashboard = (props) => {
   useEffect(() => {
     if (userDetails?.current?.user_pan) {
       checkHoldingStatus();
+      checkStockHoldingStatus();
     }
   }, [userDetails?.current?.user_pan]);
 
@@ -1849,82 +2032,85 @@ const PortfolioDashboard = (props) => {
     const [day, month, year] = dateStr.split("/");
     return new Date(`${year}-${month}-${day}`); // convert to YYYY-MM-DD
   }
-const [userLeadId, setUserLeadId] = useState(null);
+  const [userLeadId, setUserLeadId] = useState(null);
 
-useEffect(() => {
-  const getUserLead = async () => {
-    const res = await fetchUserProfileDetails(getUserId());
-    const leadId = res?.data?.user_lead_id;
+  useEffect(() => {
+    const getUserLead = async () => {
+      const res = await fetchUserProfileDetails(getUserId());
+      const leadId = res?.data?.user_lead_id;
 
-   // console.log(leadId, "userleadid response");
-    setUserLeadId(leadId);
-  };
+      // console.log(leadId, "userleadid response");
+      setUserLeadId(leadId);
+    };
 
-  getUserLead();
-}, []);
+    getUserLead();
+  }, []);
 
-useEffect(() => {
-  if (!userLeadId) return;
-
-  const loginWebEngage = () => {
-    if (window.webengage) {
-      webengage.user.login(String(userLeadId));
-     console.log("WebEngage login done:", userLeadId);
-    } else {
-      setTimeout(loginWebEngage, 200); // retry every 200ms until SDK loads
+  useEffect(() => {
+    if (!userLeadId) return;
+    const loggedIn = loginWebEngageSafe(userLeadId);
+    if (loggedIn) {
+      console.log("WebEngage login done:", userLeadId);
     }
-  };
+  }, [userLeadId]);
 
-  loginWebEngage();
-}, [userLeadId]);
+  useEffect(() => {
+    if (!window.webengage?.user) return;
+    if (!userLeadId) return; // ensures login happened
 
-useEffect(() => {
-  if (!window.webengage?.user) return;
-  if (!userLeadId) return; // ensures login happened
+    const summary = mainData?.portfolio_summary;
+    const allocation = dashboardData?.investment_allocation;
 
-  const summary = mainData?.portfolio_summary;
-  const allocation = dashboardData?.investment_allocation;
+    if (!summary || !allocation) return;
 
-  if (!summary || !allocation) return;
+    const numberOfFunds = Array.isArray(mainData?.fund_list)
+      ? mainData.fund_list.length
+      : 0;
 
-  const numberOfFunds = Array.isArray(mainData?.fund_list)
-    ? mainData.fund_list.length
-    : 0;
+    const dayChange = Number(summary.tone_day_return_percentage);
+    const xirr = Number(summary.txirr_percentage);
+    const portfolioValue = Number(allocation.t_curr_val);
 
-  const dayChange = Number(summary.tone_day_return_percentage);
-  const xirr = Number(summary.txirr_percentage);
-  const portfolioValue = Number(allocation.t_curr_val);
+    if (
+      Number.isNaN(dayChange) ||
+      Number.isNaN(xirr) ||
+      Number.isNaN(portfolioValue)
+    ) {
+      console.warn(" Invalid WebEngage values", {
+        dayChange,
+        xirr,
+        portfolioValue,
+      });
+      return;
+    }
 
-  if (
-    Number.isNaN(dayChange) ||
-    Number.isNaN(xirr) ||
-    Number.isNaN(portfolioValue)
-  ) {
-    console.warn(" Invalid WebEngage values", {
+    console.log(" WebEngage user attributes", {
+      numberOfFunds,
       dayChange,
       xirr,
       portfolioValue,
     });
-    return;
-  }
 
-  console.log(" WebEngage user attributes", {
-    numberOfFunds,
-    dayChange,
-    xirr,
-    portfolioValue,
-  });
+    window.webengage.user.setAttribute({
+      number_of_funds: numberOfFunds,
+      day_change_percentage: dayChange,
+      xirr_percentage: xirr,
+      portfolio_value: portfolioValue,
+    });
 
-  window.webengage.user.setAttribute({
-    number_of_funds: numberOfFunds,
-    day_change_percentage: dayChange,
-    xirr_percentage: xirr,
-    portfolio_value: portfolioValue,
-  });
-}, [userLeadId, mainData, dashboardData]);
+  }, [userLeadId, mainData, dashboardData]);
 
 
+  useEffect(() => {
+    const stocks_data = dashboardData?.user_asset_data?.stocks || {};
+    setStockListSummary(stocks_data)
+    const stock_List_Data = stocks_data?.stock_details || [];
+    const displayedStocks = viewAll
+      ? stock_List_Data
+      : stock_List_Data.slice(0, 5);
 
+    setStockListData(displayedStocks);
+  }, [dashboardData,viewAll])
 
   return (
     <PortfolioLayout>
@@ -2056,8 +2242,7 @@ useEffect(() => {
           <p className="mt-3">Loading dashboard data...</p>
         </div>
       ) : (
-        <>
-          <>
+          <div className={style.portfolioPage}>
             <div className="row">
               <div className="col-12">
                 <div className="mybox mt-4">
@@ -2248,9 +2433,9 @@ useEffect(() => {
                                     >
                                       <span
                                         className={` xrr-returns ${mainData?.portfolio_summary
-                                            ?.tone_day_return < 0
-                                            ? "red"
-                                            : "green"
+                                          ?.tone_day_return < 0
+                                          ? "red"
+                                          : "green"
                                           }`}
                                       >
                                         {indianRupeeFormat(
@@ -2262,9 +2447,9 @@ useEffect(() => {
 
                                       <small
                                         className={`valueBoxPercentage xrr-returns ${mainData?.portfolio_summary
-                                            ?.tone_day_return_percentage < 0
-                                            ? "red"
-                                            : "green"
+                                          ?.tone_day_return_percentage < 0
+                                          ? "red"
+                                          : "green"
                                           }`}
                                       >
                                         (
@@ -2302,11 +2487,11 @@ useEffect(() => {
                                         {returnsType.header == "xirr" && (
                                           <p
                                             className={`valueBoxPercentage ${mainData?.portfolio_summary
-                                                ?.txirr_percentage *
-                                                1 <
-                                                0
-                                                ? "red"
-                                                : "green"
+                                              ?.txirr_percentage *
+                                              1 <
+                                              0
+                                              ? "red"
+                                              : "green"
                                               }`}
                                           >
                                             <span>
@@ -2324,11 +2509,11 @@ useEffect(() => {
                                         {returnsType.header == "absolute" && (
                                           <p
                                             className={`valueBoxPercentage ${mainData?.portfolio_summary
-                                                ?.tabs_return_percentage *
-                                                1 <
-                                                0
-                                                ? "red"
-                                                : "green"
+                                              ?.tabs_return_percentage *
+                                              1 <
+                                              0
+                                              ? "red"
+                                              : "green"
                                               }`}
                                           >
                                             <span>
@@ -2460,11 +2645,11 @@ useEffect(() => {
                                       {returnsType.header == "xirr" && (
                                         <p
                                           className={`valueBoxPercentage ${mainData?.portfolio_summary
-                                              ?.txirr_percentage *
-                                              1 <
-                                              0
-                                              ? "red"
-                                              : "green"
+                                            ?.txirr_percentage *
+                                            1 <
+                                            0
+                                            ? "red"
+                                            : "green"
                                             }`}
                                         >
                                           <span>
@@ -2482,11 +2667,11 @@ useEffect(() => {
                                       {returnsType.header == "absolute" && (
                                         <p
                                           className={`valueBoxPercentage ${mainData?.portfolio_summary
-                                              ?.tabs_return_percentage *
-                                              1 <
-                                              0
-                                              ? "red"
-                                              : "green"
+                                            ?.tabs_return_percentage *
+                                            1 <
+                                            0
+                                            ? "red"
+                                            : "green"
                                             }`}
                                         >
                                           <span>
@@ -2515,8 +2700,8 @@ useEffect(() => {
                                         <div>
                                           <div
                                             className={`${getItemLocal("family")
-                                                ? "enable"
-                                                : ""
+                                              ? "enable"
+                                              : ""
                                               } resultOptionsBtn position-relative hover-dropdown pointer text-center`}
                                             onClick={() => {
                                               navigate(
@@ -2525,7 +2710,7 @@ useEffect(() => {
                                               );
                                             }}
                                           >
-                                            {userExternalFundData?.modified ? (
+                                            {userExternalFundData?.holding_modified_date ? (
                                               <>Refresh</>
                                             ) : (
                                               <>Link your holdings</>
@@ -2536,11 +2721,11 @@ useEffect(() => {
                                     </div>
                                     <p className="small-para mb-0 pt-2">
                                       {Boolean(
-                                        userExternalFundData?.modified
+                                        userExternalFundData?.holding_modified_date
                                       ) &&
                                         "Last Updated on " +
                                         moment(
-                                          userExternalFundData.modified
+                                          userExternalFundData.holding_modified_date
                                         ).format("DD-MM-YYYY")}
                                     </p>
                                   </div>
@@ -2721,8 +2906,8 @@ useEffect(() => {
                                                   : "Inactive SIP"
                                               }
                                               className={`${v.sip_status == "active"
-                                                  ? style["fund-tick-active"]
-                                                  : style["fund-tick-inactive"]
+                                                ? style["fund-tick-active"]
+                                                : style["fund-tick-inactive"]
                                                 } ${style["fund-tick-"]} `}
                                             ></span>
                                           )}
@@ -2821,8 +3006,8 @@ useEffect(() => {
                                       </span>
                                       <span
                                         className={`xrr-returns ${v.day_change_perc < 0
-                                            ? "red"
-                                            : "green"
+                                          ? "red"
+                                          : "green"
                                           }`}
                                       >
                                         ({v.day_change_perc}%)
@@ -2837,8 +3022,8 @@ useEffect(() => {
                                     <div>
                                       <strong
                                         className={`xrr-returns ${v.xirr_percentage < 0
-                                            ? "red"
-                                            : "green"
+                                          ? "red"
+                                          : "green"
                                           }`}
                                       >
                                         {returnsType.insideTable == "xirr"
@@ -4030,10 +4215,10 @@ useEffect(() => {
                                       <td scope="row" data-label="Returns">
                                         <strong
                                           className={`xrr-returns ${v.user_asset_current_amount -
-                                              v.user_asset_investment_amount <
-                                              0
-                                              ? "red"
-                                              : "green"
+                                            v.user_asset_investment_amount <
+                                            0
+                                            ? "red"
+                                            : "green"
                                             }`}
                                         >
                                           {v.user_asset_current_amount -
@@ -4055,14 +4240,14 @@ useEffect(() => {
                                       >
                                         <strong
                                           className={`xrr-returns ${v.user_asset_investment_amount !== 0
-                                              ? ((v.user_asset_current_amount -
-                                                v.user_asset_investment_amount) /
-                                                v.user_asset_investment_amount) *
-                                                100 <
-                                                0
-                                                ? "red"
-                                                : "green"
-                                              : "default-class"
+                                            ? ((v.user_asset_current_amount -
+                                              v.user_asset_investment_amount) /
+                                              v.user_asset_investment_amount) *
+                                              100 <
+                                              0
+                                              ? "red"
+                                              : "green"
+                                            : "default-class"
                                             }`}
                                         >
                                           {v.user_asset_investment_amount !== 0
@@ -4364,10 +4549,10 @@ useEffect(() => {
                                           return (
                                             <strong
                                               className={`xrr-returns ${absoluteReturns < 0
-                                                  ? "red"
-                                                  : absoluteReturns > 0
-                                                    ? "green"
-                                                    : ""
+                                                ? "red"
+                                                : absoluteReturns > 0
+                                                  ? "green"
+                                                  : ""
                                                 }`}
                                             >
                                               {investedAmount > 0
@@ -4414,10 +4599,10 @@ useEffect(() => {
                                           return (
                                             <strong
                                               className={`xrr-returns ${percentageReturns < 0
-                                                  ? "red"
-                                                  : percentageReturns > 0
-                                                    ? "green"
-                                                    : ""
+                                                ? "red"
+                                                : percentageReturns > 0
+                                                  ? "green"
+                                                  : ""
                                                 }`}
                                             >
                                               {investedAmount > 0
@@ -4726,10 +4911,10 @@ useEffect(() => {
                                           return (
                                             <strong
                                               className={`xrr-returns ${absoluteReturns < 0
-                                                  ? "red"
-                                                  : absoluteReturns > 0
-                                                    ? "green"
-                                                    : ""
+                                                ? "red"
+                                                : absoluteReturns > 0
+                                                  ? "green"
+                                                  : ""
                                                 }`}
                                             >
                                               {investedAmount > 0 &&
@@ -4775,10 +4960,10 @@ useEffect(() => {
                                           return (
                                             <strong
                                               className={`xrr-returns ${percentageReturns < 0
-                                                  ? "red"
-                                                  : percentageReturns > 0
-                                                    ? "green"
-                                                    : ""
+                                                ? "red"
+                                                : percentageReturns > 0
+                                                  ? "green"
+                                                  : ""
                                                 }`}
                                             >
                                               {investedAmount > 0 &&
@@ -5807,7 +5992,7 @@ useEffect(() => {
                             </div>
                           </div>
                         </div>
-                        {stocks?.length > 0 && (
+                        {stockListData.length > 0 && (
                           <>
                             <div className="row pb-3">
                               <div className="col-12 col-md-9">
@@ -5820,7 +6005,7 @@ useEffect(() => {
                                       <div
                                         className={`borderSpace borderText pointer`}
                                       >
-                                        {stocks ? stocks.length : "-"}
+                                        {stockListSummary ? stockListSummary.no_of_assets : "-"}
                                       </div>
                                     </div>
 
@@ -5832,12 +6017,7 @@ useEffect(() => {
                                       </div>
                                       <div className={`borderSpace borderText`}>
                                         {indianRupeeFormat(
-                                          stocks.reduce(
-                                            (acc, curr) =>
-                                              acc +
-                                              (curr.total_current_amount || 0),
-                                            0
-                                          )
+                                          stockListSummary?.total_current_rate
                                         )}
                                       </div>
                                     </div>
@@ -5848,33 +6028,33 @@ useEffect(() => {
                                         1 Day Change
                                       </div>
                                       <div className={`borderSpace borderText`}>
-                                        {stocks?.overall_oneday_perc !==
+                                        {stockListSummary?.overall_oneday_perc !==
                                           undefined &&
-                                          stocks?.overall_oneday_perc !==
+                                          stockListSummary?.overall_oneday_perc !==
                                           null && (
                                             <p
-                                              className={`valueBoxPercentage ${stocks?.overall_oneday_perc < 0
-                                                  ? "red"
-                                                  : "green"
+                                              className={`valueBoxPercentage ${stockListSummary?.overall_oneday_perc < 0
+                                                ? "red"
+                                                : "green"
                                                 }`}
                                             >
-                                              {stocks?.overall_oneday_val > 0
+                                              {stockListSummary?.overall_oneday_val > 0
                                                 ? indianRupeeFormat(
-                                                  stocks?.overall_oneday_val *
+                                                  stockListSummary?.overall_oneday_val *
                                                   1
                                                 )
                                                 : indianRupeeFormat(
                                                   Math.abs(
-                                                    stocks?.overall_oneday_val *
+                                                    stockListSummary?.overall_oneday_val *
                                                     1
                                                   )
                                                 )}
                                               &nbsp;
                                               <span>
-                                                {stocks?.overall_oneday_perc > 0
-                                                  ? ` (${stocks?.overall_oneday_perc}%)`
+                                                {stockListSummary?.overall_oneday_perc > 0
+                                                  ? ` (${stockListSummary?.overall_oneday_perc}%)`
                                                   : ` (${Math.abs(
-                                                    stocks?.overall_oneday_perc
+                                                    stockListSummary?.overall_oneday_perc
                                                   )}%)`}
                                               </span>
                                               <FaLongArrowAltUp />
@@ -5888,42 +6068,35 @@ useEffect(() => {
                               <div
                                 className={`col-12 col-md-3 ${style.addBtnContainer} ${style.wrapBtns} `}
                               >
-                                {/* <span className="text-center">
-                                  <div
-                                    className={`${style.addBtn}`}
-                                    style={{ paddingBottom: "0px" }}
-                                  >
-                                    {getItemLocal("family") ? (
-                                      <div
-                                        className="disabled resultOptionsBtn"
-                                        style={{ padding: "5px 10px" }}
-                                      >
-                                        <i className="fa-solid fa-link"></i>
-                                        <span>Fetch Your Holdings</span>
-                                      </div>
-                                    ) : (
+                                <span className="text-center">
+                                  <div>
+                                    <div
+                                      className={`${style.addBtn}`}
+                                      style={{ paddingBottom: "0px" }}
+                                    >
                                       <div
                                         className="resultOptionsBtn pointer"
-                                        style={{ padding: "5px 10px" }}
-                                        onClick={() => {
-                                          setCurrentPopup(0);
-                                          setCount(0);
-                                          setTab("Demat");
-                                        }}
+                                        style={{ padding: "10px 10px" }}
+                                        onClick={openStockImportModal}
                                       >
-                                        <i className="fa-solid fa-link"></i>
-                                        <span>Fetch Your Holdings</span>
+                                        <span>
+                                          {stockHoldingData?.holding_modified_date
+                                            ? "Refresh"
+                                            : "Fetch Holdings"}
+                                        </span>
                                       </div>
-                                    )}
+                                    </div>
+                                    <p className="small-para mb-0 pt-2">
+                                      {Boolean(
+                                        stockHoldingData?.holding_modified_date
+                                      ) &&
+                                        "Last Updated on " +
+                                          moment(
+                                            stockHoldingData.holding_modified_date
+                                          ).format("DD-MM-YYYY")}
+                                    </p>
                                   </div>
-                                  <small
-                                    style={{
-                                      fontSize: ".6rem",
-                                    }}
-                                  >
-                                    Last Updated on 20th April 2023
-                                  </small>
-                                </span> */}
+                                </span>
                               </div>
                             </div>
                             <div className="fixedHeaders">
@@ -5952,11 +6125,18 @@ useEffect(() => {
                             className={`mb-0 ptTable fixedTable ${style.stockTbl} ${style.dataTable}`}
                           >
                             <tbody>
-                              {stocks?.length > 0 ? (
-                                stocks?.map((v) => (
+                              {stockListData?.length > 0 ? (
+                                stockListData?.map((v) => (
                                   <tr key={v.user_asset_name}>
                                     <td scope="row" data-label="title">
                                       <AssetName
+                                        imageUrls={getStockLogoUrls(v)}
+                                        fallbackLabel={v.user_asset_name}
+                                        iconElement={
+                                          <FaChartLine
+                                            className={style.assetInlineIcon}
+                                          />
+                                        }
                                         title={
                                           <>
                                             <p className="mb-0">
@@ -5966,6 +6146,51 @@ useEffect(() => {
                                                   : "-"}
                                               </strong>
                                             </p>
+                                            <p className="mb-0 d-flex">
+                                                {v.stock_sector != undefined &&
+                                                  v.stock_industry != undefined
+                                                  ? v.stock_sector +
+                                                  " - " +
+                                                  v.stock_industry +
+                                                  " " +
+                                                  " | "
+                                                  : " — | "}
+                                                <>
+                                                  {v.prev_day_val !==
+                                                    undefined &&
+                                                    v.prev_day_val !== 0 &&
+                                                    v.prev_day_val !== "" ? (
+                                                    <>
+                                                      <span className="ps-2 pe-2 fw-bold">
+                                                        {indianRupeeFormat(
+                                                          v.prev_day_val * 1
+                                                        )}
+                                                      </span>{" "}
+                                                      |
+                                                    </>
+                                                  ) : (
+                                                    "— |"
+                                                  )}
+                                                </>
+                                                &nbsp;
+                                                <span
+                                                  className={`valueBoxPercentage ${v.day_change_perc * 1 < 0
+                                                      ? "red"
+                                                      : "green"
+                                                    }`}
+                                                >
+                                                  <span>
+                                                    {v.day_change_perc &&
+                                                      v.day_change_perc > 0
+                                                      ? v.day_change_perc
+                                                      : Math.abs(
+                                                        v.day_change_perc
+                                                      )}
+                                                    %
+                                                  </span>
+                                                  <FaLongArrowAltUp />
+                                                </span>
+                                              </p>
                                           </>
                                         }
                                       />
@@ -5992,11 +6217,11 @@ useEffect(() => {
                                       className=""
                                     >
                                       <strong className={`xrr-returns`}>
-                                        {v?.total_current_amount
-                                          ? v.total_current_amount * 1 != 0 &&
-                                            v.total_current_amount != undefined
+                                        {v?.user_asset_current_value
+                                          ? v.user_asset_current_value * 1 != 0 &&
+                                            v.user_asset_current_value != undefined
                                             ? indianRupeeFormat(
-                                              v.total_current_amount * 1
+                                              v.user_asset_current_value * 1
                                             )
                                             : "—"
                                           : "—"}
@@ -6210,7 +6435,7 @@ useEffect(() => {
                                 : ""}
                             </tbody>
                           </Table>
-                          {stocks && stocks.length > 5 && (
+                          {stockListSummary && stockListSummary?.stock_details?.length > 5 && (
                             <div className="d-flex justify-content-end">
                               <button
                                 className="resultOptionsBtn"
@@ -6232,8 +6457,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-          </>
-        </>
+          </div>
       )}
       <MfFilterSidePanel
         isOpen={isFilterPanelActive}
@@ -6262,12 +6486,16 @@ useEffect(() => {
         }}
       />
 
-      {/* // Fetch Your Code Holdings */}
       <Nsdlcsdl
-        setCurrentPopup={setCurrentPopup}
-        tab={tab}
-        count={count}
-        currentPopup={currentPopup}
+        hideParIntro={false}
+        ref={stockNsdlRef}
+        hideDematTab={false}
+        fromStockCard={true}
+        onLinkedSuccess={() => {
+          checkStockHoldingStatus();
+          fetchAssetData();
+          getDashboardData();
+        }}
       />
 
       <PortfolioBalance

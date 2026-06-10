@@ -123,7 +123,7 @@ const PaymentSuccessPopup = () => {
 
   const redirecttologin = async () => {
     if (userData && userToken) {
-      const queryparam = { "user_data": userData, "token": userToken, "redirect_to": "" }
+      const queryparam = { "userdata": commonEncode.encrypt(userData), "token": commonEncode.encrypt(userToken), "redirect_to": "verification-docs" }
       await storeUserSession(queryparam)
     }
     else {
@@ -239,6 +239,7 @@ const PaymentSuccessPopup = () => {
   // }
 
   useEffect(() => {
+    debugger
     if (hasQueryParams()) {
       const encodedResponseData = getQueryParam("response_data");
       const encodedPayuResponse = getQueryParam("payu_response");
@@ -270,7 +271,7 @@ const PaymentSuccessPopup = () => {
           <div className="popup-wrapper text-center">
             <div className="header-box popupHeaderimg popup-header d-flex justify-content-center">
               <img
-                src="https://static.fintoo.in/static/userflow/img/popup/pop-up-tick.svg"
+                src={process.env.REACT_APP_STATIC_URL + "media/Images/popup/pop-up-tick.svg"}
                 className="popup-img "
                 alt="Popup Header"
               />
@@ -321,7 +322,7 @@ const PaymentSuccessPopup = () => {
                     }}
                     type="button"
                   >
-                    Continue
+                    Continue to KYC
                   </button>
                 ) : (
                   <button

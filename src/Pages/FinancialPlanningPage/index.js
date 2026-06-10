@@ -6,6 +6,7 @@ import HideFooter from "../../components/HideFooter";
 import HideHeader from "../../components/HideHeader";
 import MFSnippetFooter from "../../components/HTML/Footer/MFSnippetFooter";
 import FeaturedIn from "../../components/HTML/FeaturedIn";
+import ClientTestimonial from "../../components/HTML/ClientTestimonial";
 import StatsSection from "./Stats";
 import WeDeliver from "./WeDeliver";
 import SetApartSection from "./SetApartSection";
@@ -42,6 +43,7 @@ const FinancialPlanningPage = () => {
             <SetApartSection />
             <ExtraPerformanceAdvice />
             <StatsSection />
+            <ClientTestimonial />
             <VideosSection />
             <TeamGoal />
             <section ref={targetRef} >

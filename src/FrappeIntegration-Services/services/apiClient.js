@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { DATA_BELONGS_TO } from "../../constants";
+import { clearLocalStorageExcept } from "../../Utils/storage";
 
 const apiClient = async (url, options = {}, externalToken) => {
   try {
@@ -36,20 +37,25 @@ const apiClient = async (url, options = {}, externalToken) => {
 
     const responseObj = await response.json();
 
-    if (
-      responseObj?.exc_type === "AuthenticationError" ||
-      responseObj?.exc_type === "PermissionError" ||
-      responseObj?.exc_type === "SessionStopped" ||
-      responseObj?.status_code === 401 ||
-      response.status === 401
+    if (token &&
+      (
+        responseObj?.exc_type === "AuthenticationError" ||
+        responseObj?.exc_type === "PermissionError" ||
+        responseObj?.exc_type === "SessionStopped" ||
+        responseObj?.status_code === 401 ||
+        response.status === 401
+      )
     ) {
       Cookies.remove("token");
       Cookies.remove("user_data");
-      localStorage.clear();
-      sessionStorage.clear();
+      clearLocalStorageExcept(["leadData"]);
+      localStorage.removeItem("sky");
+      localStorage.setItem("logoutNow", Date.now().toString());
 
-      // window.location.href = "/login";
-      // return;
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
+      return;
     }
 
     return responseObj;

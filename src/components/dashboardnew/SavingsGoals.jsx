@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 import {
   getItemLocal,
@@ -12,6 +13,8 @@ import { getFamilyMember } from
 
 import { getGoalDetailsByFilterType } from
   "../../FrappeIntegration-Services/services/financial-planning-api/goal";
+import { Getpaymentstatus } from "../../FrappeIntegration-Services/services/payment-api/paymentapiService";
+import { DATA_BELONGS_TO } from "../../constants";
 import { Link } from "react-router-dom";
 
 
@@ -25,13 +28,67 @@ export default function SavingsGoals() {
 
   const [memberID, setMemberID] = useState("");
   const [isMemberSelected, setIsMemberSelected] = useState(false);
+  const [isPaidUser, setIsPaidUser] = useState(false);
+  const [paymentChecked, setPaymentChecked] = useState(false);
 
   const userId = getUserId();
+  const navigate = useNavigate();
 
   /* ---------------- INIT ---------------- */
   useEffect(() => {
     initMemberAndGoals();
+    checkPaymentStatus();
   }, []);
+
+  const isPlanActive = (expiryDate) => {
+    if (!expiryDate) return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const expiry = new Date(expiryDate);
+    expiry.setHours(23, 59, 59, 999);
+
+    return expiry >= today;
+  };
+
+  const checkPaymentStatus = async () => {
+    try {
+      const parentUserId = getParentUserId();
+
+      if (!parentUserId) {
+        setIsPaidUser(false);
+        return;
+      }
+
+      const payload = {
+        user_id: parentUserId,
+        data_belongs_to: DATA_BELONGS_TO,
+      };
+
+      const res = await Getpaymentstatus(payload);
+      const plan = res?.data;
+
+      if (plan && isPlanActive(plan.plan_expiry_date)) {
+        setIsPaidUser(true);
+      } else {
+        setIsPaidUser(false);
+      }
+    } catch (err) {
+      console.error("SavingsGoals payment check failed", err);
+      setIsPaidUser(false);
+    } finally {
+      setPaymentChecked(true);
+    }
+  };
+
+  const goalsRedirectPath = `${process.env.PUBLIC_URL}${isPaidUser ? "/datagathering/goals" : "/pricing"}`;
+
+  const handleGoalNavigation = (e) => {
+    e.preventDefault();
+    if (!paymentChecked) return;
+    navigate(goalsRedirectPath);
+  };
 
   /* ---------------- MEMBER + GOALS ---------------- */
   const initMemberAndGoals = async () => {
@@ -209,13 +266,12 @@ const formatCurrency = (num) => {
     <div className=" ">
 
       {/* Header */}
-     <div className="tw-mb-4">
+      <div className="tw-mb-3 md:tw-mb-4">
   <div className="tw-flex tw-items-center tw-justify-between tw-gap-3">
     
     {/* Title */}
     <div>
-            <h2 className="
-tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1      ">
+      <h2 className="tw-text-lg md:tw-text-xl tw-font-bold tw-text-slate-900 tw-mb-1">
         Savings Goals
       </h2>
       <p className="tw-text-sm tw-text-slate-500">
@@ -225,7 +281,8 @@ tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1      ">
 
     {/* Desktop Button */}
     <Link
-      to={`${process.env.PUBLIC_URL}/datagathering/goals`}
+      to={goalsRedirectPath}
+      onClick={handleGoalNavigation}
       className="
         tw-hidden md:tw-inline-flex
         tw-items-center
@@ -243,14 +300,15 @@ tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1      ">
 
     {/* Mobile Button */}
     <Link
-      to={`${process.env.PUBLIC_URL}/datagathering/goals`}
+      to={goalsRedirectPath}
+      onClick={handleGoalNavigation}
       className="
         md:tw-hidden
         tw-flex tw-items-center tw-justify-center
-        tw-h-10 tw-w-10
+        tw-h-9 tw-w-9
         tw-rounded-xl
         tw-bg-fintoo-blue
-        tw-text-white tw-text-xl tw-font-semibold
+        tw-text-white tw-text-lg tw-font-semibold
         tw-shadow-sm
         hover:tw-shadow-md
         tw-transition
@@ -261,11 +319,11 @@ tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1      ">
 
   </div>
 </div>
-<div className="  tw-max-h-[540px]
+<div className="tw-max-h-[440px] md:tw-max-h-[540px]
   tw-overflow-y-auto">
 
       {/* Filters */}
-      <div className="tw-flex tw-gap-2 tw-mb-6 tw-flex-wrap">
+      <div className="tw-flex tw-gap-2 tw-mb-4 md:tw-mb-6 tw-flex-wrap">
         {["all", "pending", "upcoming", "achieved"].map((f) => (
           <button
             key={f}
@@ -307,7 +365,8 @@ tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1      ">
 
     {filter !== "pending" && (
       <Link
-        to={`${process.env.PUBLIC_URL}/datagathering/goals`}
+        to={goalsRedirectPath}
+        onClick={handleGoalNavigation}
         className="
           tw-inline-flex tw-items-center
           tw-bg-fintoo-blue tw-text-white
@@ -333,7 +392,7 @@ tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1      ">
 
 
       {/* Goals */}
-      <div className="tw-gap-4 tw-grid lg:tw-grid-cols-2">
+      <div className="tw-gap-3 md:tw-gap-4 tw-grid lg:tw-grid-cols-2">
         {filteredGoals.map((goal) => {
           const progress = Math.min(
             goal.target > 0 ? (goal.saved / goal.target) * 100 : 0,
@@ -343,11 +402,11 @@ tw-text-xl tw-font-bold tw-text-slate-800 tw-mb-1      ">
           return (
             <div
               key={goal.id}
-              className="tw-rounded-2xl tw-bg-slate-50  tw-p-5 tw-shadow-sm hover:tw-shadow-md tw-transition"
+              className="tw-rounded-2xl tw-bg-slate-50 tw-p-4 md:tw-p-5 tw-shadow-sm hover:tw-shadow-md tw-transition"
             >
               
               {/* HEADER */}
-              <div className="tw-flex tw-items-end tw-justify-between tw-gap-4">
+              <div className="tw-flex tw-items-end tw-justify-between tw-gap-3 md:tw-gap-4">
                 <div>
                   <div className="tw-flex tw-items-center tw-gap-2 tw-mb-2">
                     {goal.year && (

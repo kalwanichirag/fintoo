@@ -1,8 +1,9 @@
 import { useEffect } from "react";
+import { clearLocalStorageExcept } from "../Utils/storage";
 
 const Logout = () => {
   useEffect(() => {
-    localStorage.clear();
+    clearLocalStorageExcept(["leadData"]);
     window.location = process.env.REACT_APP_PYTHON_URL + "/logout";
   }, []);
 

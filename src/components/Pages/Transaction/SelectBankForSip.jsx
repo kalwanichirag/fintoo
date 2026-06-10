@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -49,6 +49,7 @@ export default function SelectBankForSip() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user_data = JSON.parse(localStorage.getItem("user_data") || "{}");
+  const orderLockRef = useRef(false);
 
   setItemLocal("bankId", bankId);
 
@@ -243,6 +244,20 @@ export default function SelectBankForSip() {
     setMandateList([]);
     setSelectedMandate(null);
     navigate(window.location.pathname); // Remove query params
+  };
+
+  const handleFinalSubmit = async () => {
+    if (orderLockRef.current) return;
+
+    orderLockRef.current = true;
+
+    try {
+      setIsLoading(true);
+      await mandateplaceorder();
+    } finally {
+      orderLockRef.current = false;
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -490,15 +505,8 @@ export default function SelectBankForSip() {
         }}
       >
         <Twofactorotpverification
-          // <TwoFactorOtpModal
-          onBack={() => {
-            handleBack();
-          }}
-          onSubmit={() => {
-            setOpenModalByName("");
-            // your code
-            mandateplaceorder();
-          }}
+          onBack={handleBack}
+          onSubmit={handleFinalSubmit}
         />
       </Modal>
     </MainLayout>

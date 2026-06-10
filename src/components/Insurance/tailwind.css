@@ -2,15 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
 button {
     border: 0;
 }
 
+.gradient-text {
+            background: linear-gradient(135deg, #EC4899, #8B5CF6, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 input {
     border: 1px solid #E5E7EB;
 }
+.font-display{
+      font-family: "Playfair Display", serif;
 
+}
 .react-datepicker-wrapper {
     width: inherit;
 }
@@ -109,12 +118,23 @@ input {
     color: #dd7300;
 }
 
-@media (min-width:1080px) {
-    html {
+
+
+@media (min-width:1079.999px) {
+   html {
+        font-size: 0.9vw;
+    }
+    html .womoneya-page {
         font-size: 0.9vw;
     }
 
 }
+@media (min-width:1320px) {
+    
+
+}
+
+
 
 ::-webkit-scrollbar {
     display: none;

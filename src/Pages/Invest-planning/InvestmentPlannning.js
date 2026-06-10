@@ -1,6 +1,7 @@
 import CTAForm from "../../components/InvestmentPlanning/CTAForm";
 import Hero from "../../components/InvestmentPlanning/Hero";
 import KeyTakeawaysSection from "../../components/InvestmentPlanning/KeyTakeawaysSection";
+import ClientTestimonial from "../../components/HTML/ClientTestimonial";
 import Disclaimer from "../../components/retirement-planning/Disclaimer";
 import { useEffect } from "react";
 
@@ -29,6 +30,7 @@ export default function InvestmentPlanningNew({formtype}) {
         <>
             <Hero />
             <KeyTakeawaysSection />
+            <ClientTestimonial />
             <CTAForm formtype={ formtype} />
             <Disclaimer/>
         </>

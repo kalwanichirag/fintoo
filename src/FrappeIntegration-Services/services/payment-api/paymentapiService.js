@@ -59,6 +59,18 @@ export const Createorderid = async (payload) => {
     }
 };
 
+export const VerifyPayment = async (order_id) => {
+    try {
+        const response = await apiClient(PaymentappEndpoints.VERIFY_PAYMENT+"?order_id="+order_id, {
+            method: 'GET'
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const GetExpertDetails = async (plan_uuid) => {
     try {
         const response = await apiClient(PaymentappEndpoints.GETEXPERTDETAILS + "?plan_uuid=" + plan_uuid, {

@@ -7,18 +7,23 @@ import 'sweetalert/dist/sweetalert.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-// import './style.css';
-// import './custom.css';
-import './dashboard.css';
-// import './main.css';
-import './mainData.css';
-import './payment.css';
-
 import App from './App';
 
 import { initWebEngage } from "./Utils/Webengage/webengage";
 
-initWebEngage();
+const startWebEngage = () => {
+    if ("requestIdleCallback" in window) {
+        requestIdleCallback(() => initWebEngage(), { timeout: 2500 });
+    } else {
+        setTimeout(() => initWebEngage(), 1500);
+    }
+};
+
+if (document.readyState === "complete") {
+    startWebEngage();
+} else {
+    window.addEventListener("load", startWebEngage, { once: true });
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -31,5 +36,3 @@ root.render(
     <App />
     // <DisplayFooter />
 );
-
-

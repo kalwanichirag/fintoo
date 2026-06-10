@@ -4,7 +4,9 @@ import HideHeader from '../../../components/HideHeader';
 import HideFooter from '../../../components/HideFooter';
 import LandingPageCalendly from '../../../components/landingpagesCalendly/LandingPageCalendly';
 import LandingPageOtp from '../../../components/landingpagesOtp/LandingPageOtp';
+import ClientTestimonial from '../../../components/HTML/ClientTestimonial';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import ClientReviews from '../../../components/HTML/ClientReviews';
 
 const CachetIcon = ({ width = 24, height = 24, fill = 'currentColor', ...props }) => (
     <svg
@@ -20,6 +22,88 @@ const CachetIcon = ({ width = 24, height = 24, fill = 'currentColor', ...props }
         <path d="M11.746.254C5.265.254 0 5.519 0 12c0 6.481 5.265 11.746 11.746 11.746 6.482 0 11.746-5.265 11.746-11.746 0-1.44-.26-2.82-.734-4.097l-.264-.709-1.118 1.118.1.288c.373 1.064.575 2.207.575 3.4a10.297 10.297 0 01-10.305 10.305A10.297 10.297 0 011.441 12 10.297 10.297 0 0111.746 1.695c1.817 0 3.52.47 5.002 1.293l.32.178 1.054-1.053-.553-.316A11.699 11.699 0 0011.746.254zM22.97.841l-13.92 13.92-3.722-3.721-1.031 1.03 4.752 4.753L24 1.872z" />
     </svg>
 );
+
+const ChartGrowthIcon = (props) => (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+        <path d="M4 19H20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M6.5 15.5L10 12L13 14.5L18 8.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M15.5 8.5H18V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+);
+
+const SafeIcon = (props) => (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+        <rect x="4" y="5" width="16" height="14" rx="3" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="15.5" cy="12" r="1.6" fill="currentColor" />
+        <path d="M7.5 9H10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M7.5 12H9.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+);
+
+const UsersIcon = (props) => (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+        <circle cx="9" cy="9" r="3" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M4.5 18C5.3 15.8 7 14.5 9 14.5C11 14.5 12.7 15.8 13.5 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="16.5" cy="9.5" r="2.5" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M14.5 17.5C15 16.1 16.1 15.1 17.6 14.7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+);
+
+const TrophyIcon = (props) => (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+        <path d="M8 5H16V8C16 10.2 14.2 12 12 12C9.8 12 8 10.2 8 8V5Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+        <path d="M10 12.5V15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M14 12.5V15.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M8 18H16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M6.5 6H5.5C4.67 6 4 6.67 4 7.5C4 9.43 5.57 11 7.5 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M17.5 11C19.43 11 21 9.43 21 7.5C21 6.67 20.33 6 19.5 6H18.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+);
+
+const trustMessages = [
+    "India's Most Trusted Wealth Advisory for Goal-Based Financial Planning",
+    "Certified Planners Helping 2,50,000+ Indians and NRIs Build Smarter Wealth",
+    "20+ Years of Advisory Experience Focused on Long-Term Financial Growth",
+];
+
+const compactStats = [
+    {
+        value: "14.8%",
+        label: "Avg. Annualized Return",
+        tone: Style.statBlue,
+        accent: Style.cardBlue,
+        icon: ChartGrowthIcon,
+        eyebrow: "Performance",
+        subtext: "+3.2% vs Market"
+    },
+    {
+        value: "₹4000Cr+",
+        label: "Assets Under Tracking",
+        tone: Style.statGreen,
+        accent: Style.cardGreen,
+        icon: SafeIcon,
+        eyebrow: "Scale",
+        subtext: "Growing 15% YoY"
+    },
+    {
+        value: "2,50,000+",
+        label: "Happy Clients",
+        tone: Style.statViolet,
+        accent: Style.cardViolet,
+        icon: UsersIcon,
+        eyebrow: "Trust",
+        subtext: "97% Retention Rate"
+    },
+    {
+        value: "20+",
+        label: "Years Experience",
+        tone: Style.statOrange,
+        accent: Style.cardOrange,
+        icon: TrophyIcon,
+        eyebrow: "Legacy",
+        subtext: "Market Leadership"
+    },
+];
 
 const PersonalFinancialPlan = ({formtype}) => {
     
@@ -56,6 +140,17 @@ const PersonalFinancialPlan = ({formtype}) => {
     return (
         <div className={Style.personalfinancePage}>
             <HideHeader />
+            <div className={Style.topTrustBar}>
+                <div className={Style.topTrustViewport}>
+                    <div className={Style.topTrustTrack}>
+                        {trustMessages.map((message) => (
+                            <div className={Style.topTrustMessage} key={message}>
+                                {message}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
             <div className={Style.fhlogo}>
                 <img
                     src={process.env.REACT_APP_STATIC_URL + "media/FH.png"}
@@ -68,6 +163,7 @@ const PersonalFinancialPlan = ({formtype}) => {
                         <div className={Style.pfHeader}>Get A Personal Financial Advisor To Guide You Towards Financial Growth.</div>
                         <div className={Style.pfsubHeader}>Trusted by 2,50,000+ Indians and NRI for the right financial advice</div>
                     </div>
+                 
                     <div className={Style.pfpoints}>
                         <div className={Style.pflistbox}>
                             <div><CachetIcon /></div>
@@ -108,8 +204,31 @@ Trusted Wealth Partner – Leading wealth management company in India, deliverin
                    
                 </div>
             </div>
+               <div className={Style.compactTrustBlock}>
+                        <div className={Style.compactStatsGrid}>
+                            {compactStats.map((stat) => (
+                                <div className={`${Style.compactStatCard} ${stat.accent}`} key={stat.label}>
+                                    <div className={Style.compactStatTop}>
+                                        <div className={Style.compactStatEyebrow}>{stat.eyebrow}</div>
+                                        <div className={Style.compactStatIconWrap}>
+                                            <stat.icon className={`${Style.compactStatIcon} ${stat.tone}`} />
+                                        </div>
+                                    </div>
+                                    <div className={`${Style.compactStatValue} ${stat.tone}`}>{stat.value}</div>
+                                    <div className={Style.compactStatLabel}>{stat.label}</div>
+                                    <div className={Style.compactStatSubtext}>{stat.subtext}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+<div className={Style.clientReviewsHeader}>
+ What Our Clients Say About Us
 
-          <div className="container-fluid mt-5 pt-4">
+</div>
+<div className={Style.testimonialSection}>
+<ClientReviews />
+</div>
+          <div className="container-fluid pt-4">
   <div className={Style.disclaimerWrapper}>
     <p className={Style.disclaimerTitle}>
       Disclaimer & Regulatory Information

@@ -70,7 +70,7 @@ const WhyChoose = ({ onBookClick }) => {
             </div>
 
             <div className="tw-mt-8 tw-p-6 tw-bg-gradient-to-r tw-from-blue-50 tw-to-orange-50 tw-rounded-2xl">
-              <div className="tw-flex tw-items-center tw-justify-between">
+              <div className="tw-flex tw-flex-col md:tw-flex-row tw-items-center md:tw-justify-between">
                 <div>
                   <h5 className="tw-font-semibold tw-text-gray-800">Ready to get started?</h5>
                   <p className="tw-text-sm tw-text-gray-600">Join thousands of satisfied clients</p>
@@ -83,28 +83,28 @@ const WhyChoose = ({ onBookClick }) => {
             </div>
           </div>
 
-          <div className="tw-relative">
+          <div className="tw-relative tw-space-y-4">
             <img
               className="tw-w-full tw-h-auto tw-max-h-96 tw-object-cover tw-rounded-2xl tw-shadow-xl"
-              src="/static/media/F12.jpg"
+              src="/static/media/t2.png"
               alt="happy Indian clients with financial advisor, success meeting, professional office, celebration atmosphere"
             />
 
-            <div className="tw-absolute -tw-top-4 -tw-right-4 neumorphic tw-p-4">
+            <div className="tw-md:absolute -tw-top-4 -tw-right-4 neumorphic tw-p-4">
               <div className="tw-text-center">
-                <div className="tw-text-2xl tw-font-bold tw-text-green-600">₹500Cr+</div>
-                <div className="tw-text-sm tw-text-gray-600">Assets Under Management</div>
+                <div className="tw-text-2xl tw-font-bold tw-text-green-600">₹421Cr+</div>
+                <div className="tw-text-sm tw-text-gray-600">Assets Under Tracking</div>
               </div>
             </div>
 
-            <div className="tw-absolute -tw-bottom-4 -tw-left-4 tw-bg-white tw-rounded-lg tw-shadow-lg tw-p-4">
+            <div className="tw-md:absolute -tw-bottom-4 -tw-left-4 tw-bg-white tw-rounded-lg tw-shadow-lg tw-p-4">
               <div className="tw-text-center">
                 <div className="tw-text-2xl tw-font-bold tw-text-blue-600">97%</div>
                 <div className="tw-text-sm tw-text-gray-600">Client Satisfaction</div>
               </div>
             </div>
 
-            <div className="tw-absolute tw-top-1/2 md:-tw-right-8 -tw-right-0 tw-bg-orange-500 tw-text-white tw-rounded-2xl tw-p-4 tw-shadow-xl">
+            <div className="tw-md:absolute  tw-top-1/2 md:-tw-right-8 -tw-right-0 tw-bg-orange-500 tw-text-white tw-rounded-2xl tw-p-4 tw-shadow-xl">
               <div className="tw-text-center">
                 <div className="tw-text-lg tw-font-bold">4.9★</div>
                 <div className="tw-text-xs">Rating</div>

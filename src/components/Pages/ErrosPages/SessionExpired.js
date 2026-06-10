@@ -3,6 +3,7 @@ import GuestLayout from "../../Layout/GuestLayout";
 import Cookies from "js-cookie";
 import { userLogout } from "../../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import { removeMemberId, removeUserId } from "../../../common_utilities";
+import { clearLocalStorageExcept } from "../../../Utils/storage";
 
 const SessionExpired = () => {
   useEffect(() => {
@@ -11,7 +12,7 @@ const SessionExpired = () => {
     localStorage.removeItem("sky");
     Cookies.remove('token');
     Cookies.remove('user_data');
-    localStorage.clear();
+    clearLocalStorageExcept(["leadData"]);
   }, []);
 
   return (

@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaUserAlt } from "react-icons/fa";
+import {
+  FaChartBar,
+  FaWpforms,
+  FaTasks,
+  FaBriefcase,
+  FaFileInvoice,
+  FaExchangeAlt,
+  FaRegCalendarAlt,
+  FaEnvelope,
+  FaPhoneAlt,
+  FaUserTie,
+} from "react-icons/fa";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import pmc from "./commonDashboard.module.css";
-import Call from "../../../Assets/Images/CommonDashboard/phonecall.png";
-import Mail from "../../../Assets/Images/CommonDashboard/Mail.png";
-import Expiry from "../../../Assets/Images/CommonDashboard/evaluation.svg";
 import { useSelector, useDispatch } from "react-redux";
 import {
   STATIC_URL,
@@ -24,12 +32,6 @@ import commonEncode from "../../../commonEncode";
 import Calendly from "../../CommonDashboard/Calendly";
 import { useNavigate } from "react-router-dom";
 
-import Advisory from "../../../Assets/Images/CommonDashboard/01_advisory.svg";
-import PlanofAction from "../../../Assets/Images/CommonDashboard/02_plan_of_action.svg";
-import PersonalTax from "../../../Assets/Images/CommonDashboard/03_personal_tax.svg";
-import Investment from "../../../Assets/Images/CommonDashboard/02_investment.svg";
-import Transaction from "../../../Assets/Images/CommonDashboard/04_transactions.svg";
-import { HiOutlineMail } from "react-icons/hi";
 import Fintootour from "../../../Pages/Fintootour";
 import RenewPopupTextbox from "../../CommonDashboard/RenewPopupTextbox";
 import KYCTextbox from "../../CommonDashboard/KYCTextbox";
@@ -235,6 +237,17 @@ const CommonDSidebar = (props) => {
       setDashboardPage(0)
     }
   }, [])
+
+  const getNameInitials = (name) => {
+    if (!name || typeof name !== "string") return "RM";
+    const parts = name
+      .trim()
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2);
+    if (!parts.length) return "RM";
+    return parts.map((part) => part.charAt(0).toUpperCase()).join("");
+  };
  
   
 
@@ -292,11 +305,7 @@ const CommonDSidebar = (props) => {
                 }`}
             >
               <div>
-                <img
-                  // src={imagePath + Advisory}
-                  src={imagePath + Advisory}
-                  width={20}
-                />
+                <FaChartBar className={pmc.sidebarMenuIcon} />
               </div>
               <div className={pmc.menutext + " sidebar-custom-color"}>
                 Dashboard
@@ -331,16 +340,20 @@ const CommonDSidebar = (props) => {
                     className={` text-decoration-none d-flex menu-link-182 `}
                   >
                     <div>
-                      <img
-                        src={imagePath + Transaction}
-                        width={20}
-                      />
+                      <FaWpforms className={pmc.sidebarMenuIcon} />
                     </div>
-                    <div style={{
-                cursor: planIsExpired === "Y" ? "not-allowed" : "pointer",
-                opacity: planIsExpired === "Y" ? 0.5 : 1,
-              }} className={`${pmc.menutext + " sidebar-custom-color"} `}>
-                      Data Gathering
+                    <div
+                       style={{
+                        cursor: planIsExpired === "Y" ? "not-allowed" : "pointer",
+                      }}
+                      className={`${pmc.menutext + " sidebar-custom-color"} ${pmc.disabledMenuTextWrap}`}
+                    >
+                      <div
+                      style={{
+                        opacity: planIsExpired === "Y" ? 0.9 : 1,
+                      }}
+                        className={pmc.disabledMenuTitle}>Data Gathering</div>
+                     
                     </div>
                   </div>
                 </div>
@@ -360,11 +373,7 @@ const CommonDSidebar = (props) => {
                     className={` text-decoration-none d-flex menu-link-182 `}
                   >
                     <div>
-
-                      <img
-                        src={imagePath + "/static/media/DG/DataGathering.svg"}
-                        width={20}
-                      />
+                      <FaWpforms className={pmc.sidebarMenuIcon} />
                     </div>
                     <div   className={`${pmc.menutext + " sidebar-custom-color"} `}>
                       Data Gathering
@@ -405,7 +414,7 @@ const CommonDSidebar = (props) => {
                 
             >
               <div>
-                <img src={imagePath + PlanofAction} width={20} />
+                <FaTasks className={pmc.sidebarMenuIcon} />
               </div>
               <div style={{
                 cursor: planIsExpired === "Y" ? "not-allowed" : "pointer",
@@ -420,6 +429,7 @@ const CommonDSidebar = (props) => {
 
           <div className={`PortfolioCoach ${pmc.menuitem} `}>
             <NavLink
+              end
               className={({ isActive, isPending }) =>
                 "text-decoration-none " +
                 (isActive
@@ -438,14 +448,7 @@ const CommonDSidebar = (props) => {
                 className={` text-decoration-none d-flex menu-link-182 `}
               >
                 <div>
-                  <img
-                    // src={
-                    //   process.env.REACT_APP_STATIC_URL +
-                    //   "media/DMF/03_personal_tax.svg"
-                    // }
-                    src={imagePath + PersonalTax}
-                    width={20}
-                  />
+                  <FaBriefcase className={pmc.sidebarMenuIcon} />
                 </div>
                 <div className={`${pmc.menutext + " sidebar-custom-color"} `}>
                   Portfolio{" "}
@@ -471,17 +474,10 @@ const CommonDSidebar = (props) => {
                 //     payload: "dashboard",
                 //   });
                 // }}
-                className={` text-decoration-none d-flex menu-link-182 `}
+                className={` text-decoration-none d-flex  `}
               >
                 <div>
-                  <img
-                    // src={
-                    //   process.env.REACT_APP_STATIC_URL +
-                    //   "media/DMF/04_transactions.svg"
-                    // }
-                    src={imagePath + Transaction}
-                    width={20}
-                  />
+                  <FaFileInvoice className={pmc.sidebarMenuIcon} />
                 </div>
                 <div
                   style={{
@@ -516,10 +512,7 @@ const CommonDSidebar = (props) => {
                 className={` text-decoration-none d-flex menu-link-182 `}
               >
                 <div>
-                  <img
-                    src={imagePath + Transaction}
-                    width={20}
-                  />
+                  <FaExchangeAlt className={pmc.sidebarMenuIcon} />
                 </div>
                 <div className={`${pmc.menutext + " sidebar-custom-color"} `}>
                   Transaction{" "}
@@ -528,28 +521,23 @@ const CommonDSidebar = (props) => {
             </NavLink>
           </div>
 
-          <hr className="mt-md-3 ms-3 d-none d-md-block" />
-          <div className={`d-none d-md-block mt-4 mb-4 ${pmc.RmBox}`}>
+          
             {paymentCompleted && planExpiryDate && (
-              <>
-                <div>
-                  <span>
-                    {" "}
-                    <img
-                      src={Expiry}
-
-                      width={20}
-                    />{" "}
+            <>
+              <div className={`d-none d-md-block ${pmc.RmBox} ${pmc.expiryCard}`}>
+                <div className={pmc.infoLabelRow}>
+                  <span className={pmc.infoIconWrap}>
+                    <FaRegCalendarAlt className={pmc.infoIcon} />
                   </span>
                   <span className={pmc.MailTxt}>Plan Expiry Date</span>
                 </div>
-                <div className={pmc.Rminfo} style={{ width: "100%", padding: ".4rem 0" }}>{planExpiryDate}</div>
+                <div className={`${pmc.Rminfo} ${pmc.expiryValue}`}>{planExpiryDate}</div>
+                </div>
               </>
+               
             )}
-          </div>
-          {paymentCompleted && planExpiryDate && (
-            <hr className="mt-md-3 ms-3 d-none d-md-block" />
-          )}
+         
+        
           {rmdetails && Object.keys(rmdetails).length != 0 ? (
             <div
               style={
@@ -557,85 +545,59 @@ const CommonDSidebar = (props) => {
                   // display : "none"
                 }
               }
-              className={`${pmc.RmBox} d-none d-md-block`}
+              className={`${pmc.RmBox} ${pmc.rmCard} d-none d-md-block`}
 
             >
-              <div className={pmc.RmImg}>
-                {rmdetails.imagepath != "" ? (
-                  <img
-                    src={
-                      process.env.REACT_APP_STATIC_URL_PYTHON +
-                      rmdetails.imagepath
-                    }
-                  />
-                ) : (
-                  <img
-                    src={
-                      process.env.REACT_APP_STATIC_URL +
-                      "media/DMF/profile-picture.svg"
-                    }
-                  />
-                )}
-              </div>
-              <div
-                style={{
-                  lineHeight: "21px",
-                }}
-              >
-                <div className={pmc.RmProfile}>
-                  {planuuid == "fp_robo" ? (
-                    ""
+              <div className={pmc.rmCardTop}>
+                <div className={pmc.RmImg}>
+                  {rmdetails.imagepath != "" ? (
+                    <img
+                      src={
+                        process.env.REACT_APP_STATIC_URL_PYTHON +
+                        rmdetails.imagepath
+                      }
+                    />
                   ) : (
-                    <>
-                      {planuuid != "fp_robo"
-                        ? "Wealth Manager"
-                        : ""}
-                    </>
+                    <div className={pmc.rmAvatarFallback} aria-label="Relationship manager profile">
+                      <FaUserTie className={pmc.rmAvatarIcon} />
+                    </div>
                   )}
                 </div>
-                <div className={pmc.RmName}>
-                  {rmdetails.emp_name}
+                <div className={pmc.rmIdentity}>
+                  <div className={pmc.RmProfile}>
+                    {planuuid == "fp_robo" ? (
+                      "Wealth Manager"
+                    ) : (
+                      <>
+                        {planuuid != "fp_robo"
+                          ? "Wealth Manager"
+                          : ""}
+                      </>
+                    )}
+                  </div>
+                  <div className={pmc.RmName}>
+                    {rmdetails.emp_name}
+                  </div>
                 </div>
               </div>
-              <hr width={100} className="mt-2 mb-2" />
+              <hr className={pmc.rmDivider} />
               <div
-                className="mb-2"
-                style={{
-                  lineHeight: "21px",
-                  marginTop: "1rem"
-                }}
+                className={pmc.rmContactItem}
               >
-                <div>
-                  <span>
-                    {" "}
-                    <img
-                      src={Mail}
-                      style={{
-                        opacity: ".4",
-                      }}
-                      width={14}
-                    />{" "}
+                <div className={pmc.infoLabelRow}>
+                  <span className={pmc.infoIconWrap}>
+                    <FaEnvelope className={pmc.infoIcon} />
                   </span>
                   <span className={pmc.MailTxt}>Email</span>
                 </div>
                 <div ref={emailContainerRef} className={pmc.Rminfo}>{rmdetails.username}</div>
               </div>
               <div
-                style={{
-                  lineHeight: "21px",
-                  marginTop: "1rem"
-                }}
+                className={pmc.rmContactItem}
               >
-                <div>
-                  <span>
-                    {" "}
-                    <img
-                      src={Call}
-                      style={{
-                        opacity: ".4",
-                      }}
-                      width={14}
-                    />{" "}
+                <div className={pmc.infoLabelRow}>
+                  <span className={pmc.infoIconWrap}>
+                    <FaPhoneAlt className={pmc.infoIcon} />
                   </span>
                   <span className={pmc.MailTxt}>Mobile No.</span>
                 </div>

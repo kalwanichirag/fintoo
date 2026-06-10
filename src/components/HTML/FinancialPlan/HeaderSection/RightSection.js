@@ -7,12 +7,17 @@ const RightSection = (props) => {
         className={`${styles["header-section-image-container"]} ${styles.animated} ${styles.animatedFadeInUp} ${styles.fadeInUp} `}
       >
         <img
-              src={
-                process.env.REACT_APP_STATIC_URL +
-                "media/wp/FPPlan/FPPlan.png"
-              }
-              alt="Financial Planning"
-            />
+          src={
+            process.env.REACT_APP_STATIC_URL +
+            "media/wp/FPPlan/FPPlan.png"
+          }
+          alt="Financial Planning"
+        
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+       
+        />
         {/* <img  src={process.env.REACT_APP_STATIC_URL + 'media/wp/FPPlan/AI.png'} alt="" /> */}
       </div>
     </>

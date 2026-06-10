@@ -980,42 +980,40 @@ const MutualFund = () => {
                                 </div>
                                 <div>
                                   <p className="FundNames">
-                                    {item?.fund_detail?.exit_loads?.length > 0
-                                      ? item?.fund_detail?.exit_loads[0].Value == 0
-                                        ? "Nil"
-                                        : parseFloat(
-                                          item?.fund_detail?.exit_loads[0].Value
-                                        ) *
-                                        1 +
-                                        "% "
-                                      : "-"}
-                                    {item?.fund_detail?.exit_loads?.length > 0 &&
-                                      item.fund_detail.exit_loads[0].Value * 1 !=
-                                      0 ? (
-                                      item?.fund_detail?.exit_loads?.length > 0 ? (
-                                        <span
-                                          className="Text"
-                                          style={{ fontWeight: 100 }}
-                                        >
-                                          if redeemed within{" "}
-                                          {item.fund_detail.exit_loads[0]
-                                            .HighBreakpoint *
-                                            1 >
-                                            0
-                                            ? item.fund_detail.exit_loads[0]
-                                              .HighBreakpoint
-                                            : item.fund_detail.exit_loads[0]
-                                              .LowBreakpoint}{" "}
-                                          {
-                                            item.fund_detail.exit_loads[0]
-                                              .BreakpointUnit
-                                          }
-                                        </span>
-                                      ) : (
-                                        <></>
-                                      )
+                                    {item?.fund_detail?.exit_loads?.length > 0 ? (
+                                      (() => {
+                                        const exitLoad = item.fund_detail.exit_loads[0];
+
+                                        const value = Number(exitLoad.exit_load_value);
+
+                                        // Map numeric unit → readable text
+                                        const unitMap = {
+                                          0: "days",
+                                          1: "months",
+                                          2: "years",
+                                        };
+
+                                        const unit =
+                                          unitMap[Number(exitLoad.exit_break_point_unit)] || "";
+
+                                        const breakpoint =
+                                          exitLoad.exit_high_break_point > 0
+                                            ? exitLoad.exit_high_break_point
+                                            : exitLoad.exit_low_break_point;
+
+                                        if (value === 0) return "Nil";
+
+                                        return (
+                                          <>
+                                            {value}%{" "}
+                                            <span className="Text" style={{ fontWeight: 100 }}>
+                                              if redeemed within {breakpoint} {unit}
+                                            </span>
+                                          </>
+                                        );
+                                      })()
                                     ) : (
-                                      <></>
+                                      "-"
                                     )}
                                   </p>
                                 </div>
