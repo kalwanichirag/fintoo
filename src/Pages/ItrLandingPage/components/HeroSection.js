@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const heroIconClass = "tw-h-6 tw-w-6 sm:tw-h-8 sm:tw-w-8";
 
@@ -53,17 +53,65 @@ export default function HeroSection() {
   },
 ];
 const [active, setActive] = useState(0);
+const [isFading, setIsFading] = useState(false);
+const fadeTimerRef = useRef(null);
+const switchTimerRef = useRef(null);
 
 useEffect(() => {
-  const timer = setInterval(() => {
-    setActive((prev) => (prev + 1) % services.length);
-  }, 2500);
+  const startCycle = () => {
+    fadeTimerRef.current = setTimeout(() => {
+      setIsFading(true);
+    }, 4140);
 
-  return () => clearInterval(timer);
+    switchTimerRef.current = setTimeout(() => {
+      setActive((prev) => (prev + 1) % services.length);
+      setIsFading(false);
+      startCycle();
+    }, 4500);
+  };
+
+  startCycle();
+
+  return () => {
+    clearTimeout(fadeTimerRef.current);
+    clearTimeout(switchTimerRef.current);
+  };
 }, []);
   
   return (
     <section id="home" className="tw-relative tw-flex tw-min-h-screen tw-items-center tw-overflow-hidden tw-bg-[#021d44] tw-px-4 tw-pb-20 tw-pt-10 md:tw-px-8 lg:tw-pt-32">
+      <style>
+        {`
+          @keyframes itrHeroFadeIn {
+            0% {
+              opacity: 0;
+              transform: translateY(6px);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes itrHeroProgress {
+            from {
+              width: 0%;
+            }
+            to {
+              width: 100%;
+            }
+          }
+
+          .itr-hero-fade-card {
+            animation: itrHeroFadeIn 360ms ease-out both;
+            transition: opacity 360ms ease, transform 360ms ease;
+          }
+
+          .itr-hero-progress {
+            animation: itrHeroProgress 4500ms linear both;
+          }
+        `}
+      </style>
       <div className="tw-absolute tw-inset-0 tw-bg-white/5" />
       <div className="tw-absolute -tw-right-24 -tw-top-24 tw-h-96 tw-w-96 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(221,115,0,0.18)_0%,transparent_70%)] tw-blur-3xl" />
       <div className="tw-absolute -tw-bottom-24 tw-left-1/4 tw-h-96 tw-w-96 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(8,56,128,0.4)_0%,transparent_70%)] tw-blur-3xl" />
@@ -122,21 +170,23 @@ useEffect(() => {
     {/* glow */}
     <div className="tw-absolute -tw-inset-8 tw-rounded-3xl tw-bg-fintoo-orange/20 tw-blur-3xl" />
 
-    <div className="tw-relative tw-overflow-hidden tw-rounded-3xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.04] tw-backdrop-blur-xl">
+    <div className="tw-relative tw-min-h-[330px] tw-overflow-hidden tw-rounded-3xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.04] tw-backdrop-blur-xl sm:tw-min-h-[340px]">
 
       {/* progress */}
       <div className="tw-h-1 tw-bg-white/5">
         <div
           key={active}
-          className="tw-h-full tw-bg-fintoo-orange animate-progress"
+          className="itr-hero-progress tw-h-full tw-bg-fintoo-orange"
         />
       </div>
 
-      <div className="tw-p-5 sm:tw-p-10">
+      <div className="tw-flex tw-min-h-[329px] tw-flex-col tw-p-5 sm:tw-min-h-[339px] sm:tw-p-10">
 
         <div
           key={active}
-          className="animate-slide-card"
+          className={`itr-hero-fade-card tw-flex tw-flex-1 tw-flex-col ${
+            isFading ? "tw-opacity-0 tw-translate-y-1.5" : "tw-opacity-100 tw-translate-y-0"
+          }`}
         >
           <div className="tw-mb-5 tw-flex tw-items-center tw-gap-3 sm:tw-mb-6 sm:tw-gap-4">
 
@@ -149,7 +199,7 @@ useEffect(() => {
                 {services[active].title}
               </h3>
 
-              <p className="tw-mt-1 tw-text-xs tw-font-medium tw-uppercase tw-tracking-wide tw-text-fintoo-orange sm:tw-text-sm">
+              <p className="tw-mt-1 tw-mb-0 tw-text-xs tw-font-medium tw-uppercase tw-tracking-wide tw-text-fintoo-orange sm:tw-text-sm">
                 {services[active].meta}
               </p>
             </div>
@@ -160,7 +210,7 @@ useEffect(() => {
             {services[active].desc}
           </p>
 
-          <div className="tw-mt-8 tw-flex tw-items-center tw-gap-2">
+          <div className="tw-mt-auto tw-flex tw-items-center tw-gap-2 tw-pt-8">
             {services.map((_, index) => (
               <button
                 key={index}
