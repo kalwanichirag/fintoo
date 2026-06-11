@@ -29,17 +29,14 @@ export default function TeamSection() {
           <h2 className="tw-m-0 tw-font-dmserif1 tw-text-3xl tw-font-black tw-text-fintoo-blue md:tw-text-5xl">
             Meet Our Team <span className="tw-text-fintoo-orange">Leaders</span>
           </h2>
-          <p className="tw-mt-4 tw-text-sm tw-font-semibold tw-leading-7 tw-text-slate-500 md:tw-text-base">
-            Backed by an accredited team of 80+ Chartered Accountants, global wealth strategists, and regulatory
-            analysts dedicated to high-precision asset filing.
-          </p>
+         
         </div>
 
-        <div className="tw-grid tw-grid-cols-2 tw-justify-center tw-gap-8 md:tw-grid-cols-3 lg:tw-grid-cols-4 xl:tw-grid-cols-5">
+        <div className="tw-flex tw-flex-wrap tw-justify-center tw-gap-8">
           {leaders.map(([name, role, src]) => (
-            <div key={name} className="tw-group tw-relative tw-flex tw-flex-col tw-items-center tw-text-center">
-              <div className="tw-relative tw-mb-4 tw-h-28 tw-w-28 tw-rounded-full tw-transition-transform group-hover:tw-scale-105 md:tw-h-32 md:tw-w-32">
-                  <img src={src} alt={name} className="tw-h-full tw-w-full tw-rounded-full tw-object-cover tw-grayscale tw-transition-all group-hover:tw-grayscale-0" />
+            <div key={name} className="tw-group tw-relative tw-flex tw-shrink-0 tw-basis-[calc((100%-2rem)/2)] tw-flex-col tw-items-center tw-text-center md:tw-basis-[calc((100%-4rem)/3)] lg:tw-basis-[calc((100%-6rem)/4)] xl:tw-basis-[calc((100%-8rem)/5)]">
+              <div className="tw-relative tw-mb-0 tw-h-28 tw-w-28 tw-rounded-full tw-transition-transform group-hover:tw-scale-105 md:tw-h-32 md:tw-w-32">
+                  <img src={src} alt={name} className="tw-h-full tw-w-full tw-rounded-full tw-object-cover  tw-transition-all " />
                 </div>
               
               <h3 className="tw-m-0 tw-text-sm tw-font-bold tw-text-fintoo-blue group-hover:tw-text-fintoo-orange md:tw-text-base">{name}</h3>

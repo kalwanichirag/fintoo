@@ -31,8 +31,9 @@ export default function ItrLandingPage() {
        
         <TrustSection />
         <TeamSection />
-        <FaqSection />
+        
         <BookingSection />
+        <FaqSection />
       </main>
       <a
         href="#booking"
