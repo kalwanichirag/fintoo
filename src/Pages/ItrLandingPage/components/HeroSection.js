@@ -79,7 +79,13 @@ useEffect(() => {
 }, []);
   
   return (
-    <section id="home" className="tw-relative tw-flex tw-min-h-screen tw-items-center tw-overflow-hidden tw-bg-[#021d44] tw-px-4 tw-pb-20 tw-pt-10 md:tw-px-8 lg:tw-pt-32">
+    <section id="home" 
+ style={{
+    backgroundImage: `url(${process.env.PUBLIC_URL}/static/media/ItrLogos/banner.jpg)`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}    className="tw-relative tw-flex tw-min-h-screen tw-items-center tw-overflow-hidden tw-bg-[#021d44] tw-px-4 tw-pb-20 tw-pt-10 md:tw-px-8 lg:tw-pt-32">
       <style>
         {`
           @keyframes itrHeroFadeIn {
@@ -112,9 +118,8 @@ useEffect(() => {
           }
         `}
       </style>
-      <div className="tw-absolute tw-inset-0 tw-bg-white/5" />
-      <div className="tw-absolute -tw-right-24 -tw-top-24 tw-h-96 tw-w-96 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(221,115,0,0.18)_0%,transparent_70%)] tw-blur-3xl" />
-      <div className="tw-absolute -tw-bottom-24 tw-left-1/4 tw-h-96 tw-w-96 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(8,56,128,0.4)_0%,transparent_70%)] tw-blur-3xl" />
+      
+    
 
       <div className="tw-relative tw-z-10 tw-mx-auto tw-grid tw-w-full tw-max-w-7xl tw-grid-cols-1 tw-gap-14 lg:tw-grid-cols-2 lg:tw-items-center">
         <div>
@@ -165,12 +170,12 @@ useEffect(() => {
 <div>
 <div className="tw-relative tw-flex tw-items-center tw-justify-center">
 
-  <div className="tw-relative tw-w-full tw-max-w-lg">
+  <div className="tw-relative tw-w-full tw-max-w-[23rem] sm:tw-max-w-[25rem]">
 
     {/* glow */}
-    <div className="tw-absolute -tw-inset-8 tw-rounded-3xl tw-bg-fintoo-orange/20 tw-blur-3xl" />
+    <div className="md:tw-absolute tw-bottom-16 tw-right-4 tw-rounded-2xl tw-bg-fintoo-orange/18 tw-blur-2xl" />
 
-    <div className="tw-relative tw-min-h-[330px] tw-overflow-hidden tw-rounded-3xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.04] tw-backdrop-blur-xl sm:tw-min-h-[340px]">
+    <div className="tw-relative tw-min-h-[13rem] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.04] tw-backdrop-blur-xl sm:tw-min-h-[15.75rem]">
 
       {/* progress */}
       <div className="tw-h-1 tw-bg-white/5">
@@ -180,7 +185,7 @@ useEffect(() => {
         />
       </div>
 
-      <div className="tw-flex tw-min-h-[329px] tw-flex-col tw-p-5 sm:tw-min-h-[339px] sm:tw-p-10">
+      <div className="tw-flex tw-min-h-[13rem] tw-flex-col tw-p-5 sm:tw-min-h-[15.75rem] sm:tw-p-6">
 
         <div
           key={active}
@@ -188,36 +193,36 @@ useEffect(() => {
             isFading ? "tw-opacity-0 tw-translate-y-1.5" : "tw-opacity-100 tw-translate-y-0"
           }`}
         >
-          <div className="tw-mb-5 tw-flex tw-items-center tw-gap-3 sm:tw-mb-6 sm:tw-gap-4">
+          <div className="tw-mb-3 tw-flex tw-items-center tw-gap-3 sm:tw-mb-4">
 
-            <div className="tw-flex tw-h-12 tw-w-12 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-2xl tw-bg-fintoo-orange/15 tw-text-2xl tw-text-fintoo-orange sm:tw-h-16 sm:tw-w-16 sm:tw-text-3xl">
+            <div className="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-fintoo-orange/15 tw-text-xl tw-text-fintoo-orange sm:tw-h-12 sm:tw-w-12 sm:tw-text-2xl">
               {services[active].icon}
             </div>
 
             <div>
-              <h3 className="tw-m-0 tw-text-xl tw-font-bold tw-leading-snug tw-text-white sm:tw-text-2xl">
+              <h3 className="tw-m-0 tw-text-lg tw-font-bold tw-leading-snug tw-text-white sm:tw-text-xl">
                 {services[active].title}
               </h3>
 
-              <p className="tw-mt-1 tw-mb-0 tw-text-xs tw-font-medium tw-uppercase tw-tracking-wide tw-text-fintoo-orange sm:tw-text-sm">
+              <p className="tw-mt-0.5 tw-mb-0 tw-text-[11px] tw-font-medium tw-uppercase tw-tracking-wide tw-text-fintoo-orange sm:tw-text-xs">
                 {services[active].meta}
               </p>
             </div>
 
           </div>
 
-          <p className="tw-text-sm tw-leading-7 tw-text-white/75 sm:tw-text-lg sm:tw-leading-8">
+          <p className="tw-mb-0 tw-text-sm tw-leading-6 tw-text-white/75 sm:tw-text-base sm:tw-leading-7">
             {services[active].desc}
           </p>
 
-          <div className="tw-mt-auto tw-flex tw-items-center tw-gap-2 tw-pt-8">
+          <div className="tw-mt-auto tw-flex tw-items-center tw-gap-1.5 tw-pt-4">
             {services.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setActive(index)}
                 className={`tw-h-2 tw-rounded-full tw-transition-all ${
                   active === index
-                    ? "tw-w-10 tw-bg-fintoo-orange"
+                    ? "tw-w-8 tw-bg-fintoo-orange"
                     : "tw-w-2 tw-bg-white/25"
                 }`}
               />

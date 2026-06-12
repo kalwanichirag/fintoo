@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../../components/Insurance/tailwind.css";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
@@ -16,9 +18,100 @@ import Footer from "./components/Footer";
 import Disclaimer from "../../components/retirement-planning/Disclaimer";
 import CorporateTaxSolutions from "./components/CorporateTaxSolutions";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ItrLandingPage() {
+  const pageRef = useRef(null);
+
+  useEffect(() => {
+    const page = pageRef.current;
+
+    if (!page) {
+      return undefined;
+    }
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reduceMotion) {
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      const heroBgLayers = gsap.utils.toArray("[data-itr-hero-bg]");
+
+      gsap.set(heroBgLayers, {
+        scale: 1.12,
+        transformOrigin: "center center",
+        willChange: "transform",
+      });
+
+      gsap.to(heroBgLayers, {
+        scale: 0.96,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.9,
+        },
+      });
+
+      gsap.to("[data-itr-hero-parallax]", {
+        yPercent: -24,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      const sections = gsap.utils.toArray("main > section, main > div");
+
+      sections.forEach((section) => {
+        const revealItems = Array.from(section.children || []).filter(
+          (item) =>
+            item.tagName !== "STYLE" &&
+            !item.hasAttribute("data-itr-hero-bg") &&
+            !item.hasAttribute("data-itr-hero-parallax")
+        );
+        const targets = revealItems.length ? revealItems : [section];
+
+        gsap.set(targets, {
+          autoAlpha: 0,
+          y: 96,
+          willChange: "transform, opacity",
+        });
+
+        gsap.to(targets, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1.05,
+          ease: "power4.out",
+          stagger: 0.12,
+          clearProps: "willChange",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 84%",
+            once: true,
+          },
+        });
+      });
+
+      ScrollTrigger.refresh();
+    }, page);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="itr-marketing-page tw-min-h-screen tw-overflow-x-hidden tw-bg-[#fdf9f3] tw-font-dmsans tw-text-fintoo-blue">
+    <div
+      ref={pageRef}
+      className="itr-marketing-page tw-min-h-screen tw-overflow-x-hidden tw-bg-[#fdf9f3] tw-font-dmsans tw-text-fintoo-blue"
+    >
     
       <main>
         <HeroSection />

@@ -14,7 +14,7 @@ export default function TrustSection() {
           <span className="tw-h-0.5 tw-w-5 tw-bg-fintoo-orange" />
           Trusted By
         </div>
-        <h2 className="tw-font-dmserif tw-text-4xl tw-font-black tw-leading-tight tw-text-fintoo-blue md:tw-text-5xl">
+        <h2 className=" tw-text-4xl tw-font-black tw-leading-tight tw-text-fintoo-blue md:tw-text-5xl">
           Professionals from
           <br />
           the world's best companies.
