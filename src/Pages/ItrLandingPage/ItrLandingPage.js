@@ -5,6 +5,7 @@ import "../../components/Insurance/tailwind.css";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import MarqueeSection from "./components/MarqueeSection";
+import AdvisoryServicesSection from "./components/AdvisoryServicesSection";
 import ServeSection from "./components/ServeSection";
 import ProcessSection from "./components/ProcessSection";
 import ServicesSection from "./components/ServicesSection";
@@ -116,8 +117,11 @@ export default function ItrLandingPage() {
       <main>
         <HeroSection />
         <MarqueeSection />
+       
         <CorporateTaxSolutions/>
+
         <ServeSection />
+ <AdvisoryServicesSection />
         <ProcessSection />
        
         <ComparisonSection />

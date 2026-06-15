@@ -23,59 +23,68 @@ export default function BookingSection() {
               Book 45-Minute Session
             </div>
 
-            <h2 className="tw-font-dmserif1 tw-text-4xl tw-font-black tw-leading-tight tw-text-white md:tw-text-6xl">
-              Let's <span className="tw-text-fintoo-orange">simplify</span>
+            <h2 className=" tw-text-3xl tw-font-black  tw-text-white md:tw-text-6xl !tw-leading-[1.25]">
+              Bring <span className="tw-text-fintoo-orange">Stress-Free </span>
               <br />
-              your taxes.
+              Tax Filing to Your Workforce
             </h2>
 
             <p className="tw-mt-6 tw-max-w-xl tw-text-lg tw-leading-8 tw-text-white/70">
-              Book a one-on-one consultation with an experienced CA and get a
-              personalized tax strategy tailored to your income, investments,
-              and financial goals.
+              Partner with Fintoo to give your employees access to expert-led ITR filing, personalized tax planning, and one-on-one CA consultations - at zero cost to your HR team's bandwidth.
             </p>
+
+           
 
             {/* Benefits */}
             <div className="tw-mt-10 tw-space-y-5">
-              <div className="tw-flex tw-items-start tw-gap-4">
+              <h3 className="tw-text-xl tw-font-bold tw-text-white tw-mb-0">
+                What your employees get:
+              </h3>
+
+              <div className="tw-flex tw-items-center tw-gap-4">
                 <div className="tw-mt-1 tw-flex tw-h-8 tw-w-8 tw-items-center tw-justify-center tw-rounded-full tw-bg-fintoo-orange/15 tw-text-fintoo-orange">
                   ✓
                 </div>
                 <div>
-                  <h4 className="tw-text-lg tw-font-semibold tw-text-white">
-                    Personalized Tax Planning
+                  <h4 className="tw-text-lg tw-font-semibold tw-text-white tw-mb-0">
+                    Live 45-minute ITR filing sessions with qualified CAs
                   </h4>
-                  <p className="tw-text-white/60">
-                    Recommendations tailored to your income profile.
-                  </p>
+                 
                 </div>
               </div>
 
-              <div className="tw-flex tw-items-start tw-gap-4">
+              <div className="tw-flex tw-items-center tw-gap-4">
                 <div className="tw-mt-1 tw-flex tw-h-8 tw-w-8 tw-items-center tw-justify-center tw-rounded-full tw-bg-fintoo-orange/15 tw-text-fintoo-orange">
                   ✓
                 </div>
                 <div>
-                  <h4 className="tw-text-lg tw-font-semibold tw-text-white">
-                    Expert CA Consultation
+                  <h4 className="tw-text-lg tw-font-semibold tw-text-white tw-mb-0">
+                    Personalized tax planning based on income, ESOPs, and investments
                   </h4>
-                  <p className="tw-text-white/60">
-                    Get guidance from qualified tax professionals.
-                  </p>
+                 
                 </div>
               </div>
 
-              <div className="tw-flex tw-items-start tw-gap-4">
+              <div className="tw-flex tw-items-center tw-gap-4">
                 <div className="tw-mt-1 tw-flex tw-h-8 tw-w-8 tw-items-center tw-justify-center tw-rounded-full tw-bg-fintoo-orange/15 tw-text-fintoo-orange">
                   ✓
                 </div>
                 <div>
-                  <h4 className="tw-text-lg tw-font-semibold tw-text-white">
-                    Clear Action Plan
+                  <h4 className="tw-text-lg tw-font-semibold tw-text-white tw-mb-0">
+                    Support for global income, foreign assets, and overseas tax filing
                   </h4>
-                  <p className="tw-text-white/60">
-                    Walk away knowing exactly what to do next.
-                  </p>
+                  
+                </div>
+              </div>
+               <div className="tw-flex tw-items-center tw-gap-4">
+                <div className="tw-mt-1 tw-flex tw-h-8 tw-w-8 tw-items-center tw-justify-center tw-rounded-full tw-bg-fintoo-orange/15 tw-text-fintoo-orange">
+                  ✓
+                </div>
+                <div>
+                  <h4 className="tw-text-lg tw-font-semibold tw-text-white tw-mb-0">
+                    A clear, actionable plan - not just a filed return
+                  </h4>
+                  
                 </div>
               </div>
             </div>
@@ -124,6 +133,7 @@ export default function BookingSection() {
             <div className="tw-absolute -tw-bottom-8 -tw-left-8 tw-h-32 tw-w-32 tw-rounded-full tw-bg-white/10 tw-blur-3xl" />
           </div>
         </div>
+
       </div>
     </section>
   );

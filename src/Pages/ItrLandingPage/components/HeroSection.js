@@ -1,83 +1,4 @@
-
-import { useEffect, useRef, useState } from "react";
-
-const heroIconClass = "tw-h-6 tw-w-6 sm:tw-h-8 sm:tw-w-8";
-
 export default function HeroSection() {
-  const services = [
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className={heroIconClass} aria-hidden="true">
-        <path d="M7 3.5h7l3 3v14H7v-17Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M14 3.5v3h3" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M9.5 11h5M9.5 14h5M9.5 17h3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
-    title: "Live ITR Filing",
-    meta: "45 min session · Expert-Led",
-    desc: "File your return live, with a CA walking you through every field - accurate, transparent, and tailored to your disclosures.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className={heroIconClass} aria-hidden="true">
-        <rect x="5" y="3.5" width="14" height="17" rx="2.5" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M8.5 8h7M8.5 12h1M12 12h1M15.5 12h1M8.5 16h1M12 16h1M15.5 16h1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
-    title: "Tax Planning",
-    meta: "Current FY · Proactive",
-    desc: "Plan your taxes well before the deadline. Reduce liability legally using the right regime, deductions, and investment structuring.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className={heroIconClass} aria-hidden="true">
-        <path d="M4 17.5h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M6.5 15l4-4 3 3 5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M15.5 8h3v3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: "ESOP & Equity Advisory",
-    meta: "RSUs · ESOPs · SBUs",
-    desc: "Navigate the tax complexity of stock options, vested shares, and equity income with expert-guided disclosure and planning.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className={heroIconClass} aria-hidden="true">
-        <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M4.8 9.5h14.4M4.8 14.5h14.4M12 4a14.5 14.5 0 0 1 0 16M12 4a14.5 14.5 0 0 0 0 16" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      </svg>
-    ),
-    title: "Global Tax Assistance",
-    meta: "US Filing · Foreign Assets · FBAR",
-    desc: "Expert help for international income, overseas assets, NRI status, and US tax filing obligations.",
-  },
-];
-const [active, setActive] = useState(0);
-const [isFading, setIsFading] = useState(false);
-const fadeTimerRef = useRef(null);
-const switchTimerRef = useRef(null);
-
-useEffect(() => {
-  const startCycle = () => {
-    fadeTimerRef.current = setTimeout(() => {
-      setIsFading(true);
-    }, 4140);
-
-    switchTimerRef.current = setTimeout(() => {
-      setActive((prev) => (prev + 1) % services.length);
-      setIsFading(false);
-      startCycle();
-    }, 4500);
-  };
-
-  startCycle();
-
-  return () => {
-    clearTimeout(fadeTimerRef.current);
-    clearTimeout(switchTimerRef.current);
-  };
-}, []);
-  
   return (
     <section id="home" 
  style={{
@@ -121,7 +42,7 @@ useEffect(() => {
       
     
 
-      <div className="tw-relative tw-z-10 tw-mx-auto tw-grid tw-w-full tw-max-w-7xl tw-grid-cols-1 tw-gap-14 lg:tw-grid-cols-2 lg:tw-items-center">
+      <div className="tw-relative tw-z-10 tw-mx-auto tw-w-full tw-max-w-7xl">
         <div>
           <div className="tw-mb-7 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-fintoo-orange/25 tw-bg-fintoo-orange/10 tw-py-1.5 tw-pl-2 tw-pr-4">
             <span className="tw-text-xs tw-font-bold tw-uppercase tw-text-fintoo-orange">
@@ -167,81 +88,6 @@ useEffect(() => {
             ))}
           </div>
         </div>
-<div>
-<div className="tw-relative tw-flex tw-items-center tw-justify-center">
-
-  <div className="tw-relative tw-w-full tw-max-w-[23rem] sm:tw-max-w-[25rem]">
-
-    {/* glow */}
-    <div className="md:tw-absolute tw-bottom-16 tw-right-4 tw-rounded-2xl tw-bg-fintoo-orange/18 tw-blur-2xl" />
-
-    <div className="tw-relative tw-min-h-[13rem] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.04] tw-backdrop-blur-xl sm:tw-min-h-[15.75rem]">
-
-      {/* progress */}
-      <div className="tw-h-1 tw-bg-white/5">
-        <div
-          key={active}
-          className="itr-hero-progress tw-h-full tw-bg-fintoo-orange"
-        />
-      </div>
-
-      <div className="tw-flex tw-min-h-[13rem] tw-flex-col tw-p-5 sm:tw-min-h-[15.75rem] sm:tw-p-6">
-
-        <div
-          key={active}
-          className={`itr-hero-fade-card tw-flex tw-flex-1 tw-flex-col ${
-            isFading ? "tw-opacity-0 tw-translate-y-1.5" : "tw-opacity-100 tw-translate-y-0"
-          }`}
-        >
-          <div className="tw-mb-3 tw-flex tw-items-center tw-gap-3 sm:tw-mb-4">
-
-            <div className="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-fintoo-orange/15 tw-text-xl tw-text-fintoo-orange sm:tw-h-12 sm:tw-w-12 sm:tw-text-2xl">
-              {services[active].icon}
-            </div>
-
-            <div>
-              <h3 className="tw-m-0 tw-text-lg tw-font-bold tw-leading-snug tw-text-white sm:tw-text-xl">
-                {services[active].title}
-              </h3>
-
-              <p className="tw-mt-0.5 tw-mb-0 tw-text-[11px] tw-font-medium tw-uppercase tw-tracking-wide tw-text-fintoo-orange sm:tw-text-xs">
-                {services[active].meta}
-              </p>
-            </div>
-
-          </div>
-
-          <p className="tw-mb-0 tw-text-sm tw-leading-6 tw-text-white/75 sm:tw-text-base sm:tw-leading-7">
-            {services[active].desc}
-          </p>
-
-          <div className="tw-mt-auto tw-flex tw-items-center tw-gap-1.5 tw-pt-4">
-            {services.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActive(index)}
-                className={`tw-h-2 tw-rounded-full tw-transition-all ${
-                  active === index
-                    ? "tw-w-8 tw-bg-fintoo-orange"
-                    : "tw-w-2 tw-bg-white/25"
-                }`}
-              />
-            ))}
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    {/* floating stats */}
-    
-
-  </div>
-
-</div>
-      </div>
       </div>
     </section>
   );
