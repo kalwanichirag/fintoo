@@ -31,8 +31,8 @@ const MARKETING_ROUTES = [
   "/itr-filing-for-employee",
   "/womoneya",
   "/womoneya-choice",
-  "/itr-filing-for-employees",
- "/itr-filing2"
+  "/itr-filing-corporate",
+  "/itr-filing-retail"
 ];
 
 

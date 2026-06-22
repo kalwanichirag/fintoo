@@ -70,7 +70,7 @@ export const pricingPlans = [
     label: 'Plan 1',
     name: 'Basic',
     subtitle: 'Individual with salary, house property and other sources',
-    price: '1999',
+    price: '1,999',
     originalPrice: '2,999',
     savings: 'Save 1,000',
     buttonClass: 'btn-plan-brand-blue',

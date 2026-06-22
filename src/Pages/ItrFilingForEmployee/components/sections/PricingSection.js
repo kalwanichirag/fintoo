@@ -39,11 +39,11 @@ function PlanCard({ plan, onBook }) {
         <div className="plan-subtitle tw-text-[0.8rem]">{plan.subtitle}</div>
         <div className="plan-price-wrap">
           <div className="plan-price-box">
-            <span className="plan-price-actual tw-text-[1.8rem]">{plan.price}</span>
-            <span className="plan-price-original tw-text-[0.75rem]">{plan.originalPrice}</span>
+            <span className="plan-price-actual tw-text-[1.8rem]">₹ {plan.price}</span>
+            {/* <span className="plan-price-original tw-text-[0.75rem]">{plan.originalPrice}</span> */}
             <span className="plan-price-label tw-text-[0.68rem]">All Inclusive</span>
           </div>
-          <div className="plan-savings tw-text-[0.72rem]">{plan.savings}</div>
+          {/* <div className="plan-savings tw-text-[0.72rem]">{plan.savings}</div> */}
         </div>
       </div>
       <div className="plan-body">
