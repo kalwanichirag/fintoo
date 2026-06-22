@@ -63,8 +63,8 @@ export default function MarketingApp() {
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/portfolio-management-services" element={<PmsMarketingPage />} />
             <Route path="/itr-filing" element={<ItrLandingPage />} />
-            <Route path="/itr-filing-for-employee" element={<ItrFilingForEmployee />} />
             <Route path="/itr-filing2" element={<ItrFilingForEmployee />} />
+            {/* <Route path="/itr-filing2" element={<ItrFilingForEmployee />} /> */}
           </Routes>
         </Suspense>
       </HelmetProvider>
