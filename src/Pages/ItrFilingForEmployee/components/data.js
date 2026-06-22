@@ -93,7 +93,7 @@ export const pricingPlans = [
     label: 'Plan 3',
     name: 'Diamond',
     subtitle: 'Resident, non-resident or foreign national with foreign income',
-    price: '3,999',
+    price: '4,999',
     originalPrice: '4,999',
     savings: 'Save 1,000',
     buttonClass: 'btn-plan-brand-blue',
