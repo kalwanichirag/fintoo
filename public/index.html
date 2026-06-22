@@ -29,10 +29,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
   <link
-    href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@300;400;500;700&family=Caveat:wght@700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@300;400;500;600;700;800;900&family=Caveat:wght@700&display=swap"
     rel="stylesheet"
   />
 
@@ -241,6 +239,16 @@
     }
 
     function loadThirdPartyScripts() {
+      loadDeferredScript('https://cdn-script.com/ajax/libs/jquery/3.6.4/jquery.js');
+
+      if (
+        !window.location.host.includes('fintoo.in') &&
+        !window.location.host.includes('fintoo.ae') &&
+        !window.location.host.includes('fintoo.ai')
+      ) {
+        return;
+      }
+
       dataLayer.push({
         'gtm.start': new Date().getTime(),
         event: 'gtm.js'
@@ -256,7 +264,6 @@
       loadDeferredScript('https://www.googletagmanager.com/gtm.js?id=GTM-M6ZJSZB');
       loadDeferredScript('https://cdn-in.pagesense.io/js/mihikainsurancefinancialcons/0eee1ab2fb1742cc809cefc5773dc0cd.js');
       loadDeferredScript('https://gateway.smallcase.com/scdk/2.0.0/scdk.js');
-      loadDeferredScript('https://cdn-script.com/ajax/libs/jquery/3.6.4/jquery.js');
     }
 
     window.addEventListener('load', function () {

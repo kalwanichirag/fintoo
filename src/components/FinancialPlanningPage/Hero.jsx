@@ -83,7 +83,7 @@ const HeroSection = ({onBookClick}) => {
               <div className="tw-absolute -tw-top-4 -tw-right-4 tw-bg-white tw-rounded-2xl tw-p-4 tw-shadow-xl tw-animate-bounce-slow">
                 <div className="tw-text-center">
                   <div className="tw-text-2xl tw-font-bold tw-text-green-600">
-                    ₹217Cr+
+                    ₹450Cr+
                   </div>
                   <div className="tw-text-sm tw-text-gray-600">AUA</div>
                 </div>
@@ -95,7 +95,7 @@ const HeroSection = ({onBookClick}) => {
               >
                 <div className="tw-text-center">
                   <div className="tw-text-2xl tw-font-bold tw-text-blue-600">
-                    ₹4000Cr+
+                    ₹5000cr+
                   </div>
                   <div className="tw-text-sm tw-text-gray-600">AUT</div>
                 </div>

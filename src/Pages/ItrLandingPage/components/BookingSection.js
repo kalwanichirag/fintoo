@@ -24,30 +24,24 @@ export default function BookingSection() {
             </div>
 
             <h2 className=" tw-text-3xl tw-font-black  tw-text-white md:tw-text-6xl !tw-leading-[1.25]">
-              Bring <span className="tw-text-fintoo-orange">Stress-Free </span>
+              Bring  <span className="tw-text-fintoo-orange">Stress-Free </span>
               <br />
-              Tax Filing to Your Workforce
+             Tax Filing to Your Workforce
             </h2>
 
             <p className="tw-mt-6 tw-max-w-xl tw-text-lg tw-leading-8 tw-text-white/70">
-              Partner with Fintoo to give your employees access to expert-led ITR filing, personalized tax planning, and one-on-one CA consultations - at zero cost to your HR team's bandwidth.
+            Partner with Fintoo to give your employees access to expert-led ITR filing, personalized tax planning, and one-on-one CA consultations — at zero cost to your HR team's bandwidth.
             </p>
-
-           
 
             {/* Benefits */}
             <div className="tw-mt-10 tw-space-y-5">
-              <h3 className="tw-text-xl tw-font-bold tw-text-white tw-mb-0">
-                What your employees get:
-              </h3>
-
               <div className="tw-flex tw-items-center tw-gap-4">
                 <div className="tw-mt-1 tw-flex tw-h-8 tw-w-8 tw-items-center tw-justify-center tw-rounded-full tw-bg-fintoo-orange/15 tw-text-fintoo-orange">
                   ✓
                 </div>
                 <div>
                   <h4 className="tw-text-lg tw-font-semibold tw-text-white tw-mb-0">
-                    Live 45-minute ITR filing sessions with qualified CAs
+                   Live 45-minute ITR filing sessions with qualified CAs
                   </h4>
                  
                 </div>
@@ -59,7 +53,7 @@ export default function BookingSection() {
                 </div>
                 <div>
                   <h4 className="tw-text-lg tw-font-semibold tw-text-white tw-mb-0">
-                    Personalized tax planning based on income, ESOPs, and investments
+                   Personalized tax planning based on income, ESOPs, and investments
                   </h4>
                  
                 </div>
@@ -82,7 +76,7 @@ export default function BookingSection() {
                 </div>
                 <div>
                   <h4 className="tw-text-lg tw-font-semibold tw-text-white tw-mb-0">
-                    A clear, actionable plan - not just a filed return
+                   A clear, actionable plan — not just a filed return
                   </h4>
                   
                 </div>
@@ -134,6 +128,9 @@ export default function BookingSection() {
           </div>
         </div>
 
+        <p className=" tw-mt-20 tw-text-white tw-text-center tw-mb-0">
+          Join 100+ leading corporates including Google, Amazon, Microsoft, Swiggy, and Accenture who trust Fintoo to simplify tax season for their teams.
+        </p>
       </div>
     </section>
   );

@@ -12,6 +12,7 @@ module.exports = {
     "./src/Pages/womoneya/**/*.{js,jsx,ts,tsx}",
     "./src/Pages/PmsMarketingPage/**/*.{js,jsx,ts,tsx}",
     "./src/Pages/ItrLandingPage/**/*.{js,jsx,ts,tsx}",
+    "./src/Pages/ItrFilingForEmployee/**/*.{js,jsx,ts,tsx}",
    // "./src/Pages/JoinWaitingList/**/*.{js,jsx,ts,tsx}",
   ],
   corePlugins: {
@@ -49,6 +50,9 @@ module.exports = {
       colors: {
         "fintoo-blue": "#042b62",
         "fintoo-orange": "#dd7300",
+        "fintoo-brand-blue": "#042b62",
+        "fintoo-brand-blue-mid": "#073b84",
+        "fintoo-brand-blue-light": "#0b4d9f",
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],

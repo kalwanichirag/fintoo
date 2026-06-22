@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const MARKETING_ROUTES = [
+  "/",
 
   "/financial-planning",
   "/financial-strategy",
@@ -27,6 +28,10 @@ const MARKETING_ROUTES = [
   "/retirement-planner",
   "/portfolio-management-services",
   "/itr-filing",
+  "/itr-filing-for-employee",
+  "/womoneya",
+  "/womoneya-choice",
+  "/itr-filing-for-employees",
  
 ];
 
@@ -36,7 +41,7 @@ export default function App() {
   const path = window.location.pathname;
 
   const isMarketingRoute = MARKETING_ROUTES.some(
-    p => path === p || path.startsWith(p + "/")
+    p => path === p || (p !== "/" && path.startsWith(p + "/"))
   );
 
   useEffect(() => {

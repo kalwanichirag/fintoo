@@ -77,7 +77,7 @@ const compactStats = [
         subtext: "+3.2% vs Market"
     },
     {
-        value: "₹4000Cr+",
+        value: "₹5000cr+",
         label: "Assets Under Tracking",
         tone: Style.statGreen,
         accent: Style.cardGreen,

@@ -1,4 +1,7 @@
 import AdvisorySection from "../components/HTML/Advisory";
+import "../custom.css";
+import "../mainData.css";
+import "../style.css";
 import ClientTestimonial from "../components/HTML/ClientTestimonial";
 import InvestSection from "../components/HTML/InvestSection";
 import TaxSection from "../components/HTML/TaxSection";
@@ -35,6 +38,12 @@ const Homepage = () => {
     return (
         <Fullpage>
             <Helmet>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+                    rel="stylesheet"
+                />
                 <meta name="keywords" content="income tax filing, Income Tax Notices, bonds, file itr, financial plan, investment planning, wealth management, personal finance, retirement planning, money management, tax planning, stock investement, equity investment, nri taxation, early retirement, financial advice, wealth advisory, investment advice, tax advice, wealth planning" />
             </Helmet>
             {/* <Modal classNames={{

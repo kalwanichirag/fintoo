@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../Insurance/tailwind.css";
 
 export default function Disclaimer() {
   const [isOpen, setIsOpen] = useState(false);

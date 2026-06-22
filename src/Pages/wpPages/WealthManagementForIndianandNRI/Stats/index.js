@@ -99,7 +99,7 @@ const StatsSection = () => {
             <div className={styles["card-item"]}>
               <div className={styles["card-item-elem"]}>
                 <p className={styles.number}>
-                  <span id="b2" max="250">
+                  <span id="b2" max="100">
                     0
                   </span>
                   <span className={styles.number}>+</span>
@@ -110,7 +110,7 @@ const StatsSection = () => {
             <div className={styles["card-item"]}>
               <div className={styles["card-item-elem"]}>
                 <p className={styles.number}>
-                  <span id="b3" max="350">
+                  <span id="b3" max="450">
                     0
                   </span>
                   <span className={styles.number}>Cr+</span>
