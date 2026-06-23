@@ -22,7 +22,11 @@ export default function PricingSection({ onBook }) {
           {pricingPlans.map((plan) => <PlanCard key={plan.key} plan={plan} onBook={onBook} />)}
         </div>
         <div className="pricing-trust fade-up">
-          {trustBadges.map(([icon, label]) => <span className="tw-text-[0.8rem]" key={label}><Icon name={icon} /> {label}</span>)}
+          <div className="pricing-trust-track">
+            {[...trustBadges, ...trustBadges].map(([icon, label], index) => (
+              <span className="tw-text-[0.8rem]" key={`${label}-${index}`}><Icon name={icon} /> {label}</span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
