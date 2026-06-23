@@ -22,11 +22,11 @@ export const comparisonRows = [
 ];
 
 export const timelineSteps = [
-  ['file', 'Plan Selection', 'Choose the right filing plan', 'Step 1'],
-  ['rupee', 'Payment', 'Complete secure payment', 'Step 2'],
-  ['folder', 'Document Upload', 'Share files through a secure flow', 'Step 3'],
-  ['calendar', 'Appointment Booking', 'Pick a convenient expert slot', 'Step 4'],
-  ['video', 'Live ITR Session', 'File live with your Tax Expert', 'Step 5'],
+  ['file', 'Plan Selection', 'Choosing the right plan', 'Step 1'],
+  ['calendar', 'Appointment Booking', 'Pick a convenient expert slot', 'Step 2'],
+  ['folder', 'Document Sharing', 'Share your documents during the live 45-min session', 'Step 3'],
+  ['video', 'ITR Filing Session', 'Watch your ITR accurately filed Live over a video call, and get your questions answered on the spot.', 'Step 4'],
+  ['rupee', 'Payment', 'Make a payment during the session', 'Step 5'],
 ];
 
 export const audienceCards = [

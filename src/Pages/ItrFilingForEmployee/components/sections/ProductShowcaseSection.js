@@ -38,7 +38,7 @@ export default function ProductShowcaseSection({ onBook }) {
       </div>
       <div className="showcase-slider-wrap">
         <Slider className="showcase-slider" {...sliderSettings}>
-          <MotionCard title="Income details pulled together before your call" description="Salary, interest, capital gains, and AIS data are organized so your Tax Expert starts with context, not guesswork." type="broker" wash="rgba(4,43,98,.07)" />
+          <MotionCard title="LIVE Virtual ITR Filing" description="No office visits. No document confusion. No DIY mistakes. Just a LIVE expert-led ITR filing session from the comfort of your home." type="broker" wash="rgba(4,43,98,.07)" />
           <MotionCard title="No deduction left sitting in your documents" description="Your tax expert checks what applies and explains what should be claimed, line by line." type="deductions" wash="rgba(221,115,0,.08)" />
           <MotionCard title="Right form, right regime, selected with proof" description="See the math clearly before filing, with your Tax Expert validating the final choice." type="regime" wash="rgba(4,43,98,.06)" />
           <MotionCard title="Every number visualized before submission" description="Refund, taxable income, deductions, and liability are presented clearly before you approve filing." type="refund" wash="rgba(221,115,0,.07)" />
@@ -47,9 +47,9 @@ export default function ProductShowcaseSection({ onBook }) {
       <div className="showcase-cta fade-up">
         <div>
           <strong className="tw-text-[1.05rem]">File ITR with expert accuracy, not form-filling anxiety.</strong>
-          <span className="tw-text-[0.86rem]">Book a free intro call and understand your filing path in minutes.</span>
+          <span className="tw-text-[0.86rem]">Select a plan suitable for you, and connect with a tax expert to have your ITR filed LIVE over a video call.</span>
         </div>
-        <CtaButton onClick={() => onBook('free')}><Icon name="calendar" /> Start Filing</CtaButton>
+        <CtaButton onClick={() => onBook('free')}><Icon name="calendar" /> Select Your Plan</CtaButton>
       </div>
     </section>
   );

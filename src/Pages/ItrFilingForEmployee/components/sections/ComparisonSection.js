@@ -10,7 +10,7 @@ export default function ComparisonSection({ onBook }) {
           <div className="section-label tw-text-[0.72rem]">What Makes Us Different</div>
           <h2 className="section-title tw-text-3xl md:tw-text-4xl lg:tw-text-5xl">Fintoo vs Everyone Else</h2>
           <p className="tw-text-[0.95rem]">Most platforms hand you a form and wish you luck. Fintoo gives you a tax expert who understands your situation and files it right the first time.</p>
-          <CtaButton onClick={() => onBook('free')}><Icon name="calendar" /> Book Free Intro Call</CtaButton>
+          <CtaButton onClick={() => onBook('free')}><Icon name="calendar" /> File ITR Accurately</CtaButton>
         </div>
         <div className="fade-up">
           <table className="compare">

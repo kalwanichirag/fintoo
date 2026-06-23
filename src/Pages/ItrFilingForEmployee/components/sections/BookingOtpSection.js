@@ -16,11 +16,10 @@ export default function BookingOtpSection() {
           <div className="tw-max-w-xl">
             <div className="section-label tw-text-xs tw-text-fintoo-orange tw-mb-4">Start Filing</div>
             <h2 className="section-title tw-text-3xl md:tw-text-4xl lg:tw-text-5xl tw-mb-5">
-              Book Your ITR Filing Consultation
+              Book your ITR filing session at your convenience.
             </h2>
             <p className="tw-text-base md:tw-text-lg tw-text-[#60708a] tw-leading-7 tw-mb-8">
-              Share your basic details and our team will help you choose the right filing path for salary, capital gains, ESOPs, foreign assets, or NRI reporting.
-            </p>
+Once you book a slot, you will receive an email on the shared email ID, with the meeting link details, and the document checklist. Please ensure that you have the documents ready. You will be required to make the payment against the selected plan during the session.            </p>
 
             <div className="tw-space-y-4">
               {benefits.map(([icon, title, copy]) => (
@@ -36,10 +35,10 @@ export default function BookingOtpSection() {
               ))}
             </div>
 
-            <div className="tw-mt-6 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-lg tw-border tw-border-fintoo-orange/30 tw-bg-white tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#10233f]">
+            {/* <div className="tw-mt-6 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-lg tw-border tw-border-fintoo-orange/30 tw-bg-white tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#10233f]">
               <Icon name="shield" />
               SEBI Registered Investment Advisor
-            </div>
+            </div> */}
           </div>
 
           <div className="tw-relative tw-w-full tw-max-w-xl tw-mx-auto lg:tw-mr-0">

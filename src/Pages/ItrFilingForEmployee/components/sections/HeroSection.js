@@ -20,7 +20,7 @@ export default function HeroSection({ onBook }) {
           <p className="hero-desc tw-text-lg lg:tw-text-xl">Connect with a qualified tax expert over a live video consultation and get your return filed with confidence.</p>
           <p className="hero-subline tw-text-[0.98rem]">Personalized, accurate, and stress-free tax filing for salaried professionals, investors, founders, and NRIs.</p>
           <div className="hero-btns">
-            <CtaButton onClick={() => onBook('free')}><Icon name="calendar" /> Book Free 15-Minute Introductory Call</CtaButton>
+            <CtaButton onClick={() => onBook('free')}><Icon name="calendar" /> Book Your ITR Filing Session</CtaButton>
             <CtaButton href="#how" variant="secondary"><Icon name="play" fill /> Watch How Live Filing Works</CtaButton>
           </div>
           <div className="trust-strip">
