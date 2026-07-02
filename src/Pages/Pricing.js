@@ -125,10 +125,15 @@ const PricingPage = () => {
         data_belongs_to: DATA_BELONGS_TO
       }
       const res = await Getpaymentstatus(payload)
-      if (res.status_code === 200) {
-        setPaymentstatus(res.data)
+      if (res?.status_code === 200) {
+        const fpPlans =
+          res?.data?.filter((item) =>
+            ["fp_expert", "fp_robo"].includes(item?.service_type)
+          ) || [];
+
+        setPaymentstatus(fpPlans);
       } else {
-        setPaymentstatus([])
+        setPaymentstatus([]);
       }
 
     } catch (e) {
@@ -263,7 +268,11 @@ const PricingPage = () => {
       if (res.status_code === 200) {
         setPaymentstatus(res.data)
 
-        const plan = res?.data;
+        const plan = res?.data?.find((item) =>
+          ["fp_robo", "fp_basic", "fp_expert"].includes(item?.service_type)
+        );
+
+        if (!plan) return;
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -271,61 +280,59 @@ const PricingPage = () => {
         const expiryDate = new Date(plan.plan_expiry_date);
         expiryDate.setHours(0, 0, 0, 0);
 
-        const selected_plan_uuid = plan.plan_uuid
+        const selected_plan_uuid = plan.plan_uuid;
         if (today <= expiryDate) {
           if (
             (plan_id === "fp_robo" || plan_id === "fp_basic") &&
             ["platinum", "elite", "elite_prime"].includes(selected_plan_uuid)
           ) {
-            toastr.options.positionClass = "toast-bottom-left";
             toastr.error("You have already paid for this service.");
             navigate(`${process.env.PUBLIC_URL}/commondashboard`);
-          }
-          else if (
+          } else if (
             plan_id === "fp_expert" &&
             (selected_plan_uuid === "fp_robo" || selected_plan_uuid === "fp_basic")
           ) {
             localStorage.removeItem("plan_uuid");
-            localStorage.setItem('financialPlan', JSON.stringify(x));
+            localStorage.setItem("financialPlan", JSON.stringify(x));
 
-            var amount = 0;
+            let amount = 0;
             if (total_amount.isquaterly == 0 && total_amount.total != "custom") {
               amount = parseInt(total_amount.total);
             } else {
               amount = total_amount.Q1;
             }
+
             setReqPlanDict({
-              amount: amount,
-              frq: frq,
-              plan_sub_cat: plan_sub_cat,
-              plan_id: plan_id,
+              amount,
+              frq,
+              plan_sub_cat,
+              plan_id,
             });
 
             expertDetails(plan_id);
           } else {
-            toastr.options.positionClass = "toast-bottom-left";
             toastr.error("You have already paid for this service.");
             navigate(`${process.env.PUBLIC_URL}/commondashboard`);
           }
-        }
-        else {
+        } else {
           localStorage.removeItem("plan_uuid");
-          localStorage.setItem('financialPlan', JSON.stringify(x));
+          localStorage.setItem("financialPlan", JSON.stringify(x));
 
-          var amount = 0;
+          let amount = 0;
           if (total_amount.isquaterly == 0 && total_amount.total != "custom") {
             amount = parseInt(total_amount.total);
           } else {
             amount = total_amount.Q1;
           }
+
           setReqPlanDict({
-            amount: amount,
-            frq: frq,
-            plan_sub_cat: plan_sub_cat,
-            plan_id: plan_id,
+            amount,
+            frq,
+            plan_sub_cat,
+            plan_id,
           });
 
-          expertDetails(plan_id)
+          expertDetails(plan_id);
         }
       }
       else {

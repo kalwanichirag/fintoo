@@ -66,7 +66,7 @@ export const exchange_rate = 87.64
 export const master_psw = "Pl62odf39eqi"
 export const RAZOR_PAY_KEY =  process.env.REACT_APP_MODE == "live" ? "rzp_live_rYE1IuyTWkWiDv" : "rzp_test_SA4S6rcFbk4JvI";
 export const RAZOR_PAY_SECRET = process.env.REACT_APP_MODE == "live" ? "GOfFTB1HlrGQlqsnrYnCPhmj" : "QSs7JlK5nfW1uEDqcdjgJfYn"
-export const ASSESSMENT_YEAR = '2025-26';
+export const ASSESSMENT_YEAR = '2026-27';
 export const RAZORPAY_CHECKOUT = "https://checkout.razorpay.com/v1/checkout.js";
 
 export const X_CRM_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4ZjNhZDQ5MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczNDY2NzIwMH0.b9cD4qLQZxWm2A8nKpF7S3JvE0R6uT1HhYc5M2X9aQs";
@@ -152,6 +152,8 @@ export const userManagementEndpoints = {
   FETCH_USER_INFLATION: `${userManagementBaseAPIUrl}/fetch_user_inflation`,
   UPDATE_ROR_DATA: `${userManagementBaseAPIUrl}/update-ror-data/`,
   UPDATE_BASIC_DETAILS: `${userManagementBaseAPIUrl}/update_basic_details`,
+  ADD_UPDATE_ITR_USER_DETAILS: `${userManagementBaseAPIUrl}/add_update_itr_user_details`,
+  FETCH_USER_ITR_DETAILS: `${userManagementBaseAPIUrl}/fetch_user_itr_details`,
   GET_OCCUPATION_LIST: `${userManagementBaseAPIUrl}/get_occupation_list`,
   GET_RELATION_LIST: `${userManagementBaseAPIUrl}/get_relation_list`,
   FETCH_USER_PROFILE_DETAILS: `${userManagementBaseAPIUrl}/fetch_user_profile_details`,
@@ -235,6 +237,7 @@ export const investmentEndpoints = {
   ADD_TO_CART_API_URL: `${investmentBaseAPIUrl}/add_to_cart`,
   ADD_SWITCH_TO_CART_API_URL: `${investmentBaseAPIUrl}/add_switch_to_cart`,
   ADD_STP_TO_CART_API_URL: `${investmentBaseAPIUrl}/add_stp_to_cart`,
+  ADD_SWP_TO_CART_API_URL: `${investmentBaseAPIUrl}/add_swp_to_cart`,
   UPDATE_CATEGORY_GOAL_LINKAGE: `${investmentBaseAPIUrl}/update_category_goal_linkage`,
   ADD_NOMINEE_DETAILS: `${investmentBaseAPIUrl}/add_nominee_details`,
   UPDATE_NOMINEE_DETAILS: `${investmentBaseAPIUrl}/update_nominee_details`,
@@ -273,6 +276,7 @@ export const masterEndpoints = {
   FETCH_USER_PROFILE_STATUS: `${financialplanningBaseAPIUrl}/fetch_user_mf_profile_status`,
   GENERATE_AOF: `${financialplanningBaseAPIUrl}/generate_aof`,
   AOF_IMAGE_UPLOAD: `${financialplanningBaseAPIUrl}/aof_image_upload`,
+  GET_BROKER_LIST: `${financialplanningBaseAPIUrl}/get_broker_list`,
   GET_SLAB_LIST: `${financialplanningBaseAPIUrl}/get_slab_list`,
   GET_OCCUPATION_LIST: `${financialplanningBaseAPIUrl}/get_occupation_list`,
   CLIENT_BSE_REGISTRATION: `${financialplanningBaseAPIUrl}/client_bse_registration`,
@@ -450,8 +454,10 @@ export const financialplanningAssetEndpoints = {
 export const financialplanningDocumentEndpoints = {
   GET_USER_DOCUMENT_DETAILS: `${financialplanningBaseAPIUrl}/fetch_user_document_details`,
   UPLOAD_USER_DOCUMENT_API: `${financialplanningBaseAPIUrl}/upload_user_document_details`,
+  UPDATE_USER_ITR_DOCUMENT_DETAILS: `${financialplanningBaseAPIUrl}/update_user_itr_document_details`,
   DELETE_USER_DOCUMENT_API: `${financialplanningBaseAPIUrl}/delete_user_document_details`,
   GET_DOCTYPE_API: `${financialplanningBaseAPIUrl}/get_doctype`,
+  GET_DOCUMENT_LIST_BY_CATEGORY: `${financialplanningBaseAPIUrl}/get_document_list_by_category`,
 };
 
 // financial Planning report endpoints

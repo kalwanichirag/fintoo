@@ -3,10 +3,14 @@ import { PaymentappEndpoints } from "../../../constants"
 
 export const getpricinglist = async (payload) => {
     try {
-        const url = `${PaymentappEndpoints.GET_PRICING_PLAN_LIST}?for_crm=0`;
+        let url = `${PaymentappEndpoints.GET_PRICING_PLAN_LIST}?for_crm=0`;
+
+        if (payload?.service_name) {
+            url += `&service_name=${encodeURIComponent(payload.service_name)}`;
+        }
+
         const response = await apiClient(url, {
-            method: 'GET',
-            body: JSON.stringify(payload)
+            method: "GET",
         });
 
         return response;

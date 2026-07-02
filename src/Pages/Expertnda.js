@@ -25,7 +25,7 @@ const Expertnda = () => {
   const user_data = JSON.parse(localStorage.getItem("user_data") || '{}');
 
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [termsError, setTermsMsg] = useState("");
   const [isTermsChecked, setTerms] = useState(false);
   const sessionRef = useRef(null);
@@ -156,18 +156,27 @@ const Expertnda = () => {
     setTerms(e.target.checked);
   };
 
-  const handleSubmit = (event) => {
-
+  const handleSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    if (isTermsChecked == false) {
+    if (isLoading) return;
+
+    if (!isTermsChecked) {
       setTermsMsg("Please agree to proceed");
-    }
-    else if (isTermsChecked && termsError == '') {
-      agreeOnNda();
+      return;
     }
 
+    setIsLoading(true);
+
+    try {
+      await agreeOnNda();
+    } catch (error) {
+      console.error(error);
+      toastr.error("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // const agreeOnNda = async () => {
@@ -197,122 +206,73 @@ const Expertnda = () => {
   //   }
   // }
 
-  const agreeOnNda = async (payload) => {
+  const agreeOnNda = async () => {
+    const fppayload = {
+      user_id: getParentUserId(),
+      plan_uuid
+    };
 
-    try {
-        var fppayload = {
-         user_id : getParentUserId(),
-         plan_uuid : plan_uuid
-        }
+    const fp_response = await getndadoc(fppayload);
 
-        let fp_response = await getndadoc(fppayload);
-
-        if (fp_response.status_code == "200") {
-          var nda_attachment = [fp_response['data']['file_url']];
-
-          try {
-            const  user_id = getParentUserId();
-            // let rm_response = await Expertfinflowgetrmemail();
-            
-            const payload = {
-              user_id: getParentUserId(),
-              data_belongs_to: DATA_BELONGS_TO
-            }
-            const res = await Getpaymentstatus(payload)
-          
-            var rm_email = res?.data?.rm_data?.emp_email || '';
-            var rm_name = res?.data?.rm_data?.emp_name || '';
-            var rm_mobile = res?.data?.rm_data?.emp_mobile || '';
-            // var rm_designation = rm_response?.data?.expert_designation || '';
-
-            // var emailDataUser = {
-            //   "userdata": { "to": user_data?.user_email },
-            //   "subject": "Non-Disclosure Agreement From Fintoo",
-            //   "template": "NDA_completed.html",
-            //   "attachment": nda_attachment,
-            //   "contextvar": {
-            //     "encodeduserid": btoa('00' + user_data?.user_id),
-            //     "fullname": fullName,
-            //     "id": user_data?.user_id,
-            //     "fp_log_id": sessionRef.current['fp_log_id'],
-            //     "rm_email": rm_email,
-            //     "rm_name": rm_name,
-            //     "rm_mobile": rm_mobile,
-            //     "rm_designation": rm_designation
-            //   }
-            // }
-           
-
-            //send email to RM
-             var emaildataRm = {
-              "userdata": { "to": rm_email },
-              "subject": " NDA confirmation from Client!",
-              "template": "NDA_completed_rm.html",
-              "attachment_files": nda_attachment,
-              "contextvar": {
-                "encodeduserid": btoa('00' + user_id),
-                "fullname": fullName,
-                "client_email": user_data?.user_email,
-                "client_mobile": user_data?.user_mobile,
-                "id": user_id,
-                // "fp_log_id": sessionRef.current['fp_log_id'],
-                // "link": "login-to-module/?" + "uKey=" + btoa(user_id) + "&authtoken=" + btoa(master_psw)
-                "link": ""
-              }
-            };
-            let rm_email_resp = await SendEmail(emaildataRm);
-
-            var smsdata = {
-              "msg": "Dear " + fullName + ",\r\nThank you for accepting the NDA. Once again we would like to assure you that we completely understand the importance of data and its security is always our topmost priority. For any help or query, please feel free to get in touch with your Wealth Manager; Name: " + rm_name + "\r\nPhone: " + rm_mobile + "\r\Email: " + rm_email + "\r\nTeam Fintoo",
-              "whatsapptext": "Dear " + fullName + ",\nThank you for accepting the NDA. Once again we would like to assure you that we completely understand the importance of data and its security is always our topmost priority. For any help or query, please feel free to get in touch with your Wealth Manager; Name: " + rm_name + " Phone: " + rm_mobile + " Email: " + rm_email,
-              "mobile": user_data?.user_mobile,
-              "sms_api_id": "FintooNDAAccepted"
-            };
-
-            let sms_resp = await SendSMs(smsdata);
-            if (sms_resp.sms.success == true) {
-              
-              if (rm_mobile != "") {
-                var smsdata = {
-                  msg:
-                    "Dear " +
-                    rm_name +
-                    ",\r\nOur client, " +
-                    fullName +
-                    " has accepted the NDA. Request you to initiate the next step.\r\nTeam Fintoo",
-                  mobile: rm_mobile,
-                  whatsapptext:
-                    "Dear " +
-                    rm_name +
-                    ", Our client, " +
-                    fullName +
-                    " has accepted the NDA. Request you to initiate the next step.",
-                  sms_api_id: "FintooNDAAcceptedWM",
-                };
-                let sms_rm_resp = await SendSMs(smsdata);
-                // if (sms_rm_resp.sms.success == true) {
-                //   navigate(process.env.PUBLIC_URL + '/datagathering/about-you/');
-                // }
-                navigate(process.env.PUBLIC_URL + '/datagathering/about-you/');
-              } else {
-                navigate(process.env.PUBLIC_URL + '/datagathering/about-you/');
-              }
-            } 
-            else{
-              navigate(process.env.PUBLIC_URL + '/datagathering/about-you/');
-            }
-
-          } catch (e) {
-            console.log("error: ", e);
-          }
-
-        }
-    
-
-    } catch (e) {
-      console.error(e);
+    if (fp_response.status_code !== 200) {
+      toastr.error(fp_response.message || "Unable to generate NDA");
+      return;
     }
-  }
+
+    const nda_attachment = [fp_response.data.file_url];
+
+    const payload = {
+      user_id: getParentUserId(),
+      data_belongs_to: DATA_BELONGS_TO
+    };
+
+    const res = await Getpaymentstatus(payload);
+
+    const plan = res?.data?.find((item) =>
+      ["fp_expert", "fp_robo"].includes(item?.service_type)
+    );
+
+    const rm_email = plan?.rm_data?.emp_email || "";
+    const rm_name = plan?.rm_data?.emp_name || "";
+    const rm_mobile = plan?.rm_data?.emp_mobile || "";
+
+    const emaildataRm = {
+      userdata: { to: rm_email },
+      subject: "NDA confirmation from Client!",
+      template: "NDA_completed_rm.html",
+      attachment_files: nda_attachment,
+      contextvar: {
+        encodeduserid: btoa("00" + getParentUserId()),
+        fullname: fullName,
+        client_email: user_data?.user_email,
+        client_mobile: user_data?.user_mobile,
+        id: getParentUserId(),
+        link: ""
+      }
+    };
+
+    await SendEmail(emaildataRm);
+
+    var smsdata = {
+      "msg": "Dear " + fullName + ",\r\nThank you for accepting the NDA. Once again we would like to assure you that we completely understand the importance of data and its security is always our topmost priority. For any help or query, please feel free to get in touch with your Wealth Manager; Name: " + rm_name + "\r\nPhone: " + rm_mobile + "\r\Email: " + rm_email + "\r\nTeam Fintoo",
+      "whatsapptext": "Dear " + fullName + ",\nThank you for accepting the NDA. Once again we would like to assure you that we completely understand the importance of data and its security is always our topmost priority. For any help or query, please feel free to get in touch with your Wealth Manager; Name: " + rm_name + " Phone: " + rm_mobile + " Email: " + rm_email,
+      "mobile": user_data?.user_mobile,
+      "sms_api_id": "FintooNDAAccepted"
+    };
+
+    const sms_resp = await SendSMs(smsdata);
+
+    if (sms_resp?.sms?.success && rm_mobile) {
+      await SendSMs({
+        msg: `Dear ${rm_name},\r\nOur client, ${fullName} has accepted the NDA. Request you to initiate the next step.\r\nTeam Fintoo`,
+        mobile: rm_mobile,
+        whatsapptext: `Dear ${rm_name}, Our client, ${fullName} has accepted the NDA. Request you to initiate the next step.`,
+        sms_api_id: "FintooNDAAcceptedWM"
+      });
+    }
+
+    navigate(process.env.PUBLIC_URL + "/datagathering/about-you/");
+  };
 
   return (
 
@@ -378,14 +338,12 @@ const Expertnda = () => {
                     </label>
 
                     <button
-                      style={{
-                        width: "max-content"
-                      }}
-                      type={"button"}
-                      className={`${Styles.Proceedbtn}`}
+                      type="button"
+                      className={Styles.Proceedbtn}
                       onClick={handleSubmit}
+                      disabled={isLoading}
                     >
-                      Proceed
+                      {isLoading ? "Please wait..." : "Proceed"}
                     </button>
                   </div>
 

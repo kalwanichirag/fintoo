@@ -21,7 +21,7 @@ export default function HeroSection({ onBook }) {
           <p className="hero-subline tw-text-[0.98rem]">Personalized, accurate, and stress-free tax filing for salaried professionals, investors, founders, and NRIs.</p>
           <div className="hero-btns">
             <CtaButton onClick={() => onBook('free')}><Icon name="calendar" /> Book Your ITR Filing Session</CtaButton>
-            <CtaButton href="#how" variant="secondary"><Icon name="play" fill /> Watch How Live Filing Works</CtaButton>
+            <CtaButton href="#how" variant="secondary">See How Live Filing Works <Icon name="arrowRight" /></CtaButton>
           </div>
           <div className="trust-strip">
             {trustItems.map(([value, label]) => (

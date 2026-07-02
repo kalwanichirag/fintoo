@@ -129,7 +129,7 @@ const TransactionInfo = (props) => {
                                 </div>
                                 <div className={`${style.transactionInfoDataItemRight}`}>
                                     <div className={`${style.transactionInfoDataItemLabel}`}>Purchased by</div>
-                                    <div className={`${style.transactionInfoDataItemLabelVal}`}>{val.name || '-'}</div>
+                                    <div className={`${style.transactionInfoDataItemLabelVal}`}>{val.user_name || '-'}</div>
                                 </div>
                                 <div className={`${style.transactionInfoDataItemLeft}`}>
                                     <div className={`${style.transactionInfoDataItemLabel}`}>Order Amount</div>
@@ -139,6 +139,13 @@ const TransactionInfo = (props) => {
                                     <div className={`${style.transactionInfoDataItemLabel}`}>Order Id</div>
                                     <div className={`${style.transactionInfoDataItemLabelVal}`}>{val.bse_order_id || '0'}</div>
                                 </div>
+                                {
+                                val.bse_status === "FAIL" ?
+                                <div className={`${style.transactionInfoDataItemLeft}`}>
+                                    <div className={`${style.transactionInfoDataItemLabel}`}>Remark</div>
+                                    <div className={`${style.transactionInfoDataItemLabelVal}`}>{val.bse_remark || '0'}</div>
+                                </div> : ""
+                                }
                                 {val.cart_purchase_type === 'SIP' && (
                                     <>
                                     <div className={`${style.transactionInfoDataItemLeft}`}>
@@ -171,7 +178,7 @@ const TransactionInfo = (props) => {
                     </div>
                 ))}
                 {mfTransactions.length > 0 && <div className={`${style.investmoreBtn}`}>
-                    <Link to={`${process.env.PUBLIC_URL}/direct-mutual-fund/MutualFund/${mfTransactions[0]["schemecode"]}`}>
+                    <Link to={`${process.env.PUBLIC_URL}/direct-mutual-fund/MutualFund/${mfTransactions[0]["user_cart_mf_scheme_code"]}`}>
                         <button>Invest More</button>
                     </Link>
                 </div>}

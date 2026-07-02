@@ -74,7 +74,7 @@ export default function FinalCTA({ formtype }) {
             </div>
 
 
-            {formtype == "otp" ? (<LandingPageOtp servicename={"assisted_advisory_fixed_fees"}  pageName="Retirement Planning"  calendlyurl={"https://calendly.com/d/cwkx-wvw-y7t/15-minute-consultation-call-for-retirement-planning?hide_event_type_details=1"} variant="minimal" />
+            {formtype == "otp" ? (<LandingPageOtp servicename={"assisted_advisory_fixed_fees"}  pageName="Retirement Planning" variant="minimal" />
             
             ) :(
               <LandingPageCalendly pageName="Retirement Planning" servicename={"assisted_advisory_fixed_fees"} calendlyurl={"https://calendly.com/d/cwkx-wvw-y7t/15-minute-consultation-call-for-retirement-planning?hide_event_type_details=1"} variant="minimal" />

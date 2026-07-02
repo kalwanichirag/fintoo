@@ -7,7 +7,18 @@ import { fetchData } from "../../../common_utilities";
 import { useEffect } from "react";
 import Calendar from "./Calendar";
 
-function AppointmentBox({eventCode, eventUrl, serviceName, extraParams, plan_id}) {
+function AppointmentBox({eventCode, eventUrl, serviceName, extraParams, plan_id, planDetails, pd}) {
+  const mobile = String(pd?.mobile || '').trim();
+  const mobileWithCountryCode = mobile
+    ? mobile.startsWith("+") ? mobile : mobile.startsWith("91") ? `+${mobile}` : `+91${mobile}`
+    : '';
+  const prefillData = {
+    email: pd?.email || '',
+    name: pd?.full_name || '',
+    mobile,
+    mobileWithCountryCode,
+  };
+
   useCalendlyEventListener({
     
     onEventScheduled: async (e) => {
@@ -33,7 +44,7 @@ function AppointmentBox({eventCode, eventUrl, serviceName, extraParams, plan_id}
                 width: "100%",
               }}
             >
-              <Calendar planId={plan_id}   extraParams={extraParams} itrPage eventCode={eventCode} url={eventUrl} serviceName={serviceName} />
+              <Calendar planId={plan_id} planDetails={planDetails} pd={pd} extraParams={extraParams} itrPage eventCode={eventCode} url={eventUrl} serviceName={serviceName} prefillData={prefillData} />
             </div>
             {/* <iframe src="https://calendly.com/fintoo/30-min-consultation-call-with-our-insurance-specialist?month=2023-03" width="100%" height="100%" frameBorder="0"></iframe> */}
           </div>

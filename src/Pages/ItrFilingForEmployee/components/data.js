@@ -17,8 +17,8 @@ export const mistakes = [
 export const comparisonRows = [
   ['Upload documents', 'Live Tax Expert consultation'],
   ['Ticket-based support', 'Dedicated tax expert'],
-  ['DIY filing', 'Assisted live filing'],
-  ['Generic advice', 'Personalised tax planning'],
+  ['DIY filing', 'Assisted live ITR filing'],
+  ['Generic advice', 'Personalised advice'],
 ];
 
 export const timelineSteps = [
@@ -48,7 +48,7 @@ export const checklistItems = [
   'Tax Saving Opportunities',
   'Investment Deductions',
   'HRA & Exemptions',
-  'Full Compliance Check',
+  'Compliance Check',
 ];
 
 export const stats = [
@@ -70,11 +70,11 @@ export const pricingPlans = [
     label: 'Plan 1',
     name: 'Basic',
     subtitle: 'Individual with salary, house property and other sources',
-    price: '1,999',
+    price: '1,499',
     originalPrice: '2,999',
     savings: 'Save 1,000',
     buttonClass: 'btn-plan-brand-blue',
-    features: ['Live video ITR filing with tax expert', 'Resident individuals', 'Income up to 50 lakhs', 'Multiple Form 16', 'Income up to 2 house properties', 'Multiple other income sources'],
+    features: ['Live Video ITR Filing with Tax Expert', 'Resident Individuals', 'Multiple form 16', 'Income upto 2 House Property', 'Multiple Other Sources Income', 'Income upto 1 Crore'],
   },
   {
     key: 'gold',
@@ -86,18 +86,18 @@ export const pricingPlans = [
     savings: 'Save 1,000',
     popular: true,
     buttonClass: 'btn-plan-orange',
-    features: ['Resident / NRI / RNOR individuals and HUFs', 'Multiple house properties', 'Multiple Form 16', 'Capital gains from MF / shares / property', 'Income exceeding 50 lakhs', 'Indian assets disclosure'],
+    features: ['Live Video ITR Filing with Tax Expert', 'Resident / RNOR Individuals & HUFs', 'Multiple form 16', 'Multiple House Property', 'Multiple Other Sources Income', 'Capital Gains from MF/Shared/Property or any other capital assets (From India)', 'Income Exceeding 1 Crore', 'Assets Disclosure (Indian)'],
   },
   {
     key: 'diamond',
     label: 'Plan 3',
     name: 'Diamond',
     subtitle: 'Resident, non-resident or foreign national with foreign income',
-    price: '4,999',
+    price: '4,499',
     originalPrice: '4,999',
     savings: 'Save 1,000',
     buttonClass: 'btn-plan-brand-blue',
-    features: ['Indian and foreign assets disclosure', 'Foreign income disclosure', 'Capital gains from all asset classes', 'Professional and business income', 'ESOPs / RSU computation', 'Complex residency review'],
+    features: ['Live Video ITR Filing with Tax Expert', 'Resident / NRI / RNOR / Foreign National Individuals', 'Multiple form 16', 'Multiple House Property', 'Multiple Other Sources Income', 'Capital Gains from MF/Shared/Property or any other capital assets', 'Income Exceeding 1 Crore', 'Indian & Foreign assets Disclosure', 'Foreign Income Disclosure', 'ESOPS / RSU Computation', 'Professional Income & Business Income'],
   },
 ];
 

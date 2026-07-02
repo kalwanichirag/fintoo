@@ -192,58 +192,58 @@ const NewFdBondsFormView = () => {
 
 
   useEffect(() => {
-      const fetchCategories = async () => {
-        try {
-  
-          const asset_category = await getAssetCategoryList();
-  
-          const categoryList = asset_category?.data?.[0]?.category_list || [];
-  
-          const debtCategory = categoryList.find(
-            (cat) => cat.asset_name === "Debt"
-          );
-          let fdBondPayloadData = {
-            "AssetCategoryUuid": debtCategory.asset_name_uuid,
-            "AssetSubCategories": []
-          };
-  
-          if (debtCategory) {
-  
-            const allowedUUIDs = ["liquid", "debt_others", "bonds", "debt_mf"];
+    const fetchCategories = async () => {
+      try {
 
-            const assetSubCategories = debtCategory.subcategories
-              .filter(sub => allowedUUIDs.includes(sub.asset_sub_name_uuid))
-              .map(sub => ({
-                AssetSubNameUuid: sub.asset_sub_name_uuid,
-                AssetTypes: sub.asset_types || []
-              }));
-          
-            setFdBondPayload(prev => ({
-              ...prev,
-              AssetSubCategories: assetSubCategories
+        const asset_category = await getAssetCategoryList();
+
+        const categoryList = asset_category?.data?.[0]?.category_list || [];
+
+        const debtCategory = categoryList.find(
+          (cat) => cat.asset_name === "Debt"
+        );
+        let fdBondPayloadData = {
+          "AssetCategoryUuid": debtCategory.asset_name_uuid,
+          "AssetSubCategories": []
+        };
+
+        if (debtCategory) {
+
+          const allowedUUIDs = ["liquid", "debt_others", "bonds", "debt_mf"];
+
+          const assetSubCategories = debtCategory.subcategories
+            .filter(sub => allowedUUIDs.includes(sub.asset_sub_name_uuid))
+            .map(sub => ({
+              AssetSubNameUuid: sub.asset_sub_name_uuid,
+              AssetTypes: sub.asset_types || []
             }));
 
-            for (const sub of debtCategory.subcategories) {
-              if (sub.asset_sub_name_uuid === "liquid" || sub.asset_sub_name_uuid === "debt_others" || sub.asset_sub_name_uuid === "bonds" || sub.asset_sub_name_uuid === "debt_mf") {
-                fdBondPayloadData.AssetSubCategories.push(
-                  {"AssetSubNameUuid": sub.asset_sub_name_uuid, "AssetTypes": sub.asset_types, "AssetSubNameId": sub.asset_sub_id}
-                )
-                sub.asset_types?.map((item) => {
-                  if (fdBondPayloadData.AssetSubCategories.AssetSubNameUuid == sub.asset_sub_name_uuid){
-                    fdBondPayloadData.AssetSubCategories.AssetTypes.push(item);
-                  }
-                });
-              }
+          setFdBondPayload(prev => ({
+            ...prev,
+            AssetSubCategories: assetSubCategories
+          }));
+
+          for (const sub of debtCategory.subcategories) {
+            if (sub.asset_sub_name_uuid === "liquid" || sub.asset_sub_name_uuid === "debt_others" || sub.asset_sub_name_uuid === "bonds" || sub.asset_sub_name_uuid === "debt_mf") {
+              fdBondPayloadData.AssetSubCategories.push(
+                { "AssetSubNameUuid": sub.asset_sub_name_uuid, "AssetTypes": sub.asset_types, "AssetSubNameId": sub.asset_sub_id }
+              )
+              sub.asset_types?.map((item) => {
+                if (fdBondPayloadData.AssetSubCategories.AssetSubNameUuid == sub.asset_sub_name_uuid) {
+                  fdBondPayloadData.AssetSubCategories.AssetTypes.push(item);
+                }
+              });
             }
-            setFdBondPayload(fdBondPayloadData);
-  
           }
-        } catch (err) {
-          console.error("Error fetching categories:", err);
+          setFdBondPayload(fdBondPayloadData);
+
         }
-      };
-  
-      fetchCategories();
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
 
@@ -290,7 +290,7 @@ const NewFdBondsFormView = () => {
 
   const editFdData = async (id) => {
     try {
-      
+
       var payload = {
         user_id: getUserId(),
         user_asset_id: id
@@ -299,16 +299,16 @@ const NewFdBondsFormView = () => {
       var response = await getOtherInvestments(payload);
 
       if (response?.status_code == "200") {
-        
+
         setUserAssetDetails(response.data.listing[0]);
         setIsApiReady(true);
-        
+
       } else {
         toastr.options.positionClass = "toast-bottom-left";
         toastr.error("Failed to fetch FD/Bonds data");
         return;
       }
-      
+
     } catch (err) {
       console.error("Error in editFdData:", err);
       toastr.options.positionClass = "toast-bottom-left";
@@ -598,7 +598,7 @@ const NewFdBondsFormView = () => {
       if (resp["status_code"] == "200") {
         navigate(
           process.env.PUBLIC_URL +
-            "/direct-mutual-fund/portfolio/dashboard?assetTabNumber=3"
+          "/direct-mutual-fund/portfolio/dashboard?assetTabNumber=3"
         );
 
         dispatch({
@@ -626,85 +626,85 @@ const NewFdBondsFormView = () => {
   };
 
   const UpdateFdBondAsset = async () => {
-      try {
-  
-        const assetData = fdBondPayload;
+    try {
 
-        const selectedAssetValue = formData.typeOfAsset;
-        let assetSubNameUuid = "";
-        let assetTypeId = "";
+      const assetData = fdBondPayload;
 
-        let matchedSub = null;
-        let matchedType = null;
+      const selectedAssetValue = formData.typeOfAsset;
+      let assetSubNameUuid = "";
+      let assetTypeId = "";
 
-        for (const sub of assetData.AssetSubCategories) {
-          const type = sub.AssetTypes.find(
-            (t) => t.asset_type_name_uuid === selectedAssetValue
-          );
+      let matchedSub = null;
+      let matchedType = null;
 
-          if (type) {
-            matchedSub = sub;
-            matchedType = type;
-            break;
-          }
+      for (const sub of assetData.AssetSubCategories) {
+        const type = sub.AssetTypes.find(
+          (t) => t.asset_type_name_uuid === selectedAssetValue
+        );
+
+        if (type) {
+          matchedSub = sub;
+          matchedType = type;
+          break;
         }
+      }
 
-        if (matchedSub && matchedType) {
+      if (matchedSub && matchedType) {
 
-          assetSubNameUuid = matchedSub.AssetSubNameId;
-          assetTypeId = matchedType.asset_type_id;
-        }
+        assetSubNameUuid = matchedSub.AssetSubNameId;
+        assetTypeId = matchedType.asset_type_id;
+      }
 
-        var payload = {};
-  
-        payload["asset_id"] = assetEditId;
-        payload["asset_name_uuid"] = assetData.AssetCategoryUuid;
-        payload["asset_sub_cat_id"] = assetSubNameUuid;
-        payload["user_asset_type_id"] = assetTypeId;
-        payload["user_asset_for"] = formData.fdMemberName;
-        payload["user_asset_user_id"] = getUserId();
-        payload["user_asset_ror"] = interestRate;
-        payload["user_asset_maturity_date"] = formData?.maturityDate
+      var payload = {};
+
+      payload["asset_id"] = assetEditId;
+      payload["asset_name_uuid"] = assetData.AssetCategoryUuid;
+      payload["asset_sub_cat_id"] = assetSubNameUuid;
+      payload["user_asset_type_id"] = assetTypeId;
+      payload["user_asset_for"] = formData.fdMemberName;
+      payload["user_asset_user_id"] = getUserId();
+      payload["user_asset_ror"] = interestRate;
+      payload["user_asset_maturity_date"] = formData?.maturityDate
         ? new Date(formData.maturityDate).toISOString().split("T")[0]
         : '';
-        payload["user_asset_maturity_amount"] = maturityCalculation;
-        payload["user_asset_automated_linkage"] = 0;
-        payload["user_asset_name"] = formData.bankInstituteName;
-        payload["user_asset_payout_type"] = formData.payoutType;
-        payload["user_asset_purchase_date"] = formData?.purchaseDate
+      payload["user_asset_maturity_amount"] = maturityCalculation;
+      payload["user_asset_automated_linkage"] = 0;
+      payload["user_asset_name"] = formData.bankInstituteName;
+      payload["user_asset_payout_type"] = formData.payoutType;
+      payload["user_asset_purchase_date"] = formData?.purchaseDate
         ? new Date(formData.purchaseDate).toISOString().split("T")[0]
         : '';
-        payload["user_asset_investment_amount"] = formData.purchaseAmount  
-        var response = await updateUserAssetDetails(payload);
-  
-        if (response["status_code"] == "200") {
-          if (id != undefined) {
-            dispatch({
-              type: "RENDER_TOAST",
-              payload: {
-                message: "FD/bond asset Updated Successfully!",
-                type: "success",
-              },
-            });
-          } else {
-            dispatch({
-              type: "RENDER_TOAST",
-              payload: {
-                message: "FD/bond asset Added Successfully!",
-                type: "success",
-              },
-            });
-          }
-  
-          navigate(
-            process.env.PUBLIC_URL +
-            "/direct-mutual-fund/portfolio/dashboard?assetTabNumber=3"
-          );
+      payload["user_asset_investment_amount"] = formData.purchaseAmount
+      var response = await updateUserAssetDetails(payload);
+
+      if (response["status_code"] == "200") {
+        if (id != undefined) {
+          dispatch({
+            type: "RENDER_TOAST",
+            payload: {
+              message: "FD/bond asset Updated Successfully!",
+              type: "success",
+            },
+          });
+        } else {
+          dispatch({
+            type: "RENDER_TOAST",
+            payload: {
+              message: "FD/bond asset Added Successfully!",
+              type: "success",
+            },
+          });
         }
-      } catch (e) {
-        console.log(e, ">>>>>>>>>");
+
+        navigate(
+          process.env.PUBLIC_URL +
+          "/direct-mutual-fund/portfolio/dashboard?assetTabNumber=3"
+        );
       }
-    };
+    } catch (e) {
+      console.log(e, ">>>>>>>>>");
+    }
+  };
 
   const getGoldTypeData = (goldTypeData, label) => {
     return label ? goldTypeData.find((data) => data.label === label) : "";
@@ -746,7 +746,7 @@ const NewFdBondsFormView = () => {
       setIsManual(false);
     }
   }, [formData.typeOfAsset]);
-  
+
   const investDate = moment(formData.purchaseDate, "DD/MM/YYYY");
   const maturityDate = moment(formData.maturityDate, "DD/MM/YYYY");
   const tenure =
@@ -770,8 +770,8 @@ const NewFdBondsFormView = () => {
         formData.typeOfAsset === "Recurring Deposit"
           ? moment()
           : formData.purchaseDate
-          ? moment(formData.purchaseDate)
-          : moment();
+            ? moment(formData.purchaseDate)
+            : moment();
       const years = maturityDate.diff(purchaseDate, "years", true);
 
       if (years > 0) {
@@ -893,12 +893,26 @@ const NewFdBondsFormView = () => {
             }
           }
         } else {
-          // Regular Future Value calculation for other asset types
-          const purchaseAmount = parseFloat(formData.purchaseAmount) || 0;
-          const rate = interestRate / 100; // Use interestRate for other asset types
+
+          const purchaseAmount =
+            parseFloat(formData.purchaseAmount) || 0;
+
+          const rate = interestRate / 100;
 
           if (purchaseAmount > 0 && interestRate > 0) {
-            maturityAmount = fv(rate, years, 0, purchaseAmount);
+            if (formData.payoutType == "Non-Cumulative") {
+
+              const simpleInterest =
+                purchaseAmount * rate * years;
+
+              maturityAmount =
+                purchaseAmount + simpleInterest;
+            }
+            else {
+
+              maturityAmount =
+                purchaseAmount * Math.pow(1 + rate, years);
+            }
           }
         }
         setMaturityCalculation(Number(maturityAmount.toFixed(2)));
@@ -920,6 +934,7 @@ const NewFdBondsFormView = () => {
     formData?.maturityDate,
     formData?.purchaseDate,
     formData?.typeOfAsset,
+    formData?.payoutType,
     activeIndex2,
   ]);
 
@@ -1070,18 +1085,18 @@ const NewFdBondsFormView = () => {
   };
 
   useEffect(() => {
-  
+
     if (isApiReady &&
-    userAssetDetails &&
-    typeof userAssetDetails === "object" && Object.keys(userAssetDetails).length > 0) {
-      
+      userAssetDetails &&
+      typeof userAssetDetails === "object" && Object.keys(userAssetDetails).length > 0) {
+
       var userAssetFor = ""
       if (typeof userAssetDetails.user_asset_for === "string") {
         userAssetFor = userAssetDetails.user_asset_for;
       } else {
         userAssetFor = "0";
       }
-         
+
       setTimeout(() => {
         setInterestRate(userAssetDetails.user_asset_ror);
         setMaturityCalculation(userAssetDetails.user_asset_maturity_amount);
@@ -1266,9 +1281,8 @@ const NewFdBondsFormView = () => {
                           <div className="my-md-4">
                             <button
                               style={{ padding: "0.5rem 0.8rem" }}
-                              className={`d-block m-auto btn fecthBtn ${
-                                isManual ? "btn-primary" : "btn-outline-primary"
-                              }`}
+                              className={`d-block m-auto btn fecthBtn ${isManual ? "btn-primary" : "btn-outline-primary"
+                                }`}
                               onClick={() => {
                                 setIsManual(true);
                                 setShowEPFForm(true);
@@ -1280,9 +1294,8 @@ const NewFdBondsFormView = () => {
                           <div className="my-md-4">
                             <button
                               style={{ padding: "0.5rem 0.8rem" }}
-                              className={`d-block m-auto btn fecthBtn ${
-                                isManual ? "btn-outline-primary" : "btn-primary"
-                              }`}
+                              className={`d-block m-auto btn fecthBtn ${isManual ? "btn-outline-primary" : "btn-primary"
+                                }`}
                               onClick={() => {
                                 setShowUANModal(true);
                                 setModalType(0);
@@ -1773,17 +1786,17 @@ const NewFdBondsFormView = () => {
                                   options={
                                     Array.isArray(allBank)
                                       ? allBank.map((v) => ({
-                                          label: v.bank_name,
-                                          value: v.bank_name,
-                                        }))
+                                        label: v.bank_name,
+                                        value: v.bank_name,
+                                      }))
                                       : []
                                   }
                                   value={
                                     formData.bankInstituteName
                                       ? {
-                                          label: formData.bankInstituteName,
-                                          value: formData.bankInstituteName,
-                                        }
+                                        label: formData.bankInstituteName,
+                                        value: formData.bankInstituteName,
+                                      }
                                       : null
                                   }
                                   name="bankInstituteName"
@@ -2018,65 +2031,65 @@ const NewFdBondsFormView = () => {
 
                               {(formData.asset_sub_cat_id == 120 ||
                                 formData.typeOfAsset ===
-                                  "Recurring Deposit") && (
-                                <>
-                                  <div className="col-md-6 col-12">
-                                    <div className="my-md-4">
-                                      <div className="">
-                                        <span className="lbl-newbond">
-                                          Installment for the year is Paid or
-                                          not*
-                                        </span>
-                                        <br />
-                                        <div className="bonds-datepicker">
-                                          <div className="insurance-switch-container">
-                                            <span>No&nbsp;&nbsp;</span>{" "}
-                                            <FormSwitch
-                                              switchValue={isInstallmentPaid}
-                                              onSwitchToggle={() =>
-                                                setIsInstallmentPaid(
-                                                  (previous) => !previous
-                                                )
-                                              }
-                                            />{" "}
-                                            <span>
-                                              &nbsp;&nbsp;&nbsp;&nbsp;Yes
-                                            </span>
+                                "Recurring Deposit") && (
+                                  <>
+                                    <div className="col-md-6 col-12">
+                                      <div className="my-md-4">
+                                        <div className="">
+                                          <span className="lbl-newbond">
+                                            Installment for the year is Paid or
+                                            not*
+                                          </span>
+                                          <br />
+                                          <div className="bonds-datepicker">
+                                            <div className="insurance-switch-container">
+                                              <span>No&nbsp;&nbsp;</span>{" "}
+                                              <FormSwitch
+                                                switchValue={isInstallmentPaid}
+                                                onSwitchToggle={() =>
+                                                  setIsInstallmentPaid(
+                                                    (previous) => !previous
+                                                  )
+                                                }
+                                              />{" "}
+                                              <span>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;Yes
+                                              </span>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div className="col-md-6 col-12">
-                                    <div className="my-md-4">
-                                      <div className="">
-                                        <span className="lbl-newbond">
-                                          Rate Of Return (%) *
-                                        </span>
-                                        <br />
-                                        <br />
-                                        <FormRangeSlider
-                                          x={
-                                            rateOfReturn == 0 ? 0 : rateOfReturn
-                                          }
-                                          min={0}
-                                          max={20}
-                                          step={0.05}
-                                          onChange={(x) => {
-                                            setRateOfReturn(
-                                              Math.round(
-                                                (parseFloat(x) +
-                                                  Number.EPSILON) *
+                                    <div className="col-md-6 col-12">
+                                      <div className="my-md-4">
+                                        <div className="">
+                                          <span className="lbl-newbond">
+                                            Rate Of Return (%) *
+                                          </span>
+                                          <br />
+                                          <br />
+                                          <FormRangeSlider
+                                            x={
+                                              rateOfReturn == 0 ? 0 : rateOfReturn
+                                            }
+                                            min={0}
+                                            max={20}
+                                            step={0.05}
+                                            onChange={(x) => {
+                                              setRateOfReturn(
+                                                Math.round(
+                                                  (parseFloat(x) +
+                                                    Number.EPSILON) *
                                                   100
-                                              ) / 100
-                                            );
-                                          }}
-                                        />
+                                                ) / 100
+                                              );
+                                            }}
+                                          />
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </>
-                              )}
+                                  </>
+                                )}
                             </>
                           )}
 

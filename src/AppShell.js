@@ -119,6 +119,7 @@ import ITRThankyou from "./Pages/ITRFlow/ITRThankyou/ITRThankyou";
 import AssistedUAEDubai from "./Pages/AssistedUAEDubai";
 import ItrFilling from "./Pages/itr-for-uae/itr-filling";
 import ITRFileLanding from "./Pages/ITRFileLanding";
+import ITRFile from "./Pages/ITRFile";
 import Contactus2 from "./Pages/Contactus2";
 import ITRFileLandingae from "./Pages/ITRFileLandingae";
 import VerificationDocuments from "./Pages/datagathering/VerificationDocuments";
@@ -466,12 +467,12 @@ const shouldHideHeader = shouldHideHeaderFooter || shouldHideHeaderOnly;
               path={`${process.env.PUBLIC_URL}/tax-planning-page`}
               element={<TaxPlanning />}
             />
-            {/* <Route
+            <Route
               exact
               path={`${process.env.PUBLIC_URL}/itr-file`}
               element={<ITRFile />}
             />
-            <Route
+            {/* <Route
               exact
               path={`${process.env.PUBLIC_URL}/itr_2024`}
               element={<ITRFile />}

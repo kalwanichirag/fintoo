@@ -12,6 +12,28 @@
   margin-top: 2rem;
   /* margin-left: 3rem; */
 }
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid #042b62;
+  background: #fff;
+  color: #042b62;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0.55rem 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.backIcon {
+  font-size: 1.15rem;
+}
+.backButton:hover {
+  background: #042b62;
+  color: #fff;
+}
 .login_illustration {
   background: url(../images/04_scheduled_appointment.png) no-repeat ;
   background-size: 80%;
@@ -88,6 +110,13 @@
 }
 .page_subTxt{
   font-size: 1rem;
+}
+.Appointment_section_block {
+  padding: 1rem;
+}
+.backButton {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
 .AppointmentFrame{

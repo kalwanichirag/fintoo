@@ -7,6 +7,11 @@
     height: 20px;
 }
 
+.itrUploadPage {
+    min-height: 720px;
+    padding: 70px 0 90px;
+}
+
 .imagebox img {
     width: 100%;
     height: 100%;
@@ -24,6 +29,240 @@
     border: 2px solid #042b62;
     padding: 5px 10px;
     border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    white-space: nowrap;
+}
+
+.uploadTableWrap {
+    margin-top: 24px;
+    overflow: visible;
+}
+
+.uploadTable {
+    table-layout: fixed;
+    margin-bottom: 0;
+}
+
+.uploadTable th {
+    color: #0b1f3a;
+    font-weight: 700;
+    border-bottom: 1px solid #d6dde8;
+    padding: 12px 10px;
+}
+
+.uploadTable th:first-child,
+.uploadTable td:first-child {
+    width: 38%;
+}
+
+.uploadTable th:nth-child(2),
+.uploadTable td:nth-child(2) {
+    width: 44%;
+}
+
+.uploadTable th:last-child,
+.uploadTable td:last-child {
+    width: 18%;
+    text-align: right;
+}
+
+.uploadTable td {
+    vertical-align: middle;
+}
+
+.documentSelectWrap {
+    position: relative;
+    width: 100%;
+}
+
+.documentSelect {
+    width: 100%;
+    height: 42px;
+    border: 0;
+    border-bottom: 1px solid #042b62;
+    border-radius: 0;
+    color: #0b1f3a;
+    background: #fff;
+    padding: 6px 32px 6px 10px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.documentSelect:focus {
+    border-bottom-color: #042b62;
+    box-shadow: 0 2px 0 rgba(4, 43, 98, 0.12);
+}
+
+.documentSelect:disabled {
+    color: #0b1f3a;
+    cursor: default;
+    opacity: 1;
+}
+
+.documentSelect span {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.documentDropdownPanel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 20;
+    width: 100%;
+    max-height: 270px;
+    border: 1px solid #d5dce8;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 14px 30px rgba(11, 31, 58, 0.16);
+    padding: 8px;
+}
+
+.documentSearch {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #d5dce8;
+    border-radius: 6px;
+    color: #0b1f3a;
+    outline: none;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+}
+
+.documentSearch:focus {
+    border-color: #042b62;
+    box-shadow: 0 0 0 2px rgba(4, 43, 98, 0.08);
+}
+
+.documentOptions {
+    max-height: 208px;
+    overflow-y: auto;
+}
+
+.documentOption {
+    width: 100%;
+    min-height: 36px;
+    border: 0;
+    border-radius: 5px;
+    background: #fff;
+    color: #0b1f3a;
+    text-align: left;
+    padding: 8px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.documentOption:hover,
+.documentOptionActive {
+    background: #eef4ff;
+    color: #042b62;
+}
+
+.documentNoResult {
+    color: #707b8f;
+    padding: 10px;
+    text-align: center;
+}
+
+.uploadingText {
+    color: #707b8f;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-left: 1rem;
+}
+
+.documentStatus {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.documentFileInfo {
+    min-width: 0;
+    flex: 1;
+}
+
+.documentFileInfo p:first-child {
+    color: #0b1f3a;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.statusChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 999px;
+    background: #fff5db;
+    color: #7a5200;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 6px 9px;
+    white-space: nowrap;
+}
+
+.statusChipDone {
+    background: #eaf7ef;
+    color: #137a35;
+}
+
+/* Kept for older rendered chunks during hot reload. */
+.pendingUpdateText {
+    color: #042b62;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 1rem;
+    white-space: nowrap;
+}
+
+.documentActions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.documentActionBtn {
+    border: 1px solid #d6dde8;
+    border-radius: 18px;
+    background: #fff;
+    color: #042b62;
+    min-height: 30px;
+    padding: 6px 10px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.documentActionBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.documentActionBtn:not(:disabled):hover {
+    border-color: #042b62;
+    color: #042b62;
 }
 
 .documentDropdown {
@@ -56,6 +295,26 @@
     width: 100%;
     border-radius: 12px;
     padding: 20px;
+    min-height: 116px;
+    resize: vertical;
+}
+
+.foreignAssetsCheck {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #0b1f3a;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+
+.foreignAssetsCheck input {
+    width: 16px;
+    height: 16px;
+    accent-color: #042b62;
+    cursor: pointer;
 }
 
 .btn {
@@ -95,6 +354,22 @@
 .subtitle {
     font-size: 1.2rem;
     color: #888;
+}
+
+@media (max-width: 767px) {
+    .itrUploadPage {
+        min-height: auto;
+        padding: 36px 0 60px;
+    }
+
+    .uploadTable {
+        min-width: 620px;
+    }
+
+    .uploadTableWrap {
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
 }
 
 .buttonChoose input[type="file"] {

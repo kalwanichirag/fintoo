@@ -484,285 +484,470 @@ function CardBox({ lifecyclestatus, renewpopup, subscriptionenddate }) {
   }, [userLeadId]);
 
   const renewalDate = async () => {
-  try {
-    const parentUserId = getParentUserId();
-    if (!parentUserId) {
-     // console.error(" Parent user ID missing");
-      return;
-    }
-
-    const payload = {
-      user_id: parentUserId,
-      data_belongs_to: DATA_BELONGS_TO,
-    };
-
-    const res = await Getpaymentstatus(payload);
-   // console.log(" Payment status response:", res);
-
-    if (res?.status_code == 200) {
-      const expiryDate = res?.data?.plan_expiry_date;
-
-      if (!expiryDate) {
-      //  console.warn(" Plan expiry date missing");
+    try {
+      const parentUserId = getParentUserId();
+      if (!parentUserId) {
+        // console.error(" Parent user ID missing");
         return;
       }
 
-      if (window.webengage?.user) {
-     console.log(" Sending renewal date to WebEngage:", expiryDate);
+      const payload = {
+        user_id: parentUserId,
+        data_belongs_to: DATA_BELONGS_TO,
+      };
 
-        window.webengage.user.setAttribute({
-          "Renewal Date": expiryDate,
-        });
+      const res = await Getpaymentstatus(payload);
+      // console.log(" Payment status response:", res);
+
+      if (res?.status_code == 200) {
+        const fpPlans = res?.data?.filter((item) =>
+          ["fp_expert", "fp_robo"].includes(item?.service_type)
+        ) || [];
+        if (fpPlans.length > 0) {
+          const expiryDate =  fpPlans[0]?.plan_expiry_date;
+
+          if (!expiryDate) {
+            //  console.warn(" Plan expiry date missing");
+            return;
+          }
+
+          if (window.webengage?.user) {
+            console.log(" Sending renewal date to WebEngage:", expiryDate);
+
+            window.webengage.user.setAttribute({
+              "Renewal Date": expiryDate,
+            });
+          }
+        }
+
+
       }
+    } catch (error) {
+      // console.error(" Error fetching renewal date:", error);
     }
-  } catch (error) {
-   // console.error(" Error fetching renewal date:", error);
-  }
-};
+  };
 
-useEffect(() => {
-  if (!userLeadId) return;
-  renewalDate();
-}, [userLeadId]);
+  useEffect(() => {
+    if (!userLeadId) return;
+    renewalDate();
+  }, [userLeadId]);
 
 
-const [useNewDashboard, setUseNewDashboard] = useState(true);
+  const [useNewDashboard, setUseNewDashboard] = useState(true);
 
   return (
     <>
- {useNewDashboard ? (
-      <MainDashboard />
-    ) : (
-          <>
-<MainDashboard/>
-      <div className="d-md-flex justify-content-md-between justify-content-md-center">
-        {renewpopup == 1 ? (
-          <div className="RenewMsgbox">
-            <RenewPopupTextbox showpopup={true} />
+      {useNewDashboard ? (
+        <MainDashboard />
+      ) : (
+        <>
+          <MainDashboard />
+          <div className="d-md-flex justify-content-md-between justify-content-md-center">
+            {renewpopup == 1 ? (
+              <div className="RenewMsgbox">
+                <RenewPopupTextbox showpopup={true} />
+              </div>
+            ) : (
+              ""
+            )}
+            {renewpopup != 1 && <div className="RenewMsgbox">{<KYCTextbox />}</div>}
           </div>
-        ) : (
-          ""
-        )}
-        {renewpopup != 1 && <div className="RenewMsgbox">{<KYCTextbox />}</div>}
-      </div>
 
-      <div className=" ml-auto ">
-        <div style={{
-          margin: "0rem"
-        }} className="row ">
-          <div className="col-md-4 col-lg-4 col-12">
-            <Slider ref={sliderRef2} {...settings}>
-              <div className="cardBox GraphImg autoAdvisory">
-                <div className="autoAdvisoryLabel">
-                  {renewpopup == 1 ? (
-                    <>
-                      <div className="me-4 mt-4 AssettotalValue">
-                        <div className="TextLabel">Assets Value</div>
-                        <div className={`d-flex align-items-center`}>
-                          <div className={`valueLabel ${networtliabilitesdata && (networtliabilitesdata.asset_sum_formatted || networtliabilitesdata.asset_sum_formatted === 0) ? null : "shine"}`}>
-                            ₹{" "}
-                            <span >
-                              <span className="bigBalue">
-                                {networtliabilitesdata &&
-                                  networtliabilitesdata.asset_sum_formatted}
-                              </span>
-                            </span>
-                          </div>
-                          <div className="ps-4">
-                            <Link
-                              to={
-                                process.env.PUBLIC_URL +
-                                "/direct-mutual-fund/portfolio/dashboard/"
-                              }
-                            >
-                              <img
-                                width={20}
-                                height={20}
-                                className="pointer"
-                                src={
-                                  process.env.REACT_APP_STATIC_URL +
-                                  "media/DG/NextImg.svg"
-                                }
-                              />
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="autoAdvisoryLabel mt-3 d-flex">
-                        <div className="borderRight">
-                          <a className="text-decoration-none text-black" href="#">
-                            <div className="me-3">
-                              <div className="TextLabel">Liabilities</div>
-                              <div className={`d-flex align-items-center justify-content-between ${networtliabilitesdata && (networtliabilitesdata.liability_sum_formatted || networtliabilitesdata.liability_sum_formatted === 0) ? null : "shine"}`}>
-                                <div className="valueLabel">
-                                  ₹{" "}
-                                  <span>
-                                    {networtliabilitesdata &&
-                                      networtliabilitesdata.liability_sum_formatted}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-                        <div className="ms-3">
-                          <a className="text-decoration-none text-black" href="#">
-                            <div className="TextLabel">Net Worth</div>
-                            <div className={`d-flex align-items-center justify-content-between ${networtliabilitesdata && (networtliabilitesdata.networth_sum_formatted || networtliabilitesdata.networth_sum_formatted === 0) ? null : "shine"}`}>
-                              <div className="valueLabel">
+          <div className=" ml-auto ">
+            <div style={{
+              margin: "0rem"
+            }} className="row ">
+              <div className="col-md-4 col-lg-4 col-12">
+                <Slider ref={sliderRef2} {...settings}>
+                  <div className="cardBox GraphImg autoAdvisory">
+                    <div className="autoAdvisoryLabel">
+                      {renewpopup == 1 ? (
+                        <>
+                          <div className="me-4 mt-4 AssettotalValue">
+                            <div className="TextLabel">Assets Value</div>
+                            <div className={`d-flex align-items-center`}>
+                              <div className={`valueLabel ${networtliabilitesdata && (networtliabilitesdata.asset_sum_formatted || networtliabilitesdata.asset_sum_formatted === 0) ? null : "shine"}`}>
                                 ₹{" "}
-                                <span className="bigBalue">
-                                  {networtliabilitesdata &&
-                                    networtliabilitesdata.networth_sum_formatted}
+                                <span >
+                                  <span className="bigBalue">
+                                    {networtliabilitesdata &&
+                                      networtliabilitesdata.asset_sum_formatted}
+                                  </span>
                                 </span>
                               </div>
+                              <div className="ps-4">
+                                <Link
+                                  to={
+                                    process.env.PUBLIC_URL +
+                                    "/direct-mutual-fund/portfolio/dashboard/"
+                                  }
+                                >
+                                  <img
+                                    width={20}
+                                    height={20}
+                                    className="pointer"
+                                    src={
+                                      process.env.REACT_APP_STATIC_URL +
+                                      "media/DG/NextImg.svg"
+                                    }
+                                  />
+                                </Link>
+                              </div>
                             </div>
-                          </a>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="me-4 mt-4 AssettotalValue">
-                        <div className="TextLabel">Assets Value</div>
-                        <div className={`d-flex align-items-center`}>
-                          <div className={`valueLabel ${networtliabilitesdata && (networtliabilitesdata.asset_sum_formatted || networtliabilitesdata.asset_sum_formatted === 0) ? null : "shine"}`}>
-                            ₹{" "}
-                            <span >
-                              <span className="bigBalue">
-                                {networtliabilitesdata &&
-                                  networtliabilitesdata.asset_sum_formatted}
-                              </span>
-                            </span>
                           </div>
-                          <div className="ps-4">
-                            <Link
-                              to={
-                                process.env.PUBLIC_URL +
-                                "/direct-mutual-fund/portfolio/dashboard/"
-                              }
-                            >
-                              <img
-                                width={20}
-                                height={20}
-                                className="pointer"
-                                src={
-                                  process.env.REACT_APP_STATIC_URL +
-                                  "media/DG/NextImg.svg"
-                                }
-                              />
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div className="autoAdvisoryLabel mt-3 d-flex">
+                          <div className="autoAdvisoryLabel mt-3 d-flex">
+                            <div className="borderRight">
+                              <a className="text-decoration-none text-black" href="#">
+                                <div className="me-3">
+                                  <div className="TextLabel">Liabilities</div>
+                                  <div className={`d-flex align-items-center justify-content-between ${networtliabilitesdata && (networtliabilitesdata.liability_sum_formatted || networtliabilitesdata.liability_sum_formatted === 0) ? null : "shine"}`}>
+                                    <div className="valueLabel">
+                                      ₹{" "}
+                                      <span>
+                                        {networtliabilitesdata &&
+                                          networtliabilitesdata.liability_sum_formatted}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div className="ms-3">
+                              <a className="text-decoration-none text-black" href="#">
+                                <div className="TextLabel">Net Worth</div>
+                                <div className={`d-flex align-items-center justify-content-between ${networtliabilitesdata && (networtliabilitesdata.networth_sum_formatted || networtliabilitesdata.networth_sum_formatted === 0) ? null : "shine"}`}>
+                                  <div className="valueLabel">
+                                    ₹{" "}
+                                    <span className="bigBalue">
+                                      {networtliabilitesdata &&
+                                        networtliabilitesdata.networth_sum_formatted}
+                                    </span>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="me-4 mt-4 AssettotalValue">
+                            <div className="TextLabel">Assets Value</div>
+                            <div className={`d-flex align-items-center`}>
+                              <div className={`valueLabel ${networtliabilitesdata && (networtliabilitesdata.asset_sum_formatted || networtliabilitesdata.asset_sum_formatted === 0) ? null : "shine"}`}>
+                                ₹{" "}
+                                <span >
+                                  <span className="bigBalue">
+                                    {networtliabilitesdata &&
+                                      networtliabilitesdata.asset_sum_formatted}
+                                  </span>
+                                </span>
+                              </div>
+                              <div className="ps-4">
+                                <Link
+                                  to={
+                                    process.env.PUBLIC_URL +
+                                    "/direct-mutual-fund/portfolio/dashboard/"
+                                  }
+                                >
+                                  <img
+                                    width={20}
+                                    height={20}
+                                    className="pointer"
+                                    src={
+                                      process.env.REACT_APP_STATIC_URL +
+                                      "media/DG/NextImg.svg"
+                                    }
+                                  />
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="autoAdvisoryLabel mt-3 d-flex">
+                            <div className="">
+                              <a
+                                className="text-decoration-none text-black"
+                                href={
+                                  process.env.PUBLIC_URL +
+                                  "/datagathering/assets-liabilities"
+
+                                }
+                              >
+                                <div className="me-3">
+                                  <div className="TextLabel">
+                                    {/* {!props.member_selected
+                        ? "Family Net Worth"
+                        : "Net Worth"} */}
+                                    Net Worth
+                                  </div>
+                                  <div className={`d-flex align-items-center justify-content-between ${networtliabilitesdata && (networtliabilitesdata.networth_sum_formatted || networtliabilitesdata.networth_sum_formatted === 0) ? null : "shine"}`}>
+                                    <div className="valueLabel">
+                                      ₹{" "}
+                                      <span className="bigBalue">
+                                        {networtliabilitesdata &&
+                                          networtliabilitesdata.networth_sum_formatted}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div className="borderRight" style={{ margin: "0 2rem" }}></div>
+                            <div className="ms-3">
+                              <a
+                                className="text-decoration-none text-black"
+                                href={
+
+                                  process.env.PUBLIC_URL +
+                                  "/datagathering/assets-liabilities"
+
+                                }
+                              >
+                                <div className="me-3">
+                                  <div className="TextLabel">
+                                    {/* {!props?.member_selected
+                          ? "Overall Liabilities"
+                          : "Liabilities"} */}
+                                    Liabilities
+                                  </div>
+                                  <div className={`d-flex align-items-center justify-content-between ${networtliabilitesdata && (networtliabilitesdata.liability_sum_formatted || networtliabilitesdata.liability_sum_formatted === 0) ? null : "shine"}`}>
+                                    <div className="valueLabel">
+                                      ₹{" "}
+                                      <span>
+                                        {networtliabilitesdata &&
+                                          networtliabilitesdata.liability_sum_formatted}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className="cardBox  autoAdvisory lifeInsurance">
+                    {renewpopup == 1 ? (
+                      <>
+                        <div className="mt-4 autoAdvisoryLabel d-flex">
+                          <div className="d-flex justify-content-end ms-4">
+                            <a className="text-decoration-none text-black" href="#">
+                              <div>
+                                <div className="TextLabel">Medical Cover</div>
+                                <div style={{ width: "50%" }} className={`d-flex align-items-center justify-content-between ${lifeinsuranceData && (lifeinsuranceData.medical_insurance_sum_assured_formatted || lifeinsuranceData.medical_insurance_sum_assured_formatted === 0) ? null : "shine"}`}>
+                                  <div className="valueLabel">
+                                    &#8377;{" "}
+                                    <span>
+                                      {lifeinsuranceData.medical_insurance_sum_assured_formatted}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                            {/* <div className="Imgbox">
+                        <img className="" src={Medicalinsurance} width={130} />
+                      </div> */}
+                          </div>
+                          <div className="borderRight" style={{ margin: "0 2rem" }}></div>
+                          <div className="ms-3">
+                            <a className="text-decoration-none text-black" href="#">
+                              <div className="me-3">
+                                <div className="TextLabel">
+                                  Life Insurance
+                                </div>
+                                <div className={`d-flex align-items-center justify-content-between ${lifeinsuranceData && (lifeinsuranceData.life_insurance_sum_assured_formatted || lifeinsuranceData.life_insurance_sum_assured_formatted === 0) ? null : "shine"}`}>
+                                  <div className="valueLabel">
+                                    &#8377;{" "}
+                                    <span className="bigBalue">
+                                      {lifeinsuranceData.life_insurance_sum_assured_formatted}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                          <div style={{
+                            float: "right",
+                            // marginTop: "1.7rem"
+
+                          }}>
+                            <img
+                              width={250}
+                              src={
+                                process.env.REACT_APP_STATIC_URL +
+                                "media/DG.svg"
+                              }
+                            />
+                          </div>
+
+                        </div>
+                      </>
+                    ) : (
+
+                      <div className="mt-4 autoAdvisoryLabel ">
                         <div className="">
                           <a
                             className="text-decoration-none text-black"
-                            href={
-                              process.env.PUBLIC_URL +
-                              "/datagathering/assets-liabilities"
-
+                            href={process.env.PUBLIC_URL +
+                              "/datagathering/insurance"
                             }
                           >
                             <div className="me-3">
-                              <div className="TextLabel">
-                                {/* {!props.member_selected
-                        ? "Family Net Worth"
-                        : "Net Worth"} */}
-                                Net Worth
-                              </div>
-                              <div className={`d-flex align-items-center justify-content-between ${networtliabilitesdata && (networtliabilitesdata.networth_sum_formatted || networtliabilitesdata.networth_sum_formatted === 0) ? null : "shine"}`}>
+                              <div className="TextLabel">Life Insurance</div>
+                              <div style={{ width: "50%" }} className={`d-flex align-items-center justify-content-between ${lifeinsuranceData && (lifeinsuranceData.life_insurance_sum_assured_formatted || lifeinsuranceData.life_insurance_sum_assured_formatted === 0) ? null : "shine"}`}>
                                 <div className="valueLabel">
-                                  ₹{" "}
+                                  &#8377;{" "}
                                   <span className="bigBalue">
-                                    {networtliabilitesdata &&
-                                      networtliabilitesdata.networth_sum_formatted}
+                                    {lifeinsuranceData.life_insurance_sum_assured_formatted}
                                   </span>
                                 </div>
                               </div>
                             </div>
                           </a>
                         </div>
-                        <div className="borderRight" style={{ margin: "0 2rem" }}></div>
-                        <div className="ms-3">
+                        <div className="d-flex mt-3">
                           <a
                             className="text-decoration-none text-black"
-                            href={
-
-                              process.env.PUBLIC_URL +
-                              "/datagathering/assets-liabilities"
-
+                            href={process.env.PUBLIC_URL +
+                              "/datagathering/insurance"
                             }
                           >
-                            <div className="me-3">
-                              <div className="TextLabel">
-                                {/* {!props?.member_selected
-                          ? "Overall Liabilities"
-                          : "Liabilities"} */}
-                                Liabilities
-                              </div>
-                              <div className={`d-flex align-items-center justify-content-between ${networtliabilitesdata && (networtliabilitesdata.liability_sum_formatted || networtliabilitesdata.liability_sum_formatted === 0) ? null : "shine"}`}>
+                            <div>
+                              <div className="TextLabel">Medical Cover</div>
+                              <div style={{ width: "100%" }} className={`d-flex align-items-center justify-content-between ${lifeinsuranceData && (lifeinsuranceData.medical_insurance_sum_assured_formatted || lifeinsuranceData.medical_insurance_sum_assured_formatted === 0) ? null : "shine"}`}>
                                 <div className="valueLabel">
-                                  ₹{" "}
+                                  &#8377;{" "}
                                   <span>
-                                    {networtliabilitesdata &&
-                                      networtliabilitesdata.liability_sum_formatted}
+                                    {lifeinsuranceData.medical_insurance_sum_assured_formatted}
                                   </span>
                                 </div>
                               </div>
                             </div>
                           </a>
+                          {/* <div className="Imgbox">
+                      <img className="" src={Medicalinsurance} width={130} />
+                    </div> */}
                         </div>
+                        <div style={{
+                          float: "right",
+                          marginTop: "-5.5rem"
 
+                        }}>
+                          <img
+                            width={200}
+                            src={
+                              process.env.REACT_APP_STATIC_URL +
+                              "media/Mediclaim_Insurance.svg"
+                            }
+                          />
+                        </div>
                       </div>
-                    </>
-                  )}
-                </div>
+                    )
+                    }
+                  </div>
+                </Slider>
               </div>
-              <div className="cardBox  autoAdvisory lifeInsurance">
-                {renewpopup == 1 ? (
-                  <>
-                    <div className="mt-4 autoAdvisoryLabel d-flex">
-                      <div className="d-flex justify-content-end ms-4">
-                        <a className="text-decoration-none text-black" href="#">
-                          <div>
-                            <div className="TextLabel">Medical Cover</div>
-                            <div style={{ width: "50%" }} className={`d-flex align-items-center justify-content-between ${lifeinsuranceData && (lifeinsuranceData.medical_insurance_sum_assured_formatted || lifeinsuranceData.medical_insurance_sum_assured_formatted === 0) ? null : "shine"}`}>
-                              <div className="valueLabel">
-                                &#8377;{" "}
-                                <span>
-                                  {lifeinsuranceData.medical_insurance_sum_assured_formatted}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </a>
-                        {/* <div className="Imgbox">
-                        <img className="" src={Medicalinsurance} width={130} />
-                      </div> */}
+
+              {lifecyclestatus == 0 ? (
+                <div className="col-md-4 col-lg-4 col-12 DGCreditreport">
+                  <Slider ref={sliderRef} {...settings}>
+                    <div className="col-md-4 w-100 col-lg-4 col-12 cardBox ScoreCardBox FPlan  autoAdvisory ">
+                      <div className="pt-4" style={{}}>
+                        <div style={{
+                          fontSize: "1.2rem",
+                          fontWeight: '400'
+                        }}>Build Your</div>
+                        <div style={{
+                          fontSize: "1.5rem", fontWeight: "bold", textTransform: "uppercase"
+                        }}>Financial Plan</div>
                       </div>
-                      <div className="borderRight" style={{ margin: "0 2rem" }}></div>
-                      <div className="ms-3">
-                        <a className="text-decoration-none text-black" href="#">
-                          <div className="me-3">
-                            <div className="TextLabel">
-                              Life Insurance
-                            </div>
-                            <div className={`d-flex align-items-center justify-content-between ${lifeinsuranceData && (lifeinsuranceData.life_insurance_sum_assured_formatted || lifeinsuranceData.life_insurance_sum_assured_formatted === 0) ? null : "shine"}`}>
-                              <div className="valueLabel">
-                                &#8377;{" "}
-                                <span className="bigBalue">
-                                  {lifeinsuranceData.life_insurance_sum_assured_formatted}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </a>
+                      <div className="">
+                        <button className="custom-background-color custom-border-color pointer" style={{ float: "left" }}>
+                          <Link
+                            to={`${process.env.PUBLIC_URL}/pricing`}
+                            className=" investBtn"
+                          >
+                            Start Now </Link>
+                        </button>
                       </div>
+                      <div style={{ marginTop: window.innerWidth <= 768 ? '-1rem' : '1.5rem', float: "right" }}>
+                        <img
+                          width={200}
+                          src={
+                            process.env.REACT_APP_STATIC_URL +
+                            "media/Person.svg"
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="cardBox d-none p-0 autoAdvisory CreditReportbox" style={{ backgroundImage: isFetched ? "none" : "", }}>
                       <div style={{
+                        borderRadius: "15px 137px 137px 15px",
+                        background: "#fff",
+                        width: "60%",
+                        height: "100%",
+                        padding: "1rem"
+                      }}>
+                        <CreditReport
+                          sessiondata={sessionData}
+                          userid={getParentUserId()}
+                          isFetched={isFetched}
+                          setOpenModalByName={(v) => {
+                            sliderRef.current.slickPause();
+                            sliderRef2.current.slickPause();
+                            setOpenModalByName(v);
+                          }}
+                          isPlan={isPlan}
+                        // equifaxDetails={equifaxDetails}
+                        />
+                      </div>
+                    </div>
+                  </Slider>
+                </div>
+              ) : (
+                <div className="col-md-4 col-lg-4 col-12 DGCreditreport">
+                  <Slider ref={sliderRef} {...settings}>
+                    <div className="col-md-4 w-100 col-lg-4 col-12 cardBox ScoreCardBox FPlan">
+                      <div className="pt-4" style={{}}>
+                        <div style={{
+                          fontSize: "1.2rem",
+                          fontWeight: '400'
+                        }}> Complete Your</div>
+                        <div style={{
+                          fontSize: "1.5rem", fontWeight: "bold", textTransform: "uppercase"
+                        }}>Data Gathering</div>
+                      </div>
+                      <div className="">
+                        {renewpopup === 1 ? (
+                          <button className="pointer" onClick={onOpenModal}
+                            style={{
+                              padding: ".4rem 1.4rem",
+                              backgroundColor: "#042b62",
+                              border: "1px solid #042b62",
+                              float: "left"
+                            }}>
+                            Start Now
+                          </button>
+                        ) : (<>
+                          <button className="pointer"
+                            style={{
+                              // padding: ".4rem 1.4rem",
+                              backgroundColor: "#042b62",
+                              border: "1px solid #042b62",
+                              float: "left"
+                            }}>
+                            <a
+                              href={planIsExpired === "Y" ? process.env.PUBLIC_URL + "/pricing" : process.env.PUBLIC_URL + "/datagathering/about-you"}
+                              className="text-uppercase investBtn"
+                            >
+                              Start Now </a>
+                          </button>
+                        </>)}
+                      </div>
+                      <div className="BgImgs" style={{
                         float: "right",
                         // marginTop: "1.7rem"
 
@@ -775,397 +960,219 @@ const [useNewDashboard, setUseNewDashboard] = useState(true);
                           }
                         />
                       </div>
-
                     </div>
-                  </>
-                ) : (
-
-                  <div className="mt-4 autoAdvisoryLabel ">
-                    <div className="">
-                      <a
-                        className="text-decoration-none text-black"
-                        href={process.env.PUBLIC_URL +
-                          "/datagathering/insurance"
-                        }
-                      >
-                        <div className="me-3">
-                          <div className="TextLabel">Life Insurance</div>
-                          <div style={{ width: "50%" }} className={`d-flex align-items-center justify-content-between ${lifeinsuranceData && (lifeinsuranceData.life_insurance_sum_assured_formatted || lifeinsuranceData.life_insurance_sum_assured_formatted === 0) ? null : "shine"}`}>
-                            <div className="valueLabel">
-                              &#8377;{" "}
-                              <span className="bigBalue">
-                                {lifeinsuranceData.life_insurance_sum_assured_formatted}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
+                    <div className="cardBox d-none p-0 autoAdvisory CreditReportbox" style={{ backgroundImage: isFetched ? "none" : "", }}>
+                      <div style={{
+                        borderRadius: "15px 137px 137px 15px",
+                        background: "#fff",
+                        width: "60%",
+                        height: "100%",
+                        padding: "1rem"
+                      }}>
+                        <CreditReport
+                          sessiondata={sessionData}
+                          userid={getParentUserId()}
+                          isFetched={isFetched}
+                          setOpenModalByName={(v) => {
+                            sliderRef.current.slickPause();
+                            sliderRef2.current.slickPause();
+                            setOpenModalByName(v);
+                          }}
+                          isPlan={isPlan}
+                        // equifaxDetails={equifaxDetails}
+                        />
+                      </div>
                     </div>
-                    <div className="d-flex mt-3">
-                      <a
-                        className="text-decoration-none text-black"
-                        href={process.env.PUBLIC_URL +
-                          "/datagathering/insurance"
-                        }
-                      >
-                        <div>
-                          <div className="TextLabel">Medical Cover</div>
-                          <div style={{ width: "100%" }} className={`d-flex align-items-center justify-content-between ${lifeinsuranceData && (lifeinsuranceData.medical_insurance_sum_assured_formatted || lifeinsuranceData.medical_insurance_sum_assured_formatted === 0) ? null : "shine"}`}>
-                            <div className="valueLabel">
-                              &#8377;{" "}
-                              <span>
-                                {lifeinsuranceData.medical_insurance_sum_assured_formatted}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      {/* <div className="Imgbox">
-                      <img className="" src={Medicalinsurance} width={130} />
-                    </div> */}
-                    </div>
-                    <div style={{
-                      float: "right",
-                      marginTop: "-5.5rem"
+                  </Slider>
 
-                    }}>
-                      <img
-                        width={200}
-                        src={
-                          process.env.REACT_APP_STATIC_URL +
-                          "media/Mediclaim_Insurance.svg"
-                        }
+                </div>
+              )}
+              <div className="col-md-4 col-lg-4 col-12">
+                <Slider ref={sliderRef} {...settings}>
+                  <div
+                    className="cardBox p-0 autoAdvisory mfReportbox"
+                    style={{ backgroundColor: "#EEF9FF" }}
+                  >
+                    <div
+                      style={{
+                        borderRadius: "15px 137px 137px 15px",
+                        background: "#fff",
+                        width: "60%",
+                        height: "100%",
+                        padding: "1rem",
+                      }}
+                    >
+                      <MFReport
+                        setOpenModalByName={(v) => {
+                          sliderRef1.current.slickPause();
+                          sliderRef.current.slickPause();
+                          setOpenModalByName(v);
+                        }}
+                        popup={"mfreport"}
+                        title={"MF Screening"}
+                        reportLink={reportsData.MF}
                       />
                     </div>
+                    {/* */}
                   </div>
-                )
-                }
+                  <div className="cardBox p-0 autoAdvisory ParReportbox" style={{ backgroundColor: "#EEF9FF", }}>
+                    <div style={{
+                      borderRadius: "15px 137px 137px 15px",
+                      background: "#fff",
+                      width: "60%",
+                      height: "100%",
+                      padding: "1rem"
+                    }}>
+                      <MFReport
+                        //  hideSlide={sliderRef2.current.slickPause()}
+                        setOpenModalByName={(v) => {
+                          sliderRef2.current.slickPause();
+                          sliderRef.current.slickPause();
+                          setOpenModalByName(v);
+                        }}
+                        popup={"parreport"}
+                        title={"Consolidated Portfolio"}
+                        reportLink={reportsData.PAR}
+                      />
+                    </div>
+                    {/* */}
+                  </div>
+                </Slider>
               </div>
-            </Slider>
+            </div>
           </div>
-      
-          {lifecyclestatus == 0 ? (
-            <div className="col-md-4 col-lg-4 col-12 DGCreditreport">
-              <Slider ref={sliderRef} {...settings}>
-              <div className="col-md-4 w-100 col-lg-4 col-12 cardBox ScoreCardBox FPlan  autoAdvisory ">
-                <div className="pt-4" style={{}}>
-                  <div style={{
-                    fontSize: "1.2rem",
-                    fontWeight: '400'
-                  }}>Build Your</div>
-                  <div style={{
-                    fontSize: "1.5rem", fontWeight: "bold", textTransform: "uppercase"
-                  }}>Financial Plan</div>
-                </div>
-                <div className="">
-                  <button className="custom-background-color custom-border-color pointer" style={{ float: "left" }}>
-                    <Link
-                      to={`${process.env.PUBLIC_URL}/pricing`}
-                      className=" investBtn"
+          <SavingAccountSection />
+          <div className="mt-5" style={{ margin: "0 1rem" }}>
+            <div className="row gap-4 gap-md-0 gap-lg-0">
+              <div className="col-md-4 col-lg-4 col-12">
+                <Slider ref={sliderRef1} {...settings}>
+                  <div
+                    className="cardBox p-0 autoAdvisory mfReportbox"
+                    style={{ backgroundColor: "#EEF9FF" }}
+                  >
+                    <div
+                      style={{
+                        borderRadius: "15px 137px 137px 15px",
+                        background: "#fff",
+                        width: "60%",
+                        height: "100%",
+                        padding: "1rem",
+                      }}
                     >
-                      Start Now </Link>
-                  </button>
-                </div>
-                <div style={{ marginTop: window.innerWidth <= 768 ? '-1rem' : '1.5rem', float: "right" }}>
-                  <img
-                    width={200}
-                    src={
-                      process.env.REACT_APP_STATIC_URL +
-                      "media/Person.svg"
-                    }
-                  />
-                </div>
-              </div>
-              <div className="cardBox d-none p-0 autoAdvisory CreditReportbox" style={{ backgroundImage: isFetched ? "none" : "", }}>
-                  <div style={{
-                    borderRadius: "15px 137px 137px 15px",
-                    background: "#fff",
-                    width: "60%",
-                    height: "100%",
-                    padding: "1rem"
-                  }}>
-                    <CreditReport
-                      sessiondata={sessionData}
-                      userid={getParentUserId()}
-                      isFetched={isFetched}
-                      setOpenModalByName={(v) => {
-                        sliderRef.current.slickPause();
-                        sliderRef2.current.slickPause();
-                        setOpenModalByName(v);
-                      }}
-                      isPlan={isPlan}
-                    // equifaxDetails={equifaxDetails}
-                    />
+                      <TaxFiling
+                        setOpenModalByName={(v) => {
+                          sliderRef1.current.slickPause();
+                          sliderRef.current.slickPause();
+                          setOpenModalByName(v);
+                        }}
+                        popup={"mfreport"}
+                        title={"Tax Filing"}
+                        reportLink={reportsData.MF}
+                      />
+                    </div>
+                    {/* */}
                   </div>
-                </div>
-              </Slider>
-            </div>
-          ) : (
-            <div className="col-md-4 col-lg-4 col-12 DGCreditreport">
-              <Slider ref={sliderRef} {...settings}>
-              <div className="col-md-4 w-100 col-lg-4 col-12 cardBox ScoreCardBox FPlan">
-                <div className="pt-4" style={{}}>
-                  <div style={{
-                    fontSize: "1.2rem",
-                    fontWeight: '400'
-                  }}> Complete Your</div>
-                  <div style={{
-                    fontSize: "1.5rem", fontWeight: "bold", textTransform: "uppercase"
-                  }}>Data Gathering</div>
-                </div>
-                <div className="">
-                  {renewpopup === 1 ? (
-                    <button className="pointer" onClick={onOpenModal}
-                      style={{
-                        padding: ".4rem 1.4rem",
-                        backgroundColor: "#042b62",
-                        border: "1px solid #042b62",
-                        float: "left"
-                      }}>
-                      Start Now
-                    </button>
-                  ) : (<>
-                    <button className="pointer"
-                      style={{
-                        // padding: ".4rem 1.4rem",
-                        backgroundColor: "#042b62",
-                        border: "1px solid #042b62",
-                        float: "left"
-                      }}>
-                      <a
-                        href={planIsExpired === "Y" ? process.env.PUBLIC_URL + "/pricing" : process.env.PUBLIC_URL + "/datagathering/about-you"}
-                        className="text-uppercase investBtn"
-                      >
-                        Start Now </a>
-                    </button>
-                  </>)}
-                </div>
-                <div className="BgImgs" style={{
-                  float: "right",
-                  // marginTop: "1.7rem"
-
-                }}>
-                  <img
-                    width={250}
-                    src={
-                      process.env.REACT_APP_STATIC_URL +
-                      "media/DG.svg"
-                    }
-                  />
-                </div>
+                </Slider>
               </div>
-              <div className="cardBox d-none p-0 autoAdvisory CreditReportbox" style={{ backgroundImage: isFetched ? "none" : "", }}>
-                  <div style={{
-                    borderRadius: "15px 137px 137px 15px",
-                    background: "#fff",
-                    width: "60%",
-                    height: "100%",
-                    padding: "1rem"
-                  }}>
-                    <CreditReport
-                      sessiondata={sessionData}
-                      userid={getParentUserId()}
-                      isFetched={isFetched}
-                      setOpenModalByName={(v) => {
-                        sliderRef.current.slickPause();
-                        sliderRef2.current.slickPause();
-                        setOpenModalByName(v);
+              <div className="col-md-4 col-lg-4 col-12">
+                <Slider ref={sliderRef1} {...settings}>
+                  <div
+                    className="cardBox p-0 autoAdvisory mfReportbox mfInvestExplore"
+                    style={{ backgroundColor: "#EEF9FF" }}
+                  >
+                    <div
+                      style={{
+                        borderRadius: "15px 137px 137px 15px",
+                        background: "#fff",
+                        width: "60%",
+                        height: "100%",
+                        padding: "1rem",
                       }}
-                      isPlan={isPlan}
-                    // equifaxDetails={equifaxDetails}
-                    />
+                    >
+                      <InvestMutualFund
+                        setOpenModalByName={(v) => {
+                          sliderRef1.current.slickPause();
+                          sliderRef.current.slickPause();
+                          setOpenModalByName(v);
+                        }}
+                        popup={"mfreport"}
+                        title={"Tax Filing"}
+                        reportLink={reportsData.MF}
+                      />
+                    </div>
+                    {/* */}
                   </div>
-                </div> 
- </Slider>
-
+                </Slider>
+              </div>
+              <div className="col-md-4 col-lg-4 col-12">
+                <Slider ref={sliderRef1} {...settings}>
+                  <div
+                    className="cardBox p-0 autoAdvisory goalInvestment"
+                    style={{ backgroundColor: "#EEF9FF" }}
+                  >
+                    <div
+                      style={{
+                        borderRadius: "15px 137px 137px 15px",
+                        background: "#fff",
+                        width: "60%",
+                        height: "100%",
+                        padding: "1rem",
+                      }}
+                    >
+                      <GlobalInvestment />
+                    </div>
+                    {/* */}
+                  </div>
+                </Slider>
+              </div>
             </div>
-          )}
-          <div className="col-md-4 col-lg-4 col-12">
-            <Slider ref={sliderRef} {...settings}>
-              <div
-                className="cardBox p-0 autoAdvisory mfReportbox"
-                style={{ backgroundColor: "#EEF9FF" }}
-              >
-                <div
-                  style={{
-                    borderRadius: "15px 137px 137px 15px",
-                    background: "#fff",
-                    width: "60%",
-                    height: "100%",
-                    padding: "1rem",
-                  }}
-                >
-                  <MFReport
-                    setOpenModalByName={(v) => {
-                      sliderRef1.current.slickPause();
-                      sliderRef.current.slickPause();
-                      setOpenModalByName(v);
-                    }}
-                    popup={"mfreport"}
-                    title={"MF Screening"}
-                    reportLink={reportsData.MF}
-                  />
-                </div>
-                {/* */}
-              </div>
-              <div className="cardBox p-0 autoAdvisory ParReportbox" style={{ backgroundColor: "#EEF9FF", }}>
-                <div style={{
-                  borderRadius: "15px 137px 137px 15px",
-                  background: "#fff",
-                  width: "60%",
-                  height: "100%",
-                  padding: "1rem"
-                }}>
-                  <MFReport
-                    //  hideSlide={sliderRef2.current.slickPause()}
-                    setOpenModalByName={(v) => {
-                      sliderRef2.current.slickPause();
-                      sliderRef.current.slickPause();
-                      setOpenModalByName(v);
-                    }}
-                    popup={"parreport"}
-                    title={"Consolidated Portfolio"}
-                    reportLink={reportsData.PAR}
-                  />
-                </div>
-                {/* */}
-              </div>
-            </Slider>
           </div>
-        </div>
-      </div>
-      <SavingAccountSection />
-      <div className="mt-5" style={{ margin: "0 1rem" }}>
-        <div className="row gap-4 gap-md-0 gap-lg-0">
-          <div className="col-md-4 col-lg-4 col-12">
-            <Slider ref={sliderRef1} {...settings}>
-              <div
-                className="cardBox p-0 autoAdvisory mfReportbox"
-                style={{ backgroundColor: "#EEF9FF" }}
-              >
-                <div
-                  style={{
-                    borderRadius: "15px 137px 137px 15px",
-                    background: "#fff",
-                    width: "60%",
-                    height: "100%",
-                    padding: "1rem",
-                  }}
-                >
-                  <TaxFiling
-                    setOpenModalByName={(v) => {
-                      sliderRef1.current.slickPause();
-                      sliderRef.current.slickPause();
-                      setOpenModalByName(v);
-                    }}
-                    popup={"mfreport"}
-                    title={"Tax Filing"}
-                    reportLink={reportsData.MF}
-                  />
-                </div>
-                {/* */}
-              </div>
-            </Slider>
-          </div>
-          <div className="col-md-4 col-lg-4 col-12">
-            <Slider ref={sliderRef1} {...settings}>
-              <div
-                className="cardBox p-0 autoAdvisory mfReportbox mfInvestExplore"
-                style={{ backgroundColor: "#EEF9FF" }}
-              >
-                <div
-                  style={{
-                    borderRadius: "15px 137px 137px 15px",
-                    background: "#fff",
-                    width: "60%",
-                    height: "100%",
-                    padding: "1rem",
-                  }}
-                >
-                  <InvestMutualFund
-                    setOpenModalByName={(v) => {
-                      sliderRef1.current.slickPause();
-                      sliderRef.current.slickPause();
-                      setOpenModalByName(v);
-                    }}
-                    popup={"mfreport"}
-                    title={"Tax Filing"}
-                    reportLink={reportsData.MF}
-                  />
-                </div>
-                {/* */}
-              </div>
-            </Slider>
-          </div>
-          <div className="col-md-4 col-lg-4 col-12">
-            <Slider ref={sliderRef1} {...settings}>
-              <div
-                className="cardBox p-0 autoAdvisory goalInvestment"
-                style={{ backgroundColor: "#EEF9FF" }}
-              >
-                <div
-                  style={{
-                    borderRadius: "15px 137px 137px 15px",
-                    background: "#fff",
-                    width: "60%",
-                    height: "100%",
-                    padding: "1rem",
-                  }}
-                >
-                  <GlobalInvestment />
-                </div>
-                {/* */}
-              </div>
-            </Slider>
-          </div>
-        </div>
-      </div>
 
-      <Modal
-        className="Modalpopup"
-        open={open}
-        showCloseIcon={false}
-        onClose={onCloseModal}
-        center
-      >
-        <div className="text-center">
-          <h2 className="HeaderText">Attention !!</h2>
-          <RenewPopup
+          <Modal
+            className="Modalpopup"
             open={open}
+            showCloseIcon={false}
             onClose={onCloseModal}
-            subscriptionenddate={subscriptionenddate}
-          />
-        </div>
-      </Modal>
+            center
+          >
+            <div className="text-center">
+              <h2 className="HeaderText">Attention !!</h2>
+              <RenewPopup
+                open={open}
+                onClose={onCloseModal}
+                subscriptionenddate={subscriptionenddate}
+              />
+            </div>
+          </Modal>
 
-      {/* {isFetched == false &&  */}
-      <BootModal.Modal
-        dialogClassName="Nsdlcsdl-modal-width"
-        className="Modalpopup"
-        show={openModalByName == "Fecth_your_Loan"}
-        centered
-        animationDuration={0}
-      >
-        <Fetchloan
-          Closemodal={CloseLoanModal}
-          session={sessionData}
-          allMembers={allMembers}
-          isCardBox={true}
-          getEquifaxData={getEquifaxData}
-          defaultSelectedMember={defaultSelectedMember}
-          is_plan={isPlan}
-        />
-      </BootModal.Modal>
+          {/* {isFetched == false &&  */}
+          <BootModal.Modal
+            dialogClassName="Nsdlcsdl-modal-width"
+            className="Modalpopup"
+            show={openModalByName == "Fecth_your_Loan"}
+            centered
+            animationDuration={0}
+          >
+            <Fetchloan
+              Closemodal={CloseLoanModal}
+              session={sessionData}
+              allMembers={allMembers}
+              isCardBox={true}
+              getEquifaxData={getEquifaxData}
+              defaultSelectedMember={defaultSelectedMember}
+              is_plan={isPlan}
+            />
+          </BootModal.Modal>
 
 
-      <Reportmodal open={openModalByName == 'PAR_Report'} Closemodal={CloseparModal}
-        forpar={true} fetchReportsData={fetchReportsData} />
+          <Reportmodal open={openModalByName == 'PAR_Report'} Closemodal={CloseparModal}
+            forpar={true} fetchReportsData={fetchReportsData} />
 
 
-      <MFReportModal open={openModalByName == 'MF_Screening'} CloseMfModal={CloseMfModal} setOpenModalByName={setOpenModalByName} fetchReportsData={fetchReportsData} />
- </>
-       )}
-       
+          <MFReportModal open={openModalByName == 'MF_Screening'} CloseMfModal={CloseMfModal} setOpenModalByName={setOpenModalByName} fetchReportsData={fetchReportsData} />
+        </>
+      )}
+
       {/* for Success Popup */}
       {/* <BootModal.Modal dialogClassName="Nsdlcsdl-modal-width"
         className="Modalpopup"

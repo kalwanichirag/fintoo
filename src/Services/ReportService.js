@@ -1,5 +1,6 @@
 import axios from "axios";
-import { BASE_API_URL } from "../constants";
+import { BASE_API_URL, portfolioReportEndpoints } from "../constants";
+import apiClient from "../FrappeIntegration-Services/services/apiClient";
 
 export const saveScreenReport = async (user_id, report_type, mf_portfolio_value, pdf_snippet_url_WA) => {
 
@@ -67,3 +68,17 @@ export const getReports = async (idArr, report_type) => {
         return false
     }
 }
+
+
+export const GeneratePortfolioReport = async (payload) => {
+    try {
+        const response = await apiClient(portfolioReportEndpoints.PORTFOLIO_REPORT_API, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

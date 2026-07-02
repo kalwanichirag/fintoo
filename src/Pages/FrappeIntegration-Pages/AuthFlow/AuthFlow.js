@@ -10,6 +10,10 @@ import { checkEmail, checkEmail1, sendOTP, verifyOTP } from "../../../FrappeInte
 import * as toastr from "toastr";
 import "toastr/build/toastr.css";
 import { Link } from "react-router-dom";
+import {
+    trackItrSignupEvent,
+    trackItrSignupInitiated,
+} from "../../../Utils/Webengage/itrSignupTracking";
 
 export default function AuthFlow({ setview, setVerificationFlow, userDetails, setUserDetails }) {
 
@@ -62,6 +66,11 @@ export default function AuthFlow({ setview, setVerificationFlow, userDetails, se
 
             if (data.status_code == 404 || data.error_code == 404) {
                 setIsNewUser(true);
+                trackItrSignupInitiated({ email: emailstr });
+                trackItrSignupEvent("email entered", {
+                    email: emailstr,
+                    url: window.location.href,
+                });
                 const payload = {
                     identifier: emailstr,
                     for_otp: "email"
@@ -126,6 +135,7 @@ export default function AuthFlow({ setview, setVerificationFlow, userDetails, se
             return;
         } else {
             const enteredOtp = otp.join("");
+            trackItrSignupEvent("otp entered");
             try {
                 const payload = {
                     identifier: userDetails.email,
@@ -138,6 +148,7 @@ export default function AuthFlow({ setview, setVerificationFlow, userDetails, se
                 const data = await verifyOTP(payload);
 
                 if (data.status_code == 200 || data.error_code == 200) {
+                    trackItrSignupEvent("otp success");
 
                     if (isNewDevice) {
                         setview('VERIFICATIONFLOW');
@@ -150,10 +161,16 @@ export default function AuthFlow({ setview, setVerificationFlow, userDetails, se
                     return;
 
                 } else {
+                    trackItrSignupEvent("otp failed", {
+                        "failure reason": data.message || data.errors || "OTP verification failed",
+                    });
                     setOtpError(data.message);
                     setLoading(false);
                 }
             } catch (error) {
+                trackItrSignupEvent("otp failed", {
+                    "failure reason": error?.message || "OTP verification failed",
+                });
                 console.error('Failed to check email:', error);
             } finally {
 
@@ -167,6 +184,7 @@ export default function AuthFlow({ setview, setVerificationFlow, userDetails, se
 
         setOtp(Array(6).fill(""));
         setOtpError("");
+        trackItrSignupEvent("resend otp clicked");
 
         try {
 

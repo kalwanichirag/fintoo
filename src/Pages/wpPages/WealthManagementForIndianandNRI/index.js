@@ -171,7 +171,7 @@ const WealthManagementForIndianandNRI = ({formtype}) => {
                 <FeaturedIn />
             </section>
             <section ref={targetRef}  >
-            {formtype == "otp" ? (<LandingPageOtp servicename={"assisted_advisory_fixed_fees"}  pageName="Wealth Management for NRI" calendlyurl={"https://calendly.com/d/4j9-7sh-yry/15-minutes-consultation-call?hide_event_type_details=1"}/>
+            {formtype == "otp" ? (<LandingPageOtp servicename={"assisted_advisory_fixed_fees"}  pageName="Wealth Management for NRI" />
 
                 ) :
                 <LandingPageCalendly pageName="Wealth Management for NRI" servicename={"assisted_advisory_fixed_fees"} calendlyurl={"https://calendly.com/d/4j9-7sh-yry/15-minutes-consultation-call?hide_event_type_details=1"}/>

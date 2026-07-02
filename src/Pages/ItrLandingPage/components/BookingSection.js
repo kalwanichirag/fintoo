@@ -118,7 +118,8 @@ export default function BookingSection() {
           <div className="tw-relative">
             <LandingPageOtp
                   variant="minimal"
-                  pageName="ITR Booking"
+                  pageName="ITR Filing For Corporates"
+                  servicename={"itr_filing"}
                 />
            
 

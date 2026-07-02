@@ -335,7 +335,10 @@ const AdvisoryReportUI = ({ reportsData, fetchReportsData }) => {
       data_belongs_to: DATA_BELONGS_TO
     };
     const res = await Getpaymentstatus(payload);
-    return res
+    const plan = res.data.find((item) =>
+    ["fp_expert", "fp_robo"].includes(item?.service_type)
+  );
+    return plan
   }
 
   useEffect(() => {

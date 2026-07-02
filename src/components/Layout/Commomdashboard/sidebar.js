@@ -10,6 +10,7 @@ import {
   FaEnvelope,
   FaPhoneAlt,
   FaUserTie,
+  FaFileAlt,
 } from "react-icons/fa";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import pmc from "./commonDashboard.module.css";
@@ -98,38 +99,62 @@ const CommonDSidebar = (props) => {
         data_belongs_to: DATA_BELONGS_TO
       };
       const res = await Getpaymentstatus(payload);
-      if (res?.status_code === 200) {
-        var rmdetails = res.data
-        var rm_details = {}
-        if (rmdetails["plan_uuid"] == "fp_robo") {
-          rm_details.imagepath = ""
-          rm_details.emp_name = "Online"
-          rm_details.username = "support@fintoo.in"
-          rm_details.emp_mobile = "9699800600"
+
+      if (res?.status_code === 200 && res?.data) {
+        const rmdetails = res.data.find((item) =>
+          ["fp_expert", "fp_robo"].includes(item?.service_type)
+        );
+
+        if (!rmdetails) return;
+
+        let rm_details = {};
+
+        if (rmdetails.plan_uuid === "fp_robo") {
+          rm_details = {
+            emp_name: "Online",
+            username: "support@fintoo.in",
+            emp_mobile: "9699800600",
+          };
+        } else {
+          const rmData = rmdetails.rm_data || {};
+
+          rm_details = {
+            emp_name: rmData.emp_name || "Your Wealth Manager",
+            username: rmData.emp_email || "",
+            emp_mobile: rmData.emp_mobile || "",
+          };
         }
-        else{
-          rm_details.imagepath = rmdetails.rm_data.imagepath ? rmdetails.rm_data.imagepath : ""
-          rm_details.emp_name = rmdetails.rm_data.emp_name
-          rm_details.username = rmdetails.rm_data.emp_email
-          rm_details.emp_mobile = rmdetails.rm_data.emp_mobile
-        }
+
         setRmDetails(rm_details);
-        setPaymentCompleted(rmdetails.plan_name != "Assisted Advisory"? true : false);
-        if (rmdetails.plan_name != "Assisted Advisory"){
-          let paymentDate = rmdetails.plan_expiry_date;
-          paymentDate = new Date(paymentDate);
+        setPaymentCompleted(Boolean(rmdetails.plan_expiry_date));
+        setPlanExpiryDate("");
+
+        if (rmdetails.plan_expiry_date) {
+          const paymentDate = new Date(rmdetails.plan_expiry_date);
+
+          if (Number.isNaN(paymentDate.getTime())) return;
+
           const day = paymentDate.getDate();
-          const month = paymentDate.toLocaleString("default", { month: "long" });
+          const month = paymentDate.toLocaleString("default", {
+            month: "long",
+          });
           const year = paymentDate.getFullYear();
+
           const getDaySuffix = (day) => {
             if (day >= 11 && day <= 13) return "th";
+
             switch (day % 10) {
-              case 1: return "st";
-              case 2: return "nd";
-              case 3: return "rd";
-              default: return "th";
+              case 1:
+                return "st";
+              case 2:
+                return "nd";
+              case 3:
+                return "rd";
+              default:
+                return "th";
             }
           };
+
           const formattedDate = `${day}${getDaySuffix(day)} ${month}, ${year}`;
           setPlanExpiryDate(formattedDate);
         }
@@ -521,7 +546,28 @@ const CommonDSidebar = (props) => {
             </NavLink>
           </div>
 
-          
+          <div className={`${pmc.menuitem}`}>
+            <NavLink
+              className={({ isActive }) =>
+                "text-decoration-none " +
+                (isActive
+                  ? `${pmc.activeMenu} sidebar-custom-color-activeMenu`
+                  : `${pmc.Inactive}`)
+              }
+              to={`${process.env.PUBLIC_URL}/itr-file?utm_service=91&utm_source=26&tags=itr_filing_2026&rm_id=96`}
+            >
+              <div className="text-decoration-none d-flex menu-link-182">
+                <div>
+                  <FaFileAlt className={pmc.sidebarMenuIcon} />
+                  {/* or use <FaFileInvoice className={pmc.sidebarMenuIcon} /> */}
+                </div>
+
+                <div className={`${pmc.menutext} sidebar-custom-color`}>
+                  File your ITR
+                </div>
+              </div>
+            </NavLink>
+          </div>
             {paymentCompleted && planExpiryDate && (
             <>
               <div className={`d-none d-md-block ${pmc.RmBox} ${pmc.expiryCard}`}>
@@ -538,7 +584,7 @@ const CommonDSidebar = (props) => {
             )}
          
         
-          {rmdetails && Object.keys(rmdetails).length != 0 ? (
+          {/* {rmdetails && Object.keys(rmdetails).length != 0 ? (
             <div
               style={
                 {
@@ -550,18 +596,9 @@ const CommonDSidebar = (props) => {
             >
               <div className={pmc.rmCardTop}>
                 <div className={pmc.RmImg}>
-                  {rmdetails.imagepath != "" ? (
-                    <img
-                      src={
-                        process.env.REACT_APP_STATIC_URL_PYTHON +
-                        rmdetails.imagepath
-                      }
-                    />
-                  ) : (
-                    <div className={pmc.rmAvatarFallback} aria-label="Relationship manager profile">
-                      <FaUserTie className={pmc.rmAvatarIcon} />
-                    </div>
-                  )}
+                  <div className={pmc.rmAvatarFallback} aria-label="Relationship manager profile">
+                    <FaUserTie className={pmc.rmAvatarIcon} />
+                  </div>
                 </div>
                 <div className={pmc.rmIdentity}>
                   <div className={pmc.RmProfile}>
@@ -603,13 +640,14 @@ const CommonDSidebar = (props) => {
                 </div>
                 <div className={pmc.Rminfo}>{rmdetails.emp_mobile}</div>
               </div>
-              <div className={pmc.bookDemo}>
+              <div className={pmc.bookDemo}> */}
                 {/* <button onClick={() => setShow(true)}>Book appointment</button> */}
-              </div>
+              {/* </div>
             </div>
           ) : (
             <></>
-          )}
+          )} */}
+          
         </div>
       </div>
       <Calendly

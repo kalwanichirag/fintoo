@@ -203,6 +203,33 @@ export const updateBasicDetails = async (payload) => {
     }
 };
 
+export const addUpdateITRUserDetails = async (payload) => {
+    try {
+        const response = await apiClient(userManagementEndpoints.ADD_UPDATE_ITR_USER_DETAILS, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const fetchUserITRDetails = async (payload) => {
+    try {
+        const query = new URLSearchParams({
+            user_id: payload.user_id,
+            assessment_year: payload.assessment_year
+        });
+        const response = await apiClient(`${userManagementEndpoints.FETCH_USER_ITR_DETAILS}?${query.toString()}`, {
+            method: 'GET'
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const fetchUserProfileDetails = async (userId) => {
 
     try {
@@ -553,5 +580,3 @@ export const updateOpportunityStatus = async (payload) => {
         throw error;
     }
 };
-
-

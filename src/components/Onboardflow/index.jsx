@@ -17,6 +17,11 @@ import { getFamilyMember, fetchUserProfileDetails, getOccupationList, updateBasi
 import HideHeader from "../HideHeader";
 import HideFooter from "../HideFooter";
 import { getStoredChoiceLead } from "../../Utils/leadAttribution";
+import {
+  getItrSignupContext,
+  trackItrSignupCompleted,
+  trackItrSignupEvent,
+} from "../../Utils/Webengage/itrSignupTracking";
 
 function get100YearsAgoDate() {
   const today = new Date();
@@ -212,18 +217,26 @@ export default function UseFlowInputs({ onContinue }) {
       const result = await updateBasicDetails(userDetailsPayload);
 
       if (result.status_code == 200) {
+        trackItrSignupEvent("name entered", {
+          name: userDetailsPayload.name,
+          url: window.location.href,
+        });
         const choiceLead = getStoredChoiceLead() || {};
         const urlParams = new URLSearchParams(window.location.search || "");
         const resolvedSource = (choiceLead.source || urlParams.get("utm_source") || "").trim();
         const resolvedCampaign = (choiceLead.campaign || urlParams.get("utm_campaign") || "").trim();
         const resolvedTag = (choiceLead.tag || urlParams.get("tags") || "").trim();
+        const itrSignupContext = getItrSignupContext();
+        const leadService = itrSignupContext?.signup_started
+          ? "itr_filing"
+          : "robo_advisory_499_plan";
 
 
         let payload = {
           "source": resolvedSource || "Website Callback",
           "email": user_data.user_email,
           "full_name": userDetailsPayload.name,
-          "services": ["robo_advisory_499_plan"],
+          "services": [leadService],
         }
         if (resolvedCampaign) {
           payload.campaign = resolvedCampaign;
@@ -243,17 +256,29 @@ export default function UseFlowInputs({ onContinue }) {
           webengage.user.setAttribute("age", age);
         }
         await handleGetFamilyMember();
+        const completedUserData = JSON.parse(localStorage.getItem("user_data") || "{}");
+        const shouldReturnToItrFile = Boolean(
+          getItrSignupContext()?.signup_started
+        );
+        trackItrSignupCompleted({
+          "lead id": completedUserData.user_lead_id || completedUserData.lead_id || "",
+          name: userDetailsPayload.name,
+          email: completedUserData.user_email || user_data.user_email || "",
+          phone: completedUserData.user_mobile || completedUserData.mobile_number || "",
+        });
 
         const redirected = await handleCheckAllStatus(user_data.user_id);
         if (redirected) return;
 
         reset();
-        window.location.href = process.env.PUBLIC_URL + "/commondashboard";
         setItemLocal("logged_in", 1);
         setItemLocal("family", 1);
         toastr.options.positionClass = "toast-bottom-left";
         toastr.success(result.message);
         handleClose();
+        window.location.href = shouldReturnToItrFile
+          ? process.env.PUBLIC_URL + "/itr-file"
+          : process.env.PUBLIC_URL + "/commondashboard";
         return;
       } else {
         toastr.options.positionClass = "toast-bottom-left";

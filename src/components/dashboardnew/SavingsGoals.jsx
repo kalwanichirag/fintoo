@@ -67,7 +67,9 @@ export default function SavingsGoals() {
       };
 
       const res = await Getpaymentstatus(payload);
-      const plan = res?.data;
+      const plan = res?.data?.find((item) =>
+        ["fp_expert", "fp_robo"].includes(item?.service_type)
+      );
 
       if (plan && isPlanActive(plan.plan_expiry_date)) {
         setIsPaidUser(true);

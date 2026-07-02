@@ -635,8 +635,20 @@ function TabData(props) {
                                 <FintooDatePicker
                                   selected={startDate ? new Date(startDate) : null}
                                   onChange={(date) => date ? setStartDate(moment(date).format("YYYY-MM-DD")) : setStartDate('')}
-                                  minDate={Number(moment().format('H.mm')) >= 15.30 ? moment().add(11, 'day').toDate() : moment().add(10, 'day').toDate()} // Set minimum date as today
-                                  maxDate={Number(moment().format('H.mm')) >= 15.30 ? moment().add(11, 'day').add(2, 'months').toDate() : moment().add(10, 'day').add(2, 'months').toDate()} // Set maximum date as end of the current year
+                                  minDate={
+                                    getUserId() === "3sc6rq3rbo"
+                                      ? moment().add(7, 'day').toDate()
+                                      : Number(moment().format('H.mm')) >= 15.30
+                                        ? moment().add(11, 'day').toDate()
+                                        : moment().add(10, 'day').toDate()
+                                  } // Set minimum date as today
+                                  maxDate={
+                                    getUserId() === "3sc6rq3rbo"
+                                      ? moment().add(7, 'day').add(2, 'months').toDate()
+                                      : Number(moment().format('H.mm')) >= 15.30
+                                        ? moment().add(11, 'day').add(2, 'months').toDate()
+                                        : moment().add(10, 'day').add(2, 'months').toDate()
+                                  } // Set maximum date as end of the current year
                                   dateFormat="dd/MM/yyyy"
                                   showMonthDropdown={false}
                                   showYearDropdown={false}

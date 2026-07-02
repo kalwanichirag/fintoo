@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { InlineWidget, useCalendlyEventListener } from "react-calendly";
 import { useSelector } from "react-redux";
 import { calendlyCallbackFun } from "../../CalendlyCallback";
-import { fetchData } from "../../../common_utilities";
+import { fetchData, getUserId } from "../../../common_utilities";
 import { fetchUserProfileDetails } from "../../../FrappeIntegration-Services/services/user-management-api/userApiService";
-import { getUserId } from "../../../common_utilities";
 
-const Calendar = ({ isWP, eventCode, url, serviceName, planId, extraParams = {}, SetShow, calendlyCallbackFunMFSnippet, addIncomSlabAndComment, itrPage , pageName}) => {
+const Calendar = ({ isWP, eventCode, url, serviceName, planId, planDetails, pd, extraParams = {}, SetShow, calendlyCallbackFunMFSnippet, addIncomSlabAndComment, itrPage , pageName, prefillData }) => {
 const [userLeadId, setUserLeadId] = useState(null);
         
           useEffect(() => {
@@ -87,25 +86,34 @@ const [userLeadId, setUserLeadId] = useState(null);
           serviceName: serviceName,
           extraParams: extraParams,
           planId: planId,
+          planDetails,
+          pd,
           email: leadData.email,
           fullname: leadData.fullname,
           mobileNumber: itrPage ? mobileAnswer : leadData.mobile,
-          loggedIn: loggedIn
+          loggedIn: loggedIn,
+          itrPage: Boolean(itrPage)
         }, addIncomSlabAndComment, );
       }
 
-      SetShow(true)
+      if (SetShow) {
+        SetShow(true)
+      }
     },
   });
 
   useEffect(() => {
     setPrefillState(prev => ({
-      ...prev, email: leadData.email, name: leadData.fullname, location: leadData.mobile,
+      ...prev,
+      email: prefillData?.email ?? leadData.email,
+      name: prefillData?.name ?? leadData.fullname,
+      location: prefillData?.mobile ?? leadData.mobile,
       customAnswers: {
-        ...prev.customAnswers, a2: '+91' + leadData.mobile
+        ...prev.customAnswers,
+        a2: prefillData?.mobileWithCountryCode ?? '+91' + leadData.mobile
       }
     }))
-  }, [leadData])
+  }, [leadData, prefillData])
 
   return (
     <>

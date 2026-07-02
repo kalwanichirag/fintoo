@@ -15,6 +15,7 @@ import MainLayout from "../components/Layout/MainLayout";
 import { ExpertNameInfo } from "./ExpertAppointment";
 import StepComponent from "../components/StepsComponent";
 import MemberLayout from "../components/Layout/MemberLayout";
+import giftBox from "../Assets/Images/giftbox.png";
 import { useSelector } from "react-redux";
 
 const TaxPaymentPage = () => {
@@ -468,7 +469,7 @@ const TaxPaymentPage = () => {
                                 >
                                   <span>
                                     <img
-                                      src="https://static.fintoo.in/static/userflow/img/icons/giftbox.png"
+                                     src={giftBox}
                                       alt="Apply Offer"
                                       style={{ float: "left", width: "15px" }}
                                     />

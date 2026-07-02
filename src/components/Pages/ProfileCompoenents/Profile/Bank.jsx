@@ -33,6 +33,7 @@ function Bank(props) {
   const [resd, setres] = useState("");
   const [showModal, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [bankId, setBankId] = useState("");
 
   const inputStyle = {
     borderRadius: "12px",
@@ -94,6 +95,7 @@ function Bank(props) {
       setAccountNumber(data.bank_acc || "");
       setIfscCode(data.bank_ifsc_code || "");
       setBankAccountType(data.bank_account_type || "");
+      setBankId(data.name || "");
     } catch (e) {
       console.error(e);
     }
@@ -193,6 +195,10 @@ function Bank(props) {
         single_survivor: "single",
         is_primary: 1,
       };
+
+      if (bankId) {
+        payload.bank_id = bankId;
+      }
 
       localStorage.setItem("bankDetails", JSON.stringify(payload));
 

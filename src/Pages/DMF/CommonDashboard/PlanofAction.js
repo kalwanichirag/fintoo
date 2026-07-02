@@ -81,7 +81,7 @@ const PlanofAction = (props) => {
             >
               Investment
               <span>
-                <img src={BASE_API_URL + "static/userflow/img/icons/Investment-db.svg"} alt="Investment" />
+                <img src={BASE_API_URL + "static/media/DMF/Investment-db.svg"} alt="Investment" />
               </span>
             </p>
           </div>
@@ -109,7 +109,7 @@ const PlanofAction = (props) => {
             >
               Loan
               <span>
-                <img src={BASE_API_URL + "static/userflow/img/icons/Loan.svg"} alt="Loan" />
+                <img src={BASE_API_URL + "static/media/DMF/Loan.svg"} alt="Loan" />
               </span>
             </p>
           </div>

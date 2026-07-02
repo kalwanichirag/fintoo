@@ -134,7 +134,7 @@ const FinancialPlanningPageCalendly = ({ formtype }) => {
                 <FeaturedIn />
             </section>
             <section ref={targetRef} >
-                {formtype == "otp" ? (<LandingPageOtp pageName="Financial Planning" calendlyurl={"https://calendly.com/d/cr76-3f4-jgz/15-mins-consultation-call-with-financial-planner?hide_event_type_details=1"}  />
+                {formtype == "otp" ? (<LandingPageOtp pageName="Financial Planning" servicename={"assisted_advisory_fixed_fees"} />
                 ) :
                     <LandingPageCalendly  pageName="Financial Planning" servicename={"assisted_advisory_fixed_fees"} calendlyurl={"https://calendly.com/d/cr76-3f4-jgz/15-mins-consultation-call-with-financial-planner?hide_event_type_details=1"} />
                 }

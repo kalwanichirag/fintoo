@@ -20,6 +20,8 @@ html.ITRPlanSection {
     font-size: 1.2rem;
     font-weight: 600;
     max-width: 400px;
+    text-align: center;
+    margin: 0 auto;
 }
 .PriceSection{
     /* font-size: 2.3rem; */

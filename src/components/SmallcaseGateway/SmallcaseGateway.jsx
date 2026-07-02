@@ -81,12 +81,10 @@ const SmallcaseGateway = (
                 if (props?.fetcEcas) {
                     setTimeout(async () => {
                         const fetchEcasResp = await props.fetchEcasData();
-                        if (fetchEcasResp) {
-                            if (props.onSuccess) {
-                                props.onSuccess();
-                            } else if (props.setShowSuccessPopup) {
-                                props.setShowSuccessPopup(true);
-                            }
+                        if (props.onSuccess) {
+                            props.onSuccess();
+                        } else if (props.setShowSuccessPopup) {
+                            props.setShowSuccessPopup(true);
                         }
                         props.setIsLoading(false);
                     }, 10000);

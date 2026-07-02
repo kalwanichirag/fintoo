@@ -9,6 +9,7 @@ import * as toastr from "toastr";
 import "toastr/build/toastr.css";
 import HideHeader from "../components/HideHeader";
 import HideFooter from "../components/HideFooter";
+import {giftBox} from "../Assets/Images/giftbox.png";
 import { Link } from "react-router-dom";
 
 import { Createorderid, Getcouponlist } from "../FrappeIntegration-Services/services/payment-api/paymentapiService";
@@ -477,7 +478,7 @@ const PaymentPage = () => {
                                 >
                                   <span>
                                     <img
-                                      src="https://static.fintoo.in/static/userflow/img/icons/giftbox.png"
+                                      src={giftBox}
                                       alt="Apply Offer"
                                       style={{ float: "left", width: "15px" }}
                                     />
@@ -510,9 +511,9 @@ const PaymentPage = () => {
                                     >
                                       <span className="offerApplied">
                                         <img
-                                          src="https://static.fintoo.in/static/userflow/img/icons/giftbox.png"
+                                          src={giftBox}
                                           alt="Apply Offer"
-                                          style={{ float: "left", width: "15px", marginTop: "3px" }}
+                                          style={{ float: "left", width: "16px", marginTop: "9px" }}
                                         />&nbsp;
                                         <span
                                           className="offer-applied"

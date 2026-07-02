@@ -24,6 +24,7 @@ export default function ProductShowcaseSection({ onBook }) {
         breakpoint: 640,
         settings: {
           arrows: false,
+          dots: true,
           slidesToShow: 1,
         },
       },

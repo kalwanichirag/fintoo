@@ -510,20 +510,18 @@ function Investmentfundbox(props) {
                                     setUpdateSipCart((v) => ++v);
                                   }}
                                   minDate={
-                                    Number(moment().format("H.mm")) >= 15.3
-                                      ? moment().add(11, "day").toDate()
-                                      : moment().add(10, "day").toDate()
+                                    getUserId() === "3sc6rq3rbo"
+                                      ? moment().add(7, 'day').toDate()
+                                      : Number(moment().format('H.mm')) >= 15.30
+                                        ? moment().add(11, 'day').toDate()
+                                        : moment().add(10, 'day').toDate()
                                   } // Set minimum date as today
                                   maxDate={
-                                    Number(moment().format("H.mm")) >= 15.3
-                                      ? moment()
-                                          .add(11, "day")
-                                          .add(2, "months")
-                                          .toDate()
-                                      : moment()
-                                          .add(10, "day")
-                                          .add(2, "months")
-                                          .toDate()
+                                    getUserId() === "3sc6rq3rbo"
+                                      ? moment().add(7, 'day').add(2, 'months').toDate()
+                                      : Number(moment().format('H.mm')) >= 15.30
+                                        ? moment().add(11, 'day').add(2, 'months').toDate()
+                                        : moment().add(10, 'day').add(2, 'months').toDate()
                                   } // Set maximum date as end of the current year
                                   dateFormat="dd/MM/yyyy"
                                   investmentFundBox

@@ -57,7 +57,7 @@ const FinalCTA = ({formtype}) => {
 
           {/* RIGHT: Calendly Embed */}
           <div className="">
-  {formtype == "otp" ? (<LandingPageOtp  variant="minimal" pageName="Financial Advice" calendlyurl={"https://calendly.com/d/csqj-96h-zc9/15-mins-consultation-call-with-financial-advisor?hide_event_type_details=1"}  />
+  {formtype == "otp" ? (<LandingPageOtp  variant="minimal" pageName="Financial Advice" servicename={"assisted_advisory_fixed_fees"} />
 
                 ) :
             <LandingPageCalendly pageName="Financial Advice" servicename={"assisted_advisory_fixed_fees"} calendlyurl={"https://calendly.com/d/csqj-96h-zc9/15-mins-consultation-call-with-financial-advisor?hide_event_type_details=1"} variant="minimal" />
@@ -81,5 +81,3 @@ const FinalCTA = ({formtype}) => {
 };
 
 export default FinalCTA;
-
-

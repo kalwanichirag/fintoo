@@ -29,6 +29,7 @@ import { ExpertNameInfo } from "./ExpertAppointment";
 import { check_all_status_api } from "../FrappeIntegration-Services/services/user-management-api/userApiService";
 import { getAppointmentDetails } from "../FrappeIntegration-Services/services/tax-planning-api/taxApiService";
 import { FaGift } from "react-icons/fa";
+import giftBox from "../Assets/Images/giftbox.png";
 
 const PaymentPage = () => {
   let navigate = useNavigate();
@@ -351,24 +352,36 @@ const PaymentPage = () => {
       const { status_code, message } = res;
 
       switch (status_code) {
-        case 200:
-          setPaymentstatus(res.data);
-          return res.data;
+        case 200: {
+          const fpPlans =
+            res?.data?.filter((item) =>
+              ["fp_expert", "fp_robo"].includes(item?.service_type)
+            ) || [];
+
+          setPaymentstatus(fpPlans);
+          return fpPlans;
+        }
+
         case 404:
+          setPaymentstatus([]);
           break;
+
         case 500:
           toastr.options.positionClass = "toast-bottom-left";
           toastr.error(message);
           break;
+
         case 400:
           toastr.options.positionClass = "toast-bottom-left";
           toastr.error(message);
           setPaymentstatus([]);
           break;
+
         case 403:
           toastr.options.positionClass = "toast-bottom-left";
           toastr.error(message);
           break;
+
         default:
           break;
       }
@@ -397,17 +410,28 @@ const PaymentPage = () => {
             data_belongs_to: DATA_BELONGS_TO
           };
           const paymentStatus = await Getpaymentstatus(payload);
-          if (paymentStatus && paymentStatus["status_code"] == 200) {
+
+          if (paymentStatus?.status_code === 200) {
             const today = new Date();
-            const plan = paymentStatus?.data;
+
+            // find matching plan (IMPORTANT FIX)
+            const plan = paymentStatus?.data?.find(
+              (item) => item?.user_pay_plan_id === selectedPlanId
+            );
+
+            if (!plan) {
+              checkout();
+              return;
+            }
+
             const expiryDate = new Date(plan.plan_expiry_date);
+
             if (selectedPlanId && plan.user_pay_plan_id) {
-              if (selectedPlanId == plan.user_pay_plan_id) {
-                if (today < expiryDate) {
-                  toastr.options.positionClass = "toast-bottom-left";
-                  toastr.error("You have already paid for this service.");
-                  navigate(`${process.env.PUBLIC_URL}/commondashboard`);
-                }
+              if (today < expiryDate) {
+                toastr.options.positionClass = "toast-bottom-left";
+                toastr.error("You have already paid for this service.");
+                navigate(`${process.env.PUBLIC_URL}/commondashboard`);
+                return;
               }
             } else {
               checkout();
@@ -470,7 +494,7 @@ const PaymentPage = () => {
         if (verify_payment && verify_payment.status_code === 200 && verify_payment.data?.payment_status === "SUCCESS") {
           handlePaySuccess(verify_payment.data.payment_id, order_Id, planUUID === "tax_plan" ? false : true);
         }
-        else{
+        else {
           console.error("Payment Failed", verify_payment);
         }
       }
@@ -985,12 +1009,12 @@ const PaymentPage = () => {
                                     >
                                       <span className="offerApplied">
                                         <img
-                                          src="https://static.fintoo.in/static/userflow/img/icons/giftbox.png"
+                                          src={giftBox}
                                           alt="Apply Offer"
                                           style={{
                                             float: "left",
-                                            width: "15px",
-                                            marginTop: "3px",
+                                            width: "16px",
+                                            marginTop: "9px",
                                           }}
                                         />
                                         &nbsp;

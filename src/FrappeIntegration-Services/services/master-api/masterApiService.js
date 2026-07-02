@@ -295,6 +295,25 @@ export const GetSlabList = async () => {
     }
 };
 
+export const GetBrokerList = async (userid, family) => {
+    try {
+        let url = `${masterEndpoints.GET_BROKER_LIST}`;
+        if (userid) {
+            url += `?user_id=${userid}`;
+        }
+        if (family) {
+            url += `&family=1`;
+        }
+        const response = await apiClient(url, {
+            method: 'GET',
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const GetOccupationList = async () => {
     try {
         const url = `${masterEndpoints.GET_OCCUPATION_LIST}`;

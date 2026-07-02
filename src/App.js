@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const MARKETING_ROUTES = [
-  "/",
+  
 
   "/financial-planning",
   "/financial-strategy",
@@ -24,15 +24,16 @@ const MARKETING_ROUTES = [
   "/retirement-strategy",
 
   "/thankyou-page",
+  "/itr-filing-thankyou-page",
   "/review",
   "/retirement-planner",
   "/portfolio-management-services",
-  "/itr-filing",
-  "/itr-filing-for-employee",
+
   "/womoneya",
   "/womoneya-choice",
   "/itr-filing-corporate",
-  "/itr-filing-retail"
+  "/itr-filing-retail",
+  "/itr-filing-partnerships"
 ];
 
 

@@ -68,7 +68,7 @@ import StopSipReason from "../../../components/StopSipReason";
 import StopSipSelectionModal from "../../../components/Portfolio/StopSipSelectionModal";
 import FintooButton from "../../../components/HTML/FintooButton";
 import SimpleReactValidator from 'simple-react-validator';
-import { getMfSummaryPortfolio, getMfDetailedPortfolio, PlaceOrder, MaintenanceStatus, AddToCartDetails, AddTransaction, GetSchemeList, DeleteCart, AddSwitchToCartDetails, AddSwitchTransaction, AddStpToCart } from "../../../FrappeIntegration-Services/services/investment-api/investmentService";
+import { getMfSummaryPortfolio, getMfDetailedPortfolio, PlaceOrder, MaintenanceStatus, AddToCartDetails, AddTransaction, GetSchemeList, DeleteCart, AddSwitchToCartDetails, AddSwitchTransaction, AddStpToCart, AddSwpToCart } from "../../../FrappeIntegration-Services/services/investment-api/investmentService";
 import { fetchUserMfProfileStatus, getUserBankDetails, XsiporderEntry } from "../../../FrappeIntegration-Services/services/master-api/masterApiService";
 import { FintooLogoLoader } from "../../../components/FintooInlineLoader";
 
@@ -334,7 +334,7 @@ const PortfolioFund = (props) => {
         Array.isArray(res.data.fund_list) && res.data.fund_list.length > 0 ? res.data.fund_list[0] : []
       );
       setSchemeCodeData(res.data.fund_list[0]["scheme_code"]);
-      setNoOfInstallment(minInstallmentText);
+      // setNoOfInstallment(minInstallmentText);
 
       if (res.data.fund_list[0].lock_period > 0) {
         if (
@@ -410,13 +410,15 @@ const PortfolioFund = (props) => {
           cart_purchase_type: "R",
           transaction_type: "R",
           data_belongs_to: DATA_BELONGS_TO,
-          cart_sip_start_date: cart_sip_date
+          cart_sip_start_date: cart_sip_date,
+          cart_units: units,
+          cart_amount: currAmount
         }
-        if (detailedMfPotfolio?.requestType == 'unit') {
-          add_to_cart_payload.cart_units = units;
-        } else {
-          add_to_cart_payload.cart_amount = currAmount;
-        }
+        // if (detailedMfPotfolio?.requestType == 'unit') {
+        //   add_to_cart_payload.cart_units = units;
+        // } else {
+        //   add_to_cart_payload.cart_amount = currAmount;
+        // }
       } else {
 
         var add_to_cart_payload = {
@@ -441,13 +443,93 @@ const PortfolioFund = (props) => {
         setValidUnits(true);
         addTransaction();
       } else {
+        cartId.current = response.data?.cart_id;
         setStepCount(1);
         await deleteCartAPI();
-        // addCart();
+        addCart();
       }
     } catch (e) {
       console.log("Error adding to cart: ", e);
     }
+  };
+
+  const validateStpTransaction = () => {
+    const amount = Number(currAmount || 0);
+    const installments = Number(noOfInstallment || 0);
+    const fundValue = Number(fundDetails?.curr_val || 0);
+
+    const minimumAmount = Number(
+      schemedetails?.astp_in_min_installment_amt || 0
+    );
+
+    const minimumInstallments = Number(
+      schemedetails?.astp_min_installment_number || 0
+    );
+
+    const maximumInstallments = Number(
+      schemedetails?.astp_max_installment_number || 0
+    );
+
+    if (!schemedetails) {
+      return {
+        isValid: false,
+        message: "Please select scheme.",
+      };
+    }
+
+    if (!amount) {
+      return {
+        isValid: false,
+        message: "Please enter amount.",
+      };
+    }
+
+    if (amount < minimumAmount) {
+      return {
+        isValid: false,
+        message:
+          "The minimum amount to start an STP for this fund is ₹" +
+          minimumAmount,
+      };
+    }
+
+    if (installments < minimumInstallments) {
+      return {
+        isValid: false,
+        message:
+          "Minimum number of installment should be " +
+          minimumInstallments,
+      };
+    }
+
+    if (installments > maximumInstallments) {
+      return {
+        isValid: false,
+        message:
+          "Maximum number of installment should be " +
+          maximumInstallments,
+      };
+    }
+
+    // Total commitment check
+    const totalStpAmount = amount * installments;
+
+    if (totalStpAmount > fundValue) {
+      return {
+        isValid: false,
+        message:
+          `Total STP amount ₹${totalStpAmount.toLocaleString(
+            "en-IN"
+          )} exceeds available fund value ₹${fundValue.toLocaleString(
+            "en-IN"
+          )}.`,
+      };
+    }
+
+    return {
+      isValid: true,
+      message: "",
+    };
   };
 
   const getPrimaryBank = async () => {
@@ -870,7 +952,10 @@ const PortfolioFund = (props) => {
     }
 
     setStpHolidayList(stpConvertedDates);
-    setMinInvestStp(fundDetails?.astp_min_installment_number);
+    setMinInvestStp(getarray2?.astp_in_min_installment_amt);
+    var minInstallmentText = getarray2?.astp_min_installment_number;
+    setMinInstallmentText(minInstallmentText ? Number(minInstallmentText) : "");
+    setNoOfInstallment(minInstallmentText);
     setStpMultiAmt(getarray2.stp_units_multiplier);
 
   };
@@ -897,9 +982,27 @@ const PortfolioFund = (props) => {
     setAllRedeemKey(newValue ? 'Y' : 'N');
   };
 
+  const calculateSWPInstallments = (startDate, endDate) => {
+  const start = moment(startDate);
+  const end = moment(endDate);
+
+  let months =
+    (end.year() - start.year()) * 12 +
+    (end.month() - start.month());
+
+  if (end.date() < start.date()) {
+    months--;
+  }
+
+  return months + 1;
+};
 
   const handleAmountChange = (e) => {
     var txt = e.target.value;
+    if (openModalByName === "swp") {
+      setSwpAmount(txt);
+      localStorage.setItem("amount", txt);
+    }
     setDetailedMfPotfolio(prev => ({ ...prev, requestType: 'amount' }));
     if (txt.length > 1 && txt.charAt(0) == 0 && txt.charAt(1) == 0) {
       txt = txt.replace(/^0+/, "0");
@@ -917,14 +1020,21 @@ const PortfolioFund = (props) => {
       }
 
       if (openModalByName == "swp") {
-        setCurrentSWPAmount(txt)
-        setValidSwpAmount(true);
+        setCurrentSWPAmount(txt);
+
         const swpAmount = Number(txt);
-        if (swpAmount < fundDetails?.min_redemption_amt) {
+
+        if (swpAmount < Number(fundDetails?.redemption_mininum_investment)) {
           setWithdrawalPlanBtn(false);
           setValidSwpAmount(false);
           setSwpErrorText(
-            "Minimum amount: ₹ " + fundDetails?.min_redemption_amt
+            "Minimum amount: ₹ " + fundDetails?.redemption_mininum_investment
+          );
+        } else if (swpAmount > Number(fundDetails?.curr_val)) {
+          setWithdrawalPlanBtn(false);
+          setValidSwpAmount(false);
+          setSwpErrorText(
+            "Maximum amount: ₹ " + fundDetails?.curr_val
           );
         } else {
           setWithdrawalPlanBtn(true);
@@ -933,24 +1043,13 @@ const PortfolioFund = (props) => {
         }
       }
 
-      if (txt < schemedetails.lumsump_minimum_amount && openModalByName != "stp") {
+      if (txt < fundDetails.redemption_mininum_investment && openModalByName != "stp") {
         if (openModalByName == "redeem" || openModalByName == "switch") {
           setCurrAmount(txt);
           setSwitchText(
-            "Minimum amount: ₹ " + schemedetails.lumsump_minimum_amount
+            "Minimum amount: ₹ " + fundDetails.redemption_mininum_investment
           );
           setValidAmount(false);
-        }
-
-        if (openModalByName == "swp") {
-          if (txt <= fundDetails?.curr_val) {
-            setValidSwpAmount(true);
-            setSwpErrorText("");
-            setSwpAmount(txt);
-          } else {
-            setSwpErrorText("Maximum amount: ₹ " + fundDetails?.curr_val);
-            setValidSwpAmount(false);
-          }
         }
       } else {
         if (openModalByName == "redeem" || openModalByName == "switch") {
@@ -972,8 +1071,11 @@ const PortfolioFund = (props) => {
           }
         }
 
-        if (openModalByName == "swp") {
-          setValidSwpAmount(true);
+        if (
+          openModalByName == "swp" &&
+          Number(txt) >= Number(fundDetails?.redemption_mininum_investment) &&
+          Number(txt) <= Number(fundDetails?.curr_val)
+        ) {
           setSwpUnits(
             Math.round(
               (parseFloat((txt / fundDetails?.curr_nav) * 1) + Number.EPSILON) *
@@ -1012,7 +1114,7 @@ const PortfolioFund = (props) => {
           // }
           setCurrAmount(txt);
           setSwitchText(
-            "Minimum amount: ₹ " + schemedetails.lumsump_minimum_amount
+            "Minimum amount: ₹ " + schemedetails.lumpsum_minimum_amount
           );
           setValidAmount(false);
         }
@@ -1051,17 +1153,21 @@ const PortfolioFund = (props) => {
         }
 
         if (openModalByName == "swp") {
-          setValidSwpAmount(true);
-          setSwpAmount(txt);
+          const swpAmount = Number(txt);
 
-          localStorage.setItem("amount", txt);
+          if (
+            swpAmount >= Number(fundDetails?.redemption_mininum_investment) &&
+            swpAmount <= Number(fundDetails?.curr_val)
+          ) {
+            localStorage.setItem("amount", txt);
 
-          setSwpUnits(
-            Math.round(
-              (parseFloat((txt / fundDetails?.curr_nav) * 1) + Number.EPSILON) *
-              1000
-            ) / 1000
-          );
+            setSwpUnits(
+              Math.round(
+                (parseFloat((txt / fundDetails?.curr_nav) * 1) + Number.EPSILON) *
+                1000
+              ) / 1000
+            );
+          }
         }
       }
       if (txt == "" || txt == 0) {
@@ -1078,7 +1184,7 @@ const PortfolioFund = (props) => {
   };
 
   const ValidateSwpButton = () => {
-    if (validStartSwpDate && validEndSwpDate && validSwpAmount && (Number(currentSWPAmount) > Number(fundDetails?.min_redemption_amt))) {
+    if (validStartSwpDate && validEndSwpDate && validSwpAmount && (Number(currentSWPAmount) > Number(fundDetails?.redemption_mininum_investment))) {
       setWithdrawalPlanBtn(true);
     }
   };
@@ -1086,29 +1192,27 @@ const PortfolioFund = (props) => {
   const addCartSWP = async () => {
     var schemeCode = fundDetails?.scheme_code;
     var amount = swpAmount.toString();
+    const installments = calculateSWPInstallments(
+      startDateSwp,
+      endDateSwp
+    );
     try {
       var payload = {
-        method: "post",
-        url: DMF_ADD_TO_STPSWP_CART_NEW_API_URL,
-
-        data: {
-          cart_scheme_code: schemeCode,
-          cart_amount: amount,
-          units: swpUnits.toString(),
-          user_id: getUserId(),
-          cart_purchase_type: "7",
-          cart_folio_no: fundDetails?.folio_no,
-          data_belongs_to: DATA_BELONGS_TO,
-          perpetual_check: "N",
-          start_date: moment(startDateSwp).format("YYYY-MM-DD"),
-          end_date: moment(endDateSwp).format("YYYY-MM-DD"),
-        },
+        cart_scheme_code: schemeCode,
+        cart_amount: amount,
+        units: swpUnits.toString(),
+        user_id: getUserId(),
+        cart_purchase_type: "SWP",
+        cart_folio_no: fundDetails?.folio_no,
+        data_belongs_to: DATA_BELONGS_TO,
+        perpetual_check: "N",
+        start_date: moment(startDateSwp).format("YYYY-MM-DD"),
+        end_date: moment(endDateSwp).format("YYYY-MM-DD"),
+        no_of_installment: installments
       };
-
-      var res = await fetchEncryptData(payload);
-      let error_code = res.error_code;
-      cartId.current = res.data.cart_id;
-      if (error_code == "100") {
+      var response = await AddSwpToCart(payload);
+      cartId.current = response.data.cart_id;
+      if (response.status_code == 200) {
         setStepCount(1);
       } else {
         await deleteCartSWPAPI();
@@ -1121,30 +1225,25 @@ const PortfolioFund = (props) => {
 
   const addTransactionSwp = async () => {
 
-    var schemeCode = fundDetails?.scheme_code;
+    var units = units;
     var folio_number = fundDetails?.folio_no;
     var cart_id = cartId.current.toString();
 
     try {
       var payload = {
-        method: "post",
-        url: DMF_ADD_TRANSACTION_API_URL,
-        data: {
-          transaction_cart_id: cart_id,
-          transaction_bank_id: primaryBankId.toString(),
-          cart_scheme_code: schemeCode,
-          trxn_type: "RU",
-          data_belongs_to: DATA_BELONGS_TO,
-          transaction_user_id: getUserId(),
-          transaction_folio_no: folio_number,
-          device_track: "web"
-        },
+        cart_id: cart_id,
+        bank_id: primaryBankId.toString(),
+        units: units,
+        transaction_type: "SWP",
+        data_belongs_to: DATA_BELONGS_TO,
+        user_id: getUserId(),
+        folio_no: folio_number,
       };
-      var res = await fetchEncryptData(payload);
-      transactionId.current = res.data.transaction_id;
+      var res = await AddTransaction (payload);
+      transactionId.current = res.transaction_id;
 
-      if (res.error_code == "100") {
-        setSwpTrxId(res.data);
+      if (res.status_code == 200) {
+        setSwpTrxId(res.transaction_id);
         setStepCount(2);
       } else {
         console.error("error - ", res);
@@ -1489,18 +1588,52 @@ const PortfolioFund = (props) => {
   };
 
   const handleInstallmentChange = (e) => {
-    var installmentCount = e.target.value;
-    if (!isNaN(installmentCount) && installmentCount.length <= fundDetails?.astp_max_installment_number.length && Number(installmentCount) >= 0) {
-      setNoOfInstallment(installmentCount ? Number(installmentCount) : "");
-      setMonthlyRecurringStpAmount(
-        Number(installmentCount) > 0 && Number(currAmount) > 0
-          ? (Number(currAmount) / Number(installmentCount)).toFixed(3)
-          : 0
+    const installmentCount = e.target.value;
+
+    if (
+      !isNaN(installmentCount) &&
+      installmentCount.length <=
+      fundDetails?.astp_max_installment_number?.length &&
+      Number(installmentCount) >= 0
+    ) {
+      const amount = Number(currAmount || 0);
+      const fundValue = Number(fundDetails?.curr_val || 0);
+
+      const totalStpAmount =
+        amount * Number(installmentCount);
+
+      if (totalStpAmount > fundValue) {
+        setSwpErrorText(
+          `Total STP amount ₹${totalStpAmount.toLocaleString(
+            "en-IN"
+          )} exceeds available fund value ₹${fundValue.toLocaleString(
+            "en-IN"
+          )}`
+        );
+      } else {
+        setSwpErrorText("");
+      }
+
+      setNoOfInstallment(
+        installmentCount ? Number(installmentCount) : ""
       );
     }
   };
 
   const addStpToCart = async () => {
+    const validationResult = validateStpTransaction();
+
+    if (!validationResult.isValid) {
+      dispatch({
+        type: "RENDER_TOAST",
+        payload: {
+          message: validationResult.message,
+          type: "error",
+          autoClose: 3000,
+        },
+      });
+      return;
+    }
     try {
       var toschemecode = schemedetails.scheme_code;
       var schemeCode = fundDetails?.scheme_code;
@@ -1509,26 +1642,26 @@ const PortfolioFund = (props) => {
       // var units = units;
 
       var payload = {
-          from_data: {
-            cart_scheme_code: schemeCode,
-            cart_amount: amount,
-            cart_units: "0",
-            user_id: getUserId(),
-            cart_purchase_type: "STO",
-            data_belongs_to: DATA_BELONGS_TO,
-            cart_sip_start_date: stpStartDate,
-            no_of_installments: noOfInstallment
-          },
-          to_data: {
-            cart_scheme_code: toschemecode,
-            cart_amount: amount,
-            cart_units: "0",
-            user_id: getUserId(),
-            cart_purchase_type: "STI",
-            data_belongs_to: DATA_BELONGS_TO,
-            cart_sip_start_date: stpStartDate,
-          },
-        }
+        from_data: {
+          cart_scheme_code: schemeCode,
+          cart_amount: amount,
+          cart_units: "0",
+          user_id: getUserId(),
+          cart_purchase_type: "STO",
+          data_belongs_to: DATA_BELONGS_TO,
+          cart_sip_start_date: stpStartDate,
+          no_of_installments: noOfInstallment
+        },
+        to_data: {
+          cart_scheme_code: toschemecode,
+          cart_amount: amount,
+          cart_units: "0",
+          user_id: getUserId(),
+          cart_purchase_type: "STI",
+          data_belongs_to: DATA_BELONGS_TO,
+          cart_sip_start_date: stpStartDate,
+        },
+      }
 
       var response = await AddStpToCart(payload);
       if (response.status_code * 1 === 200) {
@@ -1547,26 +1680,24 @@ const PortfolioFund = (props) => {
     const selectedDate = new Date(startDateStp);
     const day = selectedDate.getDate();
 
-    var minimumAmount = schemedetails.lumsump_minimum_amount;
-    var minimumInstallmentCount = schemedetails.astp_min_installment_number;
-    var maximumInstallmentCount = schemedetails.astp_max_installment_number;
-    var stpAllowedDates = schemedetails.stp_dates?.split('|').map(num => parseInt(num, 10)) ?? [];
-    var error_message = "";
-    if (schemedetails == "") {
-      error_message = "Please select scheme.";
-    } else if (currAmount == "") {
-      error_message = "Please enter amount.";
-    } else if (Number(currAmount) < Number(minimumAmount)) {
-      error_message = "The minimum amount to start an STP for this fund is " + minimumAmount;
-    } else if (!stpAllowedDates.includes(day)) {
+    const stpAllowedDates =
+      schemedetails?.stp_dates
+        ?.split("|")
+        .map((num) => parseInt(num, 10)) || [];
+
+    let error_message = "";
+
+    if (!stpAllowedDates.includes(day)) {
       error_message = "Selected date is not allowed for STP";
-    } else if (noOfInstallment < minimumInstallmentCount) {
-      error_message = "Minimum number of installment should be " + minimumInstallmentCount;
-    } else if (noOfInstallment > maximumInstallmentCount) {
-      error_message = "Maximum number of installment should be " + maximumInstallmentCount;
+    } else {
+      const validation = validateStpTransaction();
+
+      if (!validation.isValid) {
+        error_message = validation.message;
+      }
     }
 
-    if (error_message != "") {
+    if (error_message) {
       dispatch({
         type: "RENDER_TOAST",
         payload: {
@@ -1576,15 +1707,21 @@ const PortfolioFund = (props) => {
         },
       });
       return;
-    } else {
-      setStepCount(1);
     }
-  }
+
+    setStepCount(1);
+  };
 
   const handleSWPTransaction = () => {
     var error_message = "";
-    if (Number(currentSWPAmount) < Number(fundDetails?.min_redemption_amt)) {
-      error_message = "The minimum amount to start an SWP for this fund is " + fundDetails?.min_redemption_amt;
+    if (!startDateSwp) {
+      error_message = "Please select start date";
+      setValidStartSwpDate(false);
+    } else if (!endDateSwp) {
+      error_message = "Please select end date";
+      setValidEndDate(false);
+    } else if (Number(currentSWPAmount) < Number(fundDetails?.redemption_mininum_investment)) {
+      error_message = "The minimum amount to start an SWP for this fund is " + fundDetails?.redemption_mininum_investment;
       setValidSwpAmount(false);
     }
 
@@ -1606,7 +1743,12 @@ const PortfolioFund = (props) => {
 
   const setBtnState = () => {
     if (!Array.isArray(memberData) || memberData.length === 0) return;
-    if (!Array.isArray(fundDetails) || fundDetails?.length === 0) return;
+    if (
+      !fundDetails ||
+      (Array.isArray(fundDetails) && fundDetails.length === 0)
+    ) {
+      return;
+    }
 
     const investorName = fundDetails?.investor_name
       ?.toLowerCase()
@@ -1651,6 +1793,10 @@ const PortfolioFund = (props) => {
       setOperationsBtnMsg("");
     }
   };
+
+  const minInstallments = Number(
+    schemedetails?.astp_min_installment_number || 0
+  );
 
   useEffect(() => {
     setBtnState();
@@ -1808,6 +1954,7 @@ const PortfolioFund = (props) => {
                           } else {
                             if (profilePercentage === 100) {
                               setOpenModalByName("swp");
+                              handlePrimaryBank();
                               setStepCount(0);
                               swpDates();
                             } else {
@@ -2940,11 +3087,14 @@ const PortfolioFund = (props) => {
                                 step="any"
                               />
                             </div>
-                            {validAmount ? (
-                              <> </>
-                            ) : (
-                              <p className="red-color"> Invalid Amount </p>
-                            )}
+                              {validAmount ? (
+                                <> </>
+                              ) : (
+                                <p className="red-color">
+                                  {" "}
+                                  {switchText + elssText}{" "}
+                                </p>
+                              )}
 
                             {defaultValuesAmount ? (
                               <> </>
@@ -3063,7 +3213,9 @@ const PortfolioFund = (props) => {
 
                   <div
                     className={
-                      btnClick
+                      btnClick &&
+                        Number(currAmount || 0) >=
+                        Number(fundDetails?.redemption_mininum_investment || 0)
                         ? "mt-3 switch-fund-btn mobile-bottom-button"
                         : "mt-3 switch-fund-btn mobile-bottom-button disabled"
                     }
@@ -3127,7 +3279,6 @@ const PortfolioFund = (props) => {
                       </div>
                     </div>
                   </div>
-                  <p style={{ color: 'red', fontSize: "1.3rem" }}>{allRedeemKey == 'Y' && <>Are you sure you want to redeem <b>all your units?</b> </>} </p>
                   <div className="d-flex text-center white-modal-btn-box mobile-bottom-button">
                     <div
                       className="w-50 cancel"
@@ -3147,6 +3298,7 @@ const PortfolioFund = (props) => {
                       Yes Proceed
                     </div>
                   </div>
+                   <p style={{ color: 'red', fontSize: "1.2rem" }}>{allRedeemKey == 'Y' && <>Are you sure you want to redeem <b>all your units?</b> </>} </p>
                 </div>
               </div>
             </Modal.Body>
@@ -3443,6 +3595,7 @@ const PortfolioFund = (props) => {
         )}
         {stepCount == 2 && (
           <PortfolioOtpModal
+            detailedMfPotfolio={detailedMfPotfolio}
             value={[selectedScheme, transactionId, cartId]}
             label={"Confirm SWP"}
             transaction_id={swpTrxId}
@@ -3614,13 +3767,30 @@ const PortfolioFund = (props) => {
                                 className="bottom-border-input w-100"
                                 onChange={handleInstallmentChange}
                                 step="any"
-                              />
-                            </div>
-                            <p className="red-color">Minimum {minInstallmentText} Installments Required</p>
+                                />
+                              </div>
+                              {schemedetails && Number(currAmount) > 0 && (
+                                <p
+                                  className="mb-1"
+                                  style={{
+                                    color: "#fd7e14",
+                                    fontSize: "13px",
+                                    fontWeight: "500",
+                                  }}
+                                >
+                                  Allowed installments: {minInstallments} - {schemedetails?.astp_max_installment_number}
+                                </p>
+                              )}
+                              {noOfInstallment > 0 &&
+                                noOfInstallment < minInstallments && (
+                                  <p className="red-color">
+                                    Minimum {minInstallments} Installments Required
+                                  </p>
+                                )}
                           </div>
                         </div>
                         <div className="row pt-3">
-                          <p className="mb-0">Monthly Recurring STP amount: ₹ {monthlyRecurringStpAmount}/-</p>
+                          <p className="mb-0">Monthly Recurring STP amount: ₹ {currAmount}/-</p>
                         </div>
                       </div>
                     </>
@@ -3700,7 +3870,7 @@ const PortfolioFund = (props) => {
                       </div>
                       <div className="row pt-4">
                         <p className="mb-0">
-                          Monthly Recurring STP amount: <strong>₹ {monthlyRecurringStpAmount}/-</strong>
+                          Monthly Recurring STP amount: <strong>₹ {currAmount}/-</strong>
                         </p>
                       </div>
                     </div>
@@ -3727,6 +3897,7 @@ const PortfolioFund = (props) => {
         )}
         {stepCount == 2 && (
           <PortfolioOtpModal
+            detailedMfPotfolio={detailedMfPotfolio}
             value={[
               { folio_no: fundDetails?.folio_no, scheme: fundDetails?.scheme, cartIdRef: cartIdRef.current },
             ]}

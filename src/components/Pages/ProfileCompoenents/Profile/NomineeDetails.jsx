@@ -45,6 +45,14 @@ const TOAST_TYPE = {
 
 const TIMER_INTERVAL = 1000;
 
+const sanitizeAddress = (value) => {
+  return value
+    ?.replace(/[\r\n]+/g, " ")
+    .replace(/\s+/g, " ")
+    .replace(/[^a-zA-Z0-9\s,.\-/]/g, "")
+    .trimStart();
+};
+
 function NomineeDetails(props) {
   const [countryStateCity, setSountryStateCity] = useState({
     countries: [],
@@ -423,9 +431,9 @@ function NomineeDetails(props) {
         user_id: getUserId(),
         nominee_email: nominee_email,
         nominee_mobile: nominee_mobile,
-        nominee_address_line_1: nominee_address1,
-        nominee_address_line_2: nominee_address2,
-        nominee_address_line_3: nominee_address3,
+        nominee_address_line_1: sanitizeAddress(nominee_address1),
+        nominee_address_line_2: sanitizeAddress(nominee_address2),
+        nominee_address_line_3: sanitizeAddress(nominee_address3),
         nominee_pincode: nominee_pincode,
         nominee_city: nominee_city_id,
         nominee_state: nominee_state_id,
@@ -471,9 +479,9 @@ function NomineeDetails(props) {
         user_id: getUserId(),
         nominee_email: nominee_email,
         nominee_mobile: nominee_mobile,
-        nominee_address_line_1: nominee_address1,
-        nominee_address_line_2: nominee_address2,
-        nominee_address_line_3: nominee_address3,
+        nominee_address_line_1: sanitizeAddress(nominee_address1),
+        nominee_address_line_2: sanitizeAddress(nominee_address2),
+        nominee_address_line_3: sanitizeAddress(nominee_address3),
         nominee_pincode: nominee_pincode,
         nominee_city: nominee_city_id,
         nominee_state: nominee_state_id,
@@ -1088,11 +1096,18 @@ function NomineeDetails(props) {
                         rows={2}
                         className="NomineeName shadow-none"
                         value={nominee_address1}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          setNominee_address1(value);
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                          }
+                        }}
 
-                          if (value.trim() !== "") {
+                        onChange={(e) => {
+                          const cleanedValue = sanitizeAddress(e.target.value);
+
+                          setNominee_address1(cleanedValue);
+
+                          if (cleanedValue.trim() !== "") {
                             setError((prev) => ({
                               ...prev,
                               nominee_address1: "",
@@ -1119,11 +1134,15 @@ function NomineeDetails(props) {
                         rows={2}
                         className="NomineeName shadow-none"
                         value={nominee_address2}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          setNominee_address2(value);
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") e.preventDefault();
+                        }}
 
-                          if (value.trim() !== "") {
+                        onChange={(e) => {
+                          const cleanedValue = sanitizeAddress(e.target.value);
+                          setNominee_address2(cleanedValue);
+
+                          if (cleanedValue.trim() !== "") {
                             setError((prev) => ({
                               ...prev,
                               nominee_address2: "",
@@ -1150,11 +1169,16 @@ function NomineeDetails(props) {
                         rows={2}
                         className="NomineeName shadow-none"
                         value={nominee_address3}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          setNominee_address3(value);
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") e.preventDefault();
+                        }}
 
-                          if (value.trim() !== "") {
+                        onChange={(e) => {
+                          const cleanedValue = sanitizeAddress(e.target.value);
+
+                          setNominee_address3(cleanedValue);
+
+                          if (cleanedValue.trim() !== "") {
                             setError((prev) => ({
                               ...prev,
                               nominee_address3: "",

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  FaMoneyBillTrendUp,
-  FaSackDollar,
+  FaChartLine,
+  FaPiggyBank,
   FaGlobe,
-} from "react-icons/fa6";
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export default function CalculatorsPreview() {
@@ -13,13 +13,13 @@ export default function CalculatorsPreview() {
 
   const cards = [
     {
-      icon: <FaMoneyBillTrendUp className="tw-text-white" />,
+      icon: <FaChartLine className="tw-text-white" />,
       title: "Tax Planning",
       desc: "Optimize tax savings with expert advice.",
       link: "/tax-planning-page",
     },
     {
-      icon: <FaSackDollar className="tw-text-white" />,
+      icon: <FaPiggyBank className="tw-text-white" />,
       title: "Mutual Fund At Zero Cost",
       desc: "Invest in 2500+ mutual funds at 0% commission.",
       link: "/direct-mutual-fund/funds/all",

@@ -149,16 +149,21 @@ export default function RenewalNotice() {
           user_id: parentUserId,
           data_belongs_to: DATA_BELONGS_TO,
         });
+        const fpPlans = res?.data?.filter((item) =>
+          ["fp_expert", "fp_robo"].includes(item?.service_type)
+        ) || [];
 
-        const plan = res?.data;
-       const daysUntilExpiry = getDaysUntilExpiry(plan?.plan_expiry_date);
-        if (!plan?.plan_expiry_date || daysUntilExpiry === null) return;
+        if (fpPlans.length === 0) return;
+
+        const daysUntilExpiry = getDaysUntilExpiry(fpPlans[0].plan_expiry_date);
+
+        if (daysUntilExpiry === null) return;
 
         if (daysUntilExpiry < 0) {
           setRenewalPlan(plan);
           setShowRenewalPopup(true);
         }
-      } catch {}
+      } catch { }
     };
 
     checkRenewalStatus();

@@ -42,9 +42,17 @@ const numericRegex = new RegExp(/^\d*\.?\d*$/);
 // Helper function to format number with commas
 const formatNumberWithCommas = (value) => {
   if (!value || value === "" || value === "0") return value;
-  const num = String(value).replace(/,/g, "");
-  if (isNaN(num)) return value;
-  return Number(num).toLocaleString("en-IN", { maximumFractionDigits: 2 });
+  const cleanValue = String(value).replace(/,/g, "");
+  if (isNaN(cleanValue)) return value;
+
+  const [integerPart, decimalPart] = cleanValue.split(".");
+  const formattedInteger = Number(integerPart || 0).toLocaleString("en-IN");
+
+  if (cleanValue.includes(".")) {
+    return `${formattedInteger}.${decimalPart ?? ""}`;
+  }
+
+  return formattedInteger;
 };
 
 // Helper function to remove commas from formatted number

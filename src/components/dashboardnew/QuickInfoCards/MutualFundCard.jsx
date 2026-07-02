@@ -348,17 +348,19 @@ export default function MutualFundCard() {
        * EXPECTED:
        * res.data.plan_expiry_date
        */
-      const plan = res?.data;
+      const plan = res?.data?.find((item) =>
+        ["fp_expert", "fp_robo"].includes(item?.service_type)
+      );
 
-    if (plan && isPlanActive(plan.plan_expiry_date)) {
-      setIsPaidUser(true);
-      console.log("Plan is active");
-      return true;
-    } else {
-      setIsPaidUser(false);
-      console.log("Plan expired or not found");
-      return false;
-    }
+      if (plan && isPlanActive(plan.plan_expiry_date)) {
+        setIsPaidUser(true);
+        console.log("Plan is active");
+        return true;
+      } else {
+        setIsPaidUser(false);
+        console.log("Plan expired or not found");
+        return false;
+      }
   } catch (err) {
     console.error("Payment check failed", err);
     setIsPaidUser(false);

@@ -27,6 +27,7 @@ function MfFilterSidePanel({
     setMainData,
     mfListDataCopy,
     fetchFundsData,
+    fetchDashboardData,
     resetFilterTriggerState,
     setResetFilterTriggerState
 }) {
@@ -153,6 +154,7 @@ function MfFilterSidePanel({
 
     const resetFilter = async () => {
         try {
+            fetchDashboardData(null, null);
             let new_array = getItemLocal("family") ? familyArray("pan") : [];
 
             if (getParentUserId() == null) {
@@ -227,6 +229,15 @@ function MfFilterSidePanel({
         };
 
         try {
+            const query_filter = {
+                amc_names: filterState.amcNames,
+                category: filterState.fundsCategory,
+                scheme_type: filterState.type !== 'All' ? filterState.type : null,
+                platform: filterState.platform !== 'All' ? filterState.platform : null,
+            };
+
+            fetchDashboardData(query_filter, filterState.sort);
+
             const res = await getMfSummaryPortfolio(payload);
 
             const apiData = res.data?.fund_list || [];

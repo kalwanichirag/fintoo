@@ -817,7 +817,7 @@ const MainHeader = (props) => {
                             Tax Planning
                           </Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link
                             target="_self"
                             onClick={() => setOpenMenu(false)}
@@ -825,7 +825,7 @@ const MainHeader = (props) => {
                           >
                             Tax Calculators
                           </Link>
-                        </li>
+                        </li> */}
                       </ul>
                     )}
                   </li>
@@ -1096,17 +1096,15 @@ const MainHeader = (props) => {
                     </div>
                     <div className={styles["submenu-container"]}>
                       <ul className={styles.submenu}>
-                        {/* {process.env.REACT_APP_MODE != "live" && (
-                          <li>
-                            <Link
-                              className={` ${styles["link-url"]} main_header_link_url`}
-                              to={`${process.env.PUBLIC_URL}/itr-file?utm_service=91&utm_source=26&tags=itr_filing_2025&rm_id=96`}
-                              onClick={() => toggleLoader()}
-                            >
-                              File your ITR
-                            </Link>
-                          </li>
-                        )} */}
+                        <li>
+                          <Link
+                            className={` ${styles["link-url"]} main_header_link_url`}
+                            to={`${process.env.PUBLIC_URL}/itr-file?utm_service=91&utm_source=26&tags=itr_filing_2026&rm_id=96`}
+                            onClick={() => toggleLoader()}
+                          >
+                            File your ITR
+                          </Link>
+                        </li>
                         <li>
                           <Link
                             className={` ${styles["link-url"]} main_header_link_url`}
@@ -1134,7 +1132,7 @@ const MainHeader = (props) => {
                             Tax Planning
                           </Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link
                             className={` ${styles["link-url"]} main_header_link_url`}
                             to={`${process.env.PUBLIC_URL}/tax-calculators`}
@@ -1142,7 +1140,7 @@ const MainHeader = (props) => {
                           >
                             Tax Calculators
                           </Link>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   </li>

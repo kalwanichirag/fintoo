@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Fail from "../../Assets/failed_Payment.png";
 import MainLayout from "../../Layout/MainLayout";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const PaymentFailed = () => {
@@ -11,12 +11,18 @@ const PaymentFailed = () => {
   const [textDesc, setTextDesc] = useState("");
   const [btnUrl, setBtnUrl] = useState(`${process.env.PUBLIC_URL}/direct-mutual-fund/mycart`);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const apiErrorMessage = location?.state?.errorMessage;
 
   const onLoadInIt = async () => {
     if (searchParams.get("a") == "Switch" || searchParams.get("a") == "Redeem" || searchParams.get("a") == "NEFT" || searchParams.get("a") == "StopSIP" || searchParams.get("a") == "swp" || searchParams.get("a") == "Mandate" || searchParams.get("a") == "stp" ) {
       dispatch({ type: "FORCE_UPDATE_CART_COUNT", payload: true });
       setTextNew("Oops! Something went wrong.");
-      setTextDesc("Please retry or try again after sometime.");
+      setTextDesc(
+        apiErrorMessage
+          ? `Remark: ${apiErrorMessage}`
+          : "Please retry or try again after sometime."
+      );
     }else if(searchParams.get("a") == "itr"){
       dispatch({ type: "FORCE_UPDATE_CART_COUNT", payload: true });
       setTextNew("Your Payment Failed !");

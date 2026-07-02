@@ -1,27 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./style.module.css";
-
-import refresh_captcha from "../../../Assets/Images/main/refresh_captcha.png";
-import captcha from "../../../Assets/Images/main/captcha.png";
 import Select from "react-select";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   getUserId,
   loginRedirectGuest,
   getParentUserId,
-  apiCall,
   getItemLocal,
   setItemLocal,
 } from "../../../common_utilities";
 import { DATA_BELONGS_TO, imagePath } from "../../../constants";
 import FintooDatePicker from "../../../components/HTML/FintooDatePicker";
 import moment from "moment";
+import { Modal as ReactModal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
 import SimpleReactValidator from "simple-react-validator";
 import ApplyWhiteBg from "../../../components/ApplyWhiteBg";
 import HideFooter from "../../../components/HideFooter";
 import HideHeader from "../../../components/HideHeader";
 import FintooLoader from "../../../components/FintooLoader";
+import { addUpdateITRUserDetails, fetchUserProfileDetails, generateLead, getFamilyMember, updateBasicDetails } from "../../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import { fetchPanStatus } from "../../../FrappeIntegration-Services/services/master-api/masterApiService";
+import { Getpaymentstatus } from "../../../FrappeIntegration-Services/services/payment-api/paymentapiService";
 
 function ITRRegister() {
   const simpleValidator = useRef(
@@ -57,16 +58,44 @@ function ITRRegister() {
   const [itrDisabled, setItrDisabled] = useState(false);
   const [itrOnly, setItrOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpenReKycModal, setIsOpenReKycModal] = useState(false);
   const [, forceUpdate] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userid = getUserId();
+  const plan = getItemLocal("pid");
 
   const selectGender = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
   ];
 
+  const handleReKycModalClose = () => {
+    setIsOpenReKycModal(false);
+    setItrDisabled(false);
+  };
+
+  const ITRPayment = async () => {
+    try {
+
+      const paymentRes = await Getpaymentstatus({
+        user_id: itrUserId,
+        data_belongs_to: DATA_BELONGS_TO,
+      });
+
+      const hasItrFilingPlan =
+        paymentRes?.status_code === 200 &&
+        paymentRes?.data?.some(
+          (item) => item?.service_type === "itr_filing"
+        );
+
+      if (!hasItrFilingPlan) {
+        navigate(`${process.env.PUBLIC_URL}/itr-file`);     
+      }
+    } catch (error) {
+      console.error("Failed to fetch payment status:", error);
+    }
+  };
   useEffect(() => {
     // if (getUserId() == null) {
     //   loginRedirectGuest();
@@ -75,14 +104,7 @@ function ITRRegister() {
     if (!userid) {
       loginRedirectGuest();
     }
-
-
-    try {
-      let plan = getItemLocal("pid");
-      if (!plan) navigate(`${process.env.PUBLIC_URL}/itr-file`);
-    } catch {
-      navigate(`${process.env.PUBLIC_URL}/itr-file`);
-    }
+    ITRPayment();
     document.body.classList.add("bg-color");
     onLoadInit();
     return () => {
@@ -90,10 +112,9 @@ function ITRRegister() {
     };
   }, []);
 
-
-
   const onLoadInit = async () => {
     try {
+      const GUEST_MESSAGE = "Your session has been expired. Please login to continue";
       if (getUserId() == null) {
         dispatch({
           type: "RENDER_TOAST",
@@ -115,21 +136,16 @@ function ITRRegister() {
 
   const fetchMembers = async () => {
     try {
-      const resp = await apiCall('', {
-        user_id: getParentUserId(),
-        data_belongs_to: DATA_BELONGS_TO,
-      });
+      const resp = await getFamilyMember(getParentUserId());
       const all = resp.data.map((v) => ({
-        name: v.NAME ? v.NAME : v.fdmf_email,
-        id: v.id,
-        fp_log_id: v.fp_log_id,
-        parent_user_id: v.parent_user_id,
+        value: v.user_id,
+        label: v.user_name || v.user_email,
+        name: v.user_name ? v.user_name : v.user_email,
+        id: v.user_id,
+        parent_user_id: v.user_parent_id,
         pan: v.pan,
-        mobile: v.mobile,
-        email: v.fdmf_email,
-        fp_user_details_id: v.fp_user_details_id,
-        label: v.NAME ? v.NAME : v.fdmf_email,
-        value: v.id,
+        mobile: v.mobile_number,
+        email: v.user_email,
       }));
       setAllMembers([...all]);
     } catch (e) {
@@ -138,146 +154,272 @@ function ITRRegister() {
   };
 
   const updateUserData = async (userId) => {
-    // try {
-    //   setItrOnly(false);
-    //   setDisabled(false);
-    //   let req_data = { user_id: userId };
-    //   let resp = await apiCall(
-    //     TAX_GET_USER_PERSONAL_DETAILS_API_URL,
-    //     req_data
-    //   );
-    //   if (resp["error_code"] != "100") {
-    //     setFname("");
-    //     setLname("");
-    //     setPan("");
-    //     setMobile("");
-    //     setEmail("");
-    //     setGender("");
-    //     setDob(null);
-    //     dispatch({
-    //       type: "RENDER_TOAST",
-    //       payload: { message: resp["message"], type: "error" },
-    //     });
-    //     return;
-    //   }
+    try {
+      setItrOnly(false);
+      setDisabled(false);
 
-    //   if (resp?.data["bse_reg"] == "Y") {
-    //     setItrOnly(true);
-    //     setDisabled(true);
-    //   } else {
-    //     checkPanStatus(resp?.data["pan"]);
-    //   }
+      const result = await fetchUserProfileDetails(userId);
 
-    //   setFname(resp?.data["name"]);
-    //   setLname(resp?.data["last_name"]);
-    //   setPan(resp?.data["pan"]);
-    //   setMobile(resp?.data["mobile"]);
-    //   setEmail(resp?.data["email"]);
-    //   setGender(resp?.data["gender"].toLowerCase());
+      if (result?.status_code !== 200) {
+        setFname("");
+        setLname("");
+        setPan("");
+        setMobile("");
+        setEmail("");
+        setGender("");
+        setDob(null);
 
-    //   if (resp.data["dob"] != "") {
-    //     try {
-    //       setDob(moment(resp.data["dob"], "YYYY-MM-DD").toDate());
-    //     } catch (e) {
-    //       setDob(moment(resp.data["dob"], "DD-MM-YYYY").toDate());
-    //     }
-    //   }
+        dispatch({
+          type: "RENDER_TOAST",
+          payload: {
+            message: result?.message || "Unable to fetch user details",
+            type: "error",
+          },
+        });
+        return;
+      }
 
-    // } catch (e) {
-    //   console.error(e);
-    // }
+      const data = result?.data || {};
+      const fullName = data?.user_name || "";
+      const firstName = fullName.split(" ")[0] || "";
+      const lastName =
+        data?.last_name ||
+        fullName.split(" ").slice(1).join(" ") ||
+        "";
+
+      if (data?.user_bse_registered === 1) {
+        setItrOnly(true);
+        setDisabled(true);
+      }
+
+      setFname(firstName);
+      setLname(lastName);
+      setPan(data?.user_pan || "");
+      setMobile(data?.mobile || "");
+      setEmail(data?.user_email || "");
+      setGender(data?.user_gender || "");
+
+      if (data?.user_dob) {
+        setDob(moment(data.user_dob, "YYYY-MM-DD").toDate());
+      } else {
+        setDob(null);
+      }
+    } catch (error) {
+      console.error("updateUserData error:", error);
+    }
   };
 
   const checkPanStatus = async (inputPan) => {
     try {
-      let url = DMF_GETPANSTATUS_API_URL;
-      let reqData = {
+      const payload = {
         pan: inputPan,
         user_id: selectedUser,
         data_belongs_to: DATA_BELONGS_TO,
       };
 
-      let respData = await apiCall(url, reqData);
-      if (respData["error_code"] === "100") {
-        let name =
-          respData["data"]["kyc_name"] !== ""
-            ? respData["data"]["kyc_name"]
-            : "";
+      const respData = await fetchPanStatus(payload);
+
+      if (respData?.status_code === 200) {
+        const name = respData?.data?.kyc_name || "";
+
         if (name) {
-          setFname(name.split(" ").slice(0, 1).join(" "));
-          setLname(name.split(" ").slice(1).join(" "));
-          setItrDisabled(true);
+          setFname(name.split(" ")[0] || "");
+          setLname(name.split(" ").slice(1).join(" ") || "");
         }
+
+        return true;
       }
-    } catch (err) { }
+
+      if (respData?.status_code === 400) {
+        const message = respData?.message || "";
+
+        if (message.includes("already associated")) {
+          dispatch({
+            type: "RENDER_TOAST",
+            payload: {
+              message,
+              type: "error",
+            },
+          });
+
+          setItrDisabled(false);
+          return false;
+        }
+
+        if (message.includes("KYC not verified")) {
+          setIsOpenReKycModal(true);
+          return false;
+        }
+
+        dispatch({
+          type: "RENDER_TOAST",
+          payload: {
+            message,
+            type: "error",
+          },
+        });
+
+        return false;
+      }
+
+      if (respData?.status_code === 500) {
+        setIsOpenReKycModal(true);
+        return false;
+      }
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   };
 
   const handleSubmit = async () => {
+    let formValid = simpleValidator.current.allValid();
+    simpleValidator.current.showMessages();
+    forceUpdate(1);
 
-    // let formValid = simpleValidator.current.allValid();
-    // simpleValidator.current.showMessages();
-    // forceUpdate(1);
-    // if (formValid == false) return;
-    // var dateFormat =
-    //   dob.getFullYear() + "-" + (dob.getMonth() + 1) + "-" + dob.getDate();
-    // let url = TAX_UPDATE_USER_DETAILS_API_URL;
-    // let req_data = {
-    //   user_id: "" + selectedUser,
-    //   pan: "" + pan,
-    //   first_name: "" + fname,
-    //   last_name: "" + lname,
-    //   email: "" + email,
-    //   mobile: "" + mobile,
-    //   gender: "" + gender.toLowerCase(),
-    //   dob: "" + dateFormat,
-    //   is_direct: "" + IS_DIRECT,
-    //   // kyc_user_name: "" + fname + " " + lname,
-    //   // kyc_verified: "" + kycVerified,
-    // };
-    // if (itrOnly) req_data["itr_only"] = "1";
-    // setItemLocal("pd", req_data);
+    if (!formValid) return;
 
-    // let resp_data = await apiCall(url, req_data);
+    try {
+      setIsLoading(true);
+      const isPanValid = await checkPanStatus(pan.trim().toUpperCase());
 
-    // if (resp_data["error_code"] == "100") {
-    //   setIsLoading(true);
-    //   const result = await apiCall(TAX_GET_USER_PAYMENT_STATUS_API_URL, { "check_payment": 1, "assessment_year": ASSESSMENT_YEAR, "user_id": selectedUser });
-    //   if (result["error_code"] == "100") {
-    //     setIsLoading(false);
-    //     navigate(`${process.env.PUBLIC_URL}/itr-upload-docs`);
-    //     dispatch({
-    //       type: "RENDER_TOAST",
-    //       payload: { message: result["message"], type: "success" },
-    //     });
-    //     return;
-    //   } else {
-    //     setIsLoading(false);
-    //     navigate(`${process.env.PUBLIC_URL}/itr-plan-subscription`);
-    //     dispatch({
-    //       type: "RENDER_TOAST",
-    //       payload: { message: resp_data["message"], type: "success" },
-    //     });
-    //     return;
-    //   }
-    // } else if (resp_data["error_code"] == "102") {
-    //   dispatch({
-    //     type: "RENDER_TOAST",
-    //     payload: { message: resp_data["message"], type: "error" },
-    //   });
-    //   return;
-    // }
+      if (!isPanValid) {
+        setIsLoading(false);
+        return;
+      }
 
-    // dispatch({
-    //   type: "RENDER_TOAST",
-    //   payload: { message: "Something went wrong!", type: "error" },
-    // });
+      const selectedMember = allMembers.find(
+        (member) => String(member.value) === String(selectedUser)
+      );
+
+      const leadPayload = {
+        "user_id": selectedUser,
+        "source": "Website Callback",
+        "tag": "itr_filing_2026",
+        "email": email,
+        "mobile": mobile,
+        "full_name": selectedMember?.name || "",
+        "services": ["itr_filing"],
+        "data_belongs_to": DATA_BELONGS_TO,
+      }
+
+      const leadResponse = await generateLead(leadPayload);
+
+      const payload = {
+        user_id: selectedUser,
+        pan: pan,
+        email: email,
+        mobile: mobile,
+        gender: gender,
+        dob: moment(dob).format("YYYY-MM-DD"),
+        data_belongs_to: DATA_BELONGS_TO,
+      };
+      await updateBasicDetails(payload);
+
+      const response = await addUpdateITRUserDetails({
+        ...payload,
+        itr_only: "1",
+      });
+
+      if (response?.status_code === 200) {
+
+        if (window?.webengage?.track) {
+          const originalAmount = plan?.plan_description?.original_amount || plan?.plan_amount;
+          const listPrice = plan?.plan_amount || 0;
+          const discount = originalAmount - listPrice;
+           const params = new URLSearchParams(window.location.search);
+
+          window.webengage.track("personal details entered", {
+            url: window.location.href,
+            "list price": listPrice,
+            "MRP": originalAmount,
+            "list discount": discount > 0 ? discount : 0,
+            "plan name": plan?.plan_name || "",
+            "plan id": plan?.plan_uuid || "",
+            "service": plan?.service || "ITR Filing",
+            "lead id": leadResponse?.data?.lead_id || "",
+            "name": selectedMember?.name || "",
+            "email": email,
+            "utm_source": params.get("utm_source") || "",
+            "phone": mobile ? `+91${mobile}` : '',
+            "dob": dob ? dob: "",
+            "pan card": !!pan,
+            gender: gender || "",
+          });
+        }
+ 
+        setItemLocal("pd", {
+          ...payload,
+          full_name: selectedMember?.name || "",
+        });
+
+        const paymentRes = await Getpaymentstatus({
+          user_id: selectedUser,
+          data_belongs_to: DATA_BELONGS_TO,
+        });
+
+        setIsLoading(false);
+
+        const hasItrFilingPlan =
+          paymentRes?.status_code === 200 &&
+          paymentRes?.data?.some(
+            (item) => item?.service_type === "itr_filing"
+          );
+
+        if (hasItrFilingPlan) {
+          dispatch({
+            type: "RENDER_TOAST",
+            payload: {
+              message: "You have already purchased plan for ITR filing.",
+              type: "success",
+            },
+          });
+          navigate(`${process.env.PUBLIC_URL}/itr-upload-docs`);
+        } else {
+          dispatch({
+            type: "RENDER_TOAST",
+            payload: {
+              message:
+                response?.message ||
+                "User details updated successfully",
+              type: "success",
+            },
+          });
+
+          navigate(`${process.env.PUBLIC_URL}/itr-plan-subscription`);
+        }
+
+        return;
+      }
+
+      setIsLoading(false);
+
+      dispatch({
+        type: "RENDER_TOAST",
+        payload: {
+          message: response?.message || "Something went wrong!",
+          type: "error",
+        },
+      });
+    } catch (error) {
+      setIsLoading(false);
+
+      dispatch({
+        type: "RENDER_TOAST",
+        payload: {
+          message: "Something went wrong!",
+          type: "error",
+        },
+      });
+
+      console.error("handleSubmit error:", error);
+    }
   };
 
-  const handleChange = async (e) => {
-    try {
-      setSelectedUser(e?.value);
-      await updateUserData(e?.value.toString());
-    } catch (e) { }
+  const handleChange = ({ value }) => {
+    setSelectedUser(value);
+    updateUserData(String(value));
   };
 
   const customStyles = {
@@ -315,6 +457,82 @@ function ITRRegister() {
       <HideFooter />
       <HideHeader />
       <ApplyWhiteBg />
+      <ReactModal
+        classNames={{
+          modal: "ModalpopupContentWidth",
+        }}
+        open={isOpenReKycModal}
+        showCloseIcon={true}
+        center
+        animationDuration={0}
+        closeOnOverlayClick={false}
+        onClose={handleReKycModalClose}
+      >
+        <div>
+          <h3 className="text-center HeaderText">
+            Attention !
+          </h3>
+
+          <div
+            className="p-2"
+            style={{ fontSize: "1.2rem" }}
+          >
+            <p>Dear Client,</p>
+
+            <p>
+              We regret to inform you that your KYC is not verified.
+            </p>
+
+            <p>
+              Kindly complete the KYC process at your earliest
+              convenience.
+            </p>
+
+            <p>
+              Please{" "}
+              <a
+                href="https://investor-web.hdfcfund.com/kyc-verification"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleReKycModalClose}
+              >
+                Click Here
+              </a>{" "}
+              to initiate the KYC process.
+            </p>
+
+            <div
+            className="ButtonBx"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "10px",
+              }}
+            >
+              <button
+                className="ReNew"
+                onClick={() => {
+                  handleReKycModalClose();
+                  window.open(
+                    "https://investor-web.hdfcfund.com/kyc-verification",
+                    "_blank"
+                  );
+                }}
+              >
+                Verify KYC
+              </button>
+
+              <button
+                className="ReNew"
+                style={{ background: "#999" }}
+                onClick={handleReKycModalClose}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </ReactModal>
 
       <FintooLoader isLoading={isLoading} />
       <div>
@@ -322,12 +540,12 @@ function ITRRegister() {
           <div
             className={`${styles.back_arrow}`}
             onClick={() => {
-              navigate(-1);
+              navigate(`${process.env.PUBLIC_URL}/itr-plan`);
             }
             }
           >
             <img
-              src={imagePath + "/static/media/Images/userflow/icons/back-arrow.svg"}
+              src={imagePath + "/static/media/Images/icons/back-arrow.svg"}
               alt="Back Arrow"
             />
           </div>
@@ -372,7 +590,7 @@ function ITRRegister() {
                         </div>
                       </div>
                     </div>
-                    <div className="row justify-content-center">
+                    {/* <div className="row justify-content-center">
                       <div className="col-md-6">
                         <div
                           className={`${styles.material} ${styles.input} ${styles.placeholder}`}
@@ -406,8 +624,8 @@ function ITRRegister() {
                           )}
                         </div>
                       </div>
-                    </div>
-                    <div className="row justify-content-center">
+                    </div> */}
+                    {/* <div className="row justify-content-center">
                       <div className="col-md-6">
                         <div className={`${styles.material} ${styles.input}`}>
                           <input
@@ -439,7 +657,7 @@ function ITRRegister() {
                           )}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="row justify-content-center">
                       <div className="col-md-6">
                         <div className={`${styles.material} ${styles.input}`}>
@@ -451,9 +669,10 @@ function ITRRegister() {
                             id="Pan"
                             value={pan}
                             className="default-input"
-                            onChange={(e) => setPan(e.target.value)}
+                            onChange={(e) => setPan(e.target.value.toUpperCase())}
                             onBlur={() => {
                               simpleValidator.current.showMessageFor("pan");
+                              forceUpdate(1);
                             }}
                             disabled={disabled}
                           />

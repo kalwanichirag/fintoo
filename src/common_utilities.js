@@ -5,6 +5,8 @@ import Cookies from "js-cookie";
 import {
   imagePath,
   DATA_BELONGS_TO,
+  REGISTER_PAGE,
+  LOGIN_PAGE,
 } from "./constants";
 import { Buffer } from "buffer";
 import { validate } from "react-email-validator";
@@ -16,11 +18,13 @@ import { GetCartDetails, GetSchemeList } from "./FrappeIntegration-Services/serv
 import { Fetch_User_Mf_Profile_Status } from "./FrappeIntegration-Services/services/financial-planning-api/ndaflow";
 import { clearLocalStorageExcept } from "./Utils/storage";
 import { ValidateRedirection } from "./FrappeIntegration-Services/services/master-api/masterApiService";
+import { Getpaymentstatus } from "./FrappeIntegration-Services/services/payment-api/paymentapiService";
+import { GetDocumentDetails } from "./FrappeIntegration-Services/services/financial-planning-api/document";
 
 const handleCheckAllStatus = async (userId) => {
   try {
     const isCRM = localStorage.getItem("from_crm") === "1";
-    if (isCRM) return;
+
     if (userId) {
       const result = await check_all_status_api(userId);
 
@@ -47,6 +51,9 @@ const handleCheckAllStatus = async (userId) => {
             return;
           }
         }
+
+        if (isCRM) return;
+
       } else {
         console.error("Status check failed:", result?.message);
       }
@@ -120,7 +127,26 @@ const hanleprofileDetails = async (userId) => {
   }
 };
 
-export const kyc_fp_redirection = async (lead_id) => {
+export const hasValidFpAgreement = async (uid) => {
+  try {
+    const res = await GetDocumentDetails(uid, DATA_BELONGS_TO);
+
+    if (res?.status_code !== "200") {
+      return false;
+    }
+
+    const agreementDoc = res?.data?.find(
+      (d) => d.document_cat_uuid === "sign_desk_fp_agreement"
+    );
+
+    return !!agreementDoc;
+  } catch (error) {
+    console.error("Error checking FP agreement document:", error);
+    return false;
+  }
+};
+
+export const kyc_fp_redirection = async (lead_id, uid) => {
   try {
     if (!lead_id) return false;
 
@@ -145,7 +171,17 @@ export const kyc_fp_redirection = async (lead_id) => {
         localStorage.removeItem("kyc_rejection_message");
       }
 
-      if (message?.redirect_to_fp === 1 || message?.redirect_to_kyc === 1) {
+      if (message?.redirect_to_fp === 1) {
+        const agreementExists = await hasValidFpAgreement(uid);
+
+        if (agreementExists) {
+          return false;
+        }
+
+        return true;
+      }
+
+      if (message?.redirect_to_kyc === 1) {
         return true;
       }
     }
@@ -195,6 +231,7 @@ export const storeUserSession = async (queryParams) => {
         }
       });
       setItemLocal("family", 1);
+      window.history.replaceState({}, "", process.env.PUBLIC_URL + "/commondashboard");
       await handleCheckAllStatus(userData?.user_id);
       await handleGetFamilyMember(userData?.user_id);
       await hanleprofileDetails(userData?.user_id);
@@ -203,10 +240,34 @@ export const storeUserSession = async (queryParams) => {
       const user_Data = userDataString ? JSON.parse(userDataString) : {};
 
       if (isCRMUser) {
-        window.location.replace(
-          process.env.PUBLIC_URL + "/datagathering/verification-docs"
-        );
-        return;
+        const paymentRes = await Getpaymentstatus({
+          user_id: userData?.user_id,
+          data_belongs_to: DATA_BELONGS_TO
+        });
+
+        if (
+          paymentRes?.status_code === 200
+        ) {
+          const fpPlans = paymentRes?.data?.filter((item) =>
+            ["fp_expert", "fp_robo"].includes(item?.service_type)
+          ) || [];
+          if (fpPlans.length > 0) {
+            const shouldRedirectToVerification =
+              await kyc_fp_redirection(user_Data.user_lead_id, userData?.user_id);
+
+            if (shouldRedirectToVerification) {
+              window.location.replace(
+                process.env.PUBLIC_URL + "/datagathering/verification-docs"
+              );
+              return;
+            }
+
+            window.location.replace(
+              process.env.PUBLIC_URL + "/commondashboard"
+            );
+            return;
+          }
+        }
       }
 
       if (user_Data.mobile_verified === false) {
@@ -500,7 +561,7 @@ export const loginRedirectGuest = (src = "dmf", url = "", fromLoginBtn) => {
     var goToLink = window.location.origin + "/login";
     window.location = goToLink;
   }
-  return;
+  //return;
   localStorage.removeItem("userid");
   let lastVisitedUrl = localStorage.getItem("lastVisited");
   let t = url ? url : lastVisitedUrl ? lastVisitedUrl : window.location.href;
@@ -549,7 +610,7 @@ export const getLoginRegisterUrl = () => {
     curUrl.includes("/itr-file") ||
     curUrl.includes("/itr_2024")
   ) {
-    return REGISTER_PAGE;
+    return LOGIN_PAGE;
   }
   return LOGIN_PAGE;
 };

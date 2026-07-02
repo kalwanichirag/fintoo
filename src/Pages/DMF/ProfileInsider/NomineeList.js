@@ -47,6 +47,14 @@ function NomineeList(props) {
 
   const randomOTP = useRef(Math.floor(Math.random() * 90000) + 10000);
 
+  const sanitizeAddress = (value) => {
+    return value
+      ?.replace(/[\r\n]+/g, " ")
+      .replace(/\s+/g, " ")
+      .replace(/[^a-zA-Z0-9\s,.\-/]/g, "")
+      .trimStart();
+  };
+
   var userid = getUserId();
 
   const [removed, setRemoved] = useState(false);
@@ -999,7 +1007,21 @@ function NomineeList(props) {
                               rows={4}
                               maxlength="40"
                               value={nominee_address1}
-                              onChange={(e) => setNominee_address1(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") e.preventDefault();
+                              }}
+                              onChange={(e) => {
+                                const cleanedValue = sanitizeAddress(e.target.value);
+
+                                setNominee_address1(cleanedValue);
+
+                                if (cleanedValue.trim() !== "") {
+                                  setError((prev) => ({
+                                    ...prev,
+                                    nominee_address1: "",
+                                  }));
+                                }
+                              }}
                             />
                             {"nominee_address1" in error && (
                               <div className="invalid-feedback d-block">
@@ -1028,7 +1050,20 @@ function NomineeList(props) {
                               rows={4}
                               maxlength="40"
                               value={nominee_address2}
-                              onChange={(e) => setNominee_address2(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") e.preventDefault();
+                              }}
+                              onChange={(e) => {
+                                const cleanedValue = sanitizeAddress(e.target.value);
+                                setNominee_address2(cleanedValue);
+
+                                if (cleanedValue.trim() !== "") {
+                                  setError((prev) => ({
+                                    ...prev,
+                                    nominee_address2: "",
+                                  }));
+                                }
+                              }}
                             />
                             {"nominee_address2" in error && (
                               <div className="invalid-feedback d-block">
@@ -1057,7 +1092,21 @@ function NomineeList(props) {
                               rows={4}
                               maxlength="40"
                               value={nominee_address3}
-                              onChange={(e) => setNominee_address3(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") e.preventDefault();
+                              }}
+                              onChange={(e) => {
+                                const cleanedValue = sanitizeAddress(e.target.value);
+
+                                setNominee_address3(cleanedValue);
+
+                                if (cleanedValue.trim() !== "") {
+                                  setError((prev) => ({
+                                    ...prev,
+                                    nominee_address3: "",
+                                  }));
+                                }
+                              }}
                             />
                             {"nominee_address3" in error && (
                               <div className="invalid-feedback d-block">

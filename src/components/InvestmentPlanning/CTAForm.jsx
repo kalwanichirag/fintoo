@@ -42,7 +42,7 @@ export default function CTAForm({ formtype }) {
 
           {/* Right Side Calendly */}
           {formtype == "otp" ?  
-                            <LandingPageOtp pageName="Investment Planning"  variant="minimal" calendlyurl={"https://calendly.com/d/cxbp-w25-r83/15-minute-consultation-call-for-investment-planning?hide_event_type_details=1"}  />
+                            <LandingPageOtp pageName="Investment Planning" servicename={"assisted_advisory_fixed_fees"} variant="minimal" />
 
             :
             (

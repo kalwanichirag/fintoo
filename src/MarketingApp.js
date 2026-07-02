@@ -18,6 +18,7 @@ const FinancialAdvicePage = lazy(() => import("./Pages/financialadvicepage"));
 const InvestmentPlanningNewB = lazy(() => import("./Pages/Invest-planning-b/InvestmentPlannning"));
 const WomoneyaPage = lazy(() => import("./Pages/womoneya/WomoneyaPage"));
 const ThankYouPage = lazy(() => import("./Pages/Thankyoupage/Thankyoupage"));
+const ItrFilingThankYouPage = lazy(() => import("./Pages/Thankyoupage/ItrFilingThankYouPage"));
 const ReviewPage = lazy(() => import("./Pages/ReviewPage"));
 const PmsMarketingPage = lazy(() => import("./Pages/PmsMarketingPage/PmsMarketingPage"));
 const ItrLandingPage = lazy(() => import("./Pages/ItrLandingPage/ItrLandingPage"));
@@ -60,10 +61,23 @@ export default function MarketingApp() {
             <Route path="/womoneya" element={<WomoneyaPage />} />
             <Route path="/womoneya-choice" element={<WomoneyaPage variant="association" />} />
             <Route path="/thankyou-page" element={<ThankYouPage />} />
+            <Route path="/itr-filing-thankyou-page" element={<ItrFilingThankYouPage />} />
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/portfolio-management-services" element={<PmsMarketingPage />} />
-            <Route path="/itr-filing-corporate" element={<ItrLandingPage />} />
-            <Route path="/itr-filing-retail" element={<ItrFilingForEmployee />} />
+            <Route path="/itr-filing-partnerships" element={<ItrLandingPage />} />
+            <Route
+              path="/itr-filing-retail"
+              element={<ItrFilingForEmployee enablePlanPurchase />}
+            />
+            <Route
+              path="/itr-filing-corporate"
+              element={
+                <ItrFilingForEmployee
+                  prices={["999", "2,499", "4,499"]}
+                  bookingPageName="ITR Filing For Corporate"
+                />
+              }
+            />
           </Routes>
         </Suspense>
       </HelmetProvider>

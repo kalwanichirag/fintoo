@@ -12,11 +12,17 @@ const CALENDLY_TOKEN =
   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNjQ4MjExMjQ0LCJqdGkiOiJmMmM1YWIwOC01N2ZiLTQ0YzAtODNjYy1lM2QxZWZhZGY2YzMiLCJ1c2VyX3V1aWQiOiI0ODVhZTAyZC02ZGNiLTQ1MjktODdiYi01MGY2NDE3NGI4ZWYifQ.5bIIwHH3DTn1Vp7Oj6hZlLkVIbI1q7jxqFogGaGkb1g";
 const THANKYOU_URL = "https://www.fintoo.in/thankyou-page";
 
-const redirectToThankyouOnce = () => {
+const redirectAfterBookingOnce = (isItrBooking = false) => {
   if (window.__calendlyThankYouRedirecting) return;
   window.__calendlyThankYouRedirecting = true;
   showCalendlyRedirectLoader("Booking confirmed. Redirecting you to the next page...");
   setTimeout(() => {
+    if (isItrBooking) {
+      sessionStorage.setItem("showItrBookingThankYou", "true");
+      window.location.replace(`${process.env.PUBLIC_URL}/commondashboard`);
+      return;
+    }
+
     window.location.replace(THANKYOU_URL);
   }, 1200);
 };
@@ -30,7 +36,10 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
 
     /* ---------------- UTM ---------------- */
     const params = new URLSearchParams(window.location.search);
-    const utm_source = params.get("utm_source") || "Website";
+    const utm_source =
+      params.get("utm_source")
+      || localStorage.getItem("utm_source")
+      || "Direct";
     const utm_medium = params.get("utm_medium") || "Calendly";
     const utm_campaign = params.get("utm_campaign") || "";
     const tags = params.get("tags") || "";
@@ -146,6 +155,77 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
       calendly_duration: duration,
     };
 
+    if (scheduleData?.itrPage) {
+      const profile = scheduleData?.pd || {};
+      const plan = scheduleData?.planDetails || {};
+      const guests = invitee?.guests || [];
+      const guestEmail = (guest) =>
+        typeof guest === "string" ? guest : guest?.email || "";
+      const listPrice = Number(
+        plan?.list_price || plan?.mrp || plan?.plan_amount || 0
+      );
+      const mrp = Number(plan?.mrp || plan?.plan_amount || listPrice || 0);
+      const couponDiscount = Number(
+        plan?.coupon_discount || plan?.coupon_discount_amount || 0
+      );
+      const totalPayable = Number(
+        plan?.total_payable || plan?.total_amount || mrp || 0
+      );
+      const netPayable = Number(
+        plan?.net_payable
+        || plan?.payable_amount
+        || Math.max(0, totalPayable - couponDiscount)
+        || 0
+      );
+      const itrLeadId =
+        profile?.lead_id
+        || profile?.user_lead_id
+        || plan?.lead_id
+        || plan?.user_lead_id
+        || leadId
+        || "";
+      const service = scheduleData.serviceName || "ITR Filing";
+      const dobValue = profile?.dob || profile?.user_dob;
+      const dobParts =
+        typeof dobValue === "string"
+          ? dobValue.match(/^(\d{4})-(\d{2})-(\d{2})/)
+          : null;
+      const dob = dobParts
+        ? new Date(
+            Number(dobParts[1]),
+            Number(dobParts[2]) - 1,
+            Number(dobParts[3])
+          )
+        : dobValue
+          ? new Date(dobValue)
+          : null;
+      const itrEventPayload = {
+        "lead id": itrLeadId,
+        name: scheduleData.fullname || invitee.name || profile?.full_name || "",
+        email: scheduleData.email || invitee.email || profile?.email || "",
+        "guest emails[0].guest1": guestEmail(guests[0]),
+        "guest emails[0].guest2": guestEmail(guests[1]),
+        phone: scheduleData.mobileNumber || mobile || profile?.mobile || "",
+        calendly_event_name: calendlyEventName,
+        calendly_booking_date: startDate,
+        calendly_booking_time: bookingTime,
+        calendly_duration: duration,
+        utm_source,
+        ...(dob && !Number.isNaN(dob.getTime()) ? { dob } : {}),
+        gender: profile?.gender || profile?.user_gender || "",
+        "pan card": Boolean(profile?.pan || profile?.user_pan),
+        Service: service,
+        "total payable": totalPayable,
+        "net payable": netPayable,
+      };
+
+      window.webengage?.track("appointment scheduled", itrEventPayload);
+      window.webengage?.track("ITR filing completed", {
+        ...itrEventPayload,
+        service,
+      });
+    }
+
     console.group("%c[Calendly → WebEngage FINAL]", "color:#4caf50;font-weight:bold");
     console.log(webengagePayload, "webengagePayload");
     console.groupEnd();
@@ -205,6 +285,6 @@ export const calendlyCallbackFun = async (pageName, scheduleData, addIncomSlabAn
   } catch (e) {
     console.error("Error in calendlyCallbackFun:", e);
   } finally {
-    redirectToThankyouOnce();
+     redirectAfterBookingOnce(scheduleData?.itrPage);
   }
 };

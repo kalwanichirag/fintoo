@@ -11,7 +11,7 @@ import styles from './PinVerificationView.module.css';
 import { check_all_status_api, fetchUserProfileDetails, getFamilyMember, resetPin, sendOTP, userLogin, verifyOTP } from "../../../FrappeIntegration-Services/services/user-management-api/userApiService";
 import * as toastr from "toastr";
 import "toastr/build/toastr.css";
-import { getParentUserId, setItemLocal, setUserId } from "../../../common_utilities";
+import { getParentUserId, hasValidFpAgreement, setItemLocal, setUserId } from "../../../common_utilities";
 import { DATA_BELONGS_TO } from "../../../constants";
 import { AutoFetchFinvuData } from "../../../FrappeIntegration-Services/services/External-api/externalApi";
 import { get } from "react-scroll/modules/mixins/scroller";
@@ -119,7 +119,7 @@ const handleCheckAllStatus = async (userId) => {
     }
 };
 
-const kyc_fp_redirection = async (lead_id) => {
+const kyc_fp_redirection = async (lead_id, uid) => {
     try {
         if (!lead_id) {
             console.error("Lead ID not found.");
@@ -130,8 +130,18 @@ const kyc_fp_redirection = async (lead_id) => {
         const message = result?.data?.message;
 
         if (result?.status === 200 && message?.success) {
-            if (message?.redirect_to_fp === 1 || message?.redirect_to_kyc === 1) {
-                return true; // redirect required
+
+            if (message?.redirect_to_fp === 1) {
+
+                const agreementExists = await hasValidFpAgreement(uid);
+                if (agreementExists) {
+                    return false;
+                }
+                return true;
+            }
+
+            if (message?.redirect_to_kyc === 1) {
+                return true;
             }
         } else {
             console.error("Redirection validation failed:", result);
@@ -139,7 +149,8 @@ const kyc_fp_redirection = async (lead_id) => {
     } catch (error) {
         console.error("Error checking user status:", error);
     }
-    return false; // no redirect
+
+    return false;
 };
 
 const fetchFinvuData = async (user_id) => {
@@ -203,16 +214,21 @@ const PinVerification = ({ serCurrentView, userDetails, setIsAuthModalOpen, setv
                 await fetchFinvuData(userDetails.user_id)
                 const userDataString = localStorage.getItem("user_data");
                 const userData = userDataString ? JSON.parse(userDataString) : {};
-
+                
+                const redirectToThis = decodeURIComponent(
+                    localStorage.getItem("redirectToThis") || ""
+                );
 
                 let redirectUrl = `${process.env.PUBLIC_URL}/commondashboard`; // default
 
-                if (userData.mobile_verified === false) {
+                if (redirectToThis.includes("/itr-profile")) {
+                    redirectUrl = `${process.env.PUBLIC_URL}/itr-profile`;
+                } else if (userData.mobile_verified === false) {
                     redirectUrl = `${process.env.PUBLIC_URL}/mobile-verfication`;
                 } else if (userData.user_onboarding_status === false) {
                     redirectUrl = `${process.env.PUBLIC_URL}/onboard-flow`;
                 } else if (userData.user_lead_id) {
-                    const kycRedirect = await kyc_fp_redirection(userData.user_lead_id);
+                    const kycRedirect = await kyc_fp_redirection(userData.user_lead_id, userData?.user_id);
                     if (kycRedirect) {
                         redirectUrl = `${process.env.PUBLIC_URL}/datagathering/verification-docs`;
                     }

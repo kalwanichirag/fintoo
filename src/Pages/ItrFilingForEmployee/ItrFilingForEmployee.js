@@ -20,13 +20,21 @@ import {
 import Disclaimer from '../../components/retirement-planning/Disclaimer';
 import ClientReviews from '../../components/HTML/ClientReviews';
 
-export default function ItrFilingForEmployee() {
+export default function ItrFilingForEmployee({
+  prices,
+  bookingPageName,
+  enablePlanPurchase = false,
+}) {
   const pageRef = useRef(null);
   const [isStickyVisible, setIsStickyVisible] = useState(false);
 
-  const scrollToBooking = useCallback(() => {
-    document.getElementById('book')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, []);
+  const handleCtaClick = useCallback(() => {
+    const targetId = enablePlanPurchase ? 'pricing' : 'book';
+    document.getElementById(targetId)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }, [enablePlanPurchase]);
 
   useEffect(() => {
     const onScroll = () => setIsStickyVisible(window.scrollY > 600);
@@ -68,19 +76,23 @@ export default function ItrFilingForEmployee() {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </Helmet>
 
-      <StickyBar isVisible={isStickyVisible} onBook={scrollToBooking} />
-      <HeroSection onBook={scrollToBooking} />
-      <ProductShowcaseSection onBook={scrollToBooking} />
+      <StickyBar isVisible={isStickyVisible} onBook={handleCtaClick} />
+      <HeroSection onBook={handleCtaClick} />
+      <ProductShowcaseSection onBook={handleCtaClick} />
       
       <MistakesSection />
-      <ComparisonSection onBook={scrollToBooking} />
+      <ComparisonSection onBook={handleCtaClick} />
       <TimelineSection />
       <WhoSection />
-      <PricingSection onBook={scrollToBooking} />
-      <ChecklistSection onBook={scrollToBooking} />
+      <PricingSection
+        onBook={handleCtaClick}
+        prices={prices}
+        enablePlanPurchase={enablePlanPurchase}
+      />
+      <ChecklistSection onBook={handleCtaClick} />
       {/* <StatsSection /> */}
       <TestimonialsSection />
-      <BookingOtpSection />
+      {!enablePlanPurchase && <BookingOtpSection pageName={bookingPageName} />}
       
       {/* <FaqSection /> */}
       <Disclaimer/>

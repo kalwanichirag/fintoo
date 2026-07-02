@@ -41,11 +41,6 @@ function FatcaAdd(props) {
   const [osAddress, setOSAddress] = useState("");
   const [zipCode, setZipCode] = useState("");
 
-  const [isAutoFilled, setIsAutoFilled] = useState(false);
-  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const locationRef = useRef({});
-  const apiLocationRef = useRef();
-
   const dispatch = useDispatch();
   const [formObject, setFormObject] = useState({});
   const user_id = memberId();
@@ -53,22 +48,6 @@ function FatcaAdd(props) {
 
   const forceUpdate = () => {
     setTick((prev) => prev + 1);
-  };
-
-  const findMatchingIndex = (list, searchValue, key) => {
-    if (!searchValue || !list?.length) return -1;
-
-    let index = list.findIndex(item => item[key] === searchValue);
-    if (index === -1) {
-      index = list.findIndex(item => item[key].toLowerCase() === searchValue.toLowerCase());
-    }
-    if (index === -1) {
-      index = list.findIndex(item =>
-        item[key].toLowerCase().includes(searchValue.toLowerCase()) ||
-        searchValue.toLowerCase().includes(item[key].toLowerCase())
-      );
-    }
-    return index;
   };
 
   const getCountries = async () => {
@@ -94,21 +73,7 @@ function FatcaAdd(props) {
 
     try {
       const res = await GetStates(countryId);
-      const statesData = res.data || [];
-      setStates(statesData);
-
-      if (locationRef.current?.State) {
-        const index = findMatchingIndex(
-          statesData,
-          locationRef.current.State,
-          "state_name"
-        );
-
-        if (index > -1) {
-          const selectedStateId = statesData[index].state_id;
-          setStateId(selectedStateId);
-        }
-      }
+      setStates(res.data || []);
     } catch (e) {
       console.log("Error fetching states:", e);
     }
@@ -119,21 +84,7 @@ function FatcaAdd(props) {
 
     try {
       const res = await GetCities(stateId);
-      const citiesData = res.data || [];
-      setCities(citiesData);
-
-      if (locationRef.current?.District) {
-        const index = findMatchingIndex(
-          citiesData,
-          locationRef.current.District,
-          "city_name"
-        );
-
-        if (index > -1) {
-          setCityId(String(citiesData[index].city_id));
-        }
-      }
-
+      setCities(res.data || []);
     } catch (e) {
       console.log("Error fetching cities:", e);
     }
@@ -159,14 +110,6 @@ function FatcaAdd(props) {
     getCountries();
     onLoadInIt();
     document.body.scrollTop = document.documentElement.scrollTop = 0;
-    return () => {
-      if (
-        apiLocationRef.current &&
-        typeof apiLocationRef.current.abort === "function"
-      ) {
-        apiLocationRef.current.abort();
-      }
-    };
   }, []);
 
   const apiFatcaDetails = async () => {
@@ -267,50 +210,6 @@ function FatcaAdd(props) {
   useEffect(() => { if (countryId) getStates(); }, [countryId]);
   useEffect(() => { if (stateId) getCities(); }, [stateId]);
 
-  useEffect(() => {
-    if (isAutoFilled && countryId && stateId && cityId) {
-      simpleValidator.current.hideMessages();
-      forceUpdate();
-    }
-  }, [isAutoFilled, countryId, stateId, cityId]);
-
-  useEffect(() => {
-    if (!zipCode || zipCode.length < 3 || !countryList.length) return;
-
-    const timeoutId = setTimeout(() => {
-      fetchLocationFromZipCode(zipCode);
-    }, 500);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [zipCode, countryList]);
-
-  const fetchLocationFromZipCode = async (zip) => {
-    if (!zip || zip.length < 3) return;
-    try {
-      setIsLoadingLocation(true);
-      if (apiLocationRef.current) apiLocationRef.current.abort();
-      apiLocationRef.current = new AbortController();
-      const response = await axios.get(`${process.env.REACT_APP_PINCODE_CHECK}${zip}`, {
-        signal: apiLocationRef.current.signal,
-      });
-      locationRef.current = response.data.data || {};
-      const countryIndex = findMatchingIndex(countryList, locationRef.current.Country, 'country_name');
-      if (countryIndex > -1) {
-        setCountryId(countryList[countryIndex].country_id);
-        setIsAutoFilled(true);
-        setTimeout(() => { simpleValidator.current.hideMessages(); forceUpdate(); }, 200);
-      }
-      setIsLoadingLocation(false);
-    } catch (error) {
-      setIsLoadingLocation(false);
-      if (error.name !== 'AbortError') {
-        dispatch({ type: "RENDER_TOAST", payload: { message: "Unable to find location for this ZIP code. Please select manually.", type: "warning" } });
-      }
-    }
-  };
-
   const cancelForm = () => {
     setAddMore(false);
     setEditMode(false);
@@ -410,12 +309,12 @@ function FatcaAdd(props) {
                       onBlur={() =>
                         simpleValidator.current.showMessageFor("overseasAddress")
                       }
-                      maxLength={250}
+                      maxLength={40}
                     />
                     {simpleValidator.current.message(
                       "overseasAddress",
                       osAddress,
-                      "required|min:10|max:250",
+                      "required|min:10|max:40",
                       {
                         messages: {
                           required: "Please enter your Overseas Address.",
@@ -441,36 +340,20 @@ function FatcaAdd(props) {
                             borderRadius: "10px",
                             height: "2.5rem",
                             outline: "none",
-                            paddingRight: isLoadingLocation ? "40px" : "12px",
+                            paddingRight: "12px",
                           }}
                           value={zipCode}
-                          pattern="^[A-Za-z0-9\-]{1,10}$"
+                          pattern="^[A-Za-z0-9\\-\\s]{1,10}$"
                           onChange={(event) => {
-                            setZipCode(event.target.value);
-                            setCountryId("");
-                            setStateId("");
-                            setCityId("");
-                            setStates([]);
-                            setCities([]);
+                            const value = event.target.value
+                              .replace(/[^A-Za-z0-9\-\s]/g, "")
+                              .replace(/\s{2,}/g, " ");
+
+                            setZipCode(value);
                           }}
-                          onKeyPress={(event) => {
-                            if (!/[A-Za-z0-9\-]/.test(event.key)) {
-                              event.preventDefault();
-                            }
-                          }}
-                          maxLength="9"
+                          maxLength="10"
                           placeholder="Enter ZIP code"
                         />
-                        {isLoadingLocation && (
-                          <div
-                            className="position-absolute top-50 end-0 translate-middle-y me-2"
-                            style={{ zIndex: 10 }}
-                          >
-                            <div className="spinner-border spinner-border-sm text-primary" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div>
-                          </div>
-                        )}
                       </div>
                       {simpleValidator.current.message(
                         "zipCode",
@@ -493,8 +376,6 @@ function FatcaAdd(props) {
                           borderRadius: "10px",
                           height: "2.5rem",
                           outline: "none",
-                          backgroundColor: isAutoFilled ? "#f8f9fa" : "white",
-                          color: isAutoFilled ? "#6c757d" : "inherit",
                         }}
                         onChange={(event) => {
                           const newCountry = event.target.value;
@@ -503,8 +384,6 @@ function FatcaAdd(props) {
                           setCityId("");
                           setCities([]);
                           setStates([]);
-                          setZipCode("");
-                          locationRef.current = {};
                         }}
                         value={countryId}
                         disabled={false}
@@ -545,18 +424,12 @@ function FatcaAdd(props) {
                           borderRadius: "10px",
                           height: "2.5rem",
                           outline: "none",
-                          backgroundColor: isAutoFilled ? "#f8f9fa" : "white",
-                          color: isAutoFilled ? "#6c757d" : "inherit",
                         }}
                         onChange={(event) => {
                           const newState = event.target.value;
                           setStateId(newState);
                           setCityId("");
                           setCities([]);
-                          setZipCode("");
-                          if (locationRef.current) {
-                            locationRef.current.District = null;
-                          }
                         }}
                         value={stateId}
                         disabled={false}
@@ -594,7 +467,6 @@ function FatcaAdd(props) {
                         }}
                         onChange={(e) => {
                           setCityId(e.target.value);
-                          setZipCode("");
                         }}
                         value={cityId}
                       >

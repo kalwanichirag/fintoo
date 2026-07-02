@@ -336,9 +336,7 @@ const UploadSignature = (props) => {
     let error_code = res.status_code;
 
     if (error_code == 200) {
-      if (userDetails.user_residential_status == "RES") {
-        AOFImageUplode();
-      }
+      AOFImageUplode();  
     } else {
       setshowModalfalse(true);
     }

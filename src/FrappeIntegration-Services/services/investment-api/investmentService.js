@@ -515,6 +515,19 @@ export const AddStpToCart = async (payload) => {
     }
 };
 
+export const AddSwpToCart = async (payload) => {
+    try {
+        const response = await apiClient(investmentEndpoints.ADD_SWP_TO_CART_API_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const StpRegistration = async (payload) => {
     try {
         const response = await apiClient(investmentEndpoints.STP_REGISTERATION, {

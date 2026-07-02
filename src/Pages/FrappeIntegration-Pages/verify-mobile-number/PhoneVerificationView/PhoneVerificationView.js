@@ -16,6 +16,7 @@ import smartphone from "../../Images/registration/smartphone.svg"
 import Concord from "../../Images/registration/Concord.svg"
 import styles from './PhoneVerificationView.module.css';
 import { useNavigate } from 'react-router-dom';
+import { trackItrSignupEvent } from '../../../../Utils/Webengage/itrSignupTracking';
 
 
 
@@ -73,6 +74,13 @@ const PhoneInputView = ({ setCurrentView, phoneNo, setPhoneNo, userDetails, isLo
                 const data = await sendOTP(payload);
 
                 if (data.status_code == 200 || data.error_code == 200) {
+                    trackItrSignupEvent("phone entered", {
+                        phone: toE164Phone(
+                            phoneNo.country_code,
+                            phoneNo.phoneNo.replace(phoneNo.country_code, "")
+                        ),
+                        url: window.location.href,
+                    });
                     setCurrentView('PHONEVERIFICATION');
                 } else {
                     toastr.options.positionClass = "toast-bottom-left";
@@ -147,6 +155,10 @@ const PhoneVerificationCodeView = ({ setCurrentView, phoneNo, userDetails, isLoa
 
     const [otp, setOtp] = useState(Array(6).fill(""));
     const [otpError, setOtpError] = useState("");
+    const trackedPhone = toE164Phone(
+        phoneNo.country_code,
+        phoneNo.phoneNo.replace(phoneNo.country_code, "")
+    );
 
     const verifyPhone = async () => {
 
@@ -155,6 +167,7 @@ const PhoneVerificationCodeView = ({ setCurrentView, phoneNo, userDetails, isLoa
             return;
         } else {
             const enteredOtp = otp.join("");
+            trackItrSignupEvent("otp entered", { phone: trackedPhone });
 
             const payload = {
                 identifier: phoneNo.phoneNo.replace(phoneNo.country_code, ""),
@@ -164,45 +177,63 @@ const PhoneVerificationCodeView = ({ setCurrentView, phoneNo, userDetails, isLoa
 
             setLoading(true);
 
-            const data = await verifyOTP(payload);
-
-            if (data.status_code == 200 || data.error_code == 200) {
-
-                const registerMobilePayload = {
-                    user_id: userDetails.user_id,
-                    country_code: phoneNo.country_code,
-                    mobile: phoneNo.phoneNo.replace(phoneNo.country_code, "")
-                }
-
-                const data = await registerMobile(registerMobilePayload);
+            try {
+                const data = await verifyOTP(payload);
 
                 if (data.status_code == 200 || data.error_code == 200) {
-                    const wePhone = toE164Phone(
-                        data.data.country_code,
-                        data.data.mobile
-                    );
 
-                    webengage.user.setAttribute("we_phone", wePhone);
-                    const userData = localStorage.getItem("user_data");
-
-                    if (userData) {
-                        const parsedData = JSON.parse(userData);
-                        parsedData.mobile_verified = true;
-                        localStorage.setItem("user_data", JSON.stringify(parsedData));
+                    const registerMobilePayload = {
+                        user_id: userDetails.user_id,
+                        country_code: phoneNo.country_code,
+                        mobile: phoneNo.phoneNo.replace(phoneNo.country_code, "")
                     }
 
-                    setCurrentView('PHONEVERIFICATIONSUCCESS');
-                    setLoading(false);
-                    return;
+                    const registrationData = await registerMobile(registerMobilePayload);
+
+                    if (registrationData.status_code == 200 || registrationData.error_code == 200) {
+                        const wePhone = toE164Phone(
+                            registrationData.data.country_code,
+                            registrationData.data.mobile
+                        );
+
+                        webengage.user.setAttribute("we_phone", wePhone);
+                        trackItrSignupEvent("otp success", { phone: trackedPhone });
+                        const userData = localStorage.getItem("user_data");
+
+                        if (userData) {
+                            const parsedData = JSON.parse(userData);
+                            parsedData.mobile_verified = true;
+                            localStorage.setItem("user_data", JSON.stringify(parsedData));
+                        }
+
+                        setCurrentView('PHONEVERIFICATIONSUCCESS');
+                        setLoading(false);
+                        return;
+                    } else {
+                        trackItrSignupEvent("otp failed", {
+                            phone: trackedPhone,
+                            "failure reason": registrationData.message || registrationData.errors || "Mobile registration failed",
+                        });
+                        setOtpError(registrationData.message);
+                        setLoading(false);
+                        return;
+                    }
                 } else {
+                    trackItrSignupEvent("otp failed", {
+                        phone: trackedPhone,
+                        "failure reason": data.message || data.errors || "OTP verification failed",
+                    });
                     setOtpError(data.message);
                     setLoading(false);
                     return;
                 }
-            } else {
-                setOtpError(data.message);
+            } catch (error) {
+                trackItrSignupEvent("otp failed", {
+                    phone: trackedPhone,
+                    "failure reason": error?.message || "OTP verification failed",
+                });
+                setOtpError(error?.message || "OTP verification failed");
                 setLoading(false);
-                return;
             }
         }
     }
@@ -211,6 +242,7 @@ const PhoneVerificationCodeView = ({ setCurrentView, phoneNo, userDetails, isLoa
 
         setOtp(Array(6).fill(""));
         setOtpError("");
+        trackItrSignupEvent("resend otp clicked", { phone: trackedPhone });
 
         try {
 

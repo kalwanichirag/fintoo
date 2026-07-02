@@ -1,7 +1,12 @@
 import LeadWithOtp from "./otp";
 
 
-const LandingPageOtp = ({ variant = "full", pageName }) => {
+const LandingPageOtp = ({
+    variant = "full",
+    pageName,
+    servicename,
+    successRedirect,
+}) => {
 
     const urlParams = new URLSearchParams(window.location.search);
     let utm_source_value = urlParams.get("utm_source");
@@ -18,7 +23,7 @@ const LandingPageOtp = ({ variant = "full", pageName }) => {
         // Only Calendly widget UI
         return (
             <div className="py-4">
-                <LeadWithOtp pageName={pageName}  />
+                <LeadWithOtp pageName={pageName} servicename={servicename} successRedirect={successRedirect} />
             </div>
         );
     }
@@ -35,7 +40,7 @@ const LandingPageOtp = ({ variant = "full", pageName }) => {
                             </h2>
                         </div>
                         <div className='col-lg-6'>
-                <LeadWithOtp pageName={pageName}  />
+                <LeadWithOtp pageName={pageName} servicename={servicename} successRedirect={successRedirect} />
                         </div>
                     </div>
                 </div>

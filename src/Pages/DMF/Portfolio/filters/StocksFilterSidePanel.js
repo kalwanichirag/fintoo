@@ -5,8 +5,9 @@ import CloseFilter from "../../../../Assets/Images/close.png";
 import FintooCheckbox from '../../../../components/FintooCheckbox/FintooCheckbox';
 import FintooSubCheckbox from "../../../../components/FintooCheckbox/FintooSubCheckbox";
 import axios from 'axios';
-// import { flushSync } from 'react-dom';
 import _ from 'lodash';
+import { GetBrokerList } from '../../../../FrappeIntegration-Services/services/master-api/masterApiService';
+import { getUserId, isFamilySelected } from '../../../../common_utilities';
 
 const brokersList = [
     "Growww",
@@ -19,7 +20,6 @@ function StocksFilterSidePanelz({ isOpen, togglePanel, mainData, setMainData, st
     const [sidePanelWidth, setSidePanelWidth] = useState(25);
     const [sectorList, setSectorList] = useState([]);
     const [brokerList, setBrokerList] = useState([]);
-    // const [amcList, setAmcList] = useState([]);
 
     const [filterState, setFilterState] = useState({
         sort: null,
@@ -55,6 +55,8 @@ function StocksFilterSidePanelz({ isOpen, togglePanel, mainData, setMainData, st
     };
 
     const resetFilter = () => {
+        fetchFundsData(null, null);
+
         setFilterState({
             sort: null,
             sectors: [],
@@ -62,8 +64,13 @@ function StocksFilterSidePanelz({ isOpen, togglePanel, mainData, setMainData, st
             brokers: [],
             type: null
         });
-        setMainData((prev) => ({ ...prev, equity_shares: { ...prev.equity_shares, stocks_details: [...stockListDataCopy] } }))
-        setResetFilterTriggerState(() => ({ triggerReset: false, showResetTriggerUi: false, filtersActive: false }));
+
+        setResetFilterTriggerState({
+            triggerReset: false,
+            showResetTriggerUi: false,
+            filtersActive: false
+        });
+
         togglePanel(false);
     };
 
@@ -80,87 +87,50 @@ function StocksFilterSidePanelz({ isOpen, togglePanel, mainData, setMainData, st
     }
 
     const applyFilter = () => {
+        const query_filter = {
+            broker: filterState.brokers,
+            sectors: filterState.sectors
+        };
 
-        let filteredData = [...stockListDataCopy]
+        fetchFundsData(query_filter, filterState.sort);
 
-        if (filterState.sectors.length > 0) {
-            filteredData = filteredData.filter((v) =>
-                filterState.sectors.includes(v.sector_name)
-            );
-        }
-
-        if (filterState.industries.length > 0) {
-            filteredData = filteredData.filter((v) => {
-                // if(getIndustriesData(v.sector_name).includes(v.industry_name)){
-                if (getIndustriesData(v.sector_name).every(item => !filterState.industries.includes(item))) {
-                    return true
-                } else {
-                    return filterState.industries.includes(v.industry_name)
-                }
-            }
-            );
-        }
-
-        if (filterState.brokers.length > 0) {
-            filteredData = filteredData.filter((v) =>
-                filterState.brokers.includes(v.broker_name)
-            );
-        }
-
-        if (filterState.sort) {
-            switch (filterState.sort) {
-                case "cr_val":
-                    filteredData = filteredData.sort((a, b) => b.cr_val - a.cr_val);
-                    break;
-                case "inv_val":
-                    filteredData = filteredData.sort((a, b) => b.inv_val - a.inv_val);
-                    break;
-                case "today_rtn":
-                    filteredData = filteredData.sort((a, b) => b.today_rtn - a.today_rtn);
-                    break;
-                case "gain_val":
-                    filteredData = filteredData.sort((a, b) => b.gain_val - a.gain_val);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        setMainData((prev) => ({ ...prev, equity_shares: { ...prev.equity_shares, stocks_details: [...filteredData] } }))
         togglePanel(false);
-        setResetFilterTriggerState((prev) => ({ ...prev, filtersActive: true }));
-        if (filteredData.length == 0 && stockListDataCopy.length > 0) {
-            setResetFilterTriggerState((prev) => ({ ...prev, showResetTriggerUi: true }));
-        }
 
-    }
+        setResetFilterTriggerState((prev) => ({
+            ...prev,
+            filtersActive: true
+        }));
+    };
 
     useEffect(() => {
-        // Extract unique sectors from stockListDataCopy
         const extractUniqueSectors = () => {
             if (!stockListDataCopy || !Array.isArray(stockListDataCopy)) {
                 return [];
             }
-            
-            const sectors = stockListDataCopy.map(stock => stock.sector_name).filter(Boolean);
-            const uniqueSectors = [...new Set(sectors)];
-            return uniqueSectors;
+
+            const sectors = stockListDataCopy.map(stock => stock.stock_sector).filter(Boolean);
+            return [...new Set(sectors)];
         };
 
-        // Extract unique brokers from stockListDataCopy
-        const extractUniqueBrokers = () => {
-            if (!stockListDataCopy || !Array.isArray(stockListDataCopy)) {
-                return [];
+        const fetchBrokers = async () => {
+            try {
+                let res = await GetBrokerList(getUserId(), isFamilySelected());
+
+                if (res?.status_code === 200 && Array.isArray(res.data)) {
+                    setBrokerList(res.data);
+                } else {
+                    setBrokerList([]);
+                }
+            } catch (err) {
+                console.error("Broker API error:", err);
+                setBrokerList([]);
             }
-            
-            const brokers = stockListDataCopy.map(stock => stock.broker_name).filter(Boolean);
-            const uniqueBrokers = [...new Set(brokers)];
-            return uniqueBrokers;
         };
 
         setSectorList(extractUniqueSectors());
-        setBrokerList(extractUniqueBrokers());
-    }, [stockListDataCopy])
+        fetchBrokers(); // ✅ async handled properly
+
+    }, [stockListDataCopy]);
 
     useEffect(() => {
         function handleResize() {
@@ -272,13 +242,16 @@ function StocksFilterSidePanelz({ isOpen, togglePanel, mainData, setMainData, st
                         <div className="Category_Filter">
                             <ul className="fltr-items">
                                 {
-                                    brokerList.map((broker, index) => <li key={`broker-${index}-${broker}`} className="fltr-items-li fltr-items-li-w100" >
-                                        <FintooCheckbox
-                                            checked={filterState.brokers.includes(broker)}
-                                            title={broker}
-                                            onChange={() => handleFilterListChange(broker, 'brokers')}
-                                        />
-                                    </li>)
+                                    brokerList?.map((broker, index) => (
+                                        console.log("BrokerListData", broker),
+                                        <li key={`broker-${index}-${broker.broker_ids}`} className="fltr-items-li fltr-items-li-w100">
+                                            <FintooCheckbox
+                                                checked={filterState.brokers.includes(broker.broker_ids)}
+                                                title={broker.broker_name}
+                                                onChange={() => handleFilterListChange(broker.broker_ids, 'brokers')}
+                                            />
+                                        </li>
+                                    ))
                                 }
 
                             </ul>

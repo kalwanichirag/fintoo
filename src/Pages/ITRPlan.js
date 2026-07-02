@@ -34,7 +34,7 @@ function ITRPlan() {
       <ApplyWhiteBg />
       <div>
         <Plan planDetails={planDetails} />
-        <AboutPlan />
+        <AboutPlan planDetails={planDetails} />
       </div>
     </>
   );

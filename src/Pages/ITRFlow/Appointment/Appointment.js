@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.css";
+import { IoMdArrowBack } from "react-icons/io";
 
-import { Link, useNavigate } from "react-router-dom";
-import Logo from "../images/logo.svg";
+import { useNavigate } from "react-router-dom";
 import Confirm from "../images/Confirm.png";
 import commonEncode from "../../../commonEncode";
 import AppointmentBox from "../../../components/Pages/Calendly/ITRindex";
@@ -15,12 +15,18 @@ import {
   getItemLocal,
   getCookieData,
 } from "../../../common_utilities";
-import { useDispatch } from "react-redux";
 function Appointment() {
-  const [value, setvalue] = useState("");
+  const [value, setvalue] = useState({
+    plan_id: "",
+    plan_name: "ITR Filing",
+  });
   const [url, setUrl] = useState("");
+  const profileDetails = getItemLocal("pd");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const handleBackToUploadDocs = () => {
+    navigate(`${process.env.PUBLIC_URL}/itr-upload-docs`);
+  };
 
   useEffect(() => {
     if (getUserId() == null) {
@@ -33,16 +39,10 @@ function Appointment() {
       return;
     }
 
-    if (localStorage.getItem("pid") == null) {
-      dispatch({
-        type: "RENDER_TOAST",
-        payload: { message: "Select plan before proceed.", type: "error" },
-      });
-      navigate(process.env.PUBLIC_URL + "/itr-file");
-      return;
+    if (localStorage.getItem("pid") != null) {
+      setvalue(JSON.parse(commonEncode.decrypt(localStorage.getItem("pid"))));
     }
     document.body.classList.add("bg-color");
-    setvalue(JSON.parse(commonEncode.decrypt(localStorage.getItem("pid"))));
     return () => {
       document.body.classList.remove("bg-color");
     };
@@ -95,6 +95,14 @@ function Appointment() {
             <div className="row ">
               <div className="col-md-6 col-12">
                 <div className={`${styles.Appointment_section_block}`}>
+                  <button
+                    type="button"
+                    className={styles.backButton}
+                    onClick={handleBackToUploadDocs}
+                  >
+                    <IoMdArrowBack className={styles.backIcon} />
+                    Back
+                  </button>
                   <div className="d-flex justify-content-center">
                     <img src={process.env.REACT_APP_STATIC_URL + "media/wp/Fintoologo_.svg"} alt="fintoo logo" />
                   </div>
@@ -110,9 +118,11 @@ function Appointment() {
                   <div className="">
                     <AppointmentBox
                       eventCode={"ITR_2025"}
-                      serviceName="income_tax_filing"
+                      serviceName="itr_filing"
                       eventUrl={url}
                       plan_id= {value.plan_id}
+                      planDetails={value}
+                      pd={profileDetails}
                       extraParams={{
                         tagval:
                           window.location.host.indexOf("fintoo.ae") > -1

@@ -10,7 +10,7 @@ import {
 } from "../../FrappeIntegration-Services/services/user-management-api/userApiService";
 
 const GOOGLE_SHEET_WEBHOOK_URL =
-  "https://script.google.com/macros/s/AKfycbxa1JKqBxbApkWyNRT0mTA2R2R5X7CqcapHr9qbiKoyhrg-ILgGdJo9vEH4EdIzlNNx/exec";
+  "https://script.google.com/macros/s/AKfycbzVyuA1_N0X8_tnpzYjImFerVxex9PIZtv9MX1zY1YCXwpJT9k70e_oOWX1tkf69RfsAQ/exec";
 
 const INCOME_SLAB_OPTIONS = [
   "0 - 10 Lakhs",
@@ -20,7 +20,11 @@ const INCOME_SLAB_OPTIONS = [
   "1 Cr+",
 ];
 
-const LeadWithOtp = ({ pageName }) => {
+const LeadWithOtp = ({
+  pageName,
+  servicename,
+  successRedirect = "/thankyou-page",
+}) => {
   const [step, setStep] = useState(1);
   const [resendTimer, setResendTimer] = useState(50);
   const [canResend, setCanResend] = useState(false);
@@ -73,11 +77,11 @@ const LeadWithOtp = ({ pageName }) => {
     if (step !== 3) return;
 
     const redirectTimer = setTimeout(() => {
-      window.location.assign("/thankyou-page");
+      window.location.assign(successRedirect);
     }, 800);
 
     return () => clearTimeout(redirectTimer);
-  }, [step]);
+  }, [step, successRedirect]);
 
   const urlParams = new URLSearchParams(window.location.search);
   const utmSource = urlParams.get("utm_source") || "Website Callback";
@@ -86,6 +90,11 @@ const LeadWithOtp = ({ pageName }) => {
   const utmMedium = urlParams.get("utm_medium") || "CPC";
 
   const isIndianUser = phoneCountry?.countryCode === "in";
+  const services = Array.isArray(servicename)
+    ? servicename
+    : servicename
+      ? [servicename]
+      : [];
 
   const getIndianMobile = () => formData.mobile.slice(-10);
 
@@ -134,6 +143,12 @@ const LeadWithOtp = ({ pageName }) => {
       city: formData.city.trim(),
       "income slab": formData.incomeSlab,
       income_slab: formData.incomeSlab,
+      utm_source: utmSource,
+      utm_medium: utmMedium,
+      utm_campaign: utmCampaign,
+      tags: tags,
+      page_name: pageName || document.title || "",
+      page_url: window.location.href,
       date: submittedAt.toLocaleDateString("en-CA"),
       time: submittedAt.toLocaleTimeString("en-IN", {
         hour: "2-digit",
@@ -145,6 +160,7 @@ const LeadWithOtp = ({ pageName }) => {
 
     await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
       method: "POST",
+      mode: "no-cors",
       headers: {
         "Content-Type": "text/plain;charset=utf-8",
       },
@@ -169,7 +185,7 @@ const LeadWithOtp = ({ pageName }) => {
       source: utmSource,
       campaign: utmCampaign,
       tag: tags,
-      services: ["assisted_advisory_fixed_fees"],
+      services,
     });
 
     if (window.webengage) {

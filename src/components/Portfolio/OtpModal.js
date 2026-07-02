@@ -72,6 +72,9 @@ const PortfolioOtpModal = (props) => {
 
   function handleClick() {
     randomOTP.current = Math.floor(Math.random() * 90000) + 10000;
+    setOTP("");
+    setOtpInput("");
+    setValidOtp(true);
     // fetchMail(randomOTP.current);
     fetchSms(randomOTP.current);
   }
@@ -103,15 +106,11 @@ const PortfolioOtpModal = (props) => {
 
   const startSwp = async () => {
     setStopSIPButtonDisable(true);
-    var trans_id = props.transaction_id.transaction_id;
+    var trans_id = props.transaction_id;
     var res = await SwpRegisteration({
       trxn_id: trans_id.toString(),
       data_belongs_to: DATA_BELONGS_TO,
     });
-    // var res = await apiCall(DMF_START_SWP_API_URL, {
-    //   trxn_id: trans_id.toString(),
-    //   data_belongs_to: DATA_BELONGS_TO,
-    // });
     setStopSIPButtonDisable(false);
     if (res.status_code * 1 === 200) {
       navigate(
@@ -228,6 +227,11 @@ const PortfolioOtpModal = (props) => {
 
   const submitOtp = async () => {
 
+    if (!OTP || OTP.trim().length === 0) {
+      setValidOtp(false);
+      return;
+    }
+
     const isVerified = await verifyOTPCode();
     if (!isVerified) {
       setValidOtp(false);
@@ -280,7 +284,14 @@ const PortfolioOtpModal = (props) => {
       } else {
         setStopSIPButtonDisable(false);
         navigate(
-          process.env.PUBLIC_URL + "/direct-mutual-fund/PaymentFailed?a=stp"
+          process.env.PUBLIC_URL + "/direct-mutual-fund/PaymentFailed?a=stp",
+          {
+            state: {
+              errorMessage:
+                response?.data ||
+                "Something went wrong."
+            }
+          }
         );
       }
     } catch (e) {
@@ -347,9 +358,9 @@ const PortfolioOtpModal = (props) => {
         payload.reason_code = "" + props?.reason?.reason_code;
         payload.reason_text = props?.reason?.reason;
       }
-      console.log("Props ============ ", props)
+      
       var res = await XsiporderEntry(payload);
-      // var res = await fetchEncryptData(payload);
+      
       setStopSIPButtonDisable(false);
       if (res.status_code === 200) {
         stopsipmail("sucess");
@@ -359,7 +370,15 @@ const PortfolioOtpModal = (props) => {
       } else {
         stopsipmail("fail");
         navigate(
-          process.env.PUBLIC_URL + "/direct-mutual-fund/PaymentFailed?a=StopSIP"
+          process.env.PUBLIC_URL + "/direct-mutual-fund/PaymentFailed?a=StopSIP",
+          {
+            state: {
+              errorMessage:
+                res?.data?.message ||
+                res?.message ||
+                "Something went wrong."
+            }
+          }
         );
       }
     } catch (e) {
@@ -678,6 +697,8 @@ const PortfolioOtpModal = (props) => {
                   onClick={() => {
                     startTimer();
                     handleClick();
+                    setOTP("");
+                    setOtpInput(""); 
                     setValidOtp(true);
                   }}
                 >
@@ -692,7 +713,13 @@ const PortfolioOtpModal = (props) => {
                   </strong>
                 </p>
               )}
-              {validOtp ? <> </> : <p className="red-color">Invalid OTP</p>}
+              {!validOtp && (
+                <p className="red-color">
+                  {!OTP || OTP.trim().length === 0
+                    ? "Please enter OTP"
+                    : "Invalid OTP"}
+                </p>
+              )}
             </div>
 
             <SubmitButton

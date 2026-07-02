@@ -1,25 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./style.module.css";
-
 import Modal from "react-bootstrap/Modal";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import {
-  RAZOR_PAY_KEY,
   ASSESSMENT_YEAR,
   imagePath,
+  DATA_BELONGS_TO,
+  X_CRM_ACCESS_TOKEN,
+  X_CRM_USER,
 } from "../../../constants";
 import {
-  apiCall,
-  fetchEncryptData,
-  getParentUserId,
+  Createorderid,
+  Getcouponlist,
+  Paymentsuccess,
+  VerifyPayment,
+} from "../../../FrappeIntegration-Services/services/payment-api/paymentapiService";
+import {
   getUserId,
   loginRedirectGuest,
   getItemLocal,
 } from "../../../common_utilities";
-import commonEncode from "../../../commonEncode";
 import SimpleReactValidator from "simple-react-validator";
 import FintooLoader from "../../../components/FintooLoader";
 import { useDispatch } from "react-redux";
@@ -27,15 +30,13 @@ import ApplyWhiteBg from "../../../components/ApplyWhiteBg";
 import HideFooter from "../../../components/HideFooter";
 import HideHeader from "../../../components/HideHeader";
 import FintooInlineLoader from "../../../components/FintooInlineLoader";
-
-// import Razorpay from 'razorpay';
+import giftBox from "../../../Assets/Images/giftbox.png";
 
 function PlanSubscription() {
   const simpleValidator = useRef(new SimpleReactValidator());
   const [show, setShow] = useState(false);
   const [showcoupon, setShowCoupon] = useState(false);
   const [isNDAChecked, setNDAChecked] = useState(false);
-  const [userDetails, setUserDetails] = useState([]);
   const [paymentId, setPaymentId] = useState("");
   const [planDetails, setPlanDetails] = useState({});
   const [couponCode, setCouponCode] = useState("");
@@ -45,12 +46,18 @@ function PlanSubscription() {
   const [isLoading, setIsLoading] = useState(false);
   const [checkPaymentStatus, setCheckPaymentStatus] = useState(false);
   const [checkPaymentStatusText, setCheckPaymentStatusText] = useState("");
+  const [couponList, setCouponList] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const [, forceUpdate] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const plan = getItemLocal("pid") || {};
+  const pd = getItemLocal("pd") || {};
+  const params = new URLSearchParams(window.location.search);
+  const leadIdFromApi = (localStorage.getItem("user_data") || "") ? JSON.parse(localStorage.getItem("user_data")) : {};
 
   const numberFormat = (value) =>
     new Intl.NumberFormat("en-IN", {
@@ -58,40 +65,157 @@ function PlanSubscription() {
       currency: "INR",
     }).format(value);
 
+
+  const webengagePayload = {
+    url: window.location.href,
+    "list price": Number(plan?.plan_amount || 0),
+    MRP: Number(plan?.plan_description?.original_amount || 0),
+    "list discount": Math.max(
+      Number(plan?.plan_description?.original_amount || 0) -
+      Number(plan?.plan_amount || 0),
+      0
+    ),
+    "plan name": plan?.plan_name || "",
+    "plan id": plan?.plan_uuid || "",
+    "lead id": leadIdFromApi.user_lead_id ? String(leadIdFromApi.user_lead_id) : "",
+    name: pd?.full_name || "",
+    email: pd?.email || "",
+    utm_source: params.get("utm_source") || "",
+    phone: pd?.mobile ? `+91${pd.mobile}` : "",
+    dob: pd?.dob ? new Date(pd.dob) : "",
+    gender: pd?.gender || "",
+    "pan card": !!pd?.pan,
+    "Service": plan?.service || "ITR Filing"
+  };
+
   const member = getItemLocal("pd") ?? "";
   const docUserId = member.user_id ?? "";
-  useEffect(() => {
-    paymentStatus();
-  }, []);
 
-  const paymentStatus = async () => {
-    var res = await axios.post('', {
-      user_id: docUserId,
-      check_payment: "1",
-      assessment_year: ASSESSMENT_YEAR,
-    });
-    if (res.data["error_code"] == "100") {
-      setIsLoading(false);
-      setCheckPaymentStatus(true);
-      setTimeout(() => {
-        setCheckPaymentStatusText("Checking payment status...");
-        setTimeout(() => {
-          setCheckPaymentStatusText("Redirecting to document upload...");
-          setTimeout(() => {
-            navigate(`${process.env.PUBLIC_URL}/itr-upload-docs`);
-            dispatch({
-              type: "RENDER_TOAST",
-              payload: { message: result["message"], type: "success" },
-            });
-          }, 2000);
-        }, 2000);
-      }, 2000);
-
-      return;
-    } else {
-      setIsLoading(false);
-    }
+  const calculateGST = (amount) => {
+    return Math.round(amount * 0.18);
   };
+
+  const loadCashfreeScript = () => {
+    return new Promise((resolve) => {
+      if (window.Cashfree) {
+        resolve(true);
+        return;
+      }
+
+      const script =
+        document.createElement("script");
+
+      script.src =
+        "https://sdk.cashfree.com/js/v3/cashfree.js";
+
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+
+      document.body.appendChild(script);
+    });
+  };
+
+const CreateOrderID = async () => {
+  try {
+    const response = await Createorderid({
+      amount: Math.round(Number(totalAmount)),
+      user_id: docUserId,
+    });
+
+    if (
+      response.status_code === 200 &&
+      response.data?.order_id
+    ) {
+      return response.data;
+    }
+
+    return null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const VerifyCashfreePayment = async (
+  orderId
+) => {
+  try {
+    const response = await VerifyPayment(
+      orderId
+    );
+
+    if (
+      response.status_code === 200 &&
+      response.data?.payment_status
+    ) {
+      return response;
+    }
+
+    return {};
+  } catch (error) {
+    console.error(error);
+    return {};
+  }
+};
+
+const handlePaymentSuccess = async (
+  paymentId,
+  orderId
+) => {
+  try {
+    setIsLoading(true);
+
+    const payload = {
+      user_id: docUserId,
+      plan_uuid:
+        planDetails.plan_uuid ||
+        planDetails.plan_id,
+      total_amount: (planDetails.plan_amount).toString(),
+      coupon_name: couponApplied
+        ? couponCode
+        : "",
+      trxn_id: paymentId,
+      data_belongs_to: DATA_BELONGS_TO,
+    };
+
+    const response = await Paymentsuccess(
+      payload
+    );
+
+    if (response.status_code === 200) {
+
+      if (window?.webengage?.track) {
+        window.webengage.track("payment successful", {
+          ...webengagePayload,
+          "transaction id": paymentId,
+          "payment mode": "Cashfree",
+          "order id": orderId,
+          "coupon code": couponApplied ? couponCode : "",
+          "coupon discount amount": discount,
+          "total payable": Number(planDetails.plan_amount || 0) + gst,
+          "net payable": Number(totalAmount || 0),
+        });
+      }
+      dispatch({
+        type: "RENDER_TOAST",
+        payload: {
+          message:
+            response.message ||
+            "Payment successful",
+          type: "success",
+        },
+      });
+
+      navigate(
+        `${process.env.PUBLIC_URL}/itr-upload-docs`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const handleShowcoupon = () => {
     simpleValidator.current.hideMessages();
@@ -102,64 +226,147 @@ function PlanSubscription() {
     setDiscount(0);
     setCouponCode("");
     setShowCoupon(false);
-    setGst(planDetails.plan_gst_amount);
+
+    const planAmount = Number(planDetails?.plan_amount || 0);
+    const gstAmount = calculateGST(planAmount);
+
+    setGst(gstAmount);
+    setTotalAmount(planAmount + gstAmount);
+
     forceUpdate(1);
   };
 
-  const handleRemoveCoupon = () => {
-    setDiscount(0);
-    setCouponCode("");
-    setCouponApplied(false);
-    setGst(planDetails.plan_gst_amount);
-    forceUpdate(1);
-  };
+ const handleRemoveCoupon = () => {
+  setDiscount(0);
+  setCouponCode("");
+  setCouponApplied(false);
 
-  const handleApplyCoupon = async () => {
-    try {
-      let formValid = simpleValidator.current.allValid();
-      simpleValidator.current.showMessages();
-      forceUpdate(1);
-      if (formValid == false) return;
+   const planAmount = Number(planDetails?.plan_amount || 0);
+   const gstAmount = calculateGST(planAmount);
 
-      const resp = await apiCall(TAX_CHECK_VALID_COUPON_API_URL, {
-        coupon_code: couponCode,
-      });
-      if (resp["error_code"] != "100") {
-        dispatch({
-          type: "RENDER_TOAST",
-          payload: { message: resp["message"], type: "error" },
-        });
-        setCouponCode("");
-        setShowCoupon(false);
-        simpleValidator.current.hideMessages();
-        return;
-      }
+   setGst(gstAmount);
+   setTotalAmount(planAmount + gstAmount);
 
-      let respData = resp["data"][0];
-      let Discount = respData["c_discount"];
-      if (respData["c_ispercentage"] == 1) {
-        Discount = Math.round(
-          (planDetails.plan_original_price / 100) * respData["c_discount"]
-        );
-      }
+   if (window?.webengage?.track) {
+     window.webengage.track("coupon removed", {
+       ...webengagePayload,
+       "coupon code": couponCode,
+       "coupon discount amount": discount,
+       "total payable": Number(planAmount) + gstAmount,
+       "net payable": Number(planAmount) + gstAmount,
+     });
+   }
 
-      if (planDetails.plan_original_price - Discount == 0) {
-        setGst(0);
-      } else {
-        let payableAmt = planDetails.plan_original_price - Discount;
-        let Gst = Math.round((payableAmt / 100) * 18);
-        setGst(Gst);
-      }
+  forceUpdate(1);
+};
 
-      setDiscount(Discount);
-      setShowCoupon(false);
-      setCouponApplied(true);
-      simpleValidator.current.hideMessages();
-    } catch (e) {
-      console.log(e);
+const handleApplyCoupon = () => {
+  let formValid = simpleValidator.current.allValid();
+
+  simpleValidator.current.showMessages();
+  forceUpdate(1);
+
+  if (!formValid) return;
+
+  const matchedCoupon = couponList.find(
+    (c) =>
+      c.coupon_name?.toLowerCase() ===
+        couponCode?.toLowerCase() &&
+      c.is_active === 1
+  );
+
+  if (!matchedCoupon) {
+    dispatch({
+      type: "RENDER_TOAST",
+      payload: {
+        message: "Invalid Coupon",
+        type: "error",
+      },
+    });
+    return;
+  }
+
+  if (
+    matchedCoupon.coupon_valid_plan &&
+    matchedCoupon.coupon_valid_plan !== planDetails.name
+  ) {
+    dispatch({
+      type: "RENDER_TOAST",
+      payload: {
+        message: "Coupon not valid for selected plan",
+        type: "error",
+      },
+    });
+    return;
+  }
+
+  let discountAmount = 0;
+
+  if (matchedCoupon.is_percentage === 1) {
+    discountAmount = Math.floor(
+      (planDetails.plan_amount *
+        matchedCoupon.coupon_value) /
+        100
+    );
+  } else {
+    discountAmount = matchedCoupon.coupon_value;
+  }
+
+  const grossAmount = Math.max(
+    0,
+    planDetails.plan_amount - discountAmount
+  );
+
+  const gstAmount =
+    grossAmount > 0
+      ? calculateGST(grossAmount)
+      : 0;
+
+  const finalAmount =
+    grossAmount + gstAmount;
+
+  setDiscount(discountAmount);
+  setGst(gstAmount);
+  setTotalAmount(finalAmount);
+  setCouponApplied(true);
+  setShowCoupon(false);
+
+  if (window?.webengage?.track) {
+    window.webengage.track("coupon applied", {
+      ...webengagePayload,
+      "coupon code": couponCode,
+      "coupon discount amount": discountAmount,
+      "total payable": Number(planDetails.plan_amount || 0) + gstAmount,
+      "net payable": Number(finalAmount),
+    });
+  }
+
+  simpleValidator.current.hideMessages();
+};
+
+  useEffect(() => {
+  fetchCoupons();
+}, []);
+
+const fetchCoupons = async () => {
+  try {
+    const headers = {
+      "X-CRM-Access-Token": X_CRM_ACCESS_TOKEN,
+      "X-CRM-User": X_CRM_USER,
+    };
+
+    const response = await axios.get(
+      `${process.env.REACT_APP_CRM_BASE_URL}/get_coupon_list`,
+      { headers }
+    );
+
+    if (response?.data?.data) {
+      setCouponList(response.data.data);
     }
-  };
-
+  } catch (error) {
+    console.log("Coupon API Error:", error);
+  }
+};
   useEffect(() => {
     try {
       if (getUserId() == null) {
@@ -171,9 +378,13 @@ function PlanSubscription() {
         navigate(`${process.env.PUBLIC_URL}/itr-file`);
         throw 'pid missing';
       }
+      const planAmount = Number(plan.plan_amount || 0);
+      const gstAmount = calculateGST(planAmount);
+
       setPlanDetails(plan);
-      setGst(plan.plan_gst_amount);
-      fetchUserDetails();
+      setGst(gstAmount);
+      setTotalAmount(planAmount + gstAmount);
+      // fetchUserDetails();
       document.body.classList.add("bg-color");
     } catch (e) {
       console.error("PlanSub---->", e);
@@ -183,156 +394,91 @@ function PlanSubscription() {
     };
   }, []);
 
-  async function displayRazorpay() {
-    let totalPayable = planDetails.plan_original_price;
-    let Discount = discount;
-    let grossPayable = planDetails.plan_original_price - discount;
-    let netGst = gst;
-    let netPayable = planDetails.plan_original_price - discount + gst;
-    let plan_id = planDetails.plan_id;
-    let rm_id = 96;
+  const checkout = async () => {
+  if (totalAmount === 0) {
+    await handlePaymentSuccess(
+      `FREE_${Date.now()}`,
+      null
+    );
+    return;
+  }
 
-    const data = {
-      user_id: docUserId,
-      payment_amount: netPayable,
-      plan_id: plan_id,
-      rm_id: rm_id,
-    };
+  const loaded =
+    await loadCashfreeScript();
 
-    if (netPayable == 0) {
-      const data = {
-        coupon: couponCode,
-        user_id: docUserId,
-        payment_amount: netPayable,
-        plan_id: plan_id,
-        rm_id: rm_id,
-        // skip_verify_sign: "skip_verify_sign",
-      };
+  if (!loaded) return;
 
-      setIsLoading(true);
-      const result = await axios.post(RAZORPAY_PAYMENT_SUCCESS, data);
-      if (result.data.error_code == "100") {
-        setIsLoading(false);
-        navigate(`${process.env.PUBLIC_URL}/itr-upload-docs`);
-        dispatch({
-          type: "RENDER_TOAST",
-          payload: { message: result.data.message, type: "success" },
-        });
-        return;
-      } else {
-        setIsLoading(false);
-        navigate(`${process.env.PUBLIC_URL}/itr-plan-subscription`);
-        dispatch({
-          type: "RENDER_TOAST",
-          payload: { message: result.data.message, type: "fail" },
-        });
-        return;
-      }
-    } else {
-      const res = await loadScript(RAZORPAY_CHECKOUT);
-      // creating a new order
-      const result = await axios.post(RAZORPAY_CREATE_ORDER, data);
-      // Getting the order details back
-      const { amount, id: order_id, currency } = result.data.data;
-      const options = {
-        key: RAZOR_PAY_KEY, // Enter the Key ID generated from the Dashboard
-        amount: netPayable * 100,
-        currency: currency,
-        name: "Fintoo",
-        description: "ITR",
-        image:
-          "https://stg.minty.co.in/static/userflow/img/fintoo_razor_pay_logo.png",
-        order_id: order_id,
-        handler: async function (response) {
-          const data = {
-            orderCreationId: order_id,
-            razorpayPaymentId: response.razorpay_payment_id,
-            razorpayOrderId: response.razorpay_order_id,
-            razorpaySignature: response.razorpay_signature,
-            user_id: docUserId,
-            payment_amount: netPayable,
-            plan_id: plan_id,
-            rm_id: rm_id,
-          };
-          setIsLoading(true);
-          const result = await axios.post(RAZORPAY_PAYMENT_SUCCESS, data);
-          if (result.data.error_code == "100") {
-            setIsLoading(false);
-            navigate(`${process.env.PUBLIC_URL}/itr-upload-docs`);
-            dispatch({
-              type: "RENDER_TOAST",
-              payload: { message: result.data.message, type: "success" },
-            });
-            return;
-          } else {
-            setIsLoading(false);
-            navigate(`${process.env.PUBLIC_URL}/itr-plan-subscription`);
-            dispatch({
-              type: "RENDER_TOAST",
-              payload: { message: result.data.message, type: "fail" },
-            });
-            return;
-          }
-          currency;
-        },
-        prefill: {
-          name: userDetails.name ? userDetails.name : userDetails.email,
-          email: userDetails.email,
-          contact: userDetails.mobile,
-        },
-        notes: {
-          address:
-            "Fintoo Wealth Private Limited B/309, Dynasty Business park, Opp Sangam Cinema, Andheri (East), J B Nagar, Mumbai, Maharashtra 400059]",
-        },
-        theme: {
-          color: "#042b62",
-        },
-      };
+  const order =
+    await CreateOrderID();
 
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-      paymentObject.on("payment.failed", async function (response) {
-        if (response.error.reason == "payment_failed") {
-          var failure_payload = JSON.stringify({
-            razorpay_order_id: response.error.metadata.order_id,
-            razorpay_payment_id: response.error.metadata.payment_id,
-            user_id: docUserId,
-            payment_amount: netPayable,
-          });
-          let res = await axios.post(RAZORPAY_PAYMENT_FAILURE, failure_payload);
-          setIsLoading(false);
-          navigate(`${process.env.PUBLIC_URL}/itr-plan-subscription`);
-          return;
-        }
+  if (!order) return;
+
+    if (window?.webengage?.track) {
+      window.webengage.track("payment initiated", {
+        ...webengagePayload,
+        "coupon code": couponApplied ? couponCode : "",
+        "coupon discount amount": discount,
+        "total payable": Number(planDetails.plan_amount || 0) + gst,
+        "net payable": Number(totalAmount),
       });
     }
-  }
-  const loadScript = (src) => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-      document.body.appendChild(script);
+
+    const cashfree = window.Cashfree({
+      mode:
+        process.env.REACT_APP_MODE?.toLowerCase() === "live"
+          ? "production"
+          : "sandbox",
     });
+
+  const checkoutOptions = {
+    paymentSessionId:
+      order.payment_session_id,
+    redirectTarget: "_modal",
   };
 
-  const fetchUserDetails = async () => {
-    // try {
-    //   var payload = {
-    //     method: "post",
-    //     url: TAX_GET_USER_PERSONAL_DETAILS_API_URL,
-    //     data: { user_id: getParentUserId(), data_belongs_to: DATA_BELONGS_TO },
-    //   };
+  cashfree
+    .checkout(checkoutOptions)
+    .then(async (result) => {
+      if (result.paymentDetails) {
+        const verify =
+          await VerifyCashfreePayment(
+            order.order_id
+          );
 
-    //   var res = await fetchEncryptData(payload);
-    //   setUserDetails(res.data);
-    // } catch (e) {}
-  };
+        if (
+          verify?.status_code === 200 &&
+          verify?.data?.payment_status === "SUCCESS"
+        ) {
+          await handlePaymentSuccess(
+            verify.data.payment_id,
+            order.order_id
+          );
+        } else {
+          if (window?.webengage?.track) {
+            window.webengage.track("payment failed", {
+              ...webengagePayload,
+              "failure reason": verify?.data?.payment_message || "Payment Failed",
+              "transaction id": verify?.data?.payment_id || "",
+              "payment mode": "Cashfree",
+              "order id": order.order_id,
+              "coupon code": couponApplied ? couponCode : "",
+              "coupon discount amount": discount,
+              "total payable": Number(planDetails.plan_amount || 0) + gst,
+              "net payable": Number(totalAmount),
+            });
+          }
+
+          dispatch({
+            type: "RENDER_TOAST",
+            payload: {
+              message: "Payment failed",
+              type: "error",
+            },
+          });
+        }
+      }
+    });
+};
 
   return (
     <>
@@ -352,12 +498,9 @@ function PlanSubscription() {
               >
                 <div
                   className={`${styles.back_arrow}`}
-                  onClick={() => {
-                    navigate(`${process.env.PUBLIC_URL}/itr-plan-profile`);
-                  }}
                 >
                   <img
-                   src={imagePath + "/static/media/Images/userflow/icons/back-arrow.svg"}
+                   src={imagePath + "/static/media/Images/icons/back-arrow.svg"}
                     alt="Back Arrow"
                   />
                 </div>
@@ -391,7 +534,7 @@ function PlanSubscription() {
                                 <div className={`${styles.subs_right_amt}`}>
                                   ₹{" "}
                                   {numberFormat(
-                                    planDetails.plan_original_price
+                                    planDetails.plan_amount
                                   )}
                                 </div>
                               </div>
@@ -412,7 +555,7 @@ function PlanSubscription() {
                             <span>
                               <img
                                 alt="Apply Offer"
-                                src={imagePath + "/static/media/Images/userflow/icons/giftbox.svg"}
+                                 src={giftBox}
                               />
                               <button
                                 type="button"
@@ -457,7 +600,7 @@ function PlanSubscription() {
                                 <div className={`${styles.price}`}>
                                   ₹{" "}
                                   {numberFormat(
-                                    planDetails.plan_original_price
+                                    planDetails.plan_amount
                                   )}
                                 </div>
                               </div>
@@ -504,7 +647,7 @@ function PlanSubscription() {
                                           width: 15,
                                           paddingLeft: "4px",
                                         }}
-                                        src={imagePath + "/static/media/Images/userflow/icons/pink-information.svg"}
+                                        src={imagePath + "/static/media/Images/icons/pink-information.svg"}
                                       />
                                     </span>
                                   </sup>
@@ -519,11 +662,7 @@ function PlanSubscription() {
                                   className={`${styles.price}`}
                                 >
                                   ₹{" "}
-                                  {numberFormat(
-                                    planDetails.plan_original_price -
-                                      discount +
-                                      gst
-                                  )}
+                                  {numberFormat(totalAmount)} 
                                 </div>
                               </div>
                             </div>
@@ -572,7 +711,7 @@ function PlanSubscription() {
                       <div className="col">
                         <div className="btn-container text-center">
                           <button
-                            onClick={() => displayRazorpay()}
+                            onClick={checkout}
                             type="button"
                             id="razorPay"
                             className={`${styles.default_btn}`}
@@ -593,50 +732,59 @@ function PlanSubscription() {
             </section>
           </div>
           <Modal
-            show={show}
-            centered
-            className="billing_Modal"
-            // className={`modal-dialog  Billingpopup ${styles.Billingpopup} `}
-          >
-            <div className={`${styles.BillingHeader}`}>
-              <div className="w-100">Billing Details</div>
-              <span>
-                <IoClose onClick={handleClose} />
-              </span>
-            </div>
-            <div>
-              <ul className={`${styles.bill_details_list}`}>
-                <li className={`${styles.two_col_list}`}>
-                  <div>Total payable Amount</div>
-                  <div>₹ {planDetails.plan_original_price}</div>
-                </li>
-                <li className={`${styles.two_col_list}  ${styles.f_bold}`}>
-                  <div className={`${styles.Bottom}`}>Discount applied</div>
-                  <div className={`${styles.Bottom}`}>-₹ {discount}</div>
-                </li>
-                <li
-                  className={`outline ${styles.two_col_list}  ${styles.f_bold}`}
-                >
-                  <div className={`${styles.Bottom}`}>Gross payable</div>
-                  <div className={`${styles.Bottom}`}>
-                    ₹ {planDetails.plan_original_price - discount}
-                  </div>
-                </li>
-                <li className={`outline ${styles.two_col_list}`}>
-                  <div className={`${styles.Bottom}`}>GST (18%)</div>
-                  <div className={`${styles.Bottom}`}>₹ {gst}</div>
-                </li>
-                <li
-                  className={`outline ${styles.two_col_list} ${styles.fill_row} ${styles.f_bold}`}
-                >
-                  <div>Net payable</div>
-                  <div>
-                    ₹ {planDetails.plan_original_price - discount + gst}
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </Modal>
+  show={show}
+  centered
+  className="billing_Modal"
+>
+  <div className={`${styles.BillingHeader}`}>
+    <div className="w-100">Billing Details</div>
+    <span>
+      <IoClose onClick={handleClose} />
+    </span>
+  </div>
+
+  <div>
+    <ul className={`${styles.bill_details_list}`}>
+      <li className={`${styles.two_col_list}`}>
+        <div>Total payable Amount</div>
+        <div>₹ {numberFormat(planDetails?.plan_amount || 0)}</div>
+      </li>
+
+      <li className={`${styles.two_col_list} ${styles.f_bold}`}>
+        <div className={`${styles.Bottom}`}>Discount applied</div>
+        <div className={`${styles.Bottom}`}>
+          - ₹ {numberFormat(discount)}
+        </div>
+      </li>
+
+      <li
+        className={`outline ${styles.two_col_list} ${styles.f_bold}`}
+      >
+        <div className={`${styles.Bottom}`}>Gross payable</div>
+        <div className={`${styles.Bottom}`}>
+          ₹{" "}
+          {numberFormat(
+            (planDetails?.plan_amount || 0) - discount
+          )}
+        </div>
+      </li>
+
+      <li className={`outline ${styles.two_col_list}`}>
+        <div className={`${styles.Bottom}`}>GST (18%)</div>
+        <div className={`${styles.Bottom}`}>
+          ₹ {numberFormat(gst)}
+        </div>
+      </li>
+
+      <li
+        className={`outline ${styles.two_col_list} ${styles.fill_row} ${styles.f_bold}`}
+      >
+        <div>Net payable</div>
+        <div>₹ {numberFormat(totalAmount)}</div>
+      </li>
+    </ul>
+  </div>
+</Modal>
           {/* Coupon */}
           <Modal
             show={showcoupon}

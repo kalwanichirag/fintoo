@@ -13,6 +13,7 @@ import {
   getUserId,
 } from "../../../common_utilities";
 import { FaStar } from "react-icons/fa";
+import { GetSchemeList } from "../../../FrappeIntegration-Services/services/investment-api/investmentService";
 
 const FintooLongDropdown = (props) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -66,14 +67,8 @@ const fetchschemecode = async (searchValue) => {
   try {
     var detailsData = JSON.parse(localStorage.getItem("detailsData"));
     var details = detailsData.amc_code;
-    var payload = {
-      method: "post",
-      // url:DMF_GET_SCHEME_BY_AMC_API_URL,
-      url:'',
-      data: { amc_code: details, search: searchValue, transaction_type: props.transaction_type ? props.transaction_type : "" },
-    };
-
-    var res = await fetchEncryptData(payload);
+   
+    var res = await GetSchemeList({ amc_code: details, search: searchValue });
     setFoundFund(res.data);
   } catch (e) {}
 };

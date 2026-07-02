@@ -69,7 +69,7 @@ const RecurringMaturityForm = (props) => {
                 dropdownMode="select"
                 autoComplete="off"
                 name="insurance_start_date"
-                minDate={new Date()}
+                // minDate={new Date()}
                 maxDate={
                   props.data.insurance_end_date
                     ? moment(props.data.insurance_end_date, "DD/MM/YYYY")
@@ -127,13 +127,13 @@ const RecurringMaturityForm = (props) => {
                 dropdownMode="select"
                 autoComplete="off"
                 name="insurance_end_date"
-                minDate={
-                  props.data.insurance_start_date
-                    ? moment(props.data.insurance_start_date, "DD/MM/YYYY")
-                        .add(1, "day")
-                        .toDate()
-                    : new Date()
-                }
+                // minDate={
+                //   props.data.insurance_start_date
+                //     ? moment(props.data.insurance_start_date, "DD/MM/YYYY")
+                //         .add(1, "day")
+                //         .toDate()
+                //     : new Date()
+                // }
                 dateFormat="dd/MM/yyyy"
                 customClass="datePickerDMF"
                 selected={

@@ -369,15 +369,20 @@ export default function StockCard({ state }) {
        * EXPECTED:
        * res.data.plan_expiry_date
        */
-      const plan = res?.data;
+      const plan = res?.data?.find((item) =>
+        ["fp_expert", "fp_robo"].includes(item?.service_type)
+      );
 
       if (plan && isPlanActive(plan.plan_expiry_date)) {
         setIsPaidUser(true);
-        console.log("Stock: plan active");
+        console.log("Stock :Plan is active");
+        return true;
       } else {
         setIsPaidUser(false);
-        console.log("Stock: plan expired or inactive");
+        console.log("Stock :Plan expired or not found");
+        return false;
       }
+    
     } catch (err) {
       console.error("Stock payment check failed", err);
       setIsPaidUser(false);

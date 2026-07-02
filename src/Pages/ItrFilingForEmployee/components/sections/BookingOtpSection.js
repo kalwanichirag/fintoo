@@ -2,7 +2,7 @@ import LandingPageOtp from '../../../../components/landingpagesOtp/LandingPageOt
 import Icon from '../shared/Icon';
 import "./../../../../components/Insurance/tailwind.css";
 
-export default function BookingOtpSection() {
+export default function BookingOtpSection({ pageName = "ITR Filing For Retail" }) {
   const benefits = [
     ['video', 'Trusted expert guidance', 'Work with a Tax Expert who understands salary income, investments, ESOPs, foreign assets, and complex disclosures.'],
     ['shield', 'Confidential filing support', 'Your financial details are handled carefully, with a structured review before anything is filed.'],
@@ -42,7 +42,12 @@ Once you book a slot, you will receive an email on the shared email ID, with the
           </div>
 
           <div className="tw-relative tw-w-full tw-max-w-xl tw-mx-auto lg:tw-mr-0">
-            <LandingPageOtp variant="minimal" pageName="ITR Filing For Employee" />
+            <LandingPageOtp
+              variant="minimal"
+              pageName={pageName}
+              servicename={"itr_filing"}
+              successRedirect="/itr-filing-thankyou-page"
+            />
             <div className="tw-pointer-events-none tw-absolute -tw-right-5 -tw-top-5 tw-h-20 tw-w-20 tw-rounded-full tw-bg-fintoo-orange/20 tw-blur-2xl" />
             <div className="tw-pointer-events-none tw-absolute -tw-bottom-8 -tw-left-8 tw-h-32 tw-w-32 tw-rounded-full tw-bg-fintoo-brand-blue/10 tw-blur-3xl" />
           </div>

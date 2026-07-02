@@ -10,7 +10,8 @@ import { getParentUserId, getUserId } from "../../../../common_utilities";
 import { useDispatch, useSelector } from "react-redux";
 import FintooInlineLoader from "../../../FintooInlineLoader";
 import { addFatcaDetails, GetFatcaDetails } from "../../../../FrappeIntegration-Services/services/master-api/masterApiService";
-import { fetchUserProfileDetails, updateBasicDetails } from "../../../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import { fetchUserProfileDetails, getFamilyMember, updateBasicDetails } from "../../../../FrappeIntegration-Services/services/user-management-api/userApiService";
+import { Fetch_User_Mf_Profile_Status } from "../../../../FrappeIntegration-Services/services/financial-planning-api/ndaflow";
 
 const TOAST_DURATION = {
   SHORT: 2000,
@@ -128,7 +129,37 @@ function FatcaAll(props) {
   }, [userDetails]);
 
   const getUserParent = async () => {
-    // Placeholder for future implementation
+    try {
+      setIsLoading(true);
+
+      const resp = await getFamilyMember(getParentUserId());
+      const members = resp?.data || [];
+
+      const filteredMembers = await Promise.all(
+        members.map(async (member) => {
+          try {
+            const r = await Fetch_User_Mf_Profile_Status(member.user_id);
+            const profile = r?.user_profile_progress;
+
+            if (profile?.profile_status === 100) {
+              return member;
+            }
+          } catch (err) {
+            return null;
+          }
+          return null;
+        })
+      );
+
+      const finalList = filteredMembers.filter(Boolean);
+
+      setJointDropdown(finalList);
+
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -170,16 +201,26 @@ function FatcaAll(props) {
   const ApiCall = async () => {
     if (submitting) return;
 
-    let joint_survivor_user_id =
-      holding === "Joint" || holding === "Either or survivor"
-        ? holdingNature
-        : "";
-
     if (!holding) {
       dispatch({
         type: "RENDER_TOAST",
         payload: {
           message: "Please select the account holding nature",
+          type: TOAST_TYPE.ERROR,
+          autoClose: TOAST_DURATION.SHORT,
+        },
+      });
+      return;
+    }
+
+    if (
+      (holding === "Joint" || holding === "Either or survivor") &&
+      !holdingNature
+    ) {
+      dispatch({
+        type: "RENDER_TOAST",
+        payload: {
+          message: "Please select a joint holder",
           type: TOAST_TYPE.ERROR,
           autoClose: TOAST_DURATION.SHORT,
         },
@@ -205,6 +246,13 @@ function FatcaAll(props) {
       holding_nature: holding,
       politically_exposed: value1 || "No"
     };
+
+    if (
+      holding !== "Single" &&
+      holdingNature
+    ) {
+      payload.joint_survivor_user_id = holdingNature;
+    }
 
     try {
       setSubmitting(true);
@@ -528,19 +576,13 @@ function FatcaAll(props) {
                     </div>
 
                     <div
-                      className={`w-33 rs-type-bx pointer ${
-                        holding === "Joint" ? "active" : ""
-                      }`}
+                      className={`w-33 rs-type-bx ${holding === "Joint" ? "active" : ""
+                        } ${ (!isLoading && jointDropdown.length === 0) ? "disabled-option" : "pointer"}`}
                       onClick={() => {
-                        setHolding((v) => {
-                          if (getParentUserId() !== getUserId()) {
-                            return "Joint";
-                          } else {
-                            return v;
-                          }
-                        });
+                        if (jointDropdown.length > 0 && getParentUserId() !== getUserId()) {
+                          setHolding("Joint");
+                        }
                       }}
-
                     >
                       <label htmlFor="Joint">
                         <img
@@ -560,17 +602,13 @@ function FatcaAll(props) {
                     </div>
 
                     <div
-                      className={`w-33 rs-type-bx pointer ${
-                        holding === "Either or survivor" ? "active" : ""
-                      }`}
-                      onClick={() =>
-                        setHolding((v) => {
-                          if (getParentUserId() !== getUserId()) {
-                            return "Either or survivor";
-                          }
-                          return v;
-                        })
-                      }
+                      className={`w-33 rs-type-bx ${holding === "Either or survivor" ? "active" : ""
+                        } ${(!isLoading && jointDropdown.length === 0) ? "disabled-option" : "pointer"}`}
+                      onClick={() => {
+                        if (jointDropdown.length > 0 && getParentUserId() !== getUserId()) {
+                          setHolding("Either or survivor");
+                        }
+                      }}
                     >
                       <label htmlFor="Anyone">
                         <img
@@ -591,7 +629,7 @@ function FatcaAll(props) {
                       </div>
                     </div>
                   </div>
-                  {holding === "joint" || holding === "any" ? (
+                  {holding === "Joint" || holding === "Either or survivor" ? (
                     <div className="d-md-flex justify-content-start">
                       <div className="w-50  mt-4 ms-auto pe-4">
                         <div
@@ -620,7 +658,7 @@ function FatcaAll(props) {
                           >
                             <option value={""}>---Select---</option>
                             {jointDropdown.map((v) => (
-                              <option value={v.user_id}>{v.name}</option>
+                              <option value={v.user_id}>{v.user_name}</option>
                             ))}
                           </Form.Select>
                         </div>
@@ -628,6 +666,13 @@ function FatcaAll(props) {
                     </div>
                   ) : (
                     <></>
+                  )}
+                  {!isLoading && jointDropdown.length === 0 && (
+                    <div className="mt-3">
+                      <small className="text-danger">
+                        Joint and Anyone or Survivor holding options are unavailable because no family member has completed 100% profile verification.
+                      </small>
+                    </div>
                   )}
                 </div>
 

@@ -194,7 +194,7 @@ Trusted Wealth Partner – Leading wealth management company in India, deliverin
                     </div>
                 </div>
                 <div className='col-md-5 col-12 '>
-                    {formtype == "otp" ? (<LandingPageOtp  variant='minimal' pageName="Personal Financial Planning" calendlyurl={"https://calendly.com/d/2zt-z8p-34k/15-min-consultation-call-financial-planning?hide_event_type_details=1"}/>
+                    {formtype == "otp" ? (<LandingPageOtp  variant='minimal' pageName="Personal Financial Planning" servicename={"assisted_advisory_fixed_fees"}/>
                 ) :
                      <LandingPageCalendly pageName="Personal Financial Planning" servicename={"assisted_advisory_fixed_fees"} calendlyurl={"https://calendly.com/d/2zt-z8p-34k/15-min-consultation-call-financial-planning?hide_event_type_details=1"} variant='minimal'/>
 

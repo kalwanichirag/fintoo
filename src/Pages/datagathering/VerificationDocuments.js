@@ -177,12 +177,18 @@ const VerificationDocuments = () => {
         data_belongs_to: DATA_BELONGS_TO
       });
 
-      if (
-        paymentRes?.status_code === 200 &&
-        paymentRes.data?.plan_uuid !== "fp_expert" &&
-        paymentRes.data?.plan_uuid !== "fp_robo"
-      ) {
-        setPlanUuid(paymentRes.data?.plan_uuid);
+      if (paymentRes?.status_code === 200) {
+        const plan = paymentRes?.data?.find((item) =>
+          ["fp_expert", "fp_robo"].includes(item?.service_type)
+        );
+
+        // If no valid plan → redirect
+        if (!plan) {
+          navigate("/commondashboard", { replace: true });
+          return;
+        }
+
+        setPlanUuid(plan?.plan_uuid);
 
         const profile = await fetchUserProfileDetails(uid, DATA_BELONGS_TO);
 
@@ -201,9 +207,8 @@ const VerificationDocuments = () => {
         if (!kycRejectedRef.current) {
           await checkExistingDocs(addr, pin);
         }
-
       } else {
-        navigate("/commonDashboard", { replace: true });
+        navigate("/commondashboard", { replace: true });
       }
     } catch (e) {
       console.error("Init error", e);
@@ -220,6 +225,7 @@ const VerificationDocuments = () => {
       const docs = res.data || [];
       const panDoc = docs.find(d => d.document_cat_uuid === "panDirect");
       const aadhaarDoc = docs.find(d => d.document_cat_uuid === "e_aadhar");
+      const signDeskFpAgreementDoc = docs.find(d => d.document_cat_uuid === "sign_desk_fp_agreement");
 
       if (panDoc) {
         setExistingPan({
@@ -238,6 +244,9 @@ const VerificationDocuments = () => {
       if (panDoc && aadhaarDoc && addr && /^\d{6}$/.test(pin)) {
         const leadId = await getLeadIdSafe();
         if (leadId) await updateKycStatusApi({ leadId });
+      }
+      if (panDoc && aadhaarDoc && addr && /^\d{6}$/.test(pin) && signDeskFpAgreementDoc) {
+        navigate("/commondashboard", { replace: true });
       }
     } catch (e) {
       console.error("Prefill failed", e);
@@ -301,7 +310,9 @@ const VerificationDocuments = () => {
     form.append("user_document_belongs_to", DATA_BELONGS_TO);
     form.append("document_files", file, file.name);
     const res = await UploadDocumentApi(form);
-    if (res?.status_code !== "200") throw new Error("Upload failed");
+    if (res?.status_code !== 200) {
+      throw new Error(res?.message || "Upload failed");
+    }
   };
 
   const startSignDeskOnce = async () => {

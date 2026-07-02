@@ -963,18 +963,19 @@ const handleSuccess = () => {
                     setMfAmount(result["message"]['data']['data']['total_current_value']);
                     saveScreenReport(selectedMember.id, 'MF', result["message"]['data']['data']['total_current_value'], result["message"]['data']['pdf_snippet_WA'])
                     return true;
-                } else if (result["message"]["status_code"] === "400") {
-                    toastr.options.positionClass = "toast-bottom-left";
-                    setErrormsg(result['message']["message"]);
-                    toastr.error(result['message']["message"]);
-                    return false;
-                } else {
-                    toastr.options.positionClass = "toast-bottom-left";
-                    let error_message = "An error occurred while fetching your investment details. Please try again later. We apologise for the inconvenience.";
-                    setErrormsg(error_message);
-                    toastr.error("Something went wrong!");
-                    return false;
-                }
+                } 
+                // else if (result["message"]["status_code"] === "400") {
+                //     toastr.options.positionClass = "toast-bottom-left";
+                //     setErrormsg(result['message']["message"]);
+                //     toastr.error(result['message']["message"]);
+                //     return false;
+                // } else {
+                //     toastr.options.positionClass = "toast-bottom-left";
+                //     let error_message = "An error occurred while fetching your investment details. Please try again later. We apologise for the inconvenience.";
+                //     setErrormsg(error_message);
+                //     toastr.error("Something went wrong!");
+                //     return false;
+                // }
             } catch (e) {
                 console.log("Error Occured ===>>> ", e);
                 return false;

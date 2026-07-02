@@ -41,6 +41,7 @@ import { } from "../../../constants";
 import FintooLoader from "../../../components/FintooLoader";
 import style from "./style.module.css";
 import Swal from "sweetalert2";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import ProgressStats from "./ProgressStats/ProgressStats";
 import ReactTooltip from "react-tooltip";
 import MfFilterSidePanel from "./filters/MfFilterSidePanel";
@@ -280,6 +281,7 @@ const PortfolioDashboard = (props) => {
   });
   const [selectedTab, setSelectedTab] = useState(1);
   const [mainData, setMainData] = useState({});
+  const [showUnclaimedPopup, setShowUnclaimedPopup] = useState(false);
   const [mfListDataCopy, setMfListDataCopy] = useState([]);
   const [text, setpopuptext] = useState("");
   const [Open, setIsOpen] = useState(false);
@@ -541,41 +543,86 @@ const PortfolioDashboard = (props) => {
     window.scrollTo(0, 0);
   }, [isLoading]);
 
-  const getDashboardData = async () => {
-    setIsDataLoading((prev) => ({ ...prev, dashboardData: true }));
+const getDashboardData = async (queryFilter = null, sortKey = null) => {
+  setIsDataLoading((prev) => ({ ...prev, dashboardData: true }));
 
-    let payload = {};
+  let payload = {};
 
-    if (getItemLocal("family")) {
-      const memberData = getItemLocal("member") || [];
-      const userIds = memberData
-        .filter((m) => m.id !== null)
-        .map((m) => m.id.toString());
+  if (getItemLocal("family")) {
+    payload = {
+      user_id: getUserId(),
+      data_belongs_to: DATA_BELONGS_TO,
+      family: "1",
+    };
+  } else {
+    payload = {
+      user_id: String(getUserId()),
+      data_belongs_to: DATA_BELONGS_TO,
+    };
+  }
 
-      payload = {
-        user_id: getUserId(),
-        data_belongs_to: DATA_BELONGS_TO,
-        family: "1",
-      };
-    } else {
-      payload = {
-        user_id: String(getUserId()),
-      };
-    }
+  if (queryFilter) {
+    payload.query_filter = queryFilter;
+  }
 
-    try {
-      const res = await getDashboardDataPortfolio(payload);
-      setIsDataLoading((prev) => ({ ...prev, dashboardData: false }));
+  try {
+    const res = await getDashboardDataPortfolio(payload);
 
-      if (res.status_code === "200") {
-        setDashboardData(res.data);
-        GraphData(res.data);
+    setIsDataLoading((prev) => ({ ...prev, dashboardData: false }));
+
+    if (res.status_code === "200") {
+      let apiData = res.data;
+
+      if (sortKey && apiData?.user_asset_data?.stocks?.stock_details) {
+        const sortedData = [...apiData.user_asset_data?.stocks?.stock_details];
+
+        if(sortKey && sortKey === "cr_val" ){
+           sortedData.sort((a, b) => b.total_current_amount - a.total_current_amount);
+        }
+
+        // switch (sortKey) {
+        //   case "cr_val":
+        //     sortedData.sort((a, b) => b.total_current_amount - a.total_current_amount);
+        //     break;
+        //   // case "inv_val":
+        //   //   sortedData.sort((a, b) => b.inv_val - a.inv_val);
+        //   //   break;
+        //   // case "today_rtn":
+        //   //   sortedData.sort((a, b) => b.today_rtn - a.today_rtn);
+        //   //   break;
+        //   // case "gain_val":
+        //   //   sortedData.sort((a, b) => b.gain_val - a.gain_val);
+        //   //   break;
+        //   default:
+        //     break;
+        // }
+
+        apiData = {
+          ...apiData,
+          user_asset_data: {
+            ...apiData.user_asset_data,
+            stocks: {
+              ...apiData.user_asset_data.stocks,
+              stock_details: sortedData
+            }
+          }
+        };
       }
-    } catch (error) {
-      setIsDataLoading((prev) => ({ ...prev, dashboardData: false }));
-      console.error("Error fetching dashboard data:", error);
+
+      setDashboardData(apiData);
+      GraphData(apiData);
+
+      return res;
     }
-  };
+
+    return null;
+
+  } catch (error) {
+    setIsDataLoading((prev) => ({ ...prev, dashboardData: false }));
+    console.error("Error fetching dashboard data:", error);
+    return null;
+  }
+};
 
   const deleteUserAsset = async (asset_id, message) => {
     const result = await openDialog("Delete Confirmation", message);
@@ -966,9 +1013,6 @@ const PortfolioDashboard = (props) => {
               (asset.user_asset_current_amount || 0) -
               (asset.user_asset_investment_amount || 0),
             // Use specific values as shown in the image
-            sector_name: "Automobiles & Auto Components",
-            industry_name: "Auto Parts & Equipment",
-            broker_name: "Unknown Broker",
             asset_units: asset.user_asset_quantity || asset.quantity || 0,
           }));
 
@@ -2872,222 +2916,268 @@ const PortfolioDashboard = (props) => {
                             overflow: resetFilterTriggerState.showResetTriggerUi
                               ? "auto"
                               : "hidden",
-                          }}
-                        >
-                          <Table
-                            responsive
-                            className={`ptTable fixedTable ${style.mfTable} mb-0 ${style.dataTable}`}
+                            }}
                           >
-                            <tbody>
-                              {(mainData?.fund_list || []).map((v, index) => (
-                                <tr key={index}>
-                                  <td
-                                    scope="row"
-                                    className="fundNameTd"
-                                    data-label="Funds"
-                                  >
-                                    <div className="fundName9">
-                                      <div className="position-relative">
-                                        <img
-                                          src={getPublicMediaURL(
-                                            `/static/media/companyicons/${v.amc_code}.png`
-                                          )}
-                                          onError={(e) => {
-                                            e.target.src = `${process.env.REACT_APP_STATIC_URL}/media/companyicons/amc_icon.png`;
-                                            e.onError = null;
-                                          }}
-                                        />
-                                        {(v?.inv_type || "").toLowerCase() ==
-                                          "sip" && (
-                                            <span
-                                              title={
-                                                v.sip_status == "active"
-                                                  ? "Active SIP"
-                                                  : "Inactive SIP"
-                                              }
-                                              className={`${v.sip_status == "active"
-                                                ? style["fund-tick-active"]
-                                                : style["fund-tick-inactive"]
-                                                } ${style["fund-tick-"]} `}
-                                            ></span>
-                                          )}
-                                      </div>
-
-                                      <div className="fundNameCon">
-                                        <div className="mb-2">
-                                          {v.inv_type && (
-                                            <span
-                                              className={`me-2 ${style["invtype-badge"]} ${style["rounded-badge"]}`}
-                                            >
-                                              {v.inv_type}
-                                            </span>
-                                          )}
-                                          {v.fund_registrar == "ecas" && (
-                                            <span
-                                              className={`${style["registrar-badge"]} ${style["rounded-badge"]}`}
-                                            >
-                                              External
-                                            </span>
-                                          )}
-                                          {/* {getItemLocal("family") ? ( */}
-                                          <strong className="investor-name orange">
-                                            {v.investor_name}
-                                          </strong>
-                                          {/* ):("")} */}
+                            <Table
+                              responsive
+                              className={`ptTable fixedTable ${style.mfTable} mb-0 ${style.dataTable}`}
+                            >
+                              <tbody>
+                                {(mainData?.fund_list || []).map((v, index) => (
+                                  <tr key={index}>
+                                    <td
+                                      scope="row"
+                                      className="fundNameTd"
+                                      data-label="Funds"
+                                    >
+                                      <div className="fundName9">
+                                        <div className="position-relative">
+                                          <img
+                                            src={getPublicMediaURL(
+                                              `/static/media/companyicons/${v.amc_code}.png`
+                                            )}
+                                            onError={(e) => {
+                                              e.target.src = `${process.env.REACT_APP_STATIC_URL}/media/companyicons/amc_icon.png`;
+                                              e.onError = null;
+                                            }}
+                                          />
+                                          {(v?.inv_type || "").toLowerCase() ==
+                                            "sip" && (
+                                              <span
+                                                title={
+                                                  v.sip_status == "active"
+                                                    ? "Active SIP"
+                                                    : "Inactive SIP"
+                                                }
+                                                className={`${v.sip_status == "active"
+                                                  ? style["fund-tick-active"]
+                                                  : style["fund-tick-inactive"]
+                                                  } ${style["fund-tick-"]} `}
+                                              ></span>
+                                            )}
                                         </div>
-                                        <div
-                                          className="fnc-yy"
+
+                                        <div className="fundNameCon">
+                                          <div className="mb-2">
+                                            {v.inv_type && (
+                                              <span
+                                                className={`me-2 ${style["invtype-badge"]} ${style["rounded-badge"]}`}
+                                              >
+                                                {v.inv_type}
+                                              </span>
+                                            )}
+                                            {v.fund_registrar == "ecas" && (
+                                              <span
+                                                className={`${style["registrar-badge"]} ${style["rounded-badge"]}`}
+                                              >
+                                                External
+                                              </span>
+                                            )}
+                                            {/* {getItemLocal("family") ? ( */}
+                                            <strong className="investor-name orange">
+                                              {v.investor_name}
+                                            </strong>
+                                            {/* ):("")} */}
+                                          </div>
+                                          <div
+                                            className="fnc-yy"
+                                            style={{ cursor: "pointer" }}
+                                          >
+                                            <strong
+                                              onClick={() => {
+                                                if (v?.isin === "UNCLAIMDISIN") {
+                                                  setShowUnclaimedPopup(true);
+                                                  return;
+                                                }
+
+                                                detailsPage(v);
+                                              }}
+                                            >
+                                              {v.scheme}
+                                            </strong>
+                                          </div>
+                                          <div className="d-flex fn-inner-summary pt-1">
+                                            <div>Folio: {v.folio_no}</div>
+                                            <div>NAV: {v.curr_nav}</div>
+                                            <div>Units: {v.units}</div>
+                                          </div>
+                                          <div></div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td
+                                      scope="row"
+                                      data-label="Current Value"
+                                      className=""
+                                    >
+                                      <div>
+                                        <strong>
+                                          {" "}
+                                          {indianRupeeFormat(v.curr_val)}
+                                        </strong>
+                                      </div>
+                                      <p
+                                        className="mb-0 pt-1"
+                                        style={{
+                                          fontWeight: 300,
+                                          fontSize: "0.8rem",
+                                        }}
+                                      >
+                                        {" "}
+                                        {indianRupeeFormat(v.inv)}
+                                      </p>
+                                    </td>
+
+                                    <td
+                                      scope="row"
+                                      data-label="Gain | Loss"
+                                      className=""
+                                    >
+                                      <div>
+                                        <strong
+                                          className={`xrr-returns ${v.gain_loss * 1 < 0 ? "red" : "green"
+                                            }`}
+                                        >
+                                          {indianRupeeFormat(v.gain_loss)}
+                                        </strong>
+                                      </div>
+                                      <p
+                                        className="mb-0 pt-1"
+                                        style={{
+                                          fontWeight: 300,
+                                          fontSize: "0.8rem",
+                                        }}
+                                      >
+                                        <span
+                                          className={` xrr-returns ${v.day_change < 0 ? "red" : "green"
+                                            }`}
+                                        >
+                                          {indianRupeeFormat(v.day_change)}
+                                          &nbsp;
+                                        </span>
+                                        <span
+                                          className={`xrr-returns ${v.day_change_perc < 0
+                                            ? "red"
+                                            : "green"
+                                            }`}
+                                        >
+                                          ({v.day_change_perc}%)
+                                        </span>
+                                      </p>
+                                    </td>
+                                    <td
+                                      scope="row"
+                                      data-label="XIRR %"
+                                      className=""
+                                    >
+                                      <div>
+                                        <strong
+                                          className={`xrr-returns ${v.xirr_percentage < 0
+                                            ? "red"
+                                            : "green"
+                                            }`}
+                                        >
+                                          {returnsType.insideTable == "xirr"
+                                            ? v.xirr_percentage != "Error"
+                                              ? v.xirr_percentage
+                                              : 0
+                                            : v.abs_return_percentage}
+                                        </strong>
+                                      </div>
+                                    </td>
+                                    <td className="">
+                                      {v?.isin === "UNCLAIMDISIN" ? (
+                                        <p
+                                          onClick={() => setShowUnclaimedPopup(true)}
+                                          style={{ cursor: "pointer" }}
+                                          title="Unclaimed Investment Info"
+                                        >
+                                          <AiOutlineInfoCircle
+                                            size={22}
+                                            color="#f59e0b"
+                                          />
+                                        </p>
+                                      ) : (
+                                        <p
+                                          onClick={() => detailsPage(v)}
                                           style={{ cursor: "pointer" }}
                                         >
-                                          <strong
-                                            onClick={() => detailsPage(v)}
-                                          >
-                                            {v.scheme}
-                                          </strong>
-                                        </div>
-                                        <div className="d-flex fn-inner-summary pt-1">
-                                          <div>Folio: {v.folio_no}</div>
-                                          <div>NAV: {v.curr_nav}</div>
-                                          <div>Units: {v.units}</div>
-                                        </div>
-                                        <div></div>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td
-                                    scope="row"
-                                    data-label="Current Value"
-                                    className=""
-                                  >
-                                    <div>
-                                      <strong>
-                                        {" "}
-                                        {indianRupeeFormat(v.curr_val)}
-                                      </strong>
-                                    </div>
-                                    <p
-                                      className="mb-0 pt-1"
-                                      style={{
-                                        fontWeight: 300,
-                                        fontSize: "0.8rem",
-                                      }}
-                                    >
-                                      {" "}
-                                      {indianRupeeFormat(v.inv)}
-                                    </p>
-                                  </td>
-
-                                  <td
-                                    scope="row"
-                                    data-label="Gain | Loss"
-                                    className=""
-                                  >
-                                    <div>
-                                      <strong
-                                        className={`xrr-returns ${v.gain_loss * 1 < 0 ? "red" : "green"
-                                          }`}
-                                      >
-                                        {indianRupeeFormat(v.gain_loss)}
-                                      </strong>
-                                    </div>
-                                    <p
-                                      className="mb-0 pt-1"
-                                      style={{
-                                        fontWeight: 300,
-                                        fontSize: "0.8rem",
-                                      }}
-                                    >
-                                      <span
-                                        className={` xrr-returns ${v.day_change < 0 ? "red" : "green"
-                                          }`}
-                                      >
-                                        {indianRupeeFormat(v.day_change)}
-                                        &nbsp;
-                                      </span>
-                                      <span
-                                        className={`xrr-returns ${v.day_change_perc < 0
-                                          ? "red"
-                                          : "green"
-                                          }`}
-                                      >
-                                        ({v.day_change_perc}%)
-                                      </span>
-                                    </p>
-                                  </td>
-                                  <td
-                                    scope="row"
-                                    data-label="XIRR %"
-                                    className=""
-                                  >
-                                    <div>
-                                      <strong
-                                        className={`xrr-returns ${v.xirr_percentage < 0
-                                          ? "red"
-                                          : "green"
-                                          }`}
-                                      >
-                                        {returnsType.insideTable == "xirr"
-                                          ? v.xirr_percentage != "Error"
-                                            ? v.xirr_percentage
-                                            : 0
-                                          : v.abs_return_percentage}
-                                      </strong>
-                                    </div>
-                                  </td>
-                                  <td className="">
-                                    <p
-                                      onClick={() => detailsPage(v)}
-                                      style={{ cursor: "pointer" }}
-                                    >
-                                      <ExploreStock />
-                                    </p>
-                                  </td>
-                                </tr>
-                              ))}
-                              {Boolean(mainData?.fund_list?.length) ===
-                                false && (
-                                  <tr>
-                                    <div className="w-50 m-auto p-5">
-                                      <BulletPoint
-                                        heading={
-                                          "Track and manage your mutual fund"
-                                        }
-                                        text={`Across multiple brokers at one place. Always stay on top of yourholdings`}
-                                      />
-                                      <BulletPoint
-                                        heading={`Real time analysis of your mutual fund performance`}
-                                        text={`Powerful and in-depth analysis on all your holdings with actionable insights`}
-                                      />
-                                      <BulletPoint
-                                        heading={`Get advisory on your mutual fund portfolio`}
-                                        text={`Real time investment advisory, super-charge your portfolio's performance!`}
-                                      />
-
-                                      <div className="pt-3">
-                                        <ActionButton
-                                          label={"Add mutual fund now"}
-                                          onClick={() => {
-                                            navigate(
-                                              process.env.PUBLIC_URL +
-                                              "/direct-mutual-fund/funds/all"
-                                            );
-                                          }}
-                                        />
-                                        <ActionButton
-                                          label={"Fetch your external holdings"}
-                                          onClick={() => {
-                                            navigate(
-                                              process.env.PUBLIC_URL +
-                                              "/direct-mutual-fund/portfolio/link-your-holdings"
-                                            );
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
+                                          <ExploreStock />
+                                        </p>
+                                      )}
+                                    </td>
                                   </tr>
-                                )}
-                            </tbody>
-                          </Table>
+                                ))}
+                                {Boolean(mainData?.fund_list?.length) ===
+                                  false && (
+                                    <tr>
+                                      <div className="w-50 m-auto p-5">
+                                        <BulletPoint
+                                          heading={
+                                            "Track and manage your mutual fund"
+                                          }
+                                          text={`Across multiple brokers at one place. Always stay on top of yourholdings`}
+                                        />
+                                        <BulletPoint
+                                          heading={`Real time analysis of your mutual fund performance`}
+                                          text={`Powerful and in-depth analysis on all your holdings with actionable insights`}
+                                        />
+                                        <BulletPoint
+                                          heading={`Get advisory on your mutual fund portfolio`}
+                                          text={`Real time investment advisory, super-charge your portfolio's performance!`}
+                                        />
+
+                                        <div className="pt-3">
+                                          <ActionButton
+                                            label={"Add mutual fund now"}
+                                            onClick={() => {
+                                              navigate(
+                                                process.env.PUBLIC_URL +
+                                                "/direct-mutual-fund/funds/all"
+                                              );
+                                            }}
+                                          />
+                                          <ActionButton
+                                            label={"Fetch your external holdings"}
+                                            onClick={() => {
+                                              navigate(
+                                                process.env.PUBLIC_URL +
+                                                "/direct-mutual-fund/portfolio/link-your-holdings"
+                                              );
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                    </tr>
+                                  )}
+                              </tbody>
+                            </Table>
+                            <Modal
+                              open={showUnclaimedPopup}
+                              onClose={() => setShowUnclaimedPopup(false)}
+                              center
+                            >
+                              <div style={{ padding: "10px", maxWidth: "400px" }}>
+                                <h4 className="mb-3">
+                                  Unclaimed Investment Identified
+                                </h4>
+
+                                <p>
+                                  An unclaimed investment has been identified in your
+                                  portfolio. Please contact your advisor for more
+                                  information and assistance with the claim process.
+                                </p>
+
+                                <div className="d-flex justify-content-center pt-2">
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={() => setShowUnclaimedPopup(false)}
+                                  >
+                                    OK
+                                  </button>
+                                </div>
+                              </div>
+                            </Modal>
                         </div>
                       </div>
                     )}
@@ -3454,7 +3544,7 @@ const PortfolioDashboard = (props) => {
                                       <div
                                         className={`${style.extraSpace} ${style.borderSpace}`}
                                       >
-                                        Current Value
+                                        Maturity Value
                                       </div>
                                       <div className={`borderSpace borderText`}>
                                         ₹{" "}
@@ -3463,7 +3553,7 @@ const PortfolioDashboard = (props) => {
                                             (sum, item) =>
                                               sum +
                                               Number(
-                                                item.user_asset_current_amount ||
+                                                item.user_asset_maturity_amount ||
                                                 0
                                               ),
                                             0
@@ -3508,7 +3598,7 @@ const PortfolioDashboard = (props) => {
                                         <td scope="col">Tenure (Year)</td>
                                         <td scope="col">Interest Rate</td>
                                         <td scope="col">Invested Value</td>
-                                        <td scope="col">Current Value</td>
+                                        {/* <td scope="col">Current Value</td> */}
                                         <td scope="col">Maturity Value</td>
                                         <td scope="col">Start Date</td>
                                         <td scope="col">Maturity Date</td>
@@ -3614,7 +3704,7 @@ const PortfolioDashboard = (props) => {
                                           )
                                         )}
                                     </td>
-                                    <td
+                                    {/* <td
                                       scope="row"
                                       data-label="Current Value"
                                       className=""
@@ -3622,7 +3712,7 @@ const PortfolioDashboard = (props) => {
                                       {indianRupeeFormat(
                                         Math.round(v.user_asset_current_amount)
                                       )}
-                                    </td>
+                                    </td> */}
                                     <td
                                       scope="row"
                                       data-label="Maturity Amount"
@@ -3631,9 +3721,7 @@ const PortfolioDashboard = (props) => {
                                       <span className={`xrr-returns`}>
                                         {indianRupeeFormat(
                                           parseFloat(
-                                            Math.ceil(
                                               v.user_asset_maturity_amount
-                                            )
                                           ).toFixed(2)
                                         )}
                                       </span>
@@ -6466,6 +6554,7 @@ const PortfolioDashboard = (props) => {
         setMainData={setMainData}
         mfListDataCopy={mfListDataCopy}
         fetchFundsData={fetchFundsData}
+        fetchDashboardData={getDashboardData}
         resetFilterTriggerState={resetFilterTriggerState}
         setResetFilterTriggerState={setResetFilterTriggerState}
       />
@@ -6475,7 +6564,7 @@ const PortfolioDashboard = (props) => {
         mainData={otherInvestmentData}
         setMainData={setOtherInvestmentData}
         stockListDataCopy={stocksListCopy}
-        fetchFundsData={fetchFundsData}
+        fetchFundsData={getDashboardData}
         resetFilterTriggerState={resetStocksFilterTriggerState}
         setResetFilterTriggerState={setResetStocksFilterTriggerState}
       />

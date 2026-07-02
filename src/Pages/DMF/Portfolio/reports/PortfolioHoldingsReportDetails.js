@@ -32,6 +32,8 @@ import FintooLoader from "../../../../components/FintooLoader";
 import FintooDatePicker from "../../../../components/HTML/FintooDatePicker";
 import { formatDatefun, formatDate } from "../../../../Utils/Date/DateFormat";
 import { get } from "react-scroll/modules/mixins/scroller";
+import { GeneratePortfolioReport } from "../../../../Services/ReportService";
+import { Fetchexternalholdingdetails } from "../../../../FrappeIntegration-Services/services/financial-planning-api/liabilities";
 
 const reportTypeOptions = [
     { value: "", label: "Select" },
@@ -82,6 +84,7 @@ function PortfolioHoldingsReportDetails() {
     const [reportTitle, setReportTitle] = useState({});
     const [assetCategoryOptions, setAssetCategoryOptions] = useState([]);
     const [userExternalFundData, setUserExternalFundData] = useState([]);
+    const [externalHoldingDetails, setExternalHoldingDetails] = useState([]);
     const [mutualFundReportGenerated, setMutualFundReportGenerated] = useState(false);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
@@ -157,6 +160,36 @@ function PortfolioHoldingsReportDetails() {
         }
     };
 
+    const getExternalHoldingDetails = async () => {
+        try {
+            const payload = {
+                data_belongs_to: DATA_BELONGS_TO,
+                user_id: getUserId(),
+                holding_type: "MF",
+            };
+
+            const response = await Fetchexternalholdingdetails(payload);
+
+            if (
+                (response.status_code === 200 ||
+                    response.status_code === "200") &&
+                response.data?.holding_details
+            ) {
+                setExternalHoldingDetails(
+                    response.data.holding_details
+                );
+            } else {
+                setExternalHoldingDetails([]);
+            }
+        } catch (error) {
+            console.error(
+                "Error fetching holding details:",
+                error
+            );
+            setExternalHoldingDetails([]);
+        }
+    };
+
     useEffect(() => {
         loadInitialData();
 
@@ -180,6 +213,7 @@ function PortfolioHoldingsReportDetails() {
         getAssetsList();
         getMemberData();
         getMemberPan();
+        getExternalHoldingDetails();
     };
 
     const getMemberPan = async () => {
@@ -191,8 +225,14 @@ function PortfolioHoldingsReportDetails() {
 
             // loop only over the selected member
             for (const v of memberData) {
-                if (selectedMemberId && v.id !== selectedMemberId) continue;
-                
+                if (
+                    selectedMemberId !== 0 &&
+                    selectedMemberId !== "0" &&
+                    String(v.user_id || v.id) !== String(selectedMemberId)
+                ) {
+                    continue;
+                }
+
                 if (v.pan) {
                     try {
                         
@@ -208,6 +248,12 @@ function PortfolioHoldingsReportDetails() {
                         if ((response.status_code === "200" || response.status_code === 200) && response.data) {
                             if (Array.isArray(response.data)) {
                                 response.data.forEach((holding) => {
+                                    if (
+                                        holding.holding_type !== "MF" ||
+                                        holding.holding_status !== "Success"
+                                    ) {
+                                        return;
+                                    }
                                     newMemberArr.push({
                                         name: `${v.user_name || ''}`.trim(),
                                         email: v.user_email || '',
@@ -306,7 +352,7 @@ function PortfolioHoldingsReportDetails() {
                                     Currently it seems we don't have your Mutual Fund data to display. You can fetch your existing Mutual Fund Holdings.
                                 </strong>
                             </p>
-                            
+
                         </>
                     ),
                     buttonText: "Fetch Holdings Now",
@@ -510,117 +556,67 @@ function PortfolioHoldingsReportDetails() {
             if (validateForm()) {
                 setIsLoading(true);
                 // set report title here
-                let title = {};
-                let from_date = formData.fromDate;
-                let to_date = formData.toDate;
-                let api_url = "";
-                try {
-                    title = assetCategoryOptions.filter(
-                        (v) => v.value == (formData.assetCategory || "all")
-                    )[0];
-                } catch {
-                    // do nothing
-                }
+                let title = assetCategoryOptions.find(
+                    (v) => v.value === (formData.assetCategory || "all")
+                ) || {};
+
                 setReportTitle(title);
-                // end
-                // let isDownloadingReport = downloadReport;
                 let isDownloadingReport = true;
                 let isShareReport = shareReport;
 
-                const finalFormData = {
+                const payload = {
                     data_belongs_to: DATA_BELONGS_TO,
+                    asset_type: formData.assetCategory,
                 };
-                // if (isDownloadingReport == false) {
-                //   finalFormData.action = "viewdata";
-                // }
-
-                // if (isShareReport == true) {
-                //   finalFormData.action = "email";
-                // }
-                finalFormData.asset_type = formData.assetCategory;
-
-                if (formData.assetCategory == "mutual_fund") {
-                    switch (formData.registrar) {
-                        case "all":
-                            finalFormData.fund_registrar = "all";
-                            break;
-                        case "fintoo":
-                            finalFormData.fund_registrar = "all";
-                            finalFormData.ecas = "0";
-                            break;
-                        case "other":
-                            finalFormData.fund_registrar = "ecas";
-                            finalFormData.ecas = "1";
-                            break;
-                    }
-                }
-                const selectedUserId = formData.member || getParentUserId();
-                finalFormData.user_id = selectedUserId;
-
-                if (formData.member == 0 || formData.member == "0") {
-                    finalFormData.family = "1";
-                }
-                
-                if (from_date && to_date) {
-                    finalFormData.from_date = from_date;
-                    finalFormData.to_date = to_date;
-                } else if (from_date && !to_date) {
-                    finalFormData.from_date = from_date;
-                    finalFormData.to_date = new Date().toISOString().split("T")[0];
-                } else if (!from_date && to_date) {
-                    finalFormData.from_date = "1970-01-01";
-                    finalFormData.to_date = to_date;
-                }
-
-                // Map Investment Platform (registrar) to fund_registrar and ecas
-                let fund_registrar = "all";
-                let ecas = undefined;
 
                 if (formData.assetCategory === "mutual_fund") {
                     switch (formData.registrar) {
                         case "all":
-                            fund_registrar = "all";
-                            // No ecas key for "all"
+                            payload.fund_registrar = "all";
                             break;
                         case "fintoo":
-                            fund_registrar = "all";
-                            ecas = "0";
+                            payload.fund_registrar = "all";
+                            payload.ecas = "0";
                             break;
                         case "other":
-                            fund_registrar = "ecas";
-                            ecas = "1";
+                            payload.fund_registrar = "ecas";
+                            payload.ecas = "1";
                             break;
-                        default:
-                            fund_registrar = "all";
                     }
                 }
-                finalFormData.report_type = reportType === "summary" ? "Summary" : "Detail";
-                finalFormData.fund_registrar = fund_registrar;
-                finalFormData.ecas = ecas;
-                
-                // Use the correct API endpoint - single endpoint for both summary and detailed reports
-                const apiEndpoint = portfolioReportEndpoints.PORTFOLIO_REPORT_API;
 
-                const r = await apiClient(apiEndpoint, {
-                    method: "POST",
-                    body: JSON.stringify(finalFormData),
-                });
+                const selectedUserId = formData.member || getParentUserId();
+                payload.user_id = selectedUserId;
+
+                if (String(formData.member) === "0") {
+                    payload.family = "1";
+                }
+
+                if (formData.fromDate || formData.toDate) {
+                    payload.from_date = formData.fromDate || "1970-01-01";
+                    payload.to_date = formData.toDate || new Date().toISOString().split("T")[0];
+                }
+
+                payload.report_type =
+                reportType === "summary" ? "Summary" : "Detail";
+
+                const r = await GeneratePortfolioReport(payload);
 
                 if (isDownloadingReport) {
-                    if (r.status_code == "400") {
+                    if (r.status_code == 400) {
                         setMainData(null);
                         setHasData(false);
                         setIsLoading(false);
                         return;
-                    } else if (r.status_code == "200" && r.data) {
+                    } else if (r.status_code == 200 && r.data) {
                         setHasData(true);
                         window.open(r.data, "_blank");
-                        toastr.success("Report generated successfully!");
+                        toastr.success("Report generated successfully");
                         if (formData.assetCategory === "mutual_fund") {
                             setMutualFundReportGenerated(true);
                         }
                     } else {
-                        toastr.error(r. message || "Failed to generate report. Please try again.");
+                        toastr.error(r.message || "Failed to generate report. Please try again.");
                     }
                 } else if (isShareReport) {
                     toastr.success("Email sent successfully.");
@@ -658,12 +654,16 @@ function PortfolioHoldingsReportDetails() {
     simpleValidator.current.purgeFields();
 
     const showMemberTable = () => {
-        // Only show table for Mutual Fund category
+
         if (reportType == "summary" || reportType == "detailed") {
-            if (formData.assetCategory === "mutual_fund" && (formData.registrar == 'all' || formData.registrar == 'other')) {
+            if (formData.assetCategory === "all") {
                 return true;
             } else {
-                return false;
+                if (formData.assetCategory === "mutual_fund" && (formData.registrar == 'all' || formData.registrar == 'other')) {
+                    return true
+                } else {
+                    return false
+                }
             }
         } else {
             return false;
@@ -699,12 +699,44 @@ function PortfolioHoldingsReportDetails() {
     }
 
     const handleGenerateClick = () => {
-        if (!showGenerateBtn()) {
-            setNoteModal(true);
-        } else {
-            goToGenerate()
+
+        const shouldCheckRefresh =
+            formData.assetCategory === "mutual_fund" &&
+            (formData.registrar === "all" ||
+                formData.registrar === "other");
+
+        if (shouldCheckRefresh) {
+
+            const selectedHoldingData =
+                formData.member == 0 || formData.member == "0"
+                    ? externalHoldingDetails
+                    : externalHoldingDetails.filter(
+                        (item) =>
+                            item.user_id == formData.member ||
+                            item.holding_user_id == formData.member
+                    );
+            if (selectedHoldingData.length > 0) {
+                const hasOldData = selectedHoldingData.some((data) => {
+
+                    if (!data.holding_modified_date) return true;
+
+                    const updatedTime = new Date(data.holding_modified_date);
+                    const now = new Date();
+
+                    const hoursDiff =
+                        (now - updatedTime) / (1000 * 60 * 60);
+
+                    return hoursDiff >= 24;
+                });
+
+                if (hasOldData) {
+                    setNoteModal(true);
+                    return;
+                }
+            }
         }
-    }
+        goToGenerate();
+    };
 
     const handleRefreshClick = (member) => {
         // Directly navigate to the link your holdings page
