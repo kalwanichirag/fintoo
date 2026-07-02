@@ -87,19 +87,19 @@ export default function PricingSection({ onBook, prices, enablePlanPurchase = fa
 
   const purchasePlan = (displayPlan) => {
     const displayedAmount = Number(String(displayPlan.price).replace(/,/g, ''));
-    const matchingNamePlans = purchasePlans.filter(
-      (candidate) =>
-        candidate?.plan_name?.trim().toLowerCase() === displayPlan.name.toLowerCase()
-    );
-    const plan = matchingNamePlans.find(
+    const plansAtDisplayedPrice = purchasePlans.filter(
       (candidate) => Number(candidate?.plan_amount) === displayedAmount
     );
+    const plan = plansAtDisplayedPrice.find(
+      (candidate) =>
+        candidate?.plan_name?.trim().toLowerCase() === displayPlan.name.toLowerCase()
+    ) || plansAtDisplayedPrice[0];
 
     if (!plan) {
       console.error(
-        `No ${displayPlan.name} ITR plan found for ₹${displayPlan.price}.`
+        `No ITR plan found for ${displayPlan.name} at ₹${displayPlan.price}.`
       );
-      onBook(displayPlan.key);
+     
       return;
     }
 
