@@ -40,7 +40,7 @@ export default function PricingSection({ onBook, prices, enablePlanPurchase = fa
     }
 
     axios.get(
-      `${process.env.REACT_APP_CRM_BASE_URL}/get_plan_category_list`,
+      `https://operations.fintoo.in/api/method/get_plan_category_list`,
       {
         headers: {
           'X-CRM-Access-Token': X_CRM_ACCESS_TOKEN,
